@@ -19,4 +19,4 @@ downloads and the install steps.
 
 ## License
 
-See [LICENSE.md](LICENSE.md).
+See [LICENSE.txt](LICENSE.txt).
