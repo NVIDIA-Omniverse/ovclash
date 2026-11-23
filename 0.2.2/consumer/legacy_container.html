@@ -1,0 +1,1309 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Legacy Containers: Reading .clashDetection Files &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/legacy_container';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Export: JSON and HTML Reports" href="export.html" />
+    <link rel="prev" title="Directory serializer" href="directory_serializer.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Legacy Containers: Reading .clashDetection Files</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="legacy-containers-reading-clashdetection-files">
+<h1>Legacy Containers: Reading .clashDetection Files<a class="headerlink" href="#legacy-containers-reading-clashdetection-files" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> is the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a>-era container format for clash results. The
+standalone <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a> reads and writes it through the same SQLite
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">data handle</span></a> that opens an <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">store</span></a>.
+This tutorial runs the legacy sample, creates a container, probes and opens it, migrates an old
+schema and moves the data to a plain <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>. <a class="reference internal" href="#the-container-format">The container format</a>
+is the reference for the file layout and for how each operation treats a container.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="persistence.html"><span class="std std-doc">Persistence</span></a> and the <a class="reference internal" href="sqlite_serializer.html"><span class="std std-doc">SQLite serializer</span></a>. This page uses
+the same <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code> / <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_t</span></code> API on a different
+file extension.</p></li>
+<li><p>For <a class="reference internal" href="#step-2-create-a-container">Step 2</a> to <a class="reference internal" href="#step-5-write-a-copy-and-a-modern-sidecar">Step 5</a>:
+<code class="docutils literal notranslate"><span class="pre">dynamic.ovclashdb</span></code> in the current directory, from
+<a class="reference internal" href="suite_workflows.html#step-3-rebuild-the-dynamic-case-in-python"><span class="std std-ref">Step 3 of Suite Workflows</span></a>.</p></li>
+<li><p>For <a class="reference internal" href="#step-1-run-the-sample">Step 1</a>: the <code class="docutils literal notranslate"><span class="pre">legacy_clash_detection</span></code> sample. The
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> ships it at <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/samples/legacy_clash_detection</span></code> and the
+wheel at <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;/ovclash/samples/legacy_clash_detection</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;</span></code> is the
+extracted SDK archive and <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;</span></code> the directory that <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">show</span> <span class="pre">ovclash</span></code>
+prints as <code class="docutils literal notranslate"><span class="pre">Location</span></code>. The wheel ships only the Python version.</p></li>
+<li><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> runtime. With the wheel, pip installed the pinned version
+with it, and nothing more is needed. With the SDK archive, you need the version that its
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> pins, because the SDK archive does not bundle it. The sample launchers can
+prepare it, as <a class="reference internal" href="samples.html"><span class="std std-doc">Samples</span></a> describes;
+<a class="reference internal" href="c_quickstart.html#installing-the-ovstage-runtime"><span class="std std-ref">Installing the ovstage runtime</span></a> describes
+installing it yourself.</p></li>
+<li><p>For the C++ sample and the C example only: the SDK archive, a C++17 toolchain and CMake.</p></li>
+</ul>
+</section>
+<section id="step-1-run-the-sample">
+<h2>Step 1: Run the sample<a class="headerlink" href="#step-1-run-the-sample" title="Link to this heading">#</a></h2>
+<p>From the sample directory, run the Python or the C++ version. Each line is one version; run
+either.</p>
+<p>On Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_legacy_clash_detection_python.sh
+./run_legacy_clash_detection_cpp.sh
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>.\run_legacy_clash_detection_python.bat
+.\run_legacy_clash_detection_cpp.bat
+</pre></div>
+</div>
+<p>The C++ launcher builds the sample first. When that build or the runtime setup fails, the
+launcher stops with an error;
+<a class="reference internal" href="troubleshooting.html#building-and-running-the-shipped-samples"><span class="std std-ref">Building and running the shipped samples</span></a>
+lists the messages.</p>
+<p>With no sample arguments, each program creates a small <code class="docutils literal notranslate"><span class="pre">input.clashDetection</span></code> that holds one
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">query</span></a>. It then writes <code class="docutils literal notranslate"><span class="pre">copy.clashDetection</span></code> and <code class="docutils literal notranslate"><span class="pre">copy.ovclashdb</span></code>. The
+Python version prints (<code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> is the installed version and <code class="docutils literal notranslate"><span class="pre">&lt;output-dir&gt;</span></code> the launcher’s
+output directory):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ovclash &lt;version&gt;
+Legacy clashDetection sample
+Input: &lt;output-dir&gt;/input.clashDetection
+Output legacy: &lt;output-dir&gt;/copy.clashDetection
+Output database: &lt;output-dir&gt;/copy.ovclashdb
+Input status: ready
+Queries: 1
+  [1] Legacy sample query
+Wrote legacy file: &lt;output-dir&gt;/copy.clashDetection
+Wrote sidecar DB:  &lt;output-dir&gt;/copy.ovclashdb
+</pre></div>
+</div>
+<p>The launchers of both versions take these options:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output-dir</span> <span class="pre">DIR</span></code></p></td>
+<td><p>A directory path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_LEGACY_CLASH_DETECTION_OUTPUT_DIR</span></code> (<code class="docutils literal notranslate"><span class="pre">.sh</span></code> launchers only), else a directory inside the package</p></td>
+<td><p>The directory of the three files. The launcher creates it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--install-root</span> <span class="pre">DIR</span></code></p></td>
+<td><p>The root of an ovclash SDK archive</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_INSTALL_ROOT</span></code>, else the SDK archive or wheel package that holds the launcher</p></td>
+<td><p>The runtime that the sample uses.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--</span> <span class="pre">INPUT</span> <span class="pre">COPY</span> <span class="pre">SIDECAR</span></code></p></td>
+<td><p>Three file paths</p></td>
+<td><p>No</p></td>
+<td><p>The three files in the output directory</p></td>
+<td><p>Runs the program on your own files, as the <strong>Your own files</strong> launcher rule of <a class="reference internal" href="#step-1-run-the-sample">Step 1</a> describes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">-h</span></code></p></td>
+<td><p>None</p></td>
+<td><p>No</p></td>
+<td><p>None</p></td>
+<td><p>Prints the usage and exits.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The C++ launchers also take <code class="docutils literal notranslate"><span class="pre">--release</span></code>, <code class="docutils literal notranslate"><span class="pre">--debug</span></code> or <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">TYPE</span></code> for the build
+configuration.</p>
+<p>Launcher rules:</p>
+<ul class="simple">
+<li><p><strong>Output directory.</strong> Without <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>, the files go to a default directory inside the
+SDK archive or the wheel package, so pass <code class="docutils literal notranslate"><span class="pre">--output-dir</span> <span class="pre">DIR</span></code> when the package directory is not
+writable.</p></li>
+<li><p><strong>Runtime.</strong> The launchers use the runtime of the SDK archive or the wheel that contains them.</p></li>
+<li><p><strong>No backend option.</strong> Unlike the <code class="docutils literal notranslate"><span class="pre">clash_api</span></code> and <code class="docutils literal notranslate"><span class="pre">clash_suite_api</span></code> launchers, these launchers
+have no <code class="docutils literal notranslate"><span class="pre">--backend</span></code> option and open no stage. Container I/O is data-layer work, so the scene
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a> plays no part.</p></li>
+<li><p><strong>Your own files.</strong> Each program takes three positional paths: the input, the
+<code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> copy and the <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> sidecar. Pass them after <code class="docutils literal notranslate"><span class="pre">--</span></code>. Relative paths
+resolve against the current directory. A missing input is created first; an existing input is
+never rewritten.</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_legacy_clash_detection_python.sh<span class="w"> </span>--<span class="w"> </span>project.clashDetection<span class="w"> </span>copy.clashDetection<span class="w"> </span>project.ovclashdb
+</pre></div>
+</div>
+<p><a class="reference internal" href="samples.html#samples-map"><span class="std std-ref">Samples map</span></a> describes the sample and its README,
+<code class="docutils literal notranslate"><span class="pre">samples/legacy_clash_detection/README.md</span></code>, which lists every launcher option and the manual C++
+build.
+The complete programs are <code class="docutils literal notranslate"><span class="pre">samples/legacy_clash_detection/legacy_clash_detection_python_api.py</span></code>
+and, in the SDK archive, <code class="docutils literal notranslate"><span class="pre">samples/legacy_clash_detection/LegacyClashDetection.cpp</span></code>.</p>
+</section>
+<section id="step-2-create-a-container">
+<h2>Step 2: Create a container<a class="headerlink" href="#step-2-create-a-container" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">save_as()</span></code> with a <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> target exports a container. This script exports
+<code class="docutils literal notranslate"><span class="pre">dynamic.ovclashdb</span></code> and reads the container’s header:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">struct</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashData</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">ClashData</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;dynamic.ovclashdb&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="s2">&quot;results.clashDetection&quot;</span><span class="p">)</span>  <span class="c1"># an export: the handle stays on dynamic.ovclashdb</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.clashDetection&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">container</span><span class="p">:</span>
+    <span class="n">magic</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">_reserved</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="s2">&quot;&lt;II8s&quot;</span><span class="p">,</span> <span class="n">container</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">16</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;magic=0x</span><span class="si">{</span><span class="n">magic</span><span class="si">:</span><span class="s2">08X</span><span class="si">}</span><span class="s2"> version=</span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>magic=0x4A544443 version=1
+</pre></div>
+</div>
+</section>
+<section id="step-3-probe-and-open-the-container">
+<h2>Step 3: Probe and open the container<a class="headerlink" href="#step-3-probe-and-open-the-container" title="Link to this heading">#</a></h2>
+<p>Probe untrusted input before you open it. The probe reads only the header bytes. It does not open
+the SQLite database or migrate a schema.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDataSerializerSqlite</span><span class="p">,</span> <span class="n">probe_legacy_clash_detection_file</span>
+
+<span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;results.clashDetection&quot;</span>
+<span class="n">is_legacy</span><span class="p">,</span> <span class="n">has_sqlite_payload</span> <span class="o">=</span> <span class="n">probe_legacy_clash_detection_file</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;is_legacy=</span><span class="si">{</span><span class="n">is_legacy</span><span class="si">}</span><span class="s2"> has_sqlite_payload=</span><span class="si">{</span><span class="n">has_sqlite_payload</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">is_legacy</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">has_sqlite_payload</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;the container payload is not a SQLite database&quot;</span><span class="p">)</span>
+
+<span class="n">serializer</span> <span class="o">=</span> <span class="n">ClashDataSerializerSqlite</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">query</span> <span class="ow">in</span> <span class="n">serializer</span><span class="o">.</span><span class="n">fetch_all_queries</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">count</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">.</span><span class="n">get_overlaps_count_by_query_id</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">identifier</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">query</span><span class="o">.</span><span class="n">query_name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> clashes&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;working copy: </span><span class="si">{</span><span class="n">serializer</span><span class="o">.</span><span class="n">get_file_path</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.ovclashdb&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>is_legacy=True has_sqlite_payload=True
+[1] Example Dynamic Query: 8 clashes
+working copy: True
+</pre></div>
+</div>
+<p>The handle works on a temporary <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> copy of the payload, so <code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code> names
+that copy, not the container. <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> deletes the copy.</p>
+<p>What the probe reports, as a Python tuple <code class="docutils literal notranslate"><span class="pre">(is_legacy,</span> <span class="pre">has_sqlite_payload)</span></code> or through the two C
+out-parameters:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_legacy</span></code></p></td>
+<td><p>Python <code class="docutils literal notranslate"><span class="pre">bool</span></code>; C <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>True or 1 when the file starts with the legacy magic number</p></td>
+<td><p>Whether the file has a container header.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">has_sqlite_payload</span></code></p></td>
+<td><p>Python <code class="docutils literal notranslate"><span class="pre">bool</span></code>; C <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>True or 1 when the payload also starts with SQLite’s file header</p></td>
+<td><p>Whether the payload looks like a SQLite database.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">is_legacy</span></code> is true when the file starts with the legacy magic number. <code class="docutils literal notranslate"><span class="pre">has_sqlite_payload</span></code> is
+true when the payload also starts with SQLite’s file header.</p></li>
+<li><p>Neither flag checks the format version, the database contents or the schema version. A file
+that probes <code class="docutils literal notranslate"><span class="pre">(True,</span> <span class="pre">True)</span></code> can still fail to open.</p></li>
+<li><p>A missing file, an empty path, a file shorter than the header and a non-legacy file all probe
+as <code class="docutils literal notranslate"><span class="pre">(False,</span> <span class="pre">False)</span></code>. Because ordinary files never make it fail, the probe is safe in an error
+path.</p></li>
+<li><p>In Python, a path with an embedded NUL character raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>. A string that cannot be
+encoded as UTF-8 raises <code class="docutils literal notranslate"><span class="pre">UnicodeEncodeError</span></code> before the call.</p></li>
+</ul>
+<p>In C, a function for a source file of your program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* Returns 1 when path names a container with a SQLite payload, else 0. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">is_sqlite_container</span><span class="p">(</span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">path</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">is_legacy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">has_sqlite_payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">ovclash_suite_probe_legacy_clash_detection_file</span><span class="p">(</span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">is_legacy</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">has_sqlite_payload</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_get_thread_last_error</span><span class="p">();</span><span class="w"> </span><span class="cm">/* invalid input */</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;probe failed: %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">is_legacy</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">has_sqlite_payload</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The C call fails only for invalid input: a null output pointer, an invalid string span, invalid
+UTF-8, an embedded NUL character or a caught exception.</p>
+<p>Both samples probe an existing input before they open it and refuse a container whose payload
+lacks a SQLite header. When <code class="docutils literal notranslate"><span class="pre">open()</span></code> fails, they probe again. That tells a payload without a
+SQLite header from one that SQLite rejected despite a valid header.</p>
+</section>
+<section id="step-4-migrate-an-old-schema">
+<h2>Step 4: Migrate an old schema<a class="headerlink" href="#step-4-migrate-an-old-schema" title="Link to this heading">#</a></h2>
+<p>An older container can hold an older schema. The probe cannot detect this; <code class="docutils literal notranslate"><span class="pre">open()</span></code> reports it:</p>
+<ul class="simple">
+<li><p>In C, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_open</span></code> fails.</p></li>
+<li><p>In Python, <code class="docutils literal notranslate"><span class="pre">open()</span></code> leaves the store closed without raising.</p></li>
+<li><p>Either way, <code class="docutils literal notranslate"><span class="pre">data_structures_compatible()</span></code> (C <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_structures_compatible</span></code>)
+reports false. <code class="docutils literal notranslate"><span class="pre">data_structures_migration_to_latest_version_possible()</span></code> (C
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_migration_to_latest_possible</span></code>) reports true when a migration chain exists.</p></li>
+</ul>
+<p>Migrate, then save the result as an <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDataSerializerSqlite</span>
+
+<span class="n">serializer</span> <span class="o">=</span> <span class="n">ClashDataSerializerSqlite</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;results.clashDetection&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">serializer</span><span class="o">.</span><span class="n">is_open</span><span class="p">():</span>  <span class="c1"># an older schema leaves the store closed</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">serializer</span><span class="o">.</span><span class="n">data_structures_migration_to_latest_version_possible</span><span class="p">():</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">last_error</span><span class="p">())</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">serializer</span><span class="o">.</span><span class="n">migrate_data_structures_to_latest_version</span><span class="p">(</span><span class="s2">&quot;results.clashDetection&quot;</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">last_error</span><span class="p">())</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;migrated&quot;</span><span class="p">)</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="s2">&quot;results_latest.ovclashdb&quot;</span><span class="p">)</span>  <span class="c1"># raises RuntimeError on failure</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;compatible=</span><span class="si">{</span><span class="n">serializer</span><span class="o">.</span><span class="n">data_structures_compatible</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Expected output for the container from <a class="reference internal" href="#step-2-create-a-container">Step 2</a>, which already has
+the current schema:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>compatible=True
+</pre></div>
+</div>
+<p>An old-schema container also prints <code class="docutils literal notranslate"><span class="pre">migrated</span></code> first. Its failed <code class="docutils literal notranslate"><span class="pre">open()</span></code> also logs the reason as
+a warning through the <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> logger. In C, migrate with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_migrate_to_latest</span></code> and save with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_save_as</span></code>.</p>
+<p>On a <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code>, <code class="docutils literal notranslate"><span class="pre">data_structures_compatible()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data_structures_migration_to_latest_version_possible()</span></code> are methods. On <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> they are
+properties of the same names.</p>
+<p>After a migration of the container, the next Python <code class="docutils literal notranslate"><span class="pre">save()</span></code> without a target rewrites the
+original container in the latest schema. To keep the original, use <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> with an
+<code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> path, as the script of this step does.</p>
+<p><a class="reference internal" href="sqlite_serializer.html#schema-versions-and-forward-compatibility"><span class="std std-ref">Schema versions and forward compatibility</span></a>
+lists the versions and the migration rules.
+<a class="reference internal" href="persistence.html#failures-that-do-not-raise"><span class="std std-ref">Failures that do not raise</span></a> explains <code class="docutils literal notranslate"><span class="pre">last_error()</span></code>.</p>
+</section>
+<section id="step-5-write-a-copy-and-a-modern-sidecar">
+<h2>Step 5: Write a copy and a modern sidecar<a class="headerlink" href="#step-5-write-a-copy-and-a-modern-sidecar" title="Link to this heading">#</a></h2>
+<p>One open handle can write both a legacy copy and an <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> sidecar, because a
+<code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> target is an export:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDataSerializerSqlite</span>
+
+<span class="n">serializer</span> <span class="o">=</span> <span class="n">ClashDataSerializerSqlite</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;results.clashDetection&quot;</span><span class="p">)</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="s2">&quot;copy.clashDetection&quot;</span><span class="p">)</span>  <span class="c1"># export: the handle stays on its current store</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">save_as</span><span class="p">(</span><span class="s2">&quot;copy.ovclashdb&quot;</span><span class="p">)</span>  <span class="c1"># sidecar: becomes the current store</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;current store is the sidecar: </span><span class="si">{</span><span class="n">serializer</span><span class="o">.</span><span class="n">get_file_path</span><span class="p">()</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;copy.ovclashdb&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">serializer</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>current store is the sidecar: True
+</pre></div>
+</div>
+<p>The second <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> moves the data off the legacy format. The sidecar is a plain <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>,
+and the original container is untouched. In Python, <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> on failure.
+The Python sample uses <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code> directly; a <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> that wraps it behaves
+the same.</p>
+<p>The same steps in C, as a complete program:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="nf">text</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">value</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">span</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">span</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">ok</span><span class="p">(</span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">result</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">text</span><span class="p">(</span><span class="s">&quot;results.clashDetection&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">ovclash_suite_data_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">is_legacy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">has_sqlite_payload</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">query_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="cm">/* The probe fails only for invalid arguments; ordinary files report through the flags. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_probe_legacy_clash_detection_file</span><span class="p">(</span><span class="n">input</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">is_legacy</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">has_sqlite_payload</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;is_legacy=%u has_sqlite_payload=%u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">is_legacy</span><span class="p">,</span><span class="w"> </span><span class="n">has_sqlite_payload</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">is_legacy</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">has_sqlite_payload</span><span class="p">)</span><span class="w"> </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_data_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_data_open</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">input</span><span class="p">))</span><span class="w"> </span><span class="o">||</span>
+<span class="w">        </span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_data_get_query_count</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">query_count</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;queries: %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">query_count</span><span class="p">);</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_data_save_as</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">(</span><span class="s">&quot;copy_c.clashDetection&quot;</span><span class="p">)))</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="cm">/* export only */</span>
+<span class="w">        </span><span class="o">!</span><span class="n">ok</span><span class="p">(</span><span class="n">ovclash_suite_data_save_as</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">text</span><span class="p">(</span><span class="s">&quot;copy_c.ovclashdb&quot;</span><span class="p">))))</span><span class="w">        </span><span class="cm">/* becomes current */</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;wrote copy_c.clashDetection and copy_c.ovclashdb</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="nl">cleanup</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_get_thread_last_error</span><span class="p">();</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;error: %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">ovclash_suite_data_destroy</span><span class="p">(</span><span class="n">data</span><span class="p">);</span><span class="w"> </span><span class="cm">/* closes the store; after an early failure it also deletes</span>
+<span class="cm">                                         the temporary copy of the container */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>is_legacy=1 has_sqlite_payload=1
+queries: 1
+wrote copy_c.clashDetection and copy_c.ovclashdb
+</pre></div>
+</div>
+<p>On failure, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_thread_last_error()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_last_error()</span></code> give
+the reason.</p>
+</section>
+<section id="the-container-format">
+<h2>The container format<a class="headerlink" href="#the-container-format" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> file is a 16-byte header followed by the bytes of a SQLite database. The
+header holds two little-endian 32-bit fields followed by 8 reserved bytes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bytes</p></th>
+<th class="head"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0-3</p></td>
+<td><p>The legacy magic number, <code class="docutils literal notranslate"><span class="pre">0x4A544443</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>4-7</p></td>
+<td><p>The format version. ovclash writes <code class="docutils literal notranslate"><span class="pre">1</span></code> and rejects a newer version on open.</p></td>
+</tr>
+<tr class="row-even"><td><p>8-15</p></td>
+<td><p>Reserved. ovclash writes zeros and never reads them.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The payload is an ordinary <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> SQLite database, possibly with an older schema, so one API
+reads both. The handling differs:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Behavior on a legacy container</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Open</p></td>
+<td><p>The handle copies the payload to a private temporary <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> and opens that copy. The handle’s file path (<code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_file_path</span></code>) then names the copy, not the container.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Writes and commit</p></td>
+<td><p>They change only the temporary copy. The container is unchanged.</p></td>
+</tr>
+<tr class="row-even"><td><p>Migrate</p></td>
+<td><p>Migration works on a temporary copy. The container is only read, so it may be read-only. See <a class="reference internal" href="#migrating-a-container">Migrating a container</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">save_as(target)</span></code></p></td>
+<td><p>A target ending in <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> receives a new container, and the handle stays on its current store. Any other target receives a plain <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> and becomes the current store. A failed export leaves an existing target unchanged.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">save()</span></code> without a target</p></td>
+<td><p>C <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_save</span></code> with an empty path commits to the temporary copy only. Python <code class="docutils literal notranslate"><span class="pre">save()</span></code> can rewrite the container; see <a class="reference internal" href="#saving-a-container-from-python">Saving a container from Python</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Close / destroy</p></td>
+<td><p>The handle deletes the temporary copy.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The temporary copy goes to the system temporary directory, or to the current directory when there
+is none. That directory needs room for the whole payload.</p>
+<section id="migrating-a-container">
+<h3>Migrating a container<a class="headerlink" href="#migrating-a-container" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Passing the container’s path extracts it again to a new copy and deletes the handle’s earlier
+copy. Writes made to the earlier copy are lost unless they were first exported to the
+container.</p></li>
+<li><p>To keep those writes, migrate the copy’s path (<code class="docutils literal notranslate"><span class="pre">get_file_path()</span></code>) instead.</p></li>
+<li><p>In Python, an empty path uses the cached path. After <code class="docutils literal notranslate"><span class="pre">open()</span></code> on the container, the cached path
+names the container until a <code class="docutils literal notranslate"><span class="pre">save()</span></code> or <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> succeeds.</p></li>
+<li><p>In C, an empty path migrates the current copy in place and keeps its writes.</p></li>
+</ul>
+</section>
+<section id="saving-a-container-from-python">
+<h3>Saving a container from Python<a class="headerlink" href="#saving-a-container-from-python" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">save()</span></code> rewrites the container while the cached path names it. That holds after <code class="docutils literal notranslate"><span class="pre">open()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">migrate_data_structures_to_latest_version()</span></code> on the container, until a <code class="docutils literal notranslate"><span class="pre">save()</span></code> or <code class="docutils literal notranslate"><span class="pre">save_as()</span></code>
+succeeds.</p></li>
+<li><p>Each successful save caches the handle’s file path. Later calls then commit to the copy, or to
+a plain target that <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> adopted.</p></li>
+<li><p>To rewrite the container after that, pass its path to <code class="docutils literal notranslate"><span class="pre">save_as()</span></code>.</p></li>
+</ul>
+</section>
+<section id="naming-a-container">
+<h3>Naming a container<a class="headerlink" href="#naming-a-container" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A path that ends in <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code>, in any letter case, must name a valid container. A
+missing file, a plain SQLite file or a damaged header fails the open, and a later write does
+not create the file.</p></li>
+<li><p>A file with a valid header opens as a container under any name.</p></li>
+</ul>
+</section>
+<section id="kit-layer-metadata">
+<h3>Kit layer metadata<a class="headerlink" href="#kit-layer-metadata" title="Link to this heading">#</a></h3>
+<p>ovclash ships no <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> file-format plugin for <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code>. A stage
+that lists one among its sublayers, the layers that the stage composes, does not load its clash
+data, so open the file through the data API. <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> keeps the Kit-era names as constants for
+code that reads Kit-authored layers. A layer’s <code class="docutils literal notranslate"><span class="pre">customData</span></code> is its dictionary of custom metadata:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLASH_DATA_LAYER_FILE_EXT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CLASH_DATA_FILE_EXT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.clashdata</span></code>, the extension Kit gives its extracted database. ovclash extracts to <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> instead.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CLASH_DATA_LAYER_CUSTOM_CLASH_DB_PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">clashDbPath</span></code>, the layer <code class="docutils literal notranslate"><span class="pre">customData</span></code> key that holds the database path.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CLASH_DATA_LAYER_CUSTOM_MODIFIED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">clashDbModified</span></code>, the layer <code class="docutils literal notranslate"><span class="pre">customData</span></code> key that records unsaved changes.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Kit writes both <code class="docutils literal notranslate"><span class="pre">customData</span></code> entries of its clash layer as strings; ovclash writes neither:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clashDbPath</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No; Kit writes it with the clash layer</p></td>
+<td><p>A database file path; Kit reads a missing key as <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+<td><p>The database that holds the layer’s clash data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clashDbModified</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No; Kit writes it with the clash layer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;true&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;false&quot;</span></code></p></td>
+<td><p>Whether that database has changes that Kit has not saved yet.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>To move data off a container, migrate it through the data API, as
+<a class="reference internal" href="#step-4-migrate-an-old-schema">Step 4</a> and <a class="reference internal" href="#step-5-write-a-copy-and-a-modern-sidecar">Step 5</a>
+show. ovclash
+never edits the stage that sublayers the container; remove that sublayer with your own USD tooling.</p>
+</section>
+</section>
+<section id="result">
+<h2>Result<a class="headerlink" href="#result" title="Link to this heading">#</a></h2>
+<p>You can probe a <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> file, open it, read its queries, migrate an old schema, and write
+both a legacy copy and an <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> sidecar without changing the original. Beyond reading these
+containers, work in <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>: it is the standalone format, which the
+<a class="reference internal" href="sqlite_serializer.html"><span class="std std-doc">SQLite serializer</span></a> documents, and <a class="reference internal" href="persistence.html"><span class="std std-doc">Persistence</span></a> and
+<a class="reference internal" href="export.html"><span class="std std-doc">Export</span></a> are written around it.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="directory_serializer.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Directory serializer</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="export.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Export: JSON and HTML Reports</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-run-the-sample">Step 1: Run the sample</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-create-a-container">Step 2: Create a container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-probe-and-open-the-container">Step 3: Probe and open the container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-migrate-an-old-schema">Step 4: Migrate an old schema</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-write-a-copy-and-a-modern-sidecar">Step 5: Write a copy and a modern sidecar</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-container-format">The container format</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migrating-a-container">Migrating a container</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-a-container-from-python">Saving a container from Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#naming-a-container">Naming a container</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kit-layer-metadata">Kit layer metadata</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result">Result</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

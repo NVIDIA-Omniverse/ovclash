@@ -1,0 +1,1756 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Transform Evaluation Internals &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/transforms';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ovstage Source Extraction Internals" href="source_extraction.html" />
+    <link rel="prev" title="Engine Performance Internals" href="performance.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Transform Evaluation Internals</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="transform-evaluation-internals">
+<h1>Transform Evaluation Internals<a class="headerlink" href="#transform-evaluation-internals" title="Link to this heading">#</a></h1>
+<p>This page of the <a class="reference internal" href="../technical_guide.html"><span class="std std-doc">Technical Guide</span></a> explains how the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage backend</span></a>, which reads USD through the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage</span></a> runtime, turns <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a>
+transforms into collision poses, and which rules keep its results identical to the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">OpenUSD backend</span></a>, the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">parity reference</span></a>. It
+is written for maintainers of the ovstage transform code (<code class="docutils literal notranslate"><span class="pre">source/*MatrixDecomposition.h</span></code>,
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReader*</span></code>, <code class="docutils literal notranslate"><span class="pre">source/OvstageClashTransforms.cpp</span></code>) and of its tests. The
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Architecture glossary</span></a> defines the implementation terms.</p>
+<p>Other pages own the neighboring topics:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Page</p></th>
+<th class="head"><p>What it owns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="../consumer/README.html#comparing-ovstage-matrix-decompositions"><span class="std std-ref">Comparing ovstage matrix decompositions</span></a></p></td>
+<td><p>Selecting the decomposition mode from Python and C.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../consumer/performance.html#dynamic-runs"><span class="std std-ref">Performance: Dynamic runs</span></a></p></td>
+<td><p>The matrix cache switch, the window sizes and the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">static purge</span></a> that users see.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="runtime.html#numeric-transform-reads"><span class="std std-ref">Runtime architecture: Numeric transform reads</span></a></p></td>
+<td><p>The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">populations</span></a> and the composition rules for numeric transform reads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="performance.html"><span class="std std-doc">Engine performance internals</span></a></p></td>
+<td><p>The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">BVH</span></a> split, the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">scheduler</span></a> budgets and <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">narrow-phase</span></a> reuse.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="source_extraction.html"><span class="std std-doc">ovstage source extraction internals</span></a></p></td>
+<td><p>Populations, topology recovery and instancing identity.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Requirement:</strong> these rules preserve result parity with the OpenUSD backend. Before you change
+one, run the tests named under it.</p>
+<section id="transform-decomposition-is-part-of-result-parity">
+<h2>Transform decomposition is part of result parity<a class="headerlink" href="#transform-decomposition-is-part-of-result-parity" title="Link to this heading">#</a></h2>
+<p>The collision engine needs two values for every mesh: a float pose (a translation and a unit
+quaternion) and a signed per-axis mesh scale. <code class="docutils literal notranslate"><span class="pre">decomposeRowMajorMatrix()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/MatrixDecomposition.h</span></code> computes both from the mesh’s 4x4 double world matrix.</p>
+<p>Equal world matrices and equal <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">cooked</span></a> meshes are not enough for equal
+results:</p>
+<ul class="simple">
+<li><p>Two decompositions of one matrix can both be correct and still round differently.</p></li>
+<li><p>At zero tolerance, that rounding can change which triangle pairs touch.</p></li>
+<li><p>The difference shows most with reflections. <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Gf</span></a>, OpenUSD’s math
+library, puts the sign of a negative determinant on all three scales. The legacy mode, ovclash’s
+original decomposition, puts it on the X scale only. Both rebuild the same matrix, but their
+float operations differ, so a grazing triangle pair can change membership while the stage’s
+overlap count stays equal.</p></li>
+</ul>
+<p><strong>Requirement:</strong> ovstage reproduces the decomposition of the OpenUSD reference backend, whose
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">shared clash engine</span></a> converts each matrix with <code class="docutils literal notranslate"><span class="pre">GfTransform</span></code>. A
+representation that only looks equivalent is not sufficient.</p>
+<section id="current-decomposition-modes-and-grazing-contacts">
+<h3>Current decomposition modes and grazing contacts<a class="headerlink" href="#current-decomposition-modes-and-grazing-contacts" title="Link to this heading">#</a></h3>
+<p>Each ovstage context selects one of two modes. Both read the scene through ovstage; the mode does
+not select a scene backend.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>C value</p></th>
+<th class="head"><p>Python name</p></th>
+<th class="head"><p>Implementation</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>OpenUSD (default)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_MATRIX_DECOMPOSITION_OPENUSD</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;openusd&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source/GfMatrixDecomposition.h</span></code></p></td>
+<td><p>Parity with the OpenUSD backend</p></td>
+</tr>
+<tr class="row-odd"><td><p>ovclash (legacy)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_MATRIX_DECOMPOSITION_OVCLASH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;ovclash&quot;</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">source/OvclashMatrixDecomposition.h</span></code></p></td>
+<td><p>Reproduces the results of ovclash 0.1.7 for comparisons</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">source/GfMatrixDecomposition.h</span></code> is an OpenUSD-free adaptation of <code class="docutils literal notranslate"><span class="pre">GfTransform(matrix)</span></code> from the
+pinned OpenUSD v25.11. It keeps Gf’s arithmetic step by step:</p>
+<ol class="arabic simple">
+<li><p>The zero-pivot sandwich: identity times the matrix times an inverse pivot whose translation is
+<code class="docutils literal notranslate"><span class="pre">-0.0</span></code>. It sets the signed-zero bits of the translation.</p></li>
+<li><p>The Jacobi eigensolver on <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">*</span> <span class="pre">transpose(A)</span></code>, with the eigenvalues left in solver order
+(unsorted).</p></li>
+<li><p>Signed scales: the determinant’s sign goes on all three axes. An eigenvalue below <code class="docutils literal notranslate"><span class="pre">1e-10</span></code>
+becomes a scale of <code class="docutils literal notranslate"><span class="pre">±1e-10</span></code>.</p></li>
+<li><p>Quaternion extraction, then the <code class="docutils literal notranslate"><span class="pre">GfRotation</span></code> axis-angle round trip through degrees and the
+<code class="docutils literal notranslate"><span class="pre">GfQuatd</span></code> normalization.</p></li>
+<li><p>Narrowing to float only at the end, in <code class="docutils literal notranslate"><span class="pre">decomposeRowMajorMatrix()</span></code>.</p></li>
+</ol>
+<p>The ovstage backend gains no OpenUSD dependency from this header.</p>
+<p>ovclash compiles C and C++ with <code class="docutils literal notranslate"><span class="pre">-ffp-contract=off</span></code> on GCC and Clang
+(<code class="docutils literal notranslate"><span class="pre">cmake/modules/CompilerDefaults.cmake</span></code>). The prebuilt OpenUSD Gf library uses GCC’s default
+contraction, which fuses multiply-adds on AArch64. On GCC for AArch64,
+<code class="docutils literal notranslate"><span class="pre">source/GfMatrixDecomposition.h</span></code> therefore switches its own code to <code class="docutils literal notranslate"><span class="pre">fp-contract=fast</span></code>, so it
+matches Gf word for word. Baseline x86-64 has no FMA (fused multiply-add), so nothing changes
+there.</p>
+<p><code class="docutils literal notranslate"><span class="pre">source/OvclashMatrixDecomposition.h</span></code> keeps the ovclash 0.1.7 arithmetic unchanged: Gram-Schmidt
+orthonormalization, up to 16 polar-decomposition iterations, the reflection sign on the X scale
+only, and no normalization of the final float quaternion.</p>
+<p><strong>Requirement:</strong> do not simplify either decomposition, reorder its operations or normalize the
+final float quaternion without the tests of <a class="reference internal" href="#reference-tests">Reference tests</a>.</p>
+<section id="example-one-stage-two-answers">
+<h4>Example: one stage, two answers<a class="headerlink" href="#example-one-stage-two-answers" title="Link to this heading">#</a></h4>
+<p>A sheared triangle above a large plane touches the plane in the legacy mode but not in the OPENUSD
+mode. The script writes its own stage to a temporary directory, so it runs from any
+directory with an ovstage build of the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> packages importable.
+<a class="reference internal" href="../consumer/settings.html#ovclash-python"><span class="std std-ref">ovclash Python</span></a> in the settings reference lists the
+<code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> fields:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span><span class="p">,</span> <span class="n">RunSettings</span>
+
+<span class="c1"># A sheared triangle above a large plane. The two decompositions round the</span>
+<span class="c1"># shear differently, so they disagree about this zero-tolerance contact.</span>
+<span class="n">STAGE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;#usda 1.0</span>
+<span class="s2">(</span>
+<span class="s2">    metersPerUnit = 0.01</span>
+<span class="s2">    upAxis = &quot;Z&quot;</span>
+<span class="s2">)</span>
+<span class="s2">def Xform &quot;World&quot;</span>
+<span class="s2">{</span>
+<span class="s2">    def Mesh &quot;Tilted&quot;</span>
+<span class="s2">    {</span>
+<span class="s2">        int[] faceVertexCounts = [3]</span>
+<span class="s2">        int[] faceVertexIndices = [0, 1, 2]</span>
+<span class="s2">        point3f[] points = [(1.31, 2.75, -0.125), (-2, 0.3, 0.7), (-0.1, -0.4, 2)]</span>
+<span class="s2">        matrix4d xformOp:transform = ((1, 0.5, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1))</span>
+<span class="s2">        uniform token[] xformOpOrder = [&quot;xformOp:transform&quot;]</span>
+<span class="s2">    }</span>
+<span class="s2">    def Mesh &quot;Plane&quot;</span>
+<span class="s2">    {</span>
+<span class="s2">        int[] faceVertexCounts = [3]</span>
+<span class="s2">        int[] faceVertexIndices = [0, 1, 2]</span>
+<span class="s2">        point3f[] points = [(-100, 0, -100), (-100, 0, 100), (100, 0, 0)]</span>
+<span class="s2">        double3 xformOp:translate = (0, 2.65, 0)</span>
+<span class="s2">        uniform token[] xformOpOrder = [&quot;xformOp:translate&quot;]</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+    <span class="n">stage</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;sheared.usda&quot;</span>
+    <span class="n">stage</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">STAGE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>  <span class="c1"># requires the ovstage backend</span>
+        <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stage</span><span class="p">))</span>
+        <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">RunSettings</span><span class="p">(</span><span class="n">tolerance</span><span class="o">=</span><span class="mf">0.0</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">mode</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;openusd&quot;</span><span class="p">,</span> <span class="s2">&quot;ovclash&quot;</span><span class="p">):</span>
+            <span class="n">runtime</span><span class="o">.</span><span class="n">set_ovstage_matrix_decomposition</span><span class="p">(</span><span class="n">mode</span><span class="p">)</span>  <span class="c1"># a change discards results and the pipeline</span>
+            <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">mode</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">()</span><span class="si">}</span><span class="s2"> overlap(s)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>openusd: 0 overlap(s)
+ovclash: 1 overlap(s)
+</pre></div>
+</div>
+<p>On the OpenUSD backend, <code class="docutils literal notranslate"><span class="pre">set_ovstage_matrix_decomposition()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>.</p>
+</section>
+<section id="what-a-mode-change-does">
+<h4>What a mode change does<a class="headerlink" href="#what-a-mode-change-does" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">setOvstageMatrixDecomposition()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageClashBackend.cpp</span></code> implements
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_set_matrix_decomposition()</span></code>:</p>
+<ul class="simple">
+<li><p>It fails while an async handle is live. That includes a handle whose worker has completed but
+that <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> has not released yet. This check runs before the same-mode check.</p></li>
+<li><p>Selecting the current mode changes nothing. Results, borrowed reports and the pipeline stay.</p></li>
+<li><p>A new mode clears <code class="docutils literal notranslate"><span class="pre">pipeline_created</span></code> and the step counters, then calls <code class="docutils literal notranslate"><span class="pre">clearQueryResults()</span></code>. That
+drops the results, the selected meshes with their cooked geometry, poses and bounds, the point
+clouds and the dynamic caches. Borrowed reports become invalid.</p></li>
+<li><p>The mode is stored per context (<code class="docutils literal notranslate"><span class="pre">matrix_decomposition</span></code>). It survives <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code> and
+stage replacement. New contexts start with OPENUSD.</p></li>
+<li><p>Immediate depth and depenetration queries use the selected mode too.</p></li>
+<li><p>Raw reported world matrices and point-cloud row scaling involve no decomposition, so the mode does
+not change them.</p></li>
+<li><p>The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Suite</span></a> API has no setter. Suite runtimes always use OPENUSD.</p></li>
+</ul>
+<p>The Python wrapper <code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_ovstage_matrix_decomposition()</span></code> closes its tracked reports
+before a change. The next <code class="docutils literal notranslate"><span class="pre">run_pipeline()</span></code> or <code class="docutils literal notranslate"><span class="pre">run_async()</span></code> creates the pipeline again. The
+<a class="reference internal" href="../consumer/README.html#comparing-ovstage-matrix-decompositions"><span class="std std-ref">Python package guide</span></a> lists the
+caller rules.</p>
+<p>The C call is a one-liner on an ovstage context. Release every borrowed report first. This
+function is a complete helper, not a program: put it in a C source file of your own that links
+the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> CMake target of an ovstage build, and call it with a context from
+<code class="docutils literal notranslate"><span class="pre">ovclash_create_context()</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash_ovstage.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* ctx is an ovstage context from ovclash_create_context(). */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">select_legacy_decomposition</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_ovstage_matrix_decomposition_t</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OVCLASH_OVSTAGE_MATRIX_DECOMPOSITION_OPENUSD</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_ovstage_set_matrix_decomposition</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">OVCLASH_OVSTAGE_MATRIX_DECOMPOSITION_OVCLASH</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span>
+<span class="w">        </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_get_last_error</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_ovstage_get_matrix_decomposition</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mode</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;legacy math: %s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">mode</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_OVSTAGE_MATRIX_DECOMPOSITION_OVCLASH</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;on&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;off&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="cm">/* The old pipeline is gone: call ovclash_create_pipeline() before the next run. */</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="input-and-output-validation">
+<h4>Input and output validation<a class="headerlink" href="#input-and-output-validation" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">decomposeRowMajorMatrix()</span></code> guards both modes. It writes the pose and scale only when every check
+passes, and otherwise throws <code class="docutils literal notranslate"><span class="pre">std::invalid_argument</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Check</p></th>
+<th class="head"><p>When</p></th>
+<th class="head"><p>Message</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The matrix pointer is null</p></td>
+<td><p>Before</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">requires</span> <span class="pre">16</span> <span class="pre">doubles</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>An element is not finite or exceeds the float range</p></td>
+<td><p>Before</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">requires</span> <span class="pre">finite</span> <span class="pre">values</span> <span class="pre">within</span> <span class="pre">float</span> <span class="pre">range</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>The length of one of the first three rows exceeds the float range</p></td>
+<td><p>Before</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">row</span> <span class="pre">magnitude</span> <span class="pre">exceeds</span> <span class="pre">float</span> <span class="pre">range</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>OPENUSD only: a translation, scale or quaternion value is not finite or exceeds the float range</p></td>
+<td><p>After</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">produced</span> <span class="pre">an</span> <span class="pre">invalid</span> <span class="pre">translation</span></code>, <code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">invalid</span> <span class="pre">scale</span></code> or <code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">invalid</span> <span class="pre">rotation</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PxTransform::isValid()</span></code> fails (this includes the unit-quaternion test of <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">PhysX</span></a>) or the scale is not finite</p></td>
+<td><p>After</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">produced</span> <span class="pre">an</span> <span class="pre">invalid</span> <span class="pre">pose</span> <span class="pre">or</span> <span class="pre">scale</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The affected pipeline or immediate query fails with that message. The guards never normalize a
+result, so they leave every valid result unchanged. Example: collinear source rows make the legacy
+basis non-orthogonal, and its finite quaternion then has a squared norm of <code class="docutils literal notranslate"><span class="pre">5/6</span></code>. Accepting it
+would distort the geometry and could lose overlaps, so the guard rejects it.</p>
+<p>Immediate depth and depenetration queries call <code class="docutils literal notranslate"><span class="pre">validateImmediateMatrices()</span></code>
+(<code class="docutils literal notranslate"><span class="pre">source/OvstageClashGeometry.cpp</span></code>) before they read the stage or cook a mesh. An invalid caller
+matrix is therefore reported as <code class="docutils literal notranslate"><span class="pre">Matrix</span> <span class="pre">decomposition</span> <span class="pre">...</span></code>, even when a path would also fail to
+load. On failure the canonical C depth and depenetration calls leave the caller-owned output
+unchanged.</p>
+<p>Scope of the guard:</p>
+<ul class="simple">
+<li><p>The OpenUSD backend has its own validation policy.</p></li>
+<li><p>Raw reported matrices and point clouds do not pass through this mesh guard.</p></li>
+</ul>
+</section>
+<section id="reference-tests">
+<h4>Reference tests<a class="headerlink" href="#reference-tests" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">tests/native/TestMatrixDecomposition.cpp</span></code> compares the OPENUSD mode with Gf on synthetic matrices:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Build</p></th>
+<th class="head"><p>Reference</p></th>
+<th class="head"><p>Comparison</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Windows</p></td>
+<td><p>Float words captured from the pinned OpenUSD v25.11 <code class="docutils literal notranslate"><span class="pre">GfTransform(matrix)</span></code> on Windows x64</p></td>
+<td><p>Exact</p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenUSD backend, any platform</p></td>
+<td><p>The live platform <code class="docutils literal notranslate"><span class="pre">GfTransform</span></code></p></td>
+<td><p>Exact</p></td>
+</tr>
+<tr class="row-even"><td><p>ovstage-only, not Windows</p></td>
+<td><p>The Windows captures</p></td>
+<td><p>Translations exact; scales within eight float epsilons (relative), quaternion components within eight float epsilons (absolute)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The last row is a portable smoke check. It does not establish bit parity. Bit parity on a platform
+needs that platform’s pinned Gf build. The same program also pins the legacy unit-quaternion
+boundary and the collinear-rows rejection.</p>
+<p><code class="docutils literal notranslate"><span class="pre">MirroredDecompositionTests</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_mirrored_decomposition.py</span></code> runs the public
+pipeline at zero tolerance on hand-made triangles:</p>
+<ul class="simple">
+<li><p>A mirrored grazing contact pins the platform’s OpenUSD result: no overlap on x86-64, one on ARM64.</p></li>
+<li><p>Intersecting and separated controls sit safely away from that boundary.</p></li>
+<li><p>A sheared transform separates the two modes. It drives the runtime-switch, animated and
+concurrent-context cases and the OpenUSD-backend rejection.</p></li>
+</ul>
+<p>These checks cover the factor representation and the clash membership. A full-stage comparison must
+also compare the pairs, the face indices and the report geometry.</p>
+</section>
+<section id="license-of-the-adaptation">
+<h4>License of the adaptation<a class="headerlink" href="#license-of-the-adaptation" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">licenses/openusd-v25.11/</span></code> holds <code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code> and <code class="docutils literal notranslate"><span class="pre">NOTICE.txt</span></code> for the adapted Gf code.
+<code class="docutils literal notranslate"><span class="pre">scripts/package_licenses.py</span></code> always adds them to <code class="docutils literal notranslate"><span class="pre">ovclash-LICENSES.zip</span></code> under
+<code class="docutils literal notranslate"><span class="pre">source-adaptations/openusd-v25.11/</span></code>, whether or not the build links OpenUSD. Every install tree,
+and so every <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">SDK archive</span></a> and wheel, ships that archive.</p>
+</section>
+</section>
+<section id="decomposition-throughput-and-storage">
+<h3>Decomposition throughput and storage<a class="headerlink" href="#decomposition-throughput-and-storage" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>No heap, no shared state.</strong> Both helpers use fixed-size arrays on the call’s stack. A
+successful call allocates nothing and shares no scratch, so independent workers can call it in
+parallel.</p></li>
+<li><p><strong>Keep the full operation order.</strong> Gf multiplies full 4x4 matrices with four ordered products per
+element. An affine specialization is algebraically equal but can change rounding at grazing
+contacts.</p></li>
+<li><p><strong>One exact shortcut.</strong> When the 3x3 linear block is exactly the identity, the OPENUSD mode skips
+the eigensolver and the quaternion extraction. It still applies the zero-pivot sandwich, which
+sets the signed-zero translation bits. The comparison is exact, so nearby rotations, shears and
+scales still take the full path.</p></li>
+<li><p><strong>Tests for the shortcut.</strong> The native reference inputs include signed-zero translations,
+non-affine last columns and near-identity controls. The OpenUSD build also checks their final
+floats against the live pinned Gf.</p></li>
+</ul>
+<p>Cost and measurement:</p>
+<ul class="simple">
+<li><p>The default OPENUSD mode costs more per call than the legacy mode, most for rotated and sheared
+matrices. That cost buys OpenUSD’s representation and contact parity.</p></li>
+<li><p>Do not select the legacy mode for speed: it can change clash results.</p></li>
+<li><p>In whole pipelines, finding meshes and populating the stage usually cost far more than the
+decomposition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">benchmarks/matrix_decomposition/MatrixDecomposition.cpp</span></code> measures both modes with 1, 2, 4 and
+8 workers. <code class="docutils literal notranslate"><span class="pre">benchmarks/matrix_decomposition/README.md</span></code> gives its launchers, compiler flags,
+output format and baseline comparison.</p></li>
+<li><p>Never enable fast-math: the float words are part of parity.</p></li>
+</ul>
+</section>
+</section>
+<section id="finite-numeric-transform-reference">
+<h2>Finite numeric transform reference<a class="headerlink" href="#finite-numeric-transform-reference" title="Link to this heading">#</a></h2>
+<p>The OpenUSD backend evaluates transforms with <code class="docutils literal notranslate"><span class="pre">UsdGeomXformCache</span></code>, in its direct prim-matrix query
+(<code class="docutils literal notranslate"><span class="pre">source/OpenUsdClashBackend.cpp</span></code>) and in the shared clash engine’s transform workers. The cache
+composes each prim’s local matrix with its parent’s cached world matrix, so the parent’s world is
+always complete first.</p>
+<p>The order matters in binary64. Take three translations along X: leaf <code class="docutils literal notranslate"><span class="pre">1e16</span></code>, parent <code class="docutils literal notranslate"><span class="pre">-1e16</span></code> and
+grandparent <code class="docutils literal notranslate"><span class="pre">1</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">leaf</span><span class="p">,</span> <span class="n">parent</span><span class="p">,</span> <span class="n">grandparent</span> <span class="o">=</span> <span class="mf">1e16</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e16</span><span class="p">,</span> <span class="mf">1.0</span>
+
+<span class="c1"># OpenUSD and ovstage: compose the parent&#39;s world first, then apply the leaf.</span>
+<span class="n">parent_world</span> <span class="o">=</span> <span class="n">parent</span> <span class="o">+</span> <span class="n">grandparent</span>  <span class="c1"># -1e16 + 1 rounds to -1e16</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">leaf</span> <span class="o">+</span> <span class="n">parent_world</span><span class="p">)</span>  <span class="c1"># 0.0</span>
+
+<span class="c1"># A child-first fold of the same three translations gives another result.</span>
+<span class="nb">print</span><span class="p">((</span><span class="n">leaf</span> <span class="o">+</span> <span class="n">parent</span><span class="p">)</span> <span class="o">+</span> <span class="n">grandparent</span><span class="p">)</span>  <span class="c1"># 1.0</span>
+</pre></div>
+</div>
+<p>ovstage composes numeric worlds in the same parent-first order, separately for every instance
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">placement</span></a>. It never reuses a completed prototype world for another
+placement, and it never relies on published world rows across identity ancestors.
+<a class="reference internal" href="runtime.html#numeric-transform-reads"><span class="std std-ref">Numeric transform reads</span></a> lists the full composition rules.</p>
+<p>The same chain through ovclash returns the parent-first result on both backends:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span>
+
+<span class="n">STAGE</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;#usda 1.0</span>
+<span class="s2">def Xform &quot;Grand&quot;</span>
+<span class="s2">{</span>
+<span class="s2">    double3 xformOp:translate = (1, 0, 0)</span>
+<span class="s2">    uniform token[] xformOpOrder = [&quot;xformOp:translate&quot;]</span>
+<span class="s2">    def Xform &quot;Parent&quot;</span>
+<span class="s2">    {</span>
+<span class="s2">        double3 xformOp:translate = (-10000000000000000, 0, 0)</span>
+<span class="s2">        uniform token[] xformOpOrder = [&quot;xformOp:translate&quot;]</span>
+<span class="s2">        def Xform &quot;Leaf&quot;</span>
+<span class="s2">        {</span>
+<span class="s2">            double3 xformOp:translate = (10000000000000000, 0, 0)</span>
+<span class="s2">            uniform token[] xformOpOrder = [&quot;xformOp:translate&quot;]</span>
+<span class="s2">        }</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">tmp</span><span class="p">:</span>
+    <span class="n">stage</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;association.usda&quot;</span>
+    <span class="n">stage</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">STAGE</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="n">detection</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">detection</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">stage</span><span class="p">))</span>
+        <span class="n">matrix</span> <span class="o">=</span> <span class="n">detection</span><span class="o">.</span><span class="n">get_prim_matrix</span><span class="p">(</span><span class="s2">&quot;/Grand/Parent/Leaf&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;world x:&quot;</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">0</span><span class="p">]))</span>  <span class="c1"># 0.0 on both backends</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">detection</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>world x: 0.0
+</pre></div>
+</div>
+<p>Regression coverage:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_numeric_transform_association.py</span></code> with the fixtures
+<code class="docutils literal notranslate"><span class="pre">tests/data/numeric_transform_association.usda</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tests/data/numeric_transform_identity_association.usda</span></code>: nested placements, nonuniform scales,
+identity ancestors, signed zeros and rewind.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_instance_reset_transforms.py</span></code>: reset boundaries across instances.</p></li>
+</ul>
+</section>
+<section id="raw-authored-transform-classification-and-deferred-matrix-batches">
+<h2>Raw authored-transform classification and deferred matrix batches<a class="headerlink" href="#raw-authored-transform-classification-and-deferred-matrix-batches" title="Link to this heading">#</a></h2>
+<p>A run of a <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> with the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">static purge</span></a> on
+(<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_PURGE_PERMANENT_STATIC_OVERLAPS</span></code>, the default) classifies every selected
+mesh once, before the first sample. Each mesh becomes one of three <code class="docutils literal notranslate"><span class="pre">TransformAnimationState</span></code>
+values:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>State</p></th>
+<th class="head"><p>Meaning</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Static</span></code></p></td>
+<td><p>Every active transform operation on the mesh and its ancestors has an initial value, and none has more than one effective sample.</p></td>
+<td><p>Its static pairs are purged. Playback keeps its first numeric pose.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Dynamic</span></code></p></td>
+<td><p>An active operation on the mesh or an ancestor has more than one effective sample.</p></td>
+<td><p>Tested and read at every sample.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Unresolved</span></code></p></td>
+<td><p>An active operation has no initial value, and no other operation proves the mesh dynamic.</p></td>
+<td><p>Treated as non-static and tested at every sample.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>With the static purge off, the run skips classification and evaluates every matrix at every sample.</p>
+<section id="how-the-classifier-works">
+<h3>How the classifier works<a class="headerlink" href="#how-the-classifier-works" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">OvstageSceneReader::classifyStaticMeshes()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderClassification.cpp</span></code> never
+evaluates the whole timeline. For a file-backed stage:</p>
+<ol class="arabic simple">
+<li><p>It opens a short-lived population with no built-in domains and two selectors: every property in
+the <code class="docutils literal notranslate"><span class="pre">xformOp</span></code> namespace, and <code class="docutils literal notranslate"><span class="pre">xformOpOrder</span></code> with its USD-default (<code class="docutils literal notranslate"><span class="pre">default</span></code>) metadata.</p></li>
+<li><p>It reads the initial values at population <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ordinal</span></a> 1. It records
+each prim’s active ordered operations and which raw operations have a value.</p></li>
+<li><p>It applies the <strong>same</strong> numeric time again at ordinal 2. The time must not change: a later time
+can block a previously valid operation and drop its row.</p></li>
+<li><p>It reads only the raw operation update records between the two ordinals. ovstage publishes an
+update exactly for an initially valued operation with more than one effective composed sample.
+That includes constant animation (equal samples) and excludes a single sample and a default that
+masks weaker samples.</p></li>
+<li><p>It classifies each mesh and destroys the population. Only the mesh-aligned states survive.</p></li>
+</ol>
+<p>Updates of the derived <code class="docutils literal notranslate"><span class="pre">omni:xform</span></code> rows are never an animation signal; only raw <code class="docutils literal notranslate"><span class="pre">xformOp:*</span></code> update
+records count.</p>
+<p>With logging on (<code class="docutils literal notranslate"><span class="pre">RunSettings(enable_log=True)</span></code>), a complete classification prints one line, and the
+population counter shows the single file open and time update:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--ovstage: classified 2 meshes from raw transform update records (1 dynamic)
+--ovstage: classification transform population operations: 1 file, 1 time update
+</pre></div>
+</div>
+</section>
+<section id="classification-rules">
+<h3>Classification rules<a class="headerlink" href="#classification-rules" title="Link to this heading">#</a></h3>
+<p>The rules follow the unchanged OpenUSD reference:</p>
+<ul class="simple">
+<li><p><strong>Active operations only.</strong> The classifier inspects the operations in <code class="docutils literal notranslate"><span class="pre">xformOpOrder</span></code> on the mesh
+and on every ancestor. An authored but unused sampled operation does not make a mesh animated.</p></li>
+<li><p><strong>Inverse operations</strong> (<code class="docutils literal notranslate"><span class="pre">!invert!</span></code> prefix) refer to their underlying attribute.</p></li>
+<li><p><strong>Resets.</strong> <code class="docutils literal notranslate"><span class="pre">!resetXformStack!</span></code> removes the local operations before it. The ancestor walk still
+continues, so a mesh below a reset can only be misclassified away from <code class="docutils literal notranslate"><span class="pre">Static</span></code>.</p></li>
+<li><p><strong>Instances.</strong> <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Instance proxy</span></a> paths resolve through the classification
+population’s own <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">prototype</span></a> map, never through another population’s
+synthetic <code class="docutils literal notranslate"><span class="pre">/__Prototype_*</span></code> names.</p></li>
+<li><p><strong>Dynamic wins.</strong> An updated operation makes the mesh <code class="docutils literal notranslate"><span class="pre">Dynamic</span></code> at once. A missing initial value
+makes it <code class="docutils literal notranslate"><span class="pre">Unresolved</span></code> only when no other active operation proves it dynamic.</p></li>
+<li><p><strong>Missing update rows prove nothing.</strong> They are never treated as proof of static behavior.</p></li>
+<li><p><strong>Errors stay errors.</strong> API failures, malformed rows and synchronization failures fail the run.</p></li>
+<li><p><strong>Arrays in the namespace.</strong> No transform operation holds an array. An array-valued attribute
+such as <code class="docutils literal notranslate"><span class="pre">int[]</span> <span class="pre">xformOp:c</span> <span class="pre">=</span> <span class="pre">[]</span></code> only shares the namespace, so an empty value reads as absent
+instead of failing the run.</p></li>
+</ul>
+</section>
+<section id="existing-stage-attachments">
+<h3>Existing-stage attachments<a class="headerlink" href="#existing-stage-attachments" title="Link to this heading">#</a></h3>
+<p>A Stage attached with <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage()</span></code> and a
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">composition</span></a> is classified like a file-backed stage, from a
+classification population of its own:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">populateStageFromComposition()</span></code> replays the composition into a fresh instance at the query
+start, with the two selectors of <a class="reference internal" href="#how-the-classifier-works">How the classifier works</a> plus the
+root stage metadata. The population seals ordinal 1 for a root alone and 2 after merges
+(<a class="reference internal" href="runtime.html#attached-stage-populations"><span class="std std-ref">Attached-stage populations</span></a>).</p></li>
+<li><p>The prototype map is read at that sealed ordinal from the population itself, and the
+proxy-root check applies as for a file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">applyPopulationTime()</span></code> applies the same time again at the sealed ordinal plus one, and the
+classifier reads the update records between the two ordinals.</p></li>
+<li><p>The capability is never consulted and the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">owner</span></a> is never called.
+Layer opinions take part as in a file: a layer <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Default</span></a> that masks
+weaker samples leaves an operation with no update, and a layer <code class="docutils literal notranslate"><span class="pre">xformOpOrder</span></code> that activates an
+animated operation makes its mesh <code class="docutils literal notranslate"><span class="pre">Dynamic</span></code>.</p></li>
+<li><p>A complete result enables the static purge and prefetch, as for a file.</p></li>
+</ul>
+<p>Without a composition, the attached Stage is classified without another population, but only when
+its binding sets <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code> (Python:
+<code class="docutils literal notranslate"><span class="pre">attach_ovstage(...,</span> <span class="pre">authored_transform_updates=True)</span></code>). The <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> field of
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_binding_t</span></code> carries that bit;
+<a class="reference internal" href="../consumer/ovstage_integration.html#the-binding-descriptor"><span class="std std-ref">The binding descriptor</span></a> lists the
+binding fields, and
+<a class="reference internal" href="../consumer/ovstage_integration.html#authored-transform-updates"><span class="std std-ref">Authored transform updates</span></a> gives
+the owner’s side.</p>
+<ul class="simple">
+<li><p>The owner guarantees complete raw-operation and USD-default-order coverage, and update provenance
+that the population generated and nobody modified.
+<a class="reference download internal" download="" href="../_downloads/5a2030455ff0c65991994a9f5f4f3a3e/ovclash_ovstage.h"><span class="xref download myst">ovclash_ovstage.h</span></a> states the full contract.</p></li>
+<li><p>The classifier records the attached committed ordinal and calls <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> once more at the
+identical finite seconds. It then reads the retained update interval.</p></li>
+<li><p>It fails when that interval is no longer retained, or when the prototype associations changed in
+between.</p></li>
+<li><p>Canonical local and reset writes by the owner do not take part.</p></li>
+<li><p>Without the capability, every attached mesh is <code class="docutils literal notranslate"><span class="pre">Unresolved</span></code>, so it stays non-static.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">tests/sample_app_tests/test_attached_authored_transform_classification.py</span></code> runs the literal
+file-path corpus through one real borrowed owner. Python OpenUSD (<code class="docutils literal notranslate"><span class="pre">pxr</span></code>) imports are blocked, and
+each owner opens its source exactly once.</p>
+</section>
+<section id="fallback-for-unresolved-meshes">
+<h3>Fallback for unresolved meshes<a class="headerlink" href="#fallback-for-unresolved-meshes" title="Link to this heading">#</a></h3>
+<p>When any mesh is <code class="docutils literal notranslate"><span class="pre">Unresolved</span></code>, the run prints this line with logging on:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--ovstage: an active transform op has no initial value; sampling validated numeric matrices while unresolved meshes remain non-static
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">prepareValidatedFallbackMatrices()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageClashPipeline.cpp</span></code> then works like this:</p>
+<ul class="simple">
+<li><p>It samples the matrices of every selected mesh and point cloud at every sample and validates
+them.</p></li>
+<li><p>It keeps the whole timeline in the matrix cache when the cache is on and the estimate fits the
+1 GiB budget. The estimate is <code class="docutils literal notranslate"><span class="pre">(meshes</span> <span class="pre">+</span> <span class="pre">point</span> <span class="pre">clouds)</span> <span class="pre">x</span> <span class="pre">samples</span> <span class="pre">x</span> <span class="pre">128</span></code> bytes. Otherwise playback
+reads the matrices again.</p></li>
+<li><p>It never decides that a mesh is static. Meshes with a conclusive raw <code class="docutils literal notranslate"><span class="pre">Static</span></code> state stay static,
+so a blocked sibling cannot undo another mesh’s classification. All other meshes stay non-static.</p></li>
+<li><p>It does not use the bounded playback windows of
+<a class="reference internal" href="#matrix-windows-during-playback">Matrix windows during playback</a>.</p></li>
+</ul>
+<p>The fallback prevents false-negative purging. It does not claim complete authored-animation parity
+for every composed input.</p>
+</section>
+<section id="matrix-windows-during-playback">
+<h3>Matrix windows during playback<a class="headerlink" href="#matrix-windows-during-playback" title="Link to this heading">#</a></h3>
+<p>After a complete raw classification, playback reads matrices in bounded windows:</p>
+<ul class="simple">
+<li><p><strong>First sample.</strong> It reads the numeric pose of every selected mesh. Even a static mesh with one
+authored sample can differ from its USD-default pose. The context keeps this first pose once
+(<code class="docutils literal notranslate"><span class="pre">dynamic_first_mesh_matrices</span></code>).</p></li>
+<li><p><strong>Later samples.</strong> One numeric read covers the dynamic meshes and then all selected point
+clouds. Each frame stores the dynamic mesh matrices and, in a separate vector, the point-cloud
+matrices. Applying a frame scatters the dynamic rows through the immutable selection indices.</p></li>
+<li><p><strong>Static meshes.</strong> They keep their first numeric world matrix together with the pose, geometry
+scale and bounds computed from it.</p></li>
+</ul>
+<p>Window sizes come from <code class="docutils literal notranslate"><span class="pre">source/DynamicMatrixCacheLimit.h</span></code> and <code class="docutils literal notranslate"><span class="pre">source/OvstageClashContext.h</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Playback</p></th>
+<th class="head"><p>Windows</p></th>
+<th class="head"><p>Frames per window</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Synchronous</p></td>
+<td><p>One</p></td>
+<td><p>Up to 32</p></td>
+</tr>
+<tr class="row-odd"><td><p>With prefetch</p></td>
+<td><p>Current and future</p></td>
+<td><p>Up to 16 each, at most 32 together</p></td>
+</tr>
+<tr class="row-even"><td><p>Cache off, or the budget holds less than one frame</p></td>
+<td><p>One working frame</p></td>
+<td><p>1</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Both windows share the fixed 1 GiB budget (<code class="docutils literal notranslate"><span class="pre">kDynamicMatrixCacheDefaultByteLimit</span></code>). One frame costs
+<code class="docutils literal notranslate"><span class="pre">(dynamic</span> <span class="pre">meshes</span> <span class="pre">+</span> <span class="pre">point</span> <span class="pre">clouds)</span> <span class="pre">x</span> <span class="pre">128</span></code> bytes, one <code class="docutils literal notranslate"><span class="pre">ClashMatrix4d</span></code> per prim. The first poses and the
+current working data are outside that budget.</p>
+<p>Worked example: 2,000 meshes, all dynamic, over 1,000 samples.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Storage</p></th>
+<th class="head"><p>Size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The whole timeline, as the fallback would cache it</p></td>
+<td><p>2,000 x 1,000 x 128 bytes = about 244 MiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>One 32-frame window</p></td>
+<td><p>2,000 x 32 x 128 bytes = about 7.8 MiB</p></td>
+</tr>
+<tr class="row-even"><td><p>The first poses</p></td>
+<td><p>2,000 x 128 bytes = 250 KiB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These are matrix-array sizes, not process peak memory.</p>
+<p>More rules:</p>
+<ul class="simple">
+<li><p><strong>No tuning channel.</strong> No environment variable changes the budget.
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Sentinel</span></a> (<code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code>) and the benchmark harness
+<code class="docutils literal notranslate"><span class="pre">benchmarks.backend_timings</span></code> remove <code class="docutils literal notranslate"><span class="pre">OVCLASH_DYNAMIC_MATRIX_CACHE_MB</span></code> from their child
+environments, so an inherited value never reaches a checked or measured child. The harness builds
+that environment with <code class="docutils literal notranslate"><span class="pre">build_child_environment()</span></code> in <code class="docutils literal notranslate"><span class="pre">benchmarks/backend_timings/child.py</span></code>. Only
+Sentinel’s private engine program (<code class="docutils literal notranslate"><span class="pre">ovclash.sentinel_engine.test</span></code>, built with
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_ENGINE_VALIDATION_OBSERVER</span></code>) selects smaller budgets.</p></li>
+<li><p><strong>Reset.</strong> A query reset or a new selection clears the states and the windows.</p></li>
+<li><p><strong>Direct queries.</strong> A direct numeric matrix query joins the prefetch reader before it uses the
+source. It cannot change frames that were already copied, and it keeps the joined future window
+unless a source failure retires the selection population.</p></li>
+<li><p><strong>Measuring.</strong> Raw classification replaces the whole-timeline classification walk, and the
+matrix reads move into playback. Measure classification and playback together. The windows bound
+memory; they are not a speedup.</p></li>
+</ul>
+</section>
+<section id="floating-point-controls-and-cached-matrices">
+<h3>Floating-point controls and cached matrices<a class="headerlink" href="#floating-point-controls-and-cached-matrices" title="Link to this heading">#</a></h3>
+<p>A copied matrix window remembers the floating-point controls (rounding mode, denormal handling) it
+was composed under:</p>
+<ul class="simple">
+<li><p>Changing the controls between sample steps invalidates a playback window. The whole-timeline
+fallback skips its saved matrices while the controls differ.</p></li>
+<li><p>Accrued floating-point exception flags alone do not invalidate a cache.</p></li>
+<li><p>Applying refreshed matrices keeps each raw-classified static mesh’s first numeric world matrix,
+pose, geometry scale and bounds. <code class="docutils literal notranslate"><span class="pre">Unresolved</span></code> and <code class="docutils literal notranslate"><span class="pre">Dynamic</span></code> meshes and point clouds use the
+current sampled matrices.</p></li>
+</ul>
+<p>Cached and uncached evaluation therefore stay equivalent when a caller changes the controls.</p>
+</section>
+<section id="classification-and-window-tests">
+<h3>Classification and window tests<a class="headerlink" href="#classification-and-window-tests" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Behavior</p></th>
+<th class="head"><p>Test</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Sample thresholds, stronger defaults, constant samples, unused, inverse and reset operations, ancestors, instances, mixed conclusive and blocked selections, an empty array in the operation namespace, clip sample counts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_authored_transform_classification.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Window boundaries, the cache switch, exact poses, motion vectors, point clouds and interleaved direct queries</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_dynamic_matrix_batches.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Compact scalar group decoding</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/native/InstancingGraphReadCases.h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>The same corpus through a real borrowed owner</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/sample_app_tests/test_attached_authored_transform_classification.py</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These predicates are qualified against the pinned ovstage runtime. Run these tests before you
+upgrade it.</p>
+<p><strong>Limitation:</strong> no test cancels deterministically inside a partially filled matrix window. The
+existing cancellation tests and the failed direct-query and retry tests during buffered playback
+cover the adjacent paths.</p>
+</section>
+</section>
+<section id="reusing-transform-setup-and-dynamic-report-storage">
+<h2>Reusing transform setup and dynamic report storage<a class="headerlink" href="#reusing-transform-setup-and-dynamic-report-storage" title="Link to this heading">#</a></h2>
+<section id="the-selected-numeric-read-plan">
+<h3>The selected numeric read plan<a class="headerlink" href="#the-selected-numeric-read-plan" title="Link to this heading">#</a></h3>
+<p>Numeric playback keeps a <code class="docutils literal notranslate"><span class="pre">SelectedNumericTransformPlan</span></code> (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderNumericPlan.cpp</span></code>)
+for the current population and selection. The plan holds:</p>
+<ul class="simple">
+<li><p>the attribute query and its handles;</p></li>
+<li><p>the mapping from every selected path to its numeric operand and instance-root chain;</p></li>
+<li><p>the required-leaf slots and the indexed, slot-based composition plan;</p></li>
+<li><p>dense local matrices, reset flags and presence bits.</p></li>
+</ul>
+<p>The plan recognizes its path list by identity:</p>
+<ul class="simple">
+<li><p>Playback and the prefetch job share one immutable path list for the whole run. A sample that
+passes that list matches the plan in constant time, without comparing or validating paths.</p></li>
+<li><p>Another list is compared with the plan’s list once. An equal shared list replaces the plan’s
+list, so its later reads compare nothing. A different list rebuilds the plan.</p></li>
+</ul>
+<p>Direct matrix queries use temporary full-read plans. They never replace the playback plan.</p>
+</section>
+<section id="incremental-reads">
+<h3>Incremental reads<a class="headerlink" href="#incremental-reads" title="Link to this heading">#</a></h3>
+<p>After a complete snapshot, a read at a later ordinal can request only the rows written since then,
+as long as the runtime still retains that history. <code class="docutils literal notranslate"><span class="pre">readPrepared()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderNumericMatrices.h</span></code> decides:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Situation</p></th>
+<th class="head"><p>Read</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A later ordinal whose history is still retained</p></td>
+<td><p>Delta: only the newer rows</p></td>
+</tr>
+<tr class="row-odd"><td><p>The first read, a rewind, a repeated ordinal or expired history</p></td>
+<td><p>Full snapshot</p></td>
+</tr>
+<tr class="row-even"><td><p>A path appears twice in one delta</p></td>
+<td><p>Full snapshot of the same sealed ordinal</p></td>
+</tr>
+<tr class="row-odd"><td><p>A delta row is masked or empty without a delete</p></td>
+<td><p>Full snapshot of the same sealed ordinal</p></td>
+</tr>
+<tr class="row-even"><td><p>A direct query</p></td>
+<td><p>Always a full snapshot</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rules for every read:</p>
+<ul class="simple">
+<li><p>Returned values update the owned slots. A matrix or reset <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">tombstone</span></a>
+clears its slot.</p></li>
+<li><p>Only a complete, validated read becomes the next reusable snapshot.</p></li>
+<li><p>Every read invalidates the composed worlds. They are recomposed in the same parent-first order
+for each placement, so a delta read changes only how inputs refresh, not the arithmetic or the
+reset semantics.</p></li>
+<li><p>Every present matrix row must hold exactly 16 finite doubles, in full and delta reads alike.</p></li>
+<li><p>An absent optional ancestor row means identity. A selected Mesh or Points leaf still needs its
+numeric row.</p></li>
+<li><p>The numeric population already derives the canonical local and reset rows. Reading them at the
+sealed ordinal skips an ovstage hierarchy pass whose world matrices nobody would use. Default
+selection still reads the world matrices that the runtime publishes.</p></li>
+<li><p>Population replacement destroys the retained queries before their stage.</p></li>
+</ul>
+</section>
+<section id="read-validation-and-cleanup">
+<h3>Read validation and cleanup<a class="headerlink" href="#read-validation-and-cleanup" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A classification or numeric value group may carry an index map or a mask, but not both. A sparse
+group’s declared row count must match the logical row count. No group may have pending CUDA
+synchronization. <code class="docutils literal notranslate"><span class="pre">validateReadGroupMetadata()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderQueries.cpp</span></code> checks
+all three.</p></li>
+<li><p>Invalid metadata fails before any row is read. It is not an ambiguous delta, so it is never
+retried as a full snapshot.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">readAttributeGroups()</span></code> retires the read operation and the read handle independently, before it
+formats a caught exception. A diagnostic allocation failure cannot skip the remaining release, and
+a consumer failure stays the primary error.</p></li>
+<li><p>Instancing metadata extraction (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderGeometryInstancing.cpp</span></code>) applies the
+same rule to its three owners: the operation, the read handle and the query.</p></li>
+</ul>
+<p>Native regressions exercise these paths against forwarded real runtime reads:
+<code class="docutils literal notranslate"><span class="pre">tests/native/InstancingGraphTransformMetadataCases.h</span></code>, <code class="docutils literal notranslate"><span class="pre">InstancingGraphBatchLifetimeCases.h</span></code> and
+<code class="docutils literal notranslate"><span class="pre">InstancingGraphMetadataLifetimeCases.h</span></code>. The graph lifetime regression counts every retirement and
+rereads the same population successfully after a failed read or cleanup.</p>
+</section>
+<section id="matrix-prefetch">
+<h3>Matrix prefetch<a class="headerlink" href="#matrix-prefetch" title="Link to this heading">#</a></h3>
+<p>Time updates on one population stay sequential. Eligible playback can still read the next matrix
+window on a worker while the collision phases process the current one.</p>
+<p>Prefetch runs only when all of these hold (<code class="docutils literal notranslate"><span class="pre">transformPrefetchWindowSize()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageClashContext.h</span></code>, <code class="docutils literal notranslate"><span class="pre">startTransformPrefetch()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageClashTransforms.cpp</span></code>):</p>
+<ul class="simple">
+<li><p>The stage is file-backed, or attached with a composition (<code class="docutils literal notranslate"><span class="pre">ownerEvaluatesTime()</span></code> is false). An
+attached Stage without a composition never prefetches: each sample is the owner’s publication,
+which no reader may run ahead of. A composition’s reader keys its engine population on the
+composition, so <code class="docutils literal notranslate"><span class="pre">TransformPrefetchInputs::stagePath</span></code> stays empty.</p></li>
+<li><p>The raw classification is complete.</p></li>
+<li><p>The matrix cache is on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code> is off, and the selected scheduler allows at least two workers.</p></li>
+<li><p>The 1 GiB budget holds at least two frames.</p></li>
+<li><p>No retained synchronous window is larger than the prefetch window size; such a window must
+expire first.</p></li>
+<li><p>No earlier submission in this run failed. If submission fails, the run continues with reads on
+the owner thread and does not retry.</p></li>
+</ul>
+<p>Scheduling:</p>
+<ul class="simple">
+<li><p>With the new scheduler (<code class="docutils literal notranslate"><span class="pre">new_task_manager=true</span></code>), the job goes to
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Carbonite</span></a> tasking.</p></li>
+<li><p>With the legacy scheduler (<code class="docutils literal notranslate"><span class="pre">new_task_manager=false</span></code>), the collision phases reserve one slot of
+their effective CPU budget for the reader, but only while its callback runs. A completed window
+that waits to be consumed reserves nothing. Example: with <code class="docutils literal notranslate"><span class="pre">nb_tasks</span> <span class="pre">=</span> <span class="pre">8</span></code> and two available CPUs
+(for example a container quota), the budget is 2, so collision phases get one worker while the
+reader runs. <a class="reference internal" href="performance.html#scheduler-and-worker-budget"><span class="std std-ref">Scheduler and worker budget</span></a> gives the
+budget formula.</p></li>
+</ul>
+<p>Ownership (<code class="docutils literal notranslate"><span class="pre">source/TransformMatrixPrefetch.h</span></code>):</p>
+<ul class="simple">
+<li><p>The job owns its copied sample times and its private output arrays. It shares the immutable
+inputs with the context: the stage path, the selected path list, the dynamic mesh indices and the
+point-cloud count.</p></li>
+<li><p>Until the context joins it, the job alone uses the source, including the source’s metrics
+counters. Cached-frame collision work uses only copied matrices and runtime geometry.</p></li>
+<li><p>The context stops and joins the job before a selection or population change, a reset, a memory
+release, destruction and every return from pipeline execution, including failure and
+cancellation.</p></li>
+<li><p>A direct source query (<code class="docutils literal notranslate"><span class="pre">ovclash_get_prim_matrix</span></code>, the immediate queries) only joins the job. The
+copied future window stays usable, even when the query reads an unrelated time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline</span></code> only sets the flag; it does not join.</p></li>
+<li><p>Results and captured exceptions are read only after the join.</p></li>
+<li><p>The worker installs the floating-point controls of the thread that launched it and restores its
+own afterwards. A request for a different sample, or under different controls, discards the
+future window and refills it synchronously.</p></li>
+</ul>
+</section>
+<section id="broad-phase-candidate-order">
+<h3>Broad-phase candidate order<a class="headerlink" href="#broad-phase-candidate-order" title="Link to this heading">#</a></h3>
+<p>The tree split and the per-phase work items are on the
+<a class="reference internal" href="performance.html#the-bvh-rebuild"><span class="std std-ref">performance page</span></a>. This section covers the order of the candidate
+pairs of the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">broad phase</span></a>.</p>
+<ul class="simple">
+<li><p>Mesh broad-phase workers claim 64 meshes at a time and collect their pairs in local chunks, which
+they merge under a lock. The merged candidates arrive in scheduler order.</p></li>
+<li><p>Only the exact whole-sample reuse key reads the candidate order. The duplicate purge does not
+depend on it, and the narrow phase and <code class="docutils literal notranslate"><span class="pre">sortOverlaps()</span></code> restore the canonical result order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">runBroadPhase()</span></code> therefore sorts the candidates only when they can become that key: in a
+reuse-eligible dynamic run whose snapshot, per-mesh key inputs and candidates fit the 8 MiB
+reuse budget. With the duplicate purge on, which can only drop candidates, the snapshot and the
+per-mesh key inputs decide alone. Builds with the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">validation observer</span></a>
+always sort.</p></li>
+</ul>
+<p>Static meshes run no query of their own when all of these hold:</p>
+<ul class="simple">
+<li><p>the static purge is armed;</p></li>
+<li><p>the tolerance is zero;</p></li>
+<li><p>every tree leaf is exact: finite extents and no subnormal coordinates.</p></li>
+</ul>
+<p>The inclusive box test is then symmetric. A moving mesh’s query therefore also reports its hits on
+lower-indexed static meshes, and the candidate set equals the full traversal’s. Observer builds keep
+every query for their <code class="docutils literal notranslate"><span class="pre">StaticPrune</span></code> candidate events.</p>
+<p>Sorting by path:</p>
+<ul class="simple">
+<li><p>Each selection builds lexical path ranks (<code class="docutils literal notranslate"><span class="pre">source/MeshPathOrder.h</span></code>). Equal paths share a rank.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sortBoundsPairs()</span></code> decorates each pair once with its rank key when the decorated copy fits in
+1 MiB. Larger streams, or a failed scratch allocation, use in-place byte radix partitioning with
+bounded stack scratch.</p></li>
+<li><p>A missing rank table or an invalid index falls back to the original path comparator. Equal keys
+keep the numeric mesh-index tie-breaks.</p></li>
+<li><p>Sorting keeps each pair’s orientation and multiplicity. Clearing or replacing the selection
+invalidates the ranks.</p></li>
+<li><p>This keeps the internal order unchanged. It creates no public index-order contract across
+backends.</p></li>
+</ul>
+<p>Previous-frame matrices for motion vectors use dense selection indices with a generation guard, so
+playback never rebuilds path maps.</p>
+</section>
+<section id="shared-dynamic-report-payloads">
+<h3>Shared dynamic report payloads<a class="headerlink" href="#shared-dynamic-report-payloads" title="Link to this heading">#</a></h3>
+<p>In a dynamic run, a pair’s new record shares the previous record’s immutable triangle payload
+when the ordered triangle pairs and the hard-contact membership are identical. Each record keeps
+its own time, counts, distances, depth and current and previous matrices.</p>
+<ul class="simple">
+<li><p>Face indices are built once per shared payload, on first request.</p></li>
+<li><p>Intersection outlines contain hard intersections only. Tolerance (soft) hits add face indices but
+no outline segments.</p></li>
+<li><p>Outlines are built per record, from that record’s saved matrices.</p></li>
+<li><p>The OPENUSD mode builds an outline under the floating-point controls of the thread that requests
+the report, because the OpenUSD reference recomputes every report. The legacy mode replays the
+complete controls saved at detection. The shared triangle-triangle test is sensitive to the
+rounding direction and to subnormal flushing on touching geometry. Replaying detection-time
+controls in the OPENUSD mode would therefore disagree with OpenUSD whenever the two sets of
+controls differ.</p></li>
+<li><p>The previous controls are restored afterwards, also on exceptional exits
+(<code class="docutils literal notranslate"><span class="pre">makeOverlapSegments()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageClashTypes.h</span></code>).</p></li>
+<li><p>Each outline is cached in stable context-owned storage together with its controls. A report under
+other controls builds and keeps another outline, so earlier borrowed buffers stay valid. Callers
+must still release their reports.</p></li>
+</ul>
+<p>Cost:</p>
+<ul class="simple">
+<li><p>Counts-only runs build no outlines and no repeated face arrays.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count</span></code> reads the size of the accumulated groups between samples. It neither
+copies nor sorts the record history. Indexed detail reads publish that history on demand.</p></li>
+<li><p>While the context’s cancellation flag is set, <code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count</span></code> returns 0.
+<code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code> clear the flag. A cancellation that arrives
+after the worker completed makes <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> report an error, but it does not
+delete the results already produced.</p></li>
+<li><p>Requesting every outline still costs work for every distinct record. Include that deferred report
+work when you measure such a client.</p></li>
+<li><p>Payload sharing is exact and per pair. Rapidly changing triangle membership therefore keeps more
+storage than a stationary overlap.</p></li>
+</ul>
+</section>
+<section id="plan-prefetch-and-payload-tests">
+<h3>Plan, prefetch and payload tests<a class="headerlink" href="#plan-prefetch-and-payload-tests" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Behavior</p></th>
+<th class="head"><p>Test</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Exact nested and reset transforms, prepared leaf presence, delta and full snapshot transitions, plan reuse by path-list identity, retained-query lifetimes</p></td>
+<td><p>Native instancing-graph tests: <code class="docutils literal notranslate"><span class="pre">tests/native/TestInstancingGraph.cpp</span></code> and its <code class="docutils literal notranslate"><span class="pre">InstancingGraph*Cases.h</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Lexical rank ties, the radix cutoff, invalid indices</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/native/TestMeshPathOrder.h</span></code> (run by <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeClash.cpp</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Parallel matrix windows, lifecycle interruptions, serial-to-parallel transitions</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_dynamic_matrix_batches.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Full deferred reports and outstanding borrowed buffers</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_dynamic_report_payload_reuse.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>One shared face payload for a repeated triangle stream</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_result_payload_storage.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Preparation scheduler budgets and complete results</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_parallel_phase_results.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Floating-point restoration around matrix windows and deferred outlines</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/native/TestOverlapReportFloatingPoint.cpp</span></code>, <code class="docutils literal notranslate"><span class="pre">tests/native/TestSamplingFloatingPoint.h</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="selection-keys-transform-binding-and-tensor-residency">
+<h2>Selection keys, transform binding and tensor residency<a class="headerlink" href="#selection-keys-transform-binding-and-tensor-residency" title="Link to this heading">#</a></h2>
+<p><strong>Accumulator keys.</strong> The dynamic accumulator groups records by pair identity
+(<code class="docutils literal notranslate"><span class="pre">source/OvstageClashPipeline.cpp</span></code>):</p>
+<ul class="simple">
+<li><p>A mesh-vs-mesh pair uses the ordered <code class="docutils literal notranslate"><span class="pre">(rank0,</span> <span class="pre">rank1)</span></code> path ranks packed into 64 bits.</p></li>
+<li><p>A point-cloud pair, and a mesh pair without a current rank table, uses an owned <code class="docutils literal notranslate"><span class="pre">overlapPathKey()</span></code>
+string: the pair type and both paths.</p></li>
+<li><p>The in-place pair radix sort in <code class="docutils literal notranslate"><span class="pre">source/MeshPathOrder.h</span></code> skips the leading high-rank bytes that
+the selection size proves are zero.</p></li>
+</ul>
+<p><strong>Transform binding.</strong> The selected numeric plan binds world nodes by dense parent slot, not by
+path. After it has bound every node, it calls <code class="docutils literal notranslate"><span class="pre">releaseBindingLookups()</span></code>. Repeated reads keep only
+the dense world graph, the required-leaf indices, the query handles and the row lookup they use.
+Direct matrix queries keep their own path maps and bind on demand.</p>
+<p><strong>Tensor residency.</strong> <a class="reference internal" href="runtime.html#tensor-validation"><span class="std std-ref">Tensor validation</span></a> lists the dtype rules. The
+transform readers add these checks (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderInternal.h</span></code>,
+<code class="docutils literal notranslate"><span class="pre">source/OvstageTensorValidation.h</span></code>):</p>
+<ul class="simple">
+<li><p>An attribute tensor must be CPU-resident (<code class="docutils literal notranslate"><span class="pre">kDLCPU</span></code>). Any other device fails before the payload is
+dereferenced. An empty CUDA synchronization descriptor does not prove that a tensor is on the CPU.</p></li>
+<li><p>A negative tensor rank is invalid metadata.</p></li>
+<li><p>Every present <code class="docutils literal notranslate"><span class="pre">omni:resetXformStack</span></code> row holds exactly one byte. Missing or masked reset rows, and
+tombstones, keep their meaning of absence.</p></li>
+<li><p>Sparse map and mask coverage, and pending CUDA synchronization, are checked as
+<a class="reference internal" href="#read-validation-and-cleanup">Read validation and cleanup</a> describes.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="performance.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Engine Performance Internals</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="source_extraction.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ovstage Source Extraction Internals</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transform-decomposition-is-part-of-result-parity">Transform decomposition is part of result parity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#current-decomposition-modes-and-grazing-contacts">Current decomposition modes and grazing contacts</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-one-stage-two-answers">Example: one stage, two answers</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-mode-change-does">What a mode change does</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#input-and-output-validation">Input and output validation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#reference-tests">Reference tests</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#license-of-the-adaptation">License of the adaptation</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#decomposition-throughput-and-storage">Decomposition throughput and storage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#finite-numeric-transform-reference">Finite numeric transform reference</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#raw-authored-transform-classification-and-deferred-matrix-batches">Raw authored-transform classification and deferred matrix batches</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-the-classifier-works">How the classifier works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-rules">Classification rules</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#existing-stage-attachments">Existing-stage attachments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fallback-for-unresolved-meshes">Fallback for unresolved meshes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-windows-during-playback">Matrix windows during playback</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#floating-point-controls-and-cached-matrices">Floating-point controls and cached matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#classification-and-window-tests">Classification and window tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reusing-transform-setup-and-dynamic-report-storage">Reusing transform setup and dynamic report storage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-selected-numeric-read-plan">The selected numeric read plan</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#incremental-reads">Incremental reads</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-validation-and-cleanup">Read validation and cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-prefetch">Matrix prefetch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#broad-phase-candidate-order">Broad-phase candidate order</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#shared-dynamic-report-payloads">Shared dynamic report payloads</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plan-prefetch-and-payload-tests">Plan, prefetch and payload tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selection-keys-transform-binding-and-tensor-residency">Selection keys, transform binding and tensor residency</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,2484 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinel reference &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/sentinel_reference';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sentinel repository goldens" href="sentinel_goldens.html" />
+    <link rel="prev" title="Sentinel correctness validation" href="sentinel.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Sentinel reference</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sentinel-reference">
+<h1>Sentinel reference<a class="headerlink" href="#sentinel-reference" title="Link to this heading">#</a></h1>
+<p>This page lists every Sentinel command, option, environment variable, evidence file and verdict
+rule. The <a class="reference internal" href="sentinel.html"><span class="std std-doc">Sentinel guide</span></a> explains how a run works and how to use it, and its
+<a class="reference internal" href="sentinel.html#glossary"><span class="std std-ref">glossary</span></a> defines the Sentinel terms used here, such as driver, campaign
+child, cell and golden. <a class="reference internal" href="sentinel_goldens.html"><span class="std std-doc">Sentinel goldens</span></a> owns the <code class="docutils literal notranslate"><span class="pre">goldens</span></code> commands.</p>
+<p>Paths are relative to the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> directory. <code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;</span></code> is the <code class="docutils literal notranslate"><span class="pre">evidence/</span></code> directory of
+one run, which the run prints on its <code class="docutils literal notranslate"><span class="pre">Results:</span></code> line.</p>
+<section id="launchers">
+<h2>Launchers<a class="headerlink" href="#launchers" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">test_sentinel.bat</span></code> (Windows <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>) and <code class="docutils literal notranslate"><span class="pre">test_sentinel.sh</span></code> (Linux) take the same arguments.
+They select a Python interpreter and run the driver, <code class="docutils literal notranslate"><span class="pre">scripts/sentinel_ci.py</span></code>, with every
+argument unchanged.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>test_sentinel.bat [COMMAND] [OPTIONS]
+./test_sentinel.sh [COMMAND] [OPTIONS]
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>With no command, the launcher runs <code class="docutils literal notranslate"><span class="pre">run</span></code>. A first argument that is a <code class="docutils literal notranslate"><span class="pre">run</span></code> option also means
+<code class="docutils literal notranslate"><span class="pre">run</span></code>, so <code class="docutils literal notranslate"><span class="pre">test_sentinel.bat</span> <span class="pre">--backend</span> <span class="pre">openusd</span></code> equals <code class="docutils literal notranslate"><span class="pre">test_sentinel.bat</span> <span class="pre">run</span> <span class="pre">--backend</span> <span class="pre">openusd</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--version</span></code> prints <code class="docutils literal notranslate"><span class="pre">ovclash</span> <span class="pre">&lt;VERSION&gt;</span></code> from the <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> file without starting Python. It
+works alone, after a command (<code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">--version</span></code>) and after a <code class="docutils literal notranslate"><span class="pre">goldens</span></code> subcommand
+(<code class="docutils literal notranslate"><span class="pre">goldens</span> <span class="pre">verify</span> <span class="pre">--version</span></code>).</p></li>
+<li><p>The launchers set <code class="docutils literal notranslate"><span class="pre">PYTHONNOUSERSITE=1</span></code> and <code class="docutils literal notranslate"><span class="pre">PYTHONUNBUFFERED=1</span></code> unless they are already set.</p></li>
+</ul>
+<section id="python-selection">
+<h3>Python selection<a class="headerlink" href="#python-selection" title="Link to this heading">#</a></h3>
+<p>The launcher uses the first interpreter that exists:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">_build/deps/target-deps/python</span></code> of the launcher’s own checkout.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python-runtime/</span></code> of the <a class="reference internal" href="sentinel.html#portable-input-bundles"><span class="std std-ref">portable input bundle</span></a> that
+<code class="docutils literal notranslate"><span class="pre">--inputs</span></code> names. Without <code class="docutils literal notranslate"><span class="pre">--inputs</span></code>, the default bundle
+<code class="docutils literal notranslate"><span class="pre">_build/portable-inputs/&lt;backend&gt;/&lt;configuration&gt;</span></code> is tried.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash/_build/deps/target-deps/python</span></code> of the tree that <code class="docutils literal notranslate"><span class="pre">--source-root</span></code> selects.</p></li>
+<li><p>Only for commands other than <code class="docutils literal notranslate"><span class="pre">run</span></code>: <code class="docutils literal notranslate"><span class="pre">python-runtime/</span></code> of any staged bundle under
+<code class="docutils literal notranslate"><span class="pre">_build/portable-inputs/{ovstage,openusd}/{Release,Debug}</span></code>.</p></li>
+</ol>
+<p>The launcher reads <code class="docutils literal notranslate"><span class="pre">&lt;backend&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code> from <code class="docutils literal notranslate"><span class="pre">--backend</span></code> and <code class="docutils literal notranslate"><span class="pre">--configuration</span></code>, then
+from <code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_BACKEND</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_CONFIG</span></code>, then uses <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Release</span></code>. The <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">backend</span></a> is <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> or <code class="docutils literal notranslate"><span class="pre">openusd</span></code>, for the
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">ovstage and OpenUSD</span></a> builds.</p>
+<p>When no interpreter exists:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Request</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Any request with <code class="docutils literal notranslate"><span class="pre">--help</span></code> or <code class="docutils literal notranslate"><span class="pre">-h</span></code></p></td>
+<td><p>Prints the short overview shown at the end of <a class="reference internal" href="#python-selection">Python selection</a> and exits 0.</p></td>
+</tr>
+<tr class="row-odd"><td><p>A command other than <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Prints <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">existing</span> <span class="pre">build</span> <span class="pre">and</span> <span class="pre">Python</span> <span class="pre">runtime</span> <span class="pre">for</span> <span class="pre">this</span> <span class="pre">command.</span></code> and exits 1.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code> with an explicit <code class="docutils literal notranslate"><span class="pre">--inputs</span></code></p></td>
+<td><p>Prints <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">portable</span> <span class="pre">inputs</span> <span class="pre">lack</span> <span class="pre">a</span> <span class="pre">Python</span> <span class="pre">runtime;</span> <span class="pre">regenerate</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">bundle.</span></code> and exits 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code> with an unsupported backend or configuration</p></td>
+<td><p>Exits 2.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Runs the bootstrap build <code class="docutils literal notranslate"><span class="pre">build_&lt;backend&gt;</span> <span class="pre">--release</span> <span class="pre">--validate</span></code> (or <code class="docutils literal notranslate"><span class="pre">--debug</span></code>) in the source tree, then uses that tree’s interpreter.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The bootstrap build prints its output on the console and writes no Sentinel evidence. It ignores
+<code class="docutils literal notranslate"><span class="pre">--preparation-timeout</span></code>. If it fails, the launcher exits with the build’s exit code. If the build
+passes but provides no interpreter, the launcher prints
+<code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">build</span> <span class="pre">did</span> <span class="pre">not</span> <span class="pre">provide</span> <span class="pre">its</span> <span class="pre">Python</span> <span class="pre">runtime.</span></code> and exits 1. Like the automatic builds that
+Sentinel itself starts, the bootstrap build keeps the <code class="docutils literal notranslate"><span class="pre">test_python_runtime</span></code> validation step; see
+<a class="reference internal" href="sentinel.html#automatic-input-preparation"><span class="std std-ref">automatic input preparation</span></a>.</p>
+<p>The short overview, here from <code class="docutils literal notranslate"><span class="pre">test_sentinel.sh</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Sentinel validates ovclash engine behavior and serialization.
+Usage: ./test_sentinel.sh [run] [--backend ovstage|openusd] [--configuration Release|Debug] [--output PATH]
+Defaults: run --backend ovstage --configuration Release, writing a new directory under _build/sentinel
+OVCLASH_VALIDATION_BACKEND and OVCLASH_VALIDATION_CONFIG override the backend and configuration defaults.
+Missing local inputs are built automatically; --inputs PATH selects an existing portable bundle.
+Runs print startup arguments and settings; --verbose adds case parameters, golden files and evidence paths.
+Full command help is available after the first build provides Python.
+</pre></div>
+</div>
+</section>
+</section>
+<section id="commands">
+<h2>Commands<a class="headerlink" href="#commands" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Validate the selected installed SDK (the content of an <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>): <a class="reference internal" href="sentinel.html#native-controls"><span class="std std-ref">native controls</span></a>, serialization and engine <a class="reference internal" href="sentinel.html#glossary"><span class="std std-ref">cells</span></a>, compared with repository goldens. The default command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-tests</span></code></p></td>
+<td><p>Run Sentinel’s Python controller and checker tests without loading the SDK.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check-native-tests</span></code></p></td>
+<td><p>Run the <code class="docutils literal notranslate"><span class="pre">capture</span></code> controls of an existing <code class="docutils literal notranslate"><span class="pre">ovclash_sentinel</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-engine-native-tests</span></code></p></td>
+<td><p>Run the <code class="docutils literal notranslate"><span class="pre">capture</span></code> and <code class="docutils literal notranslate"><span class="pre">scenario</span></code> controls, the shared-stage controls and the option composite controls.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check-fp-native-tests</span></code></p></td>
+<td><p>Run the <code class="docutils literal notranslate"><span class="pre">fp-scenario</span></code> controls.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-observer-native-tests</span></code></p></td>
+<td><p>Run the ovstage <a class="reference internal" href="sentinel.html#glossary"><span class="std std-ref">observer controls</span></a> and their public/private equality checks.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">goldens</span></code></p></td>
+<td><p>Propose, accept, verify and maintain repository goldens; see <a class="reference internal" href="sentinel_goldens.html#goldens-command-reference"><span class="std std-ref">Sentinel goldens</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">COMMAND</span> <span class="pre">--help</span></code> lists a command’s options. <code class="docutils literal notranslate"><span class="pre">run</span> <span class="pre">--help</span></code> also shows preparation examples and the
+main result paths. Every command accepts <code class="docutils literal notranslate"><span class="pre">--version</span></code> and <code class="docutils literal notranslate"><span class="pre">-h</span></code>/<code class="docutils literal notranslate"><span class="pre">--help</span></code>.</p>
+</section>
+<section id="run-options">
+<h2><code class="docutils literal notranslate"><span class="pre">run</span></code> options<a class="headerlink" href="#run-options" title="Link to this heading">#</a></h2>
+<p>After the run-start banner, <code class="docutils literal notranslate"><span class="pre">run</span></code> prints <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">settings:</span></code> in both verbosity modes, before
+semantic startup checks, output-directory admission and preparation. <code class="docutils literal notranslate"><span class="pre">Arguments:</span></code> records command
+arguments as JSON; <code class="docutils literal notranslate"><span class="pre">Environment:</span></code>, when present, shows set variables from the validation, color,
+parallelism and CI-deadline allowlist. <code class="docutils literal notranslate"><span class="pre">Effective</span> <span class="pre">settings:</span></code> lists the resolved run options,
+including the CPU-bounded worker count and <code class="docutils literal notranslate"><span class="pre">Configured</span> <span class="pre">campaign</span> <span class="pre">cap</span> <span class="pre">(seconds)</span></code>. That cap can shrink
+against the remaining CI budget and publication reserve. <code class="docutils literal notranslate"><span class="pre">Repository</span> <span class="pre">inputs:</span></code> names the case
+files, golden root, contracts and controller Python. If settings resolution or encoding fails,
+<code class="docutils literal notranslate"><span class="pre">Settings</span> <span class="pre">unavailable</span></code> gives only the exception type; raw arguments and allowlisted environment
+values remain visible and normal validation proceeds. See
+<a class="reference internal" href="sentinel.html#console-output"><span class="std std-ref">console output</span></a> for the complete order and examples.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--source-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p>The repository root above the launcher’s <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code></p></td>
+<td><p>Source tree that contains <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>: a Git checkout or an export without Git metadata. A relative path resolves against the current directory, and <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code> selects it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">PATH</span></code></p></td>
+<td><p>A new <code class="docutils literal notranslate"><span class="pre">_build/sentinel/&lt;UTC</span> <span class="pre">time&gt;-&lt;backend&gt;-&lt;configuration&gt;</span></code> in the launcher’s <code class="docutils literal notranslate"><span class="pre">ovclash</span></code></p></td>
+<td><p>Results directory. It must be new or empty.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">{ovstage,openusd}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_BACKEND</span></code>, else <code class="docutils literal notranslate"><span class="pre">ovstage</span></code></p></td>
+<td><p>SDK backend. It must match the selected inputs.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--configuration</span> <span class="pre">{Release,Debug}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_CONFIG</span></code>, else <code class="docutils literal notranslate"><span class="pre">Release</span></code></p></td>
+<td><p>SDK build configuration. It must match the selected inputs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--inputs</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Local outputs: <code class="docutils literal notranslate"><span class="pre">ovclash/_build/sentinel-local/&lt;backend&gt;/&lt;configuration&gt;</span></code> of the source tree</p></td>
+<td><p>Existing portable input bundle, staged with the Sentinel helpers. A bundle never triggers a build.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--verbose</span></code>, <code class="docutils literal notranslate"><span class="pre">--no-verbose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--no-verbose</span></code></p></td>
+<td><p>Also print <code class="docutils literal notranslate"><span class="pre">INFO</span></code> observations, every <code class="docutils literal notranslate"><span class="pre">START</span></code> line, complete selected engine-cell plans and settings, evidence directories, actual and expected golden paths, live and historical serialization details, command arguments and raw child output. Startup arguments and effective settings print in both modes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--engine-profile</span> <span class="pre">{mr,extended}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_ENGINE_PROFILE</span></code>, else <code class="docutils literal notranslate"><span class="pre">OVCLASH_EQ_ENGINE_PROFILE</span></code>, else <code class="docutils literal notranslate"><span class="pre">mr</span></code></p></td>
+<td><p>Engine profile; see <a class="reference internal" href="sentinel.html#declared-combinations-and-coverage-limits"><span class="std std-ref">declared combinations</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--engine-workers</span> <span class="pre">{1,2,3,4}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Concurrent producers for ordinary serial engine cells, capped by the available CPUs.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7200</span></code></p></td>
+<td><p>Deadline of each owned control command. A native target control uses the smaller of its own deadline and this value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--preparation-timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7200</span></code></p></td>
+<td><p>Shared budget for startup input preparation and every control before the campaign. It is also the deadline of each automatic build.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--scenario-timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">120</span></code></p></td>
+<td><p>Deadline of each serialization command. A batch of N requests gets (N + 1) times this value. Engine cells keep their declared deadlines.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--differential-timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">14400</span></code> for <code class="docutils literal notranslate"><span class="pre">mr</span></code>, <code class="docutils literal notranslate"><span class="pre">18000</span></code> for <code class="docutils literal notranslate"><span class="pre">extended</span></code></p></td>
+<td><p>Configured cap for the campaign child, <code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code>, further bounded by the remaining outer budget and publication reserve.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rules:</p>
+<ul class="simple">
+<li><p>Every timeout must be positive and finite. Otherwise the run fails with
+<code class="docutils literal notranslate"><span class="pre">timeouts</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">positive</span></code>.</p></li>
+<li><p>A backend or configuration from the environment that is not allowed fails with an argument
+error, for example
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_BACKEND/--backend</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">ovstage</span> <span class="pre">or</span> <span class="pre">openusd,</span> <span class="pre">not</span> <span class="pre">'usd'</span></code>.</p></li>
+<li><p>When <code class="docutils literal notranslate"><span class="pre">--engine-profile</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_ENGINE_PROFILE</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_EQ_ENGINE_PROFILE</span></code>
+set different values, the run fails with
+<code class="docutils literal notranslate"><span class="pre">Conflicting</span> <span class="pre">validation</span> <span class="pre">input</span> <span class="pre">(conflict):</span> <span class="pre">ENGINE_PROFILE</span></code>.</p></li>
+<li><p>An explicit <code class="docutils literal notranslate"><span class="pre">--output</span></code> that exists and is not empty fails with
+<code class="docutils literal notranslate"><span class="pre">Evidence</span> <span class="pre">directory</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">empty:</span> <span class="pre">&lt;path&gt;;</span> <span class="pre">remove</span> <span class="pre">it</span> <span class="pre">or</span> <span class="pre">pass</span> <span class="pre">--output</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">directory</span></code>.</p></li>
+<li><p>A default results directory that already exists for the same second gets a <code class="docutils literal notranslate"><span class="pre">-2</span></code>, <code class="docutils literal notranslate"><span class="pre">-3</span></code>, …
+suffix.</p></li>
+<li><p>The driver refuses to run with Python assertions disabled (<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-O</span></code>):
+<code class="docutils literal notranslate"><span class="pre">CI</span> <span class="pre">gate</span> <span class="pre">requires</span> <span class="pre">assertions</span> <span class="pre">enabled</span></code>.</p></li>
+</ul>
+<section id="deadline-budget">
+<h3>Deadline budget<a class="headerlink" href="#deadline-budget" title="Link to this heading">#</a></h3>
+<p>Every <code class="docutils literal notranslate"><span class="pre">run</span></code> works inside one budget:</p>
+<ul class="simple">
+<li><p>The outer budget is six hours. Fifteen minutes of it are reserved for publishing evidence.</p></li>
+<li><p>The preparation phase covers startup input preparation and every control before the campaign.
+<code class="docutils literal notranslate"><span class="pre">--preparation-timeout</span></code> bounds it.</p></li>
+<li><p>The campaign phase covers the campaign child. <code class="docutils literal notranslate"><span class="pre">--differential-timeout</span></code> bounds it.</p></li>
+<li><p>Each command’s deadline is the smallest of its own deadline, the rest of its phase and the
+rest of the outer budget.</p></li>
+</ul>
+<p>An exhausted phase fails with
+<code class="docutils literal notranslate"><span class="pre">Validation</span> <span class="pre">preparation</span> <span class="pre">budget</span> <span class="pre">exhausted;</span> <span class="pre">publication</span> <span class="pre">reserve</span> <span class="pre">is</span> <span class="pre">protected</span></code> (or <code class="docutils literal notranslate"><span class="pre">campaign</span></code>).
+<code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code> records the budget in <code class="docutils literal notranslate"><span class="pre">deadline_budget</span></code>.</p>
+</section>
+<section id="environment-variables">
+<h3>Environment variables<a class="headerlink" href="#environment-variables" title="Link to this heading">#</a></h3>
+<p>Every variable is optional. For the <code class="docutils literal notranslate"><span class="pre">OVCLASH_*</span></code> variables and <code class="docutils literal notranslate"><span class="pre">NO_COLOR</span></code>, an empty value counts
+as unset.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Read by</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_BACKEND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code>, <code class="docutils literal notranslate"><span class="pre">openusd</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code></p></td>
+<td><p>Launchers, <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Default backend. Another value fails with an argument error.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_CONFIG</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code>, <code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code></p></td>
+<td><p>Launchers, <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Default configuration. Another value fails with an argument error.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_ENGINE_PROFILE</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_EQ_ENGINE_PROFILE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mr</span></code>, <code class="docutils literal notranslate"><span class="pre">extended</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mr</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>Engine profile. <code class="docutils literal notranslate"><span class="pre">OVCLASH_EQ_ENGINE_PROFILE</span></code> is the legacy name. Set values, and <code class="docutils literal notranslate"><span class="pre">--engine-profile</span></code>, must agree.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATE_EXCLUDE_TARGETS</span></code></p></td>
+<td><p>Validation step names, separated by spaces or semicolons</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Launchers, <code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>An automatic <code class="docutils literal notranslate"><span class="pre">--validate</span></code> build removes <code class="docutils literal notranslate"><span class="pre">test_python_runtime</span></code> from this list for that build only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_PARALLEL_TESTS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, <code class="docutils literal notranslate"><span class="pre">NO</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code> (any case) for one worker; any other value for parallel workers</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">check-tests</span></code></p></td>
+<td><p>Default checker workers; see <a class="reference internal" href="#check-tests-options"><code class="docutils literal notranslate"><span class="pre">check-tests</span></code> options</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_PARALLEL_JOBS</span></code></p></td>
+<td><p>A positive integer</p></td>
+<td><p>No</p></td>
+<td><p>Unset: all available CPUs</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">check-tests</span></code></p></td>
+<td><p>Default checker worker count when <code class="docutils literal notranslate"><span class="pre">OVCLASH_PARALLEL_TESTS</span></code> allows parallel workers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_TEST_TEMP_ROOT</span></code></p></td>
+<td><p>A directory path, relative to <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> or absolute</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_build/test_tmp</span></code></p></td>
+<td><p>Golden comparison</p></td>
+<td><p>Root of the temporary golden extraction directories.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NO_COLOR</span></code></p></td>
+<td><p>Any nonempty value</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Console</p></td>
+<td><p>Disables color.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TERM</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dumb</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Inherited</p></td>
+<td><p>Console</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dumb</span></code> disables color.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">GENERATOR</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vs</span></code>, <code class="docutils literal notranslate"><span class="pre">ninja</span></code> (Windows)</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">vs</span></code></p></td>
+<td><p>Automatic builds</p></td>
+<td><p>Inherited by the build wrappers; see <a class="reference internal" href="../local_development.html#wrapper-flags"><span class="std std-ref">wrapper flags</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Sentinel sets these for its own children; do not set them yourself:
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_NATIVE_TEST_DATA</span></code> (native fixture directory), <code class="docutils literal notranslate"><span class="pre">MSBUILDDISABLENODEREUSE=1</span></code> (Windows
+automatic builds) and <code class="docutils literal notranslate"><span class="pre">OVCLASH_DOCKER_CONTAINER_NAME</span></code> (Linux automatic builds; it names a
+build container where the wrapper uses one).</p>
+</section>
+</section>
+<section id="check-tests-options">
+<h2><code class="docutils literal notranslate"><span class="pre">check-tests</span></code> options<a class="headerlink" href="#check-tests-options" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Required</p></td>
+<td><p>Checker accounting JSON. The evidence of the checker <a class="reference internal" href="sentinel.html#glossary"><span class="std std-ref">shards</span></a> goes to a directory with the same stem and a <code class="docutils literal notranslate"><span class="pre">.modules</span></code> suffix. Neither may exist yet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--source-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p>The repository root above the launcher’s <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code></p></td>
+<td><p>Source tree whose checker modules run.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--check-workers</span> <span class="pre">N</span></code></p></td>
+<td><p>1 when <code class="docutils literal notranslate"><span class="pre">OVCLASH_PARALLEL_TESTS</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">OFF</span></code>, <code class="docutils literal notranslate"><span class="pre">NO</span></code> or <code class="docutils literal notranslate"><span class="pre">FALSE</span></code>; else <code class="docutils literal notranslate"><span class="pre">OVCLASH_PARALLEL_JOBS</span></code>; else all available CPUs</p></td>
+<td><p>Concurrent shard processes. The available CPUs and the shard count always cap it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--durations-dir</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Timing cache for shard planning. It never selects or skips tests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--budget-seconds</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">8</span></code></p></td>
+<td><p>Target wall time per shard. It applies only to modules with recorded timings and is not a timeout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--fallback-shard-size</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Test methods per shard, counted from source. <code class="docutils literal notranslate"><span class="pre">0</span></code> splits a module only by recorded timings or a declared minimum.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--max-shards</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Per-module shard cap. <code class="docutils literal notranslate"><span class="pre">0</span></code> means no cap.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--allow-skips</span></code></p></td>
+<td><p>Off</p></td>
+<td><p>Accept unittest skips. Skips stay counted and reported.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">7200</span></code></p></td>
+<td><p>Deadline of the whole checker run.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The output file holds four counts:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;errors&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;failures&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;skips&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;tests&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1594</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This accounting JSON is also the <code class="docutils literal notranslate"><span class="pre">--output</span></code> of the
+<a class="reference internal" href="#native-control-commands">native control commands</a>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tests</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Tests run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">failures</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Failed tests. For <code class="docutils literal notranslate"><span class="pre">check-tests</span></code> it also counts unexpected successes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">errors</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Tests that raised an error. For <code class="docutils literal notranslate"><span class="pre">check-tests</span></code> it also counts modules or shards without a valid result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">skips</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Skipped tests. A skip fails <code class="docutils literal notranslate"><span class="pre">check-tests</span></code> without <code class="docutils literal notranslate"><span class="pre">--allow-skips</span></code>, and always fails a native control command.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">.modules</span></code> directory keeps the complete accounting:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>checkers.modules/
+  request.json               caller request: modules, workers, deadlines, skip policy
+  planned-request.json       the request with the planned shard counts
+  plan.json                  shared shard plan
+  progress.json              launched and completed shards
+  summary.json               per-module and per-group results and the final status
+  0000-test_process_tree/    one directory per module: index in sorted order and stem
+    output.log  result.json  durations.json
+  0080-test_sentinel_goldens/0002-of-0003/   one directory per shard of a split module
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="sentinel.html#checker-tests"><span class="std std-ref">checker tests</span></a> section of the guide shows the console output.</p>
+</section>
+<section id="native-control-commands">
+<h2>Native control commands<a class="headerlink" href="#native-control-commands" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">run</span></code> starts these commands as numbered checks, with the selected SDK’s environment. They are
+building blocks of <code class="docutils literal notranslate"><span class="pre">run</span></code>, not standalone tests.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Required options</p></th>
+<th class="head"><p>Test modules in <code class="docutils literal notranslate"><span class="pre">tests/sentinel/</span></code></p></th>
+<th class="head"><p>Retained evidence</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check-native-tests</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--capture</span> <span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_native_capture.py</span></code></p></td>
+<td><p>None beyond <code class="docutils literal notranslate"><span class="pre">--output</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-engine-native-tests</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--capture</span> <span class="pre">PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">--scenario</span> <span class="pre">PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">{ovstage,openusd}</span></code>, <code class="docutils literal notranslate"><span class="pre">--configuration</span> <span class="pre">{Release,Debug}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_native_engine.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_native_scenario_batch.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_native_option_composite.py</span></code></p></td>
+<td><p>None beyond <code class="docutils literal notranslate"><span class="pre">--output</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check-fp-native-tests</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--fp-scenario</span> <span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_native_fp.py</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--output</span></code> path without its suffix.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-observer-native-tests</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--observer</span> <span class="pre">PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">--scenario</span> <span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">test_native_observer.py</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--output</span></code> path without its suffix.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every command also takes <code class="docutils literal notranslate"><span class="pre">--source-root</span> <span class="pre">PATH</span></code> and requires <code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">PATH</span></code>, the
+<a class="reference internal" href="#check-tests-options">accounting JSON</a> of <code class="docutils literal notranslate"><span class="pre">check-tests</span></code>. A command fails with
+<code class="docutils literal notranslate"><span class="pre">Checker</span> <span class="pre">tests</span> <span class="pre">failed,</span> <span class="pre">skipped,</span> <span class="pre">or</span> <span class="pre">discovered</span> <span class="pre">no</span> <span class="pre">tests</span></code> when any test fails, any test is skipped
+or no test runs. <code class="docutils literal notranslate"><span class="pre">check-engine-native-tests</span></code> also requires each of its three modules to
+discover tests.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--capture</span></code>, <code class="docutils literal notranslate"><span class="pre">--scenario</span></code> and <code class="docutils literal notranslate"><span class="pre">--fp-scenario</span></code> name an existing <code class="docutils literal notranslate"><span class="pre">ovclash_sentinel</span></code> executable;
+<code class="docutils literal notranslate"><span class="pre">--observer</span></code> names <code class="docutils literal notranslate"><span class="pre">ovclash.sentinel_engine.test</span></code> (ovstage only). The executables load the SDK
+from the environment that <code class="docutils literal notranslate"><span class="pre">run</span></code> builds (<code class="docutils literal notranslate"><span class="pre">child_environment</span></code> in <code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code>:
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_DLL_DIRS</span></code>, <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> and the OpenUSD plugin path). A direct
+invocation without that environment fails. The command lines that a run used are in
+<code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/commands.json</span></code>.</p>
+</section>
+<section id="scripts-run-sentinel-py-options">
+<h2><code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code> options<a class="headerlink" href="#scripts-run-sentinel-py-options" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code> is the campaign child that <code class="docutils literal notranslate"><span class="pre">run</span></code> starts (label <code class="docutils literal notranslate"><span class="pre">small-differential</span></code>).
+Use <code class="docutils literal notranslate"><span class="pre">test_sentinel.*</span> <span class="pre">run</span></code> for validation: it selects the inputs and passes these options for you.
+The campaign child accepts:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-install</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Required</p></td>
+<td><p>Installed SDK root.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-build-manifest</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Required</p></td>
+<td><p>Verified build manifest (<code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/candidate-build/manifest.json</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-python-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Python package root of the SDK.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-runtime-dir</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None; repeatable</p></td>
+<td><p>Extra runtime directory. It must not contain another <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> library.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-capture</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_sentinel</span></code> executable. Required for live cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--candidate-consumer-provenance</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Consumer metadata (<code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/candidate-capture-provenance.json</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--usd-python-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p><a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> dependency root with <code class="docutils literal notranslate"><span class="pre">lib/python/pxr</span></code>. <code class="docutils literal notranslate"><span class="pre">run</span></code> passes it for the OpenUSD backend.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--scene-oracle-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The OpenUSD dependency root of the independent OpenUSD oracle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--native-components</span> <span class="pre">PATH</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Native control receipts (<code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/native-components.json</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--golden-root</span> <span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/sentinel/goldens</span></code></p></td>
+<td><p>Golden catalog.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">{ovstage,openusd}</span></code></p></td>
+<td><p>Required</p></td>
+<td><p>SDK backend.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--configuration</span> <span class="pre">{Release,Debug}</span></code></p></td>
+<td><p>None</p></td>
+<td><p>SDK configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">{synthetic,live,local}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">synthetic</span></code></p></td>
+<td><p>Serialization comparisons: synthetic records, live cases, or both. Golden database reads always run. <code class="docutils literal notranslate"><span class="pre">run</span></code> passes <code class="docutils literal notranslate"><span class="pre">local</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--cases</span> <span class="pre">PATH</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tests/sentinel/cases.json</span></code></p></td>
+<td><p>Live case inventory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--case</span> <span class="pre">ID</span></code></p></td>
+<td><p>All cases; repeatable</p></td>
+<td><p>Run only the named live cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--seeds</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6</span></code></p></td>
+<td><p>Synthetic record seeds. <code class="docutils literal notranslate"><span class="pre">run</span></code> passes 6 for <code class="docutils literal notranslate"><span class="pre">mr</span></code> and 100 for <code class="docutils literal notranslate"><span class="pre">extended</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--execution-mode</span> <span class="pre">{batch,isolated}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">batch</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">batch</span></code> runs all live writes in one process and all live reads in another. <code class="docutils literal notranslate"><span class="pre">isolated</span></code> starts one process per operation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--engine-profile</span> <span class="pre">{mr,extended}</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Also run the engine campaign.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--engine-workers</span> <span class="pre">{1,2,3,4}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">2</span></code></p></td>
+<td><p>Concurrent ordinary serial engine producers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--performance</span></code>, <code class="docutils literal notranslate"><span class="pre">--no-performance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--performance</span></code></p></td>
+<td><p>Record observational native metrics.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--verbose</span></code>, <code class="docutils literal notranslate"><span class="pre">--no-verbose</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--no-verbose</span></code></p></td>
+<td><p>Also print <code class="docutils literal notranslate"><span class="pre">DETAIL</span></code> lines.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--python</span> <span class="pre">PATH</span></code></p></td>
+<td><p>The running interpreter</p></td>
+<td><p>Interpreter for writer and reader processes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--timeout</span> <span class="pre">SECONDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3600</span></code></p></td>
+<td><p>Deadline of each serialization command. <code class="docutils literal notranslate"><span class="pre">run</span></code> passes <code class="docutils literal notranslate"><span class="pre">--scenario-timeout</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">PATH</span></code></p></td>
+<td><p>Required</p></td>
+<td><p>New or empty results directory.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--seeds</span></code> and <code class="docutils literal notranslate"><span class="pre">--timeout</span></code> must be positive.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--engine-profile</span></code> also requires <code class="docutils literal notranslate"><span class="pre">--configuration</span></code>, <code class="docutils literal notranslate"><span class="pre">--scene-oracle-root</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--native-components</span></code> and <code class="docutils literal notranslate"><span class="pre">--candidate-consumer-provenance</span></code>.</p></li>
+<li><p>The engine campaign requires <code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">local</span></code>, no <code class="docutils literal notranslate"><span class="pre">--case</span></code> and a seed count of 6, 100 or
+1000.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">run</span></code> also passes hidden options that bind the child to its frozen plan: <code class="docutils literal notranslate"><span class="pre">--progress-plan</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--progress-offset</span></code> and <code class="docutils literal notranslate"><span class="pre">--progress-events</span></code>.</p></li>
+</ul>
+<p>The campaign child exits 0 when its summary status is <code class="docutils literal notranslate"><span class="pre">PASS</span></code> and 1 otherwise. When it completes
+its summary, its last line is one JSON object:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>The summary status of <code class="docutils literal notranslate"><span class="pre">differential/summary.json</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">completed_cells</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Completed serialization comparison cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Total campaign time.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">seeds</span></code> (integer) and <code class="docutils literal notranslate"><span class="pre">live_cases</span></code> (integer)</p></td>
+<td><p>The launched synthetic seed count and number of live cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">release_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>A campaign never completes a release gate: release qualification needs evidence that Sentinel does not produce; see <a class="reference internal" href="sentinel.html#limits"><span class="std std-ref">limits</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">output</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The campaign’s output directory.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A campaign that an error ends prints <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">failed:</span> <span class="pre">&lt;error&gt;</span></code> on standard error instead.</p>
+</section>
+<section id="evidence-layout">
+<h2>Evidence layout<a class="headerlink" href="#evidence-layout" title="Link to this heading">#</a></h2>
+<p>A run writes everything inside its results directory. The default is
+<code class="docutils literal notranslate"><span class="pre">_build/sentinel/&lt;UTC</span> <span class="pre">time&gt;-&lt;backend&gt;-&lt;configuration&gt;/</span></code>; <code class="docutils literal notranslate"><span class="pre">--output</span></code> selects another one.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>evidence/
+  gate-summary.json              combined verdict and accounting
+  junit.xml                      JUnit report for CI test reports
+  commands.json                  every owned command of the driver
+  progress-plan.json             frozen global task list
+  campaign-progress.jsonl        progress events of the campaign child
+  performance.json, performance.csv
+  candidate-build/manifest.json  selected build manifest
+  candidate-capture-provenance.json
+  candidate-native-tests.json, candidate-engine-native-tests.json, candidate-fp-native-tests.json
+  candidate-fp-native-tests/     retained floating-point control evidence
+  native-components.json         index of the native receipts
+  native-targets/candidate/
+    build.json                   selected native executables
+    controls.json                native target control results
+    observer-controls.json, observer-tests.json, observer-tests/   ovstage only
+  logs/                          one log per owned command, for example:
+    prepare-local-install.log, prepare-local-inputs.log
+    candidate-native-tests.log, candidate-ovclash.native.test.log
+    small-differential.log       complete campaign child output
+  differential/                  campaign child output
+    summary.json                 serialization and engine verdicts
+    required-cells.json          required serialization comparisons
+    comparisons.json             serialization comparison results
+    differences/&lt;cell&gt;.json      typed differences of a failed comparison
+    commands.json, logs/, batches/
+    provenance.json, scheduled-live.json
+    performance.json, performance.csv
+    synthetic/, live/, historical/   writer databases, reader copies and records
+    engine/
+      plan.json                  selected engine cells, sorted by identifier
+      summary.json, results.json, progress.json, partial-coverage.json
+      cells/&lt;nnnnn&gt;/             one directory per cell: zero-based index into plan.json
+        cell.json  result.json  failure.txt (failed cells only)  producer outputs
+      shared-stages/, shared-stage-plan.json, shared-stage-processes/
+      retained-results.json      diagnostic recovery after a failed campaign only
+golden-proposal/                 golden-only failure only: proposal of the changed snapshots
+  proposal.json, differences.json, summary.md, bundles/
+</pre></div>
+</div>
+<p>Files appear only when their stage is reached. A failed native control, for example, leaves no
+<code class="docutils literal notranslate"><span class="pre">differential/</span></code> directory. The
+<a class="reference internal" href="sentinel_goldens.html#the-proposal-of-a-golden-only-failure"><span class="std std-ref">golden maintenance guide</span></a> describes
+<code class="docutils literal notranslate"><span class="pre">golden-proposal/</span></code>.</p>
+</section>
+<section id="progress-files">
+<h2>Progress files<a class="headerlink" href="#progress-files" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">progress-plan.json</span></code> freezes the whole global task list before the first check:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="nt">&quot;schema_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;tasks&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;select existing build and fixtures&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;candidate-native-tests command&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;...&quot;</span><span class="p">]}</span>
+</pre></div>
+</div>
+<p>The campaign child appends one event per line to <code class="docutils literal notranslate"><span class="pre">campaign-progress.jsonl</span></code> and flushes it
+(<code class="docutils literal notranslate"><span class="pre">&lt;seconds&gt;</span></code> stands for the measured duration):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&quot;index&quot;:35,&quot;total&quot;:1092,&quot;name&quot;:&quot;select campaign inputs&quot;,&quot;status&quot;:&quot;START&quot;,&quot;seconds&quot;:null}
+{&quot;index&quot;:35,&quot;total&quot;:1092,&quot;name&quot;:&quot;select campaign inputs&quot;,&quot;status&quot;:&quot;PASS&quot;,&quot;seconds&quot;:&lt;seconds&gt;}
+{&quot;status&quot;:&quot;REORDER&quot;,&quot;index&quot;:448,&quot;total&quot;:1092,&quot;permutation&quot;:[0,1,2,5,6,3,4]}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">progress-plan.json</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Schema version.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tasks</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Every check of the run in plan order, by its task name.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A check event of <code class="docutils literal notranslate"><span class="pre">campaign-progress.jsonl</span></code> holds exactly these fields:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 to <code class="docutils literal notranslate"><span class="pre">total</span></code></p></td>
+<td><p>Global check number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">total</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Plan size, the length of <code class="docutils literal notranslate"><span class="pre">tasks</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>The task name at <code class="docutils literal notranslate"><span class="pre">index</span></code> in the current order</p></td>
+<td><p>The check.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">START</span></code>, <code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT_RUN</span></code></p></td>
+<td><p>The check’s state.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code></p></td>
+<td><p>number or null</p></td>
+<td><p>Yes</p></td>
+<td><p>A finite number of 0 or more for <code class="docutils literal notranslate"><span class="pre">PASS</span></code> and <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>; <code class="docutils literal notranslate"><span class="pre">null</span></code> for <code class="docutils literal notranslate"><span class="pre">START</span></code> and <code class="docutils literal notranslate"><span class="pre">NOT_RUN</span></code></p></td>
+<td><p>Elapsed time of the check.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">REORDER</span></code> event holds exactly these fields:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REORDER</span></code></p></td>
+<td><p>Marks the event.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">index</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>The next unstarted check</p></td>
+<td><p>Global number of the first check of the reordered block.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">total</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Plan size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">permutation</span></code></p></td>
+<td><p>array of integers</p></td>
+<td><p>Yes</p></td>
+<td><p>A permutation of 0 to N - 1 for a block of N checks</p></td>
+<td><p>For each new position in the block, the position of its check in the previous order.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>At most one <code class="docutils literal notranslate"><span class="pre">REORDER</span></code> event permutes the pending engine block, when compatible cells share a
+loaded stage. Console numbers follow the new order; <code class="docutils literal notranslate"><span class="pre">progress-plan.json</span></code> keeps the frozen one.</p>
+<p>The driver validates every event against the plan: exact keys, no duplicate keys, the expected
+task name at each index, <code class="docutils literal notranslate"><span class="pre">START</span></code> in plan order, at most 2 × tasks + 1 events and bounded line
+lengths. Any violation fails the run with <code class="docutils literal notranslate"><span class="pre">Child</span> <span class="pre">progress</span> <span class="pre">is</span> <span class="pre">invalid</span> <span class="pre">or</span> <span class="pre">incomplete</span></code>. The file
+must not exist before the campaign starts. Progress events are display data; they never prove
+completion.</p>
+</section>
+<section id="summary-json">
+<h2>Summary JSON<a class="headerlink" href="#summary-json" title="Link to this heading">#</a></h2>
+<section id="gate-summary-json">
+<h3><code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code><a class="headerlink" href="#gate-summary-json" title="Link to this heading">#</a></h3>
+<p>The driver writes it after every run that created its results directory, including failed
+startups.</p>
+<p>Fields marked “No” appear only when their stage was reached or their condition holds. The
+campaign fields appear once the campaign child has written <code class="docutils literal notranslate"><span class="pre">differential/summary.json</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code> only when every <a class="reference internal" href="#verdict-rules">verdict rule</a> holds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gate</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">small-differential</span></code></p></td>
+<td><p>The gate name.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">backend</span></code></p></td>
+<td><p>string or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code>, <code class="docutils literal notranslate"><span class="pre">openusd</span></code></p></td>
+<td><p>Selected backend.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">configuration</span></code></p></td>
+<td><p>string or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code>, <code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></td>
+<td><p>Selected configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">serialization_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>; <code class="docutils literal notranslate"><span class="pre">NOT_EVALUATED</span></code> when the run stopped first</p></td>
+<td><p>Serialization verdict of the campaign.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>; <code class="docutils literal notranslate"><span class="pre">NOT_EVALUATED</span></code> when the run stopped first</p></td>
+<td><p>Engine verdict of the campaign.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_required_cells</span></code></p></td>
+<td><p>integer or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> until the campaign reports</p></td>
+<td><p>Required engine cells.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_completed_cells</span></code></p></td>
+<td><p>integer or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> until the campaign reports</p></td>
+<td><p>Completed required engine cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">feature_coverage</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code> until the campaign reports</p></td>
+<td><p>Feature name to its engine cell rows (<code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">source_role</span></code>, <code class="docutils literal notranslate"><span class="pre">backend</span></code>, <code class="docutils literal notranslate"><span class="pre">strength</span></code>, <code class="docutils literal notranslate"><span class="pre">disposition</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">obligations</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Sentinel never completes a release gate.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timings</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Stage timings of the driver.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code> when every independent check passed, ignoring golden comparisons.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">golden_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">MISSING</span></code>, <code class="docutils literal notranslate"><span class="pre">DIFFERENT</span></code>, <code class="docutils literal notranslate"><span class="pre">INVALID</span></code></p></td>
+<td><p>Most severe golden comparison.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">golden_policy</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">independent-fp-v2</span></code></p></td>
+<td><p>Golden comparison policy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">golden_snapshots</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Every golden comparison; see <a class="reference internal" href="sentinel_goldens.html#understand-a-golden-failure"><span class="std std-ref">understand a golden failure</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">required_golden_snapshots</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Number of golden comparisons.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">snapshot_checks</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Every runtime snapshot check.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">required_snapshot_checks</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Number of runtime snapshot checks.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">required_cells</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Required serialization comparison cells.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">completed_cells</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Completed serialization comparisons.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">executions</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Per-comparison results, each with its <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code> and number of <code class="docutils literal notranslate"><span class="pre">differences</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine</span></code></p></td>
+<td><p>object</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Engine campaign summary.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strict_equality</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when serialization accounting is complete.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></td>
+<td><p>object</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{&quot;seeds&quot;:</span> <span class="pre">6,</span> <span class="pre">&quot;live_cases&quot;:</span> <span class="pre">40}</span></code> for <code class="docutils literal notranslate"><span class="pre">mr</span></code>; 100 seeds for <code class="docutils literal notranslate"><span class="pre">extended</span></code></p></td>
+<td><p>Launched synthetic seeds and live cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">candidate_revision</span></code></p></td>
+<td><p>string or null</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Source revision recorded by the installed SDK.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runtime_identity</span></code></p></td>
+<td><p>object</p></td>
+<td><p>No</p></td>
+<td><p>Format <code class="docutils literal notranslate"><span class="pre">ovclash-sentinel-runtime-identity-v1</span></code></p></td>
+<td><p>Hashes of the installed runtime before and after the checks, with its <code class="docutils literal notranslate"><span class="pre">status</span></code>. Present once a candidate was selected.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">differential_timings</span></code></p></td>
+<td><p>object</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Stage timings of the campaign child.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">deadline_budget</span></code></p></td>
+<td><p>object</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>The <a class="reference internal" href="#deadline-budget">deadline budget</a> at the end.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">error</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>The failure message, when the run failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">golden_update_error</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Why a run whose independent checks passed cannot supply a golden proposal.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">output_unverified</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>An owned process tree could not be drained.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_coverage_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">diagnostic</span></code></p></td>
+<td><p>Partial engine evidence was recovered after a failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_coverage_error</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>Why that recovery failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">differential_timing_error</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p></p></td>
+<td><p>The child’s timing data was malformed and was ignored.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="differential-summary-json">
+<h3><code class="docutils literal notranslate"><span class="pre">differential/summary.json</span></code><a class="headerlink" href="#differential-summary-json" title="Link to this heading">#</a></h3>
+<p>The campaign child’s verdict, written also when an error ends the campaign:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>Overall campaign verdict.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">synthetic</span></code>, <code class="docutils literal notranslate"><span class="pre">live</span></code>, <code class="docutils literal notranslate"><span class="pre">local</span></code></p></td>
+<td><p>Serialization profile; <code class="docutils literal notranslate"><span class="pre">run</span></code> passes <code class="docutils literal notranslate"><span class="pre">local</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">golden_policy</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">independent-fp-v2</span></code></p></td>
+<td><p>Golden comparison policy.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code>, <code class="docutils literal notranslate"><span class="pre">openusd</span></code></p></td>
+<td><p>Selected backend.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dataset</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">seeds</span></code> (integer) and <code class="docutils literal notranslate"><span class="pre">live_cases</span></code> (integer)</p></td>
+<td><p>Synthetic seed count and number of live cases.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">required_cells</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Required serialization comparison cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">executions</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Per-comparison results, each with its <code class="docutils literal notranslate"><span class="pre">id</span></code>, <code class="docutils literal notranslate"><span class="pre">status</span></code> and number of <code class="docutils literal notranslate"><span class="pre">differences</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">completed_cells</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Completed serialization comparisons.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">strict_equality</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> only when every required comparison completed exactly once without differences.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serialization_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>Serialization verdict.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>; <code class="docutils literal notranslate"><span class="pre">NOT_REQUESTED</span></code> without an engine profile</p></td>
+<td><p>Engine verdict.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_required_cells</span></code></p></td>
+<td><p>integer or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> without an engine result</p></td>
+<td><p>Required engine cells.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_completed_cells</span></code></p></td>
+<td><p>integer or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> without an engine result</p></td>
+<td><p>Completed required engine cells.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">feature_coverage</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{}</span></code> without an engine result</p></td>
+<td><p>Engine cells by feature.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>Independent checks only, ignoring golden comparisons.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">candidate_revision</span></code></p></td>
+<td><p>string or null</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Source revision of the installed SDK.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timings</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Stage timings of the campaign child.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Total campaign time.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">error</span></code></p></td>
+<td><p>string or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> when no error ended the campaign</p></td>
+<td><p>The error that ended the campaign.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>A campaign never completes a release gate.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine</span></code></p></td>
+<td><p>object</p></td>
+<td><p>With an engine profile</p></td>
+<td><p></p></td>
+<td><p>The engine campaign summary of <code class="docutils literal notranslate"><span class="pre">differential/engine/summary.json</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">golden_status</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_snapshots</span></code>, <code class="docutils literal notranslate"><span class="pre">required_golden_snapshots</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot_checks</span></code>, <code class="docutils literal notranslate"><span class="pre">required_snapshot_checks</span></code></p></td>
+<td><p>as in <code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code></p></td>
+<td><p>When the engine reported them</p></td>
+<td><p></p></td>
+<td><p>The golden and snapshot ledgers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="differential-engine-files">
+<h3><code class="docutils literal notranslate"><span class="pre">differential/engine/</span></code> files<a class="headerlink" href="#differential-engine-files" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">plan.json</span></code></p></td>
+<td><p>Every selected cell with its frozen inputs, sorted by identifier.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">summary.json</span></code></p></td>
+<td><p>The engine campaign summary; see <a class="reference internal" href="#engine-summary-json">engine <code class="docutils literal notranslate"><span class="pre">summary.json</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">results.json</span></code></p></td>
+<td><p>One row per attempted cell; see <a class="reference internal" href="#results-json-rows"><code class="docutils literal notranslate"><span class="pre">results.json</span></code> rows</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">progress.json</span></code></p></td>
+<td><p>The live cell counts; see <a class="reference internal" href="#progress-json"><code class="docutils literal notranslate"><span class="pre">progress.json</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">partial-coverage.json</span></code></p></td>
+<td><p>Coverage of the cells attempted so far.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="engine-summary-json">
+<h4>Engine <code class="docutils literal notranslate"><span class="pre">summary.json</span></code><a class="headerlink" href="#engine-summary-json" title="Link to this heading">#</a></h4>
+<p>The engine campaign writes <code class="docutils literal notranslate"><span class="pre">summary.json</span></code> when it starts and again when it ends. The Required
+column says when a field is present:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">format</span></code>, <code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>string, integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-engine-campaign-v1</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Format identity</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code>, <code class="docutils literal notranslate"><span class="pre">engine_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> until the campaign ends, then <code class="docutils literal notranslate"><span class="pre">PASS</span></code> or <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>The engine verdict</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> only when the campaign passed</p></td>
+<td><p>Whether the engine gate passed</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plan</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">path</span></code>, the absolute path of <code class="docutils literal notranslate"><span class="pre">plan.json</span></code></p></td>
+<td><p>The plan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">planned</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 or more</p></td>
+<td><p>The selected cells</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>The absolute path of <code class="docutils literal notranslate"><span class="pre">results.json</span></code></p></td>
+<td><p>The result rows</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">execution_policy</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p>The workers and the shared-stage groups</p></td>
+<td><p>How the cells run</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">partial_coverage</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">path</span></code>, the absolute path of <code class="docutils literal notranslate"><span class="pre">partial-coverage.json</span></code></p></td>
+<td><p>The coverage so far</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Once the campaign ends</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code> after completion, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> after an error</p></td>
+<td><p>The independent checks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_required_cells</span></code>, <code class="docutils literal notranslate"><span class="pre">engine_completed_cells</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Once the campaign ends</p></td>
+<td><p>0 or more</p></td>
+<td><p>Required and completed cells</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">coverage_status</span></code>, <code class="docutils literal notranslate"><span class="pre">engine_attempted_cells</span></code>, <code class="docutils literal notranslate"><span class="pre">accounting_complete</span></code>, <code class="docutils literal notranslate"><span class="pre">engine_diagnostic_cells</span></code>, <code class="docutils literal notranslate"><span class="pre">feature_coverage</span></code>, <code class="docutils literal notranslate"><span class="pre">release_gate_complete</span></code></p></td>
+<td><p>string, integer, boolean, integer, object, boolean</p></td>
+<td><p>After completion</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">admitted</span></code>; <code class="docutils literal notranslate"><span class="pre">accounting_complete</span></code> is <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">release_gate_complete</span></code> <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>The completion accounting</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">golden_status</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_policy</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_snapshots</span></code>, <code class="docutils literal notranslate"><span class="pre">required_golden_snapshots</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot_checks</span></code>, <code class="docutils literal notranslate"><span class="pre">required_snapshot_checks</span></code></p></td>
+<td><p>as in <a class="reference internal" href="#gate-summary-json"><code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code></a></p></td>
+<td><p>After completion</p></td>
+<td><p></p></td>
+<td><p>The golden and snapshot ledgers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">candidate_revision</span></code></p></td>
+<td><p>string</p></td>
+<td><p>After completion</p></td>
+<td><p></p></td>
+<td><p>The candidate’s expected source revision</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">executions</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>After completion</p></td>
+<td><p>One validated row per planned cell</p></td>
+<td><p>The retained results</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">hit_depth_admission</span></code></p></td>
+<td><p>array</p></td>
+<td><p>After completion</p></td>
+<td><p></p></td>
+<td><p>The retained hit-depth receipts</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">error</span></code>, <code class="docutils literal notranslate"><span class="pre">failure_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>After an error</p></td>
+<td><p>The error text and its exception class name</p></td>
+<td><p>Why the campaign failed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">independent_scene_session</span></code></p></td>
+<td><p>object</p></td>
+<td><p>When an independent scene session ran</p></td>
+<td><p></p></td>
+<td><p>Its metrics</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="results-json-rows">
+<h4><code class="docutils literal notranslate"><span class="pre">results.json</span></code> rows<a class="headerlink" href="#results-json-rows" title="Link to this heading">#</a></h4>
+<p><code class="docutils literal notranslate"><span class="pre">results.json</span></code> is an array with one row per attempted cell, each also written as the cell’s
+<code class="docutils literal notranslate"><span class="pre">result.json</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>A cell ID</p></td>
+<td><p>The cell</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">passed</span></code> or <code class="docutils literal notranslate"><span class="pre">failed</span></code></p></td>
+<td><p>The cell result</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expected_outcome</span></code>, <code class="docutils literal notranslate"><span class="pre">actual_outcome</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">actual_outcome</span></code> is <code class="docutils literal notranslate"><span class="pre">execution-or-admission-failure</span></code> in a failed row</p></td>
+<td><p>The declared and the observed outcome</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">observed_capabilities</span></code>, <code class="docutils literal notranslate"><span class="pre">observed_paths</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>Yes</p></td>
+<td><p>Empty in a failed row</p></td>
+<td><p>What the cell observed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">artifacts</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p>In a failed row, <code class="docutils literal notranslate"><span class="pre">failure</span></code> with the <code class="docutils literal notranslate"><span class="pre">path</span></code> of <code class="docutils literal notranslate"><span class="pre">failure.txt</span></code></p></td>
+<td><p>The cell’s evidence files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p>Always <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>A cell never completes the gate</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code>, <code class="docutils literal notranslate"><span class="pre">snapshot_checks</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_snapshots</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_status</span></code>, <code class="docutils literal notranslate"><span class="pre">golden_policy</span></code></p></td>
+<td><p>as in <a class="reference internal" href="#gate-summary-json"><code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code></a></p></td>
+<td><p>Passed rows</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code> is <code class="docutils literal notranslate"><span class="pre">PASS</span></code></p></td>
+<td><p>The cell’s snapshot and golden checks</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">reason</span></code>, <code class="docutils literal notranslate"><span class="pre">failure_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Failed rows</p></td>
+<td><p>The error text and its exception class name</p></td>
+<td><p>Why the cell failed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">admission_failure_classification</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p>Only when the fixture could not discriminate the expected outcome</p></td>
+<td><p>The failure label</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="progress-json">
+<h4><code class="docutils literal notranslate"><span class="pre">progress.json</span></code><a class="headerlink" href="#progress-json" title="Link to this heading">#</a></h4>
+<p>The engine campaign rewrites <code class="docutils literal notranslate"><span class="pre">progress.json</span></code> after each cell. Every field is required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">planned</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 or more</p></td>
+<td><p>The selected cells</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">attempted</span></code>, <code class="docutils literal notranslate"><span class="pre">passed</span></code>, <code class="docutils literal notranslate"><span class="pre">failed</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The cells attempted so far, and how many passed and failed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">remaining</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">planned</span> <span class="pre">-</span> <span class="pre">attempted</span></code></p></td>
+<td><p>The cells still to run</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">engine_gate_complete</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p>Always <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Progress never completes the gate</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="commands-json">
+<h3><code class="docutils literal notranslate"><span class="pre">commands.json</span></code><a class="headerlink" href="#commands-json" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/commands.json</span></code> is an array with one row per owned command of the driver. A row
+starts as <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> and becomes <code class="docutils literal notranslate"><span class="pre">PASS</span></code> only after a zero exit within its deadline:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">label</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Command label, such as <code class="docutils literal notranslate"><span class="pre">small-differential</span></code>; it also names the log.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">argv</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The command line.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>Outcome.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">returncode</span></code></p></td>
+<td><p>integer or null</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> when the process gave no exit code</p></td>
+<td><p>Exit code.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timeout_seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Positive</p></td>
+<td><p>Deadline of the command.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tree_drained</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when the owned process tree drained.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code></p></td>
+<td><p>number or null</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Elapsed time; <code class="docutils literal notranslate"><span class="pre">null</span></code> when the clock gave no finite value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">log</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Log path relative to <code class="docutils literal notranslate"><span class="pre">evidence/</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">error</span></code></p></td>
+<td><p>string</p></td>
+<td><p>No</p></td>
+<td><p>Only on failure</p></td>
+<td><p>Why the command failed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">differential/commands.json</span></code> records the campaign child’s commands with the same fields, plus
+<code class="docutils literal notranslate"><span class="pre">revision</span></code> and <code class="docutils literal notranslate"><span class="pre">cwd</span></code>, and an <code class="docutils literal notranslate"><span class="pre">error</span></code> that is <code class="docutils literal notranslate"><span class="pre">null</span></code> on success. Its statuses are <code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>,
+<code class="docutils literal notranslate"><span class="pre">TIMEOUT</span></code> and <code class="docutils literal notranslate"><span class="pre">INTERRUPTED</span></code>, and its <code class="docutils literal notranslate"><span class="pre">log</span></code> is relative to <code class="docutils literal notranslate"><span class="pre">differential/</span></code>.</p>
+</section>
+</section>
+<section id="junit-report">
+<h2>JUnit report<a class="headerlink" href="#junit-report" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;evidence&gt;/junit.xml</span></code> holds one test suite named <code class="docutils literal notranslate"><span class="pre">sentinel</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Test case</p></th>
+<th class="head"><p>Fails when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">gate-completion</span></code></p></td>
+<td><p>The combined <code class="docutils literal notranslate"><span class="pre">status</span></code> is not <code class="docutils literal notranslate"><span class="pre">PASS</span></code>. The message is the run’s <code class="docutils literal notranslate"><span class="pre">error</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serialization/&lt;cell&gt;</span></code></p></td>
+<td><p>A serialization comparison found typed differences.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">engine/&lt;cell</span> <span class="pre">id&gt;</span></code></p></td>
+<td><p>The engine cell failed, or its <code class="docutils literal notranslate"><span class="pre">golden_status</span></code> is not <code class="docutils literal notranslate"><span class="pre">PASS</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="verdict-rules">
+<h2>Verdict rules<a class="headerlink" href="#verdict-rules" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">run</span></code> passes only when all of these hold:</p>
+<ol class="arabic simple">
+<li><p>Startup selected complete inputs, and every control before the campaign passed.</p></li>
+<li><p>The campaign child exited 0.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">differential/summary.json</span></code> reports <code class="docutils literal notranslate"><span class="pre">PASS</span></code> with complete accounting: every required
+serialization comparison exactly once with zero differences, and a complete engine campaign
+(<code class="docutils literal notranslate"><span class="pre">engine_gate_complete</span></code>).</p></li>
+<li><p>The dataset matches the launched inventory: the profile’s seed count and all live cases.</p></li>
+<li><p>The installed runtime is unchanged between the first and the last check.</p></li>
+<li><p>Every owned process tree was drained.</p></li>
+</ol>
+<p>Status fields keep the two kinds of evidence apart:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">checks_status</span></code> covers only independent checks: serialization and the engine cells’ semantic
+checks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">golden_status</span></code> covers only golden comparisons. Its priority is
+<code class="docutils literal notranslate"><span class="pre">INVALID</span> <span class="pre">&gt;</span> <span class="pre">DIFFERENT</span> <span class="pre">&gt;</span> <span class="pre">MISSING</span> <span class="pre">&gt;</span> <span class="pre">PASS</span></code>.</p></li>
+<li><p>An engine cell whose independent checks pass is admitted even when its golden comparison
+fails. The run then fails at final accounting.</p></li>
+</ul>
+<p>The driver sets <code class="docutils literal notranslate"><span class="pre">checks_status</span></code> to <code class="docutils literal notranslate"><span class="pre">FAIL</span></code> and records <code class="docutils literal notranslate"><span class="pre">golden_update_error</span></code> when the
+independent checks passed but the run is not a clean golden-only failure. A clean golden-only
+failure needs a <code class="docutils literal notranslate"><span class="pre">MISSING</span></code> or <code class="docutils literal notranslate"><span class="pre">DIFFERENT</span></code> golden status, every driver command passed, and the
+campaign child exited 1 within its deadline. A changed runtime identity also forces
+<code class="docutils literal notranslate"><span class="pre">checks_status</span></code> to <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>. Only a run with <code class="docutils literal notranslate"><span class="pre">checks_status:</span> <span class="pre">PASS</span></code> can supply a
+<a class="reference internal" href="sentinel_goldens.html#propose-and-accept-results"><span class="std std-ref">golden proposal</span></a>.</p>
+</section>
+<section id="exit-codes">
+<h2>Exit codes<a class="headerlink" href="#exit-codes" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Program</p></th>
+<th class="head"><p>Exit code</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run</span></code></p></td>
+<td><p>0 on success. 1 on any failure, after <code class="docutils literal notranslate"><span class="pre">Clash</span> <span class="pre">validation</span> <span class="pre">CI</span> <span class="pre">gate</span> <span class="pre">failed:</span> <span class="pre">&lt;error&gt;</span></code>. 2 on invalid arguments. Ctrl+C prints the summary with <code class="docutils literal notranslate"><span class="pre">Result:</span>&#160;&#160;&#160; <span class="pre">INTERRUPTED</span></code> and lets the interrupt end the process.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">check-tests</span></code></p></td>
+<td><p>0 on success, 1 on failure, 2 on invalid arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check-*-native-tests</span></code></p></td>
+<td><p>0 on success, 1 on failure, 2 on invalid arguments.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">goldens</span></code></p></td>
+<td><p>0 on success. 1 after <code class="docutils literal notranslate"><span class="pre">Golden</span> <span class="pre">update</span> <span class="pre">failed:</span> <span class="pre">&lt;error&gt;</span></code>. 2 on invalid arguments.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code></p></td>
+<td><p>0 when the summary status is <code class="docutils literal notranslate"><span class="pre">PASS</span></code>, 1 otherwise, 2 on invalid arguments.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Launchers</p></td>
+<td><p>1 when no interpreter can be found or provided, 2 for an unsupported bootstrap backend or configuration, the build’s exit code when the bootstrap build fails.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="error-messages">
+<h2>Error messages<a class="headerlink" href="#error-messages" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Message</p></th>
+<th class="head"><p>Cause and fix</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Evidence</span> <span class="pre">directory</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">empty:</span> <span class="pre">&lt;path&gt;;</span> <span class="pre">remove</span> <span class="pre">it</span> <span class="pre">or</span> <span class="pre">pass</span> <span class="pre">--output</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">new</span> <span class="pre">directory</span></code></p></td>
+<td><p>The explicit <code class="docutils literal notranslate"><span class="pre">--output</span></code> holds files. Use a new directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Conflicting</span> <span class="pre">validation</span> <span class="pre">input</span> <span class="pre">(conflict):</span> <span class="pre">ENGINE_PROFILE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--engine-profile</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATION_ENGINE_PROFILE</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_EQ_ENGINE_PROFILE</span></code> disagree.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timeouts</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">positive</span></code></p></td>
+<td><p>A deadline option is zero, negative or not finite.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">existing</span> <span class="pre">&lt;backend&gt;</span> <span class="pre">&lt;configuration&gt;</span> <span class="pre">build</span> <span class="pre">at</span> <span class="pre">&lt;path&gt;:</span> <span class="pre">&lt;reason&gt;.</span> <span class="pre">Run</span> <span class="pre">&lt;wrapper&gt;</span> <span class="pre">--validate</span> <span class="pre">to</span> <span class="pre">build</span> <span class="pre">and</span> <span class="pre">prepare</span> <span class="pre">its</span> <span class="pre">Sentinel</span> <span class="pre">inputs.</span></code></p></td>
+<td><p>Local inputs are incomplete and no automatic build ran, for example because the manifest is malformed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">existing</span> <span class="pre">...</span> <span class="pre">Run</span> <span class="pre">&lt;wrapper&gt;</span> <span class="pre">--validate</span> <span class="pre">--stage-inputs</span> <span class="pre">to</span> <span class="pre">stage</span> <span class="pre">that</span> <span class="pre">bundle</span> <span class="pre">with</span> <span class="pre">its</span> <span class="pre">helpers.</span> <span class="pre">Portable</span> <span class="pre">CI</span> <span class="pre">inputs</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">regenerated</span> <span class="pre">by</span> <span class="pre">the</span> <span class="pre">matching</span> <span class="pre">build</span> <span class="pre">job.</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--inputs</span></code> bundle is incomplete or does not match the run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">automatic</span> <span class="pre">'&lt;command&gt;'</span> <span class="pre">build</span> <span class="pre">completed,</span> <span class="pre">but</span> <span class="pre">the</span> <span class="pre">inputs</span> <span class="pre">at</span> <span class="pre">&lt;path&gt;</span> <span class="pre">are</span> <span class="pre">still</span> <span class="pre">incomplete:</span> <span class="pre">...</span></code></p></td>
+<td><p>The automatic build did not produce matching inputs. Check its generator tree and install.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">input</span> <span class="pre">build/validation</span> <span class="pre">(&lt;command&gt;)</span> <span class="pre">failed</span> <span class="pre">(exit</span> <span class="pre">code</span> <span class="pre">N);</span> <span class="pre">see</span> <span class="pre">&lt;log&gt;</span></code></p></td>
+<td><p>The automatic build failed. <code class="docutils literal notranslate"><span class="pre">timed</span> <span class="pre">out</span> <span class="pre">after</span> <span class="pre">N</span> <span class="pre">s</span></code> replaces the exit code after a timeout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Portable</span> <span class="pre">inputs</span> <span class="pre">were</span> <span class="pre">staged</span> <span class="pre">without</span> <span class="pre">Sentinel</span> <span class="pre">helpers</span></code></p></td>
+<td><p>Restage with <code class="docutils literal notranslate"><span class="pre">build_&lt;backend&gt;</span> <span class="pre">--&lt;configuration&gt;</span> <span class="pre">--validate</span> <span class="pre">--stage-inputs</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Prebuilt</span> <span class="pre">bundle</span> <span class="pre">backend/configuration/platform/architecture</span> <span class="pre">differs</span> <span class="pre">from</span> <span class="pre">this</span> <span class="pre">run</span></code></p></td>
+<td><p>The selected inputs belong to another tuple.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Validation</span> <span class="pre">preparation</span> <span class="pre">budget</span> <span class="pre">exhausted;</span> <span class="pre">publication</span> <span class="pre">reserve</span> <span class="pre">is</span> <span class="pre">protected</span></code></p></td>
+<td><p>The <a class="reference internal" href="#deadline-budget">deadline budget</a> ran out.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">native</span> <span class="pre">target</span> <span class="pre">reported</span> <span class="pre">skipped</span> <span class="pre">coverage:</span> <span class="pre">&lt;target&gt;</span></code></p></td>
+<td><p>A native control printed <code class="docutils literal notranslate"><span class="pre">skip</span></code> or <code class="docutils literal notranslate"><span class="pre">skipped</span></code> outside its expected diagnostics.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Required</span> <span class="pre">native</span> <span class="pre">completion</span> <span class="pre">marker</span> <span class="pre">absent:</span> <span class="pre">&lt;target&gt;</span></code></p></td>
+<td><p>A native control exited 0 without its completion line.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Child</span> <span class="pre">progress</span> <span class="pre">is</span> <span class="pre">invalid</span> <span class="pre">or</span> <span class="pre">incomplete:</span> <span class="pre">&lt;reason&gt;</span></code></p></td>
+<td><p>The campaign child’s progress events do not match the plan.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">runtime</span> <span class="pre">identity</span> <span class="pre">failed:</span> <span class="pre">Installed</span> <span class="pre">runtime</span> <span class="pre">changed</span> <span class="pre">during</span> <span class="pre">Sentinel</span> <span class="pre">execution</span></code></p></td>
+<td><p>A process changed the installed SDK during the run.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Differential</span> <span class="pre">dataset</span> <span class="pre">differs</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">launched</span> <span class="pre">synthetic</span> <span class="pre">and</span> <span class="pre">live</span> <span class="pre">inventories</span></code></p></td>
+<td><p>The child ran another seed count or live case set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Checker</span> <span class="pre">evidence</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">fresh</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">check-tests</span></code> output file or its <code class="docutils literal notranslate"><span class="pre">.modules</span></code> directory exists.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Checker</span> <span class="pre">modules</span> <span class="pre">failed</span> <span class="pre">or</span> <span class="pre">incomplete;</span> <span class="pre">see</span> <span class="pre">per-module</span> <span class="pre">logs</span></code></p></td>
+<td><p>A checker shard failed; its <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> line names the log.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CI</span> <span class="pre">gate</span> <span class="pre">requires</span> <span class="pre">assertions</span> <span class="pre">enabled</span></code></p></td>
+<td><p>Python runs with <code class="docutils literal notranslate"><span class="pre">-O</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Interrupted;</span> <span class="pre">stopping</span> <span class="pre">the</span> <span class="pre">running</span> <span class="pre">native</span> <span class="pre">controls</span></code></p></td>
+<td><p>Ctrl+C during the concurrent native capture controls. They are drained and journaled as <code class="docutils literal notranslate"><span class="pre">FAIL</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sentinel.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sentinel correctness validation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="sentinel_goldens.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sentinel repository goldens</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launchers">Launchers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-selection">Python selection</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commands">Commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#run-options"><code class="docutils literal notranslate"><span class="pre">run</span></code> options</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deadline-budget">Deadline budget</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">Environment variables</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-tests-options"><code class="docutils literal notranslate"><span class="pre">check-tests</span></code> options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#native-control-commands">Native control commands</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scripts-run-sentinel-py-options"><code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code> options</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evidence-layout">Evidence layout</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-files">Progress files</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-json">Summary JSON</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gate-summary-json"><code class="docutils literal notranslate"><span class="pre">gate-summary.json</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-summary-json"><code class="docutils literal notranslate"><span class="pre">differential/summary.json</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#differential-engine-files"><code class="docutils literal notranslate"><span class="pre">differential/engine/</span></code> files</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#engine-summary-json">Engine <code class="docutils literal notranslate"><span class="pre">summary.json</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#results-json-rows"><code class="docutils literal notranslate"><span class="pre">results.json</span></code> rows</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-json"><code class="docutils literal notranslate"><span class="pre">progress.json</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#commands-json"><code class="docutils literal notranslate"><span class="pre">commands.json</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#junit-report">JUnit report</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#verdict-rules">Verdict rules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exit-codes">Exit codes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#error-messages">Error messages</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

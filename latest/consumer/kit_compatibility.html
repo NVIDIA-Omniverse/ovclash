@@ -1,0 +1,1167 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Kit Compatibility &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/kit_compatibility';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Samples" href="samples.html" />
+    <link rel="prev" title="ovstage Integration" href="ovstage_integration.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Kit Compatibility</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kit-compatibility">
+<h1>Kit Compatibility<a class="headerlink" href="#kit-compatibility" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> is a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a>-free Python package with the
+import paths of Kit’s package of the same name. ovclash is the clash detection library for
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> scenes that runs without Kit.</p>
+<ul class="simple">
+<li><p><strong>Where it ships.</strong> It ships beside <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code>, in the wheel and in the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>’s <code class="docutils literal notranslate"><span class="pre">python/</span></code> directory. <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code>, the Python package
+of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>, backs it.</p></li>
+<li><p><strong>What resolves.</strong> Every public class, function and class member that Kit defines in a module
+that both packages provide resolves here, except the gaps under <a class="reference internal" href="#what-does-not">What does not</a>.
+Code that uses only those names needs no import changes.</p></li>
+<li><p><strong>What to check.</strong> A few parameters and behaviors differ; see
+<a class="reference internal" href="#behavioral-differences-to-check">Behavioral differences to check</a>.</p></li>
+</ul>
+<p>Use the package only to port existing Kit code. New code imports <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> directly; see
+<a class="reference internal" href="choosing_an_api.html"><span class="std std-doc">Choosing an API Layer</span></a> and <a class="reference internal" href="suite_workflows.html"><span class="std std-doc">Suite Workflows</span></a>.</p>
+<p>Every name the package forwards is the Suite API’s own object, not a wrapper.
+<code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore.ClashDetection</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite.ClashDetection</span></code> are one class.
+A partially ported module can therefore mix the two spellings without <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> surprises.
+Three functions wrap a Suite function of the same name instead:
+<code class="docutils literal notranslate"><span class="pre">clash_detect_export.export_to_json</span></code>, <code class="docutils literal notranslate"><span class="pre">clash_detect_export.export_to_html</span></code> and
+<code class="docutils literal notranslate"><span class="pre">utils.file_exists</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Kit code: keeps working, no edit needed.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.clash_detect</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.clash_detect_settings</span><span class="w"> </span><span class="kn">import</span> <span class="n">SettingId</span>
+
+<span class="c1"># The same two objects, spelled the way new code should spell them.</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span> <span class="k">as</span> <span class="n">SuiteClashDetection</span><span class="p">,</span> <span class="n">SettingId</span> <span class="k">as</span> <span class="n">SuiteSettingId</span>
+
+<span class="k">assert</span> <span class="n">ClashDetection</span> <span class="ow">is</span> <span class="n">SuiteClashDetection</span>
+<span class="k">assert</span> <span class="n">SettingId</span> <span class="ow">is</span> <span class="n">SuiteSettingId</span>
+</pre></div>
+</div>
+<p>Importing the package imports <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code>, which loads the native library:</p>
+<ul class="simple">
+<li><p>The wheel finds the library it bundles.</p></li>
+<li><p>With the SDK archive, put its <code class="docutils literal notranslate"><span class="pre">python/</span></code> directory on <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>, and set <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> or
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code> to the absolute path of the native library. See
+<a class="reference internal" href="README.html#native-library-lookup"><span class="std std-ref">Native library lookup</span></a>.</p></li>
+</ul>
+<p>This page covers the Python package. Two other pages cover the rest of the Kit surface:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="limitations.html"><span class="std std-doc">Limitations</span></a> lists the C entry points kept only for compatibility with
+Kit’s clash interface.</p></li>
+<li><p><a class="reference internal" href="legacy_container.html"><span class="std std-doc">Legacy Containers</span></a> covers Kit’s <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> result files.</p></li>
+</ul>
+<section id="what-resolves">
+<h2>What resolves<a class="headerlink" href="#what-resolves" title="Link to this heading">#</a></h2>
+<p>The package root re-exports these <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> names. Kit’s package root does not provide
+them, so Kit code imports them from the submodules that keep Kit’s import paths, which the
+<code class="docutils literal notranslate"><span class="pre">Module</span> <span class="pre">|</span> <span class="pre">Exports</span></code> table of this section lists.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Kind</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code></p></td>
+<td><p>serializer base class</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ArrayView</span></code></p></td>
+<td><p>array container of copied values, convertible to a list, a NumPy array or a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Warp</span></a> array</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashData</span></code></p></td>
+<td><p>data-store facade</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerDirectory</span></code></p></td>
+<td><p>directory serializer that stores readable JSON files; ovclash only</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code></p></td>
+<td><p>SQLite serializer for <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> and <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> files</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code></p></td>
+<td><p>runtime: stage, settings, scopes, pipeline, reports</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo</span></code></p></td>
+<td><p>per-frame <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash record</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashInfo</span></code></p></td>
+<td><p>clash record</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code></p></td>
+<td><p>query model</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashState</span></code></p></td>
+<td><p>enum</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OverlapType</span></code></p></td>
+<td><p>enum</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PointCloudSettings</span></code></p></td>
+<td><p>point-cloud settings record</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SettingId</span></code></p></td>
+<td><p>settings-key enum</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These submodules keep Kit’s import paths. Each one exposes the Suite API names in its row and lists
+exactly those names in <code class="docutils literal notranslate"><span class="pre">__all__</span></code>. Only the two export functions are wrappers.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Exports</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_data</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashData</span></code>, <code class="docutils literal notranslate"><span class="pre">Serializer_data_operations</span></code>, <code class="docutils literal notranslate"><span class="pre">serializer_data_op</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_data_serializer</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_data_serializer_sqlite</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_detect</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code>, <code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code>, <code class="docutils literal notranslate"><span class="pre">OverlapReportFlag</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_detect_export</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ExportColumnDef</span></code>, <code class="docutils literal notranslate"><span class="pre">export_to_json</span></code>, <code class="docutils literal notranslate"><span class="pre">export_to_html</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_detect_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SettingId</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_info</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashInfo</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashState</span></code>, <code class="docutils literal notranslate"><span class="pre">OverlapType</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_query</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PointCloudSettings</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">clash_data_serializer_directory</span></code> exports <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerDirectory</span></code> in the same way. Kit
+has no such module.</p>
+<p>These modules are implemented in the package rather than forwarded:</p>
+<ul>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">config.ExtensionConfig</span></code></strong> keeps Kit’s class attributes and defaults:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">debug_logging</span></code>, <code class="docutils literal notranslate"><span class="pre">debug_logging_detailed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Kit’s logging switches. Nothing here reads them.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extension_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Kit sets it at extension startup; nothing sets it here.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">update_clash_states_after_detection</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Whether <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> updates the stored <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash states</span></a>. A class-level property that reads and writes <code class="docutils literal notranslate"><span class="pre">ovclash_suite._runtime.update_clash_states_after_detection</span></code>, so both spellings share one flag; assignment stores <code class="docutils literal notranslate"><span class="pre">bool(value)</span></code>. Read and set it on the class. Unlike Kit’s attribute, it is not visible on an instance.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">logger.Logger</span></code></strong> has no Kit counterpart. Its <code class="docutils literal notranslate"><span class="pre">log_error</span></code>, <code class="docutils literal notranslate"><span class="pre">log_warn</span></code> and <code class="docutils literal notranslate"><span class="pre">log_info</span></code> class
+methods write to the standard-library logger named <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code>, which <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code>
+also uses. The <code class="docutils literal notranslate"><span class="pre">utils</span></code> and <code class="docutils literal notranslate"><span class="pre">usd_utils</span></code> helpers log there where Kit’s code calls <code class="docutils literal notranslate"><span class="pre">carb.log_*</span></code>,
+the logging functions of Kit’s Carbonite framework.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">utils</span></code></strong> provides every Kit helper.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">make_int128</span></code> and <code class="docutils literal notranslate"><span class="pre">html_escape</span></code> are the Suite API’s own functions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_available_system_memory()</span></code> reads the operating system instead of Kit’s
+<code class="docutils literal notranslate"><span class="pre">omni.gpu_foundation_factory</span></code> extension. Like Kit, it returns <code class="docutils literal notranslate"><span class="pre">0</span></code> when it cannot tell.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">measure_execution_time</span></code> returns the function’s result but prints nothing. Kit prints each
+call’s duration.</p></li>
+</ul>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">usd_utils</span></code></strong> keeps Kit’s four matrix helpers, which need no OpenUSD: <code class="docutils literal notranslate"><span class="pre">matrix_to_list</span></code>,
+<code class="docutils literal notranslate"><span class="pre">list_to_matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">serialize_matrix_to_json</span></code> and <code class="docutils literal notranslate"><span class="pre">deserialize_matrix_from_json</span></code>.
+<code class="docutils literal notranslate"><span class="pre">list_to_matrix</span></code> and <code class="docutils literal notranslate"><span class="pre">deserialize_matrix_from_json</span></code> return a tuple of four float tuples where
+Kit returns <code class="docutils literal notranslate"><span class="pre">Gf.Matrix4d</span></code>, the 4x4 matrix type of <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> in Python.
+The OpenUSD-dependent helpers are stubs; see <a class="reference internal" href="#what-does-not">What does not</a>.</p></li>
+</ul>
+<p>The forwarded names are the Suite API’s own objects, so the <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> docstrings document
+them. The docstrings of the four modules <code class="docutils literal notranslate"><span class="pre">config</span></code>, <code class="docutils literal notranslate"><span class="pre">logger</span></code>, <code class="docutils literal notranslate"><span class="pre">utils</span></code> and <code class="docutils literal notranslate"><span class="pre">usd_utils</span></code>, in the
+installed <code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> package, are their reference.
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> says how to read the
+docstrings.</p>
+</section>
+<section id="what-does-not">
+<h2>What does not<a class="headerlink" href="#what-does-not" title="Link to this heading">#</a></h2>
+<p>The Kit API in the <code class="docutils literal notranslate"><span class="pre">Missing</span> <span class="pre">API</span></code> table of this section does not resolve. Apart from
+<code class="docutils literal notranslate"><span class="pre">ExtensionConfig</span></code> at the package root, each gap is structural. It needs one of these, which this package does not have:</p>
+<ul class="simple">
+<li><p>Kit itself;</p></li>
+<li><p>Python OpenUSD (<code class="docutils literal notranslate"><span class="pre">pxr</span></code>) or Warp, which this package does not require;</p></li>
+<li><p>a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">C ABI</span></a> entry point that the native layer does not expose.</p></li>
+</ul>
+<p>None of it is a defect to fix in place. Closing a gap means adding that dependency or that entry
+point.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Missing API</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Modules <code class="docutils literal notranslate"><span class="pre">commands</span></code>, <code class="docutils literal notranslate"><span class="pre">extension</span></code>, <code class="docutils literal notranslate"><span class="pre">clash_detect_layer_utils</span></code></p></td>
+<td><p>Absent as whole modules, so importing one raises <code class="docutils literal notranslate"><span class="pre">ModuleNotFoundError</span></code>. The first two hold the <code class="docutils literal notranslate"><span class="pre">omni.kit.commands</span></code> command classes and the <code class="docutils literal notranslate"><span class="pre">omni.ext</span></code> extension entry point. The third holds <code class="docutils literal notranslate"><span class="pre">ClashDetectLayerHelper</span></code>, which creates and manages the clash-detection <code class="docutils literal notranslate"><span class="pre">Sdf.Layer</span></code> (an OpenUSD layer object) on a <code class="docutils literal notranslate"><span class="pre">Usd.Stage</span></code> (an OpenUSD stage object).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ExtensionConfig</span></code>, <code class="docutils literal notranslate"><span class="pre">register_commands</span></code>, <code class="docutils literal notranslate"><span class="pre">unregister_commands</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashDetectionCoreExtension</span></code> at the package root</p></td>
+<td><p>Kit’s package <code class="docutils literal notranslate"><span class="pre">__init__</span></code> runs <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">.extension</span> <span class="pre">import</span> <span class="pre">*</span></code>, which puts these names at Kit’s package root. None of them resolves at this package’s root. Import <code class="docutils literal notranslate"><span class="pre">ExtensionConfig</span></code> from <code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore.config</span></code>. The other three belong to the absent <code class="docutils literal notranslate"><span class="pre">commands</span></code> and <code class="docutils literal notranslate"><span class="pre">extension</span></code> modules.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashData.stage</span></code>, <code class="docutils literal notranslate"><span class="pre">.stage_id</span></code>, <code class="docutils literal notranslate"><span class="pre">.target_layer</span></code>, <code class="docutils literal notranslate"><span class="pre">.usd_file_path</span></code></p></td>
+<td><p>Handles to the USD stage and layer that Kit binds the data to. There is no Python OpenUSD stage object here, so <code class="docutils literal notranslate"><span class="pre">ClashData.open()</span></code> and <code class="docutils literal notranslate"><span class="pre">ClashData.save_as()</span></code> take <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">store</span></a> paths; see <a class="reference internal" href="#behavioral-differences-to-check">Behavioral differences to check</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite.vacuum</span></code>, <code class="docutils literal notranslate"><span class="pre">.migrate_table</span></code>, <code class="docutils literal notranslate"><span class="pre">.get_free_list_size</span></code></p></td>
+<td><p>SQLite maintenance. Kit runs these on a <code class="docutils literal notranslate"><span class="pre">sqlite3</span></code> connection it owns in Python. Here the native layer owns the connection and exposes no equivalent entry point. Whole-file migration is available as <code class="docutils literal notranslate"><span class="pre">migrate_data_structures_to_latest_version()</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashData.data_file_damaged</span></code>, <code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer.data_file_damaged</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite.data_file_damaged</span></code></p></td>
+<td><p>Kit’s flag that SQLite reported the file as corrupt or as not a database. Kit sets it from the result codes of the <code class="docutils literal notranslate"><span class="pre">sqlite3</span></code> connection it owns in Python. Here the native layer owns the connection and exposes no entry point that reports the condition. <code class="docutils literal notranslate"><span class="pre">open()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> with SQLite’s reason when the file cannot be inspected, rather than leaving the store closed quietly, and a read that reaches a damaged page raises too; see <a class="reference internal" href="#behavioral-differences-to-check">Behavioral differences to check</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo.device</span></code></p></td>
+<td><p>Kit’s constructor argument that selects the Warp device for the frame’s default (empty) arrays. Frame arrays here are <code class="docutils literal notranslate"><span class="pre">ArrayView</span></code> containers of copied values, not Warp arrays, so there is no device to select. <code class="docutils literal notranslate"><span class="pre">ArrayView.warp()</span></code> converts one to a Warp array when <code class="docutils literal notranslate"><span class="pre">warp-lang</span></code> is installed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These names are deliberately absent rather than present-and-raising. Code that feature-detects
+with <code class="docutils literal notranslate"><span class="pre">hasattr</span></code> sees that they are missing and can take its fallback path.</p>
+<p>The OpenUSD-dependent helpers in <code class="docutils literal notranslate"><span class="pre">usd_utils</span></code> are the exception: <code class="docutils literal notranslate"><span class="pre">get_prim_children_paths</span></code>,
+<code class="docutils literal notranslate"><span class="pre">get_list_of_prim_paths</span></code>, <code class="docutils literal notranslate"><span class="pre">get_prim_matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">are_points_prim_widths_animated</span></code> and
+<code class="docutils literal notranslate"><span class="pre">get_points_prim_widths_array</span></code>. They keep Kit’s signatures, log an error and raise
+<code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code>. A Kit caller therefore gets that error instead of a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p>
+<p>For a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">prim</span></a> transform, call <code class="docutils literal notranslate"><span class="pre">ClashDetection.open_stage()</span></code> and then
+<code class="docutils literal notranslate"><span class="pre">ClashDetection.get_prim_matrix()</span></code>, which the C ABI backs. Two details differ from Kit’s helper:</p>
+<ul class="simple">
+<li><p>It takes a USD time code, where Kit’s helper takes seconds.</p></li>
+<li><p>It returns a NumPy array, or a tuple of four row tuples when NumPy is not installed. Kit’s
+helper returns <code class="docutils literal notranslate"><span class="pre">Gf.Matrix4d</span></code>.</p></li>
+</ul>
+</section>
+<section id="behavioral-differences-to-check">
+<h2>Behavioral differences to check<a class="headerlink" href="#behavioral-differences-to-check" title="Link to this heading">#</a></h2>
+<p><strong>A <code class="docutils literal notranslate"><span class="pre">stage</span></code> argument names a file.</strong> <code class="docutils literal notranslate"><span class="pre">ClashDetection.set_settings()</span></code> and <code class="docutils literal notranslate"><span class="pre">set_scope()</span></code> accept a
+file path, a <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code> or a stage object.</p>
+<ul class="simple">
+<li><p>From a stage object they take the file path of its root layer, and the native layer opens
+that file. Unsaved edits in a Python <code class="docutils literal notranslate"><span class="pre">Usd.Stage</span></code> are therefore not seen.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">stage</span></code> argument that names the file already open, in any spelling, does not reopen it.
+Edits saved after the first open are not seen either. To see them, call
+<code class="docutils literal notranslate"><span class="pre">ClashDetection.open_stage()</span></code> with the file path, then call <code class="docutils literal notranslate"><span class="pre">set_scope()</span></code> again: a successful
+open clears the scope.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">set_settings()</span></code> reads the timeline (start and end time codes, time codes per second) from
+the stage object itself. The run’s time range therefore follows unsaved timeline edits.</p></li>
+<li><p>The other methods that take Kit’s <code class="docutils literal notranslate"><span class="pre">stage</span></code> argument, such as <code class="docutils literal notranslate"><span class="pre">fetch_and_save_overlaps()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">process_overlap()</span></code>, ignore it.</p></li>
+</ul>
+<p><strong>Scopes take literal prim paths.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashDetection.set_scope()</span></code> does not expand a USD collection path to its member prims, as
+Kit’s does.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_list_of_prims_int_paths()</span></code> ignores its <code class="docutils literal notranslate"><span class="pre">add_prim_children</span></code>, <code class="docutils literal notranslate"><span class="pre">prim_accept_fn</span></code> and
+<code class="docutils literal notranslate"><span class="pre">exclude_invisible</span></code> arguments; the native run settings control visibility. It returns the
+prim paths as strings, not as <code class="docutils literal notranslate"><span class="pre">Sdf.Path</span></code> objects.</p></li>
+</ul>
+<p><strong>Some parameters differ.</strong> Ported calls to these methods need edits:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashData.open()</span></code> takes the store’s file path, where Kit’s takes a stage id, Kit’s integer
+handle of an open stage. It has no
+<code class="docutils literal notranslate"><span class="pre">force_reload_layer</span></code> parameter.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashData.save_as()</span></code> takes the store’s new path. Kit’s <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> takes the stage’s new USD
+path, saves the store in place and saves the clash layer for that stage path. A ported
+<code class="docutils literal notranslate"><span class="pre">save_as(&quot;scene.usd&quot;)</span></code> therefore writes an SQLite store named <code class="docutils literal notranslate"><span class="pre">scene.usd</span></code>. It raises
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when that file already holds a USD layer.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo()</span></code> has no <code class="docutils literal notranslate"><span class="pre">device</span></code> parameter, so each parameter after <code class="docutils literal notranslate"><span class="pre">object_1_matrix</span></code> sits
+one position earlier than in Kit. A Kit call that passes <code class="docutils literal notranslate"><span class="pre">device</span></code> by position stores it in
+<code class="docutils literal notranslate"><span class="pre">usd_points_0</span></code> without an error. Pass the arguments after <code class="docutils literal notranslate"><span class="pre">object_1_matrix</span></code> by keyword.</p></li>
+<li><p>Some parameters have new names, which the <code class="docutils literal notranslate"><span class="pre">Kit</span> <span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">Name</span> <span class="pre">here</span></code> columns of the method
+table give. A Kit call that passes one by keyword raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Kit name</p></th>
+<th class="head"><p>Name here</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite.insert_point_cloud_settings()</span></code>, <code class="docutils literal notranslate"><span class="pre">update_point_cloud_settings()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">settings</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite.find_point_cloud_settings()</span></code>, <code class="docutils literal notranslate"><span class="pre">remove_point_cloud_settings_by_id()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo.check_object_0_matrix_changed()</span></code>, <code class="docutils literal notranslate"><span class="pre">check_object_1_matrix_changed()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">mtx</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">matrix</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">usd_utils.list_to_matrix()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">lst</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">values</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">utils.html_escape()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">text</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ClashDataSerializerDirectory</span></code> uses the new point-cloud parameter names too. <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> and
+<code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code> keep Kit’s names.</p>
+<p>A ported detect-and-store flow, with the edits these rules require. It runs on
+<code class="docutils literal notranslate"><span class="pre">time_sampled.usda</span></code>, the sample stage in <code class="docutils literal notranslate"><span class="pre">samples/data/</span></code> of the installed <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package and of
+the SDK archive. Run it from that directory, or pass the stage’s full path:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">closing</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.clash_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashData</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.clash_detect</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.clash_query</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashQuery</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">ClashQuery</span><span class="p">(</span>
+    <span class="n">query_name</span><span class="o">=</span><span class="s2">&quot;Cube vs Plane&quot;</span><span class="p">,</span>
+    <span class="n">object_a_path</span><span class="o">=</span><span class="s2">&quot;/Root/Xform_Primitives/Cube&quot;</span><span class="p">,</span>
+    <span class="n">object_b_path</span><span class="o">=</span><span class="s2">&quot;/Root/Xform_Primitives/Plane&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ClashData</span><span class="p">()</span>  <span class="c1"># SQLite serializer by default</span>
+<span class="n">data</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;results.ovclashdb&quot;</span><span class="p">)</span>  <span class="c1"># Kit: data.open(stage_id)</span>
+<span class="n">data</span><span class="o">.</span><span class="n">insert_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># A `stage` argument names the file the native layer opens.</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">set_settings</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">clash_detect_settings</span><span class="p">,</span> <span class="s2">&quot;time_sampled.usda&quot;</span><span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">set_scope</span><span class="p">(</span><span class="s2">&quot;time_sampled.usda&quot;</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">object_a_path</span><span class="p">,</span> <span class="n">query</span><span class="o">.</span><span class="n">object_b_path</span><span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="c1"># The generator reserves the runtime and the store until it is exhausted or closed.</span>
+    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">clash</span><span class="o">.</span><span class="n">fetch_and_save_overlaps</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">))</span> <span class="k">as</span> <span class="n">fetch</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">progress</span> <span class="ow">in</span> <span class="n">fetch</span><span class="p">:</span>
+            <span class="k">pass</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;stored overlaps:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">get_overlaps_count_by_query_id</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">identifier</span><span class="p">))</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>stored overlaps: 1
+</pre></div>
+</div>
+<p><strong>Export rejects ragged rows and selects cells by column <code class="docutils literal notranslate"><span class="pre">order</span></code>.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">export_to_json</span></code> and <code class="docutils literal notranslate"><span class="pre">export_to_html</span></code> raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> for a row whose length differs from
+the column count.</p></li>
+<li><p>In both formats, each column renders the cell that its <code class="docutils literal notranslate"><span class="pre">order</span></code> selects.</p></li>
+<li><p>Kit’s <code class="docutils literal notranslate"><span class="pre">export_to_json</span></code> writes each row as given. The cells of a JSON row therefore differ from
+Kit’s whenever a column’s <code class="docutils literal notranslate"><span class="pre">order</span></code> differs from its index.</p></li>
+</ul>
+<p>See <a class="reference internal" href="export.html#what-the-output-looks-like"><span class="std std-ref">Export</span></a>.</p>
+<p><strong>Native failures raise.</strong> A failed native call normally raises an exception that carries the
+native error text. Kit often logs the error and returns <code class="docutils literal notranslate"><span class="pre">False</span></code>, <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code> instead; its
+SQLite serializer, for example, logs every SQLite error and carries on. The data and serializer
+classes keep Kit’s return values in a few cases, such as a store that is not open.
+<a class="reference internal" href="persistence.html#failures-that-do-not-raise"><span class="std std-ref">Failures that do not raise</span></a> lists them.</p>
+<p><strong>Unchanged approvals survive re-detection.</strong> <code class="docutils literal notranslate"><span class="pre">ExtensionConfig.update_clash_states_after_detection</span></code>
+defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code>. With it set, Kit sets every re-detected clash to <code class="docutils literal notranslate"><span class="pre">ACTIVE</span></code>. ovclash keeps a
+clash <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> when its detected contents are exactly unchanged.
+<a class="reference internal" href="persistence.html#clash-states"><span class="std std-ref">Clash states</span></a> gives every state rule and what the comparison
+covers.</p>
+<p>To preserve all stored states, clear the flag before the fetch starts:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">omni.physxclashdetectioncore.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtensionConfig</span>
+
+<span class="n">ExtensionConfig</span><span class="o">.</span><span class="n">update_clash_states_after_detection</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p><strong>The fetch generator holds its owners.</strong> <code class="docutils literal notranslate"><span class="pre">fetch_and_save_overlaps()</span></code> returns a generator. It
+reserves its runtime and store until it is exhausted or closed, even after its final progress
+value.</p>
+<ul class="simple">
+<li><p>Until then, the runtime and a built-in store reject conflicting calls, such as closing the
+store.</p></li>
+<li><p>A custom serializer must guard its own store.</p></li>
+<li><p>Close a generator that you stop early, for example with <code class="docutils literal notranslate"><span class="pre">contextlib.closing</span></code>, as the ported
+detect-and-store flow in <a class="reference internal" href="#behavioral-differences-to-check">Behavioral differences to check</a>
+does.</p></li>
+</ul>
+<p>See <a class="reference internal" href="threading_and_ownership.html#suite-fetch-and-cursor-lifetime"><span class="std std-ref">fetch and cursor lifetime</span></a>.</p>
+<p><strong>Custom serializers need <code class="docutils literal notranslate"><span class="pre">fetch_transaction</span></code>.</strong> A Kit-style serializer that implements only the
+CRUD methods cannot receive fetched results: the fetch raises <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> before it
+starts. Override <code class="docutils literal notranslate"><span class="pre">fetch_transaction()</span></code>. The contract is in
+<a class="reference internal" href="persistence.html#custom-stores"><span class="std std-ref">Custom stores</span></a>.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="ovstage_integration.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ovstage Integration</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="samples.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Samples</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-resolves">What resolves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-does-not">What does not</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#behavioral-differences-to-check">Behavioral differences to check</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

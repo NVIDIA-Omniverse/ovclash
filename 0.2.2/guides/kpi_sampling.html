@@ -1,0 +1,1816 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>KPI sampling &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/kpi_sampling';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KPI CPU admission" href="kpi_cpu_admission.html" />
+    <link rel="prev" title="Run KPI" href="kpi_running.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">KPI sampling</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kpi-sampling">
+<h1>KPI sampling<a class="headerlink" href="#kpi-sampling" title="Link to this heading">#</a></h1>
+<p>This page owns the KPI sampling rules: how often the <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">controller</span></a> runs each
+workload, when its values count as stable, how the warning and failure limits of a budget follow
+from the values, and when baseline collection restarts a workload. The two Suite saves are the
+workloads that save their results through the <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Suite API</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/noise_sampling.py</span></code> defines the Release policy, the noise gate and the run,
+retry and restart limits; the <a class="reference internal" href="kpi_contracts.html#source-map"><span class="std std-ref">source map</span></a> lists the modules that
+apply them.</p>
+<p>Related pages: <a class="reference internal" href="kpi.html"><span class="std std-doc">KPI maintainer guide</span></a> and its <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">glossary</span></a>,
+<a class="reference internal" href="kpi_cpu_admission.html"><span class="std std-doc">KPI CPU admission</span></a>, <a class="reference internal" href="kpi_baselines.html"><span class="std std-doc">KPI baselines and budget packages</span></a>,
+<a class="reference internal" href="kpi_evidence.html"><span class="std std-doc">KPI evidence, reports and verdicts</span></a>.</p>
+<section id="rules-at-a-glance">
+<h2>Rules at a glance<a class="headerlink" href="#rules-at-a-glance" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Rule</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Profiles</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">smoke</span></code> (the default) and <code class="docutils literal notranslate"><span class="pre">release</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Smoke</p></td>
+<td><p>One observation per workload. With matching approved budgets, up to three</p></td>
+</tr>
+<tr class="row-even"><td><p>Release warm-up</p></td>
+<td><p>The first successful run of each workload. It is kept but excluded from every statistic</p></td>
+</tr>
+<tr class="row-odd"><td><p>Release measured runs</p></td>
+<td><p>3 to 9 per workload, until every required metric is stable</p></td>
+</tr>
+<tr class="row-even"><td><p>Successful-run limit</p></td>
+<td><p>10 per workload series, warm-up included</p></td>
+</tr>
+<tr class="row-odd"><td><p>CPU retries</p></td>
+<td><p>10 per Release run (11 attempts), so at most 110 attempts per series</p></td>
+</tr>
+<tr class="row-even"><td><p>Stability value</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">3</span> <span class="pre">*</span> <span class="pre">MAD</span></code> of the measured values</p></td>
+</tr>
+<tr class="row-odd"><td><p>Noise limits</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">load_seconds</span></code>: <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">&lt;=</span> <span class="pre">0.25</span> <span class="pre">*</span> <span class="pre">median</span></code>. Every other required metric: <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">&lt;=</span> <span class="pre">0.15</span> <span class="pre">*</span> <span class="pre">median</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Budget noise</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">max(S,</span> <span class="pre">largest</span> <span class="pre">deviation</span> <span class="pre">from</span> <span class="pre">the</span> <span class="pre">median)</span></code>. For Suite serialization, <code class="docutils literal notranslate"><span class="pre">N</span></code> is at least 30% of the median</p></td>
+</tr>
+<tr class="row-odd"><td><p>Limits</p></td>
+<td><p>Warning <code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">=</span> <span class="pre">1.05</span> <span class="pre">*</span> <span class="pre">B</span> <span class="pre">+</span> <span class="pre">N</span></code>, failure <code class="docutils literal notranslate"><span class="pre">F</span> <span class="pre">=</span> <span class="pre">1.10</span> <span class="pre">*</span> <span class="pre">B</span> <span class="pre">+</span> <span class="pre">N</span></code>, where <code class="docutils literal notranslate"><span class="pre">B</span></code> is the median of the pooled measured values</p></td>
+</tr>
+<tr class="row-even"><td><p>Workload restarts</p></td>
+<td><p>Baseline collection only: at most 10 per workload and campaign, all causes combined</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="profiles">
+<h2>Profiles<a class="headerlink" href="#profiles" title="Link to this heading">#</a></h2>
+<p>Select the profile with <code class="docutils literal notranslate"><span class="pre">--profile</span></code>. Both profiles run all nine workloads, including the Suite
+saves. Both use the same <a class="reference internal" href="kpi_cpu_admission.html"><span class="std std-doc">CPU admission</span></a>, the same expected-work audit
+(the check that each workload did its frozen work; see
+<a class="reference internal" href="kpi_contracts.html#expected-work-identity"><span class="std std-ref">expected-work identity</span></a>), input identity checks,
+operation watchdogs and cleanup. Every attempt starts a fresh child process.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">smoke</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">release</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Observations per workload</p></td>
+<td><p>One, or three; see <a class="reference internal" href="#adaptive-smoke">adaptive smoke</a></p></td>
+<td><p>One warm-up, then 3 to 9 measured runs; see <a class="reference internal" href="#adaptive-release-sampling">adaptive Release sampling</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Noise gate</p></td>
+<td><p>None</p></td>
+<td><p>Every required metric, after every successful run</p></td>
+</tr>
+<tr class="row-even"><td><p>CPU retries</p></td>
+<td><p>Bounded by the CPU domain; see <a class="reference internal" href="kpi_cpu_admission.html#recovery"><span class="std std-ref">recovery</span></a></p></td>
+<td><p>10 per run. In the four-core domain, also bounded by the <a class="reference internal" href="kpi_cpu_admission.html#shared-cpu-wait-allowance"><span class="std std-ref">shared CPU-wait allowance</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>After a product failure, harness failure (see <a class="reference internal" href="kpi_evidence.html#reports-and-verdicts"><span class="std std-ref">reports and verdicts</span></a>) or other result that cannot be retried</p></td>
+<td><p>Continues with the next observation, unless a campaign-level stop applies</p></td>
+<td><p>Stops the campaign. The remaining cells stay unexecuted</p></td>
+</tr>
+<tr class="row-even"><td><p>Campaign-level stops</p></td>
+<td><p>A busy pre-run check in the <code class="docutils literal notranslate"><span class="pre">inherited</span></code> CPU domain, a four-core placement failure that cannot be retried, a spent shared CPU-wait allowance (four-core domain) and unverified process cleanup stop the campaign. The remaining cells stay unexecuted</p></td>
+<td><p>The same stops, plus the Release stops in <a class="reference internal" href="#when-a-release-campaign-stops">when a Release campaign stops</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Workload restarts</p></td>
+<td><p>Never</p></td>
+<td><p>Only in <code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">collect-baseline</span></code> with a campaign deadline</p></td>
+</tr>
+<tr class="row-even"><td><p>Calibration evidence</p></td>
+<td><p>Never</p></td>
+<td><p>Exported after a complete clean campaign in which every workload is stable; see <a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">calibration evidence</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Selected by</p></td>
+<td><p>The launchers and <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span></code> by default</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">release</span></code>; <code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">collect-baseline</span></code> always</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <a class="reference internal" href="kpi.html#quick-start"><span class="std std-ref">quick start</span></a> gives the Release check command. The <code class="docutils literal notranslate"><span class="pre">Fixed:</span></code> group of the
+<a class="reference internal" href="kpi_running.html#settings-block"><span class="std std-ref">settings block</span></a> states the sampling rules of each run in its
+<code class="docutils literal notranslate"><span class="pre">Runs</span> <span class="pre">per</span> <span class="pre">workload</span></code>, <code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">retries</span></code>, <code class="docutils literal notranslate"><span class="pre">Workload</span> <span class="pre">restarts</span></code> and <code class="docutils literal notranslate"><span class="pre">Noise</span> <span class="pre">limits</span></code> rows.</p>
+<section id="adaptive-smoke">
+<h3>Adaptive smoke<a class="headerlink" href="#adaptive-smoke" title="Link to this heading">#</a></h3>
+<p>Smoke becomes adaptive only when all of these hold:</p>
+<ul class="simple">
+<li><p>The run uses recorded-contention admission (<code class="docutils literal notranslate"><span class="pre">shared-runner-recorded-contention-v2</span></code>), the
+default of the launchers; see
+<a class="reference internal" href="kpi_cpu_admission.html#admission-policy-and-cpu-domain"><span class="std std-ref">admission policy and CPU domain</span></a>.</p></li>
+<li><p>A validated package with approved or generated budgets is selected.</p></li>
+<li><p>At least one of its budgets matches the run’s cohort, a workload and a required metric.</p></li>
+</ul>
+<p>Each workload then starts with one of two inventories:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Workload coverage</p></th>
+<th class="head"><p>First inventory</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>One package covers every required metric with an active budget</p></td>
+<td><p>One observation, which can expand to three</p></td>
+</tr>
+<tr class="row-odd"><td><p>Anything less</p></td>
+<td><p>Three observations</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The single observation passes alone only when all of these hold:</p>
+<ol class="arabic simple">
+<li><p>The same-build validation receipt passed.</p></li>
+<li><p>The attempt completed with exit 0 and passed its expected-work audit. Any earlier attempts
+of that cell were verified pre-run CPU-busy rejections.</p></li>
+<li><p>Every required metric has an active budget for the CPU model that the attempt actually ran
+on.</p></li>
+<li><p>Every value is strictly below its warning limit <code class="docutils literal notranslate"><span class="pre">W</span></code>.</p></li>
+</ol>
+<p>Otherwise the controller adds two cells, so the workload has three observations in total. The
+first observation counts as one of the three. The median of the qualified observations then
+decides; see <a class="reference internal" href="#budget-limits">budget limits</a>. Fewer than three qualified observations give
+insufficient evidence.</p>
+<p>After the first observation of an adaptive workload, the console prints one of these lines:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Sampling:      single qualified observation; all approved metrics strictly below warning; variability unmeasured
+Sampling:      expanding to three total observations; retain all values and compare the qualified median
+</pre></div>
+</div>
+<p>When smoke is not adaptive, every workload runs once. One observation can never produce a
+verdict, so its comparisons report insufficient evidence. This happens, for example, in a
+direct <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span></code> with its default <code class="docutils literal notranslate"><span class="pre">strict</span></code> admission or without
+<code class="docutils literal notranslate"><span class="pre">--budgets</span></code>; see <a class="reference internal" href="kpi_running.html#run-a-campaign"><span class="std std-ref">run a campaign</span></a>. The launchers never reach
+this case: they stop before measurement when compatible budgets are missing.</p>
+</section>
+</section>
+<section id="adaptive-release-sampling">
+<h2>Adaptive Release sampling<a class="headerlink" href="#adaptive-release-sampling" title="Link to this heading">#</a></h2>
+<p>Release runs use the acquisition policy
+<code class="docutils literal notranslate"><span class="pre">adaptive-release-warmup-robust-load25-noise15-retry10-runs10-restarts10-v10</span></code>. Its name lists
+the fixed values:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name part</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">warmup</span></code></p></td>
+<td><p>One retained warm-up run per workload series</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">robust</span></code></p></td>
+<td><p>Stability is measured with the median absolute deviation (MAD)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">load25</span></code>, <code class="docutils literal notranslate"><span class="pre">noise15</span></code></p></td>
+<td><p>Noise limits: 25% for <code class="docutils literal notranslate"><span class="pre">load_seconds</span></code>, 15% for every other required metric</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">retry10</span></code></p></td>
+<td><p>10 CPU retries per run</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runs10</span></code></p></td>
+<td><p>10 successful runs per workload series, warm-up included</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">restarts10</span></code></p></td>
+<td><p>10 workload restarts per campaign in baseline collection</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">v10</span></code></p></td>
+<td><p>The policy version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Calibration evidence and budget packages (<code class="docutils literal notranslate"><span class="pre">acquisition_policy</span></code>) record this name. Readers
+reject any other policy, so a policy change needs new packages.</p>
+<section id="warm-up">
+<h3>Warm-up<a class="headerlink" href="#warm-up" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The first successful run of a series is the warm-up. A successful run has exit 0, qualified
+CPU and environment evidence, and a passing expected-work audit.</p></li>
+<li><p>The warm-up is kept in the evidence and shown as <code class="docutils literal notranslate"><span class="pre">Warm-up</span></code> in the console. It is excluded
+from medians, MAD, noise and budgets.</p></li>
+<li><p>CPU-rejected attempts before it are retries of the warm-up run. They never become the
+warm-up.</p></li>
+</ul>
+</section>
+<section id="the-noise-gate">
+<h3>The noise gate<a class="headerlink" href="#the-noise-gate" title="Link to this heading">#</a></h3>
+<p>After every successful run, the controller evaluates each required metric over all of its
+measured values. <a class="reference internal" href="kpi_overview.html#metrics-and-measurement-boundaries"><span class="std std-ref">Required metrics</span></a> lists
+them per workload.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>B     = median of the measured values
+MAD   = median of abs(x - B) over every measured value x
+S     = 3 * MAD                     the stability value
+noise = 100 * S / B                 the displayed percentage
+
+load_seconds:          stable when S &lt;= 0.25 * B
+every other metric:    stable when S &lt;= 0.15 * B
+</pre></div>
+</div>
+<p>A metric passes when it has at least three measured values and its <code class="docutils literal notranslate"><span class="pre">S</span></code> is within its limit.
+The result is one decision per workload:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Decision</p></th>
+<th class="head"><p>When</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stable</span></code></p></td>
+<td><p>At least four successful runs (the warm-up and three measured runs), and every required metric passes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">attempt-limit</span></code></p></td>
+<td><p>The tenth successful run ended without a <code class="docutils literal notranslate"><span class="pre">stable</span></code> decision</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">collect</span></code></p></td>
+<td><p>Any other case. The controller runs the workload again</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The inventory starts with three cells per workload. The warm-up uses one of them, so a fourth
+cell is always added. Each later <code class="docutils literal notranslate"><span class="pre">collect</span></code> decision adds one more cell. A new cell is inserted
+right after the current one and saved before its first attempt starts.</p>
+<p>The gate follows these rules:</p>
+<ul class="simple">
+<li><p>Each metric passes or fails on its own. A stable <code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code> does not cover an
+unstable phase or memory metric.</p></li>
+<li><p>Every valid value stays. No value is trimmed or clipped, and no favorable subset is chosen,
+neither for the gate nor for the <a class="reference internal" href="#budget-limits">budget limits</a>.</p></li>
+<li><p>The gate reads only the measured values, never the budgets. Sampling never repeats a
+workload to turn a warning or a regression into a pass.</p></li>
+<li><p>A stable workload does not make a package. A package also needs compatible identity, a valid
+producer, verified cleanup, independent replay, and approval or validated generation; see
+<a class="reference internal" href="kpi_baselines.html"><span class="std std-doc">KPI baselines and budget packages</span></a>.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Note</strong> The 25% Load noise limit is unrelated to the 25% CPU-busy threshold of
+<a class="reference internal" href="kpi_cpu_admission.html#recorded-contention-on-shared-runners"><span class="std std-ref">recorded-contention admission</span></a>.
+The noise limit bounds the spread of measured Load times. The admission threshold bounds CPU
+load before an attempt.</p>
+</div></blockquote>
+</section>
+<section id="run-retry-and-attempt-limits">
+<h3>Run, retry and attempt limits<a class="headerlink" href="#run-retry-and-attempt-limits" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A series has at most 10 successful runs: one warm-up and up to nine measured runs.</p></li>
+<li><p>Each run, the warm-up included, permits 10 CPU retries, so 11 attempts.</p></li>
+<li><p>Rejected attempts use no run slot. A series therefore has at most 110 attempts.</p></li>
+<li><p>The <a class="reference internal" href="kpi_cpu_admission.html#shared-cpu-wait-allowance"><span class="std std-ref">shared CPU-wait allowance</span></a> and the
+<a class="reference internal" href="kpi_cpu_admission.html#deadlines"><span class="std std-ref">campaign deadline</span></a> can end retries sooner.
+<a class="reference internal" href="kpi_cpu_admission.html#recovery"><span class="std std-ref">Recovery</span></a> lists the rejections that are retried.</p></li>
+</ul>
+</section>
+<section id="example-a-workload-that-becomes-stable">
+<h3>Example: a workload that becomes stable<a class="headerlink" href="#example-a-workload-that-becomes-stable" title="Link to this heading">#</a></h3>
+<p>The <a class="reference internal" href="kpi_evidence.html#workload-tables"><span class="std std-ref">workload table example</span></a> shows a Release workload from its
+first attempt to its <code class="docutils literal notranslate"><span class="pre">stable</span></code> result, and that section reads its rows. The noise of its
+<code class="docutils literal notranslate"><span class="pre">PASSED</span></code> line comes from the measured runs 2 to 4: the <code class="docutils literal notranslate"><span class="pre">Capture/Save</span></code> values 1.02, 1.03 and
+1.01 give <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">0.01</span> <span class="pre">/</span> <span class="pre">1.02</span> <span class="pre">=</span> <span class="pre">2.94%</span></code>, and the <code class="docutils literal notranslate"><span class="pre">Load</span></code> values 1.00, 1.02 and 0.99 give
+<code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">0.01</span> <span class="pre">/</span> <span class="pre">1.00</span> <span class="pre">=</span> <span class="pre">3.00%</span></code>.</p>
+</section>
+<section id="when-a-release-campaign-stops">
+<h3>When a Release campaign stops<a class="headerlink" href="#when-a-release-campaign-stops" title="Link to this heading">#</a></h3>
+<p>A Release campaign stops at the first workload that cannot finish, unless baseline collection
+<a class="reference internal" href="#workload-restarts-in-baseline-collection">restarts that workload</a>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Cause</p></th>
+<th class="head"><p>Console line</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>One run used all of its CPU retries</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">CPU</span> <span class="pre">retry</span> <span class="pre">limit</span> <span class="pre">reached</span> <span class="pre">(initial</span> <span class="pre">attempt</span> <span class="pre">plus</span> <span class="pre">10</span> <span class="pre">retries);</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>The shared CPU-wait allowance cannot fund another check (four-core domain)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">shared</span> <span class="pre">180s</span> <span class="pre">CPU-check</span> <span class="pre">allowance</span> <span class="pre">cannot</span> <span class="pre">fund</span> <span class="pre">another</span> <span class="pre">recovery</span> <span class="pre">check;</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>The campaign reached its cleanup reserve, the last 300 seconds before the campaign <a class="reference internal" href="kpi_cpu_admission.html#deadlines"><span class="std std-ref">deadline</span></a>, during CPU recovery</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">job</span> <span class="pre">reserve</span> <span class="pre">reached</span> <span class="pre">before</span> <span class="pre">CPU</span> <span class="pre">recovery;</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Ten successful runs without a stable result</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">10</span> <span class="pre">successful</span> <span class="pre">runs</span> <span class="pre">used</span> <span class="pre">(1</span> <span class="pre">warm-up,</span> <span class="pre">9</span> <span class="pre">measured);</span> <span class="pre">...</span></code>, followed by the <a class="reference internal" href="#how-a-stop-is-explained">calculation</a></p></td>
+</tr>
+<tr class="row-even"><td><p>A product failure (exit 1) or harness failure (exit 4)</p></td>
+<td><p>The attempt’s row and its failure lines; the campaign keeps that verdict</p></td>
+</tr>
+<tr class="row-odd"><td><p>Another result that cannot be retried, such as an unqualified measurement or an operation watchdog timeout</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">this</span> <span class="pre">workload</span> <span class="pre">result</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">qualified</span> <span class="pre">and</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">retried</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>A campaign with a deadline (every collection campaign, and a direct <code class="docutils literal notranslate"><span class="pre">run</span></code> without
+<code class="docutils literal notranslate"><span class="pre">--no-campaign-deadline</span></code>) appends the time left before its cleanup reserve to a line that
+ends a CPU recovery, for example
+<code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">CPU</span> <span class="pre">retry</span> <span class="pre">limit</span> <span class="pre">reached</span> <span class="pre">(initial</span> <span class="pre">attempt</span> <span class="pre">plus</span> <span class="pre">10</span> <span class="pre">retries);</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3);</span> <span class="pre">&lt;seconds&gt;s</span> <span class="pre">remaining</span></code>.
+Check mode through the driver has no campaign deadline, so its lines end at <code class="docutils literal notranslate"><span class="pre">(exit</span> <span class="pre">3)</span></code>.</p></li>
+<li><p>When the controller reports no known cause, the line falls back to
+<code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">CPU</span> <span class="pre">recovery</span> <span class="pre">unavailable;</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code> or
+<code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span> <span class="pre">details</span> <span class="pre">unavailable;</span> <span class="pre">see</span> <span class="pre">the</span> <span class="pre">retained</span> <span class="pre">result</span></code>.</p></li>
+</ul>
+<p>A <code class="docutils literal notranslate"><span class="pre">Recovery:</span></code> line closes a CPU recovery that prints no <code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped</span></code> line. It carries the
+same remaining-time suffix:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Console line</p></th>
+<th class="head"><p>When</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Recovery:</span> <span class="pre">CPU</span> <span class="pre">contention</span> <span class="pre">retry</span> <span class="pre">allowance</span> <span class="pre">exhausted</span> <span class="pre">(10/10);</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code></p></td>
+<td><p>Release <code class="docutils literal notranslate"><span class="pre">collect-baseline</span></code>: one run used all ten retries, and the workload restarts. The <code class="docutils literal notranslate"><span class="pre">Restarting</span></code> lines follow</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Recovery:</span> <span class="pre">CPU</span> <span class="pre">contention</span> <span class="pre">recovery</span> <span class="pre">stopped</span> <span class="pre">(&lt;n&gt;</span> <span class="pre">retries</span> <span class="pre">used);</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">;</span> <span class="pre">shared</span> <span class="pre">180s</span> <span class="pre">CPU-check</span> <span class="pre">allowance</span> <span class="pre">cannot</span> <span class="pre">fund</span> <span class="pre">another</span> <span class="pre">full</span> <span class="pre">recovery</span> <span class="pre">check</span></code> or <code class="docutils literal notranslate"><span class="pre">;</span> <span class="pre">job</span> <span class="pre">reserve</span> <span class="pre">reached</span></code></p></td>
+<td><p>Smoke in the four-core domain, whose retries have no count limit. The remaining cells stay unexecuted</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Recovery:</span> <span class="pre">CPU</span> <span class="pre">contention</span> <span class="pre">retry</span> <span class="pre">allowance</span> <span class="pre">exhausted</span> <span class="pre">(&lt;n&gt;/&lt;n&gt;);</span> <span class="pre">insufficient</span> <span class="pre">evidence</span> <span class="pre">(exit</span> <span class="pre">3)</span></code>, or <code class="docutils literal notranslate"><span class="pre">recovery</span> <span class="pre">stopped</span> <span class="pre">before</span> <span class="pre">retry</span> <span class="pre">allowance</span> <span class="pre">(&lt;k&gt;/&lt;n&gt;</span> <span class="pre">retries</span> <span class="pre">used)</span></code> when the cleanup reserve ended the retries first</p></td>
+<td><p>Smoke with a fixed retry count, such as under <code class="docutils literal notranslate"><span class="pre">strict</span></code> admission</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>After a stop, every remaining cell is recorded as unexecuted. The saved summary then gives this
+reason:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Campaign stopped before every workload met the noise limits (Load 25%; all other metrics 15%) with at least three valid measured values per metric; no baseline can be admitted.
+</pre></div>
+</div>
+<p>The campaign’s verdict is insufficient evidence (exit 3) unless a verdict with a higher
+priority applies; <a class="reference internal" href="kpi_evidence.html#reports-and-verdicts"><span class="std std-ref">reports and verdicts</span></a> gives the order.
+<a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">Calibration evidence</span></a> needs every workload stable, so a
+stopped campaign exports none. When the driver checks it for export, it prints
+<code class="docutils literal notranslate"><span class="pre">KPI</span> <span class="pre">campaign</span> <span class="pre">is</span> <span class="pre">ineligible</span> <span class="pre">for</span> <span class="pre">portable</span> <span class="pre">calibration;</span> <span class="pre">diagnostic</span> <span class="pre">verdict</span> <span class="pre">unchanged.</span></code> In
+baseline collection, the noise, CPU retry and clock-alignment stops can
+<a class="reference internal" href="#workload-restarts-in-baseline-collection">restart the workload</a> instead.</p>
+</section>
+<section id="how-a-stop-is-explained">
+<h3>How a stop is explained<a class="headerlink" href="#how-a-stop-is-explained" title="Link to this heading">#</a></h3>
+<p>A noise stop prints the run counts and a calculation block for one deciding metric. The
+deciding metric is the first required metric, in metric-ID order, with fewer than three values.
+When every metric has three values, it is the first metric above its limit. This example is
+console output for illustrative values:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  Campaign stopped: 10 successful runs used (1 warm-up, 9 measured); 12 total attempts; required metrics have not passed the noise checks (Load 25%; other metrics 15%); Operation noise 30.00% &gt; 15%
+  Operation: REJECTED: stability noise 30.00% &gt; 15%
+    median=6s; MAD=0.6s
+    R=3*MAD=1.8s
+    allowed R=0.9s (0.15*median)
+    Noise=R/median*100=30.00% &gt; 15%
+    largest deviation=0.9s; retained and reported separately from stability.
+    Budget allowance N=max(R, largest deviation) still includes every spike; warning=1.05*median+N, failure=1.10*median+N.
+    MAD=median absolute deviation of all measured values. Values are rounded for display; the saved gate uses full precision.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">R</span></code> is the stability value <code class="docutils literal notranslate"><span class="pre">S</span></code>. <code class="docutils literal notranslate"><span class="pre">allowed</span> <span class="pre">R</span></code> is the limit times the median.</p></li>
+<li><p>Displayed numbers are rounded. When a rounded percentage does not look above the limit, the
+line reads <code class="docutils literal notranslate"><span class="pre">(rounded;</span> <span class="pre">exceeds</span> <span class="pre">15%</span> <span class="pre">at</span> <span class="pre">full</span> <span class="pre">precision)</span></code>. The saved gate always uses full
+precision.</p></li>
+</ul>
+<p>When the deciding metric has fewer than three values, no noise is calculated:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>  Campaign stopped: 10 successful runs used (1 warm-up, 9 measured); 10 total attempts; fewer than 3 valid measurements for a required metric; OS peak resident: fewer than 3 valid measured values
+  OS peak resident: insufficient measurements (2 / 3 valid values; fewer than 3 valid measurements); noise rejection is not established
+</pre></div>
+</div>
+<p>The final summary repeats each workload’s saved decision in its
+<code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">summary</span> <span class="pre">(saved</span> <span class="pre">controller</span> <span class="pre">decisions)</span></code> table; see
+<a class="reference internal" href="kpi_evidence.html#the-final-summary"><span class="std std-ref">the final summary</span></a>.</p>
+</section>
+</section>
+<section id="budget-limits">
+<h2>Budget limits<a class="headerlink" href="#budget-limits" title="Link to this heading">#</a></h2>
+<p>A budget package holds one warning limit and one failure limit per CPU model, workload and
+required metric. They are derived from <strong>all</strong> measured values of the selected evidence: every
+value of the selected campaigns for a generated package, every admitted observation for
+<a class="reference internal" href="kpi_baselines.html#offline-budget-recording"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">budget</span> <span class="pre">create</span></code></span></a>. Warm-up values never enter. For
+one workload and metric with median <code class="docutils literal notranslate"><span class="pre">B</span></code>, MAD <code class="docutils literal notranslate"><span class="pre">D</span></code> and values <code class="docutils literal notranslate"><span class="pre">x</span></code>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>S = 3 * D                          stability value; gated by the noise limits
+N = max(S, max(abs(x - B)), f * B) budget noise; keeps the largest deviation and the floor f
+W = 1.05 * B + N                   warning limit
+F = 1.10 * B + N                   failure limit
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">N</span></code> is not a second stability gate. An isolated slow value can pass the noise gate, but it
+still widens both limits. It is never deleted or clipped.</p></li>
+<li><p>The noise floor <code class="docutils literal notranslate"><span class="pre">f</span></code> is 0.30 for <code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code> (Suite serialization) and
+0 for every other metric. A collection runs on one machine, so its values cannot show how far
+a metric moves between machines of the same CPU model. Suite serialization writes the result
+database, and its time varies between machines more than one collection’s spread shows.
+Its warning limit is therefore at least <code class="docutils literal notranslate"><span class="pre">1.35</span> <span class="pre">*</span> <span class="pre">B</span></code> and its failure limit at least <code class="docutils literal notranslate"><span class="pre">1.40</span> <span class="pre">*</span> <span class="pre">B</span></code>.
+The floor never affects the noise gate.</p></li>
+<li><p>The floor belongs to the comparison contract <code class="docutils literal notranslate"><span class="pre">approved-cpu-model-limits-v2</span></code>, which every new
+package uses. A package of the earlier <code class="docutils literal notranslate"><span class="pre">approved-cpu-model-limits-v1</span></code> contract stays valid and
+keeps its recorded limits, without the floor, until a new package replaces it.</p></li>
+<li><p>An approved or generated budget also needs at least three values and <code class="docutils literal notranslate"><span class="pre">S</span></code> within the noise
+limit of its metric.</p></li>
+<li><p>Package readers recompute <code class="docutils literal notranslate"><span class="pre">N</span></code>, <code class="docutils literal notranslate"><span class="pre">W</span></code> and <code class="docutils literal notranslate"><span class="pre">F</span></code> with the formulas of the package’s contract and
+reject a package whose limits differ; see <a class="reference internal" href="kpi_baselines.html#package-fields"><span class="std std-ref">package fields</span></a>.</p></li>
+</ul>
+<p>A candidate is judged by the median <code class="docutils literal notranslate"><span class="pre">C</span></code> of at least three qualified observations of the same
+workload and metric. In a Release check these are the workload’s measured runs; the warm-up
+never counts. The limits are inclusive:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Median</p></th>
+<th class="head"><p>Result</p></th>
+<th class="head"><p>Exit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">&lt;=</span> <span class="pre">W</span></code></p></td>
+<td><p>Pass</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">W</span> <span class="pre">&lt;</span> <span class="pre">C</span> <span class="pre">&lt;=</span> <span class="pre">F</span></code></p></td>
+<td><p>Warning</p></td>
+<td><p>0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">C</span> <span class="pre">&gt;</span> <span class="pre">F</span></code></p></td>
+<td><p>Regression</p></td>
+<td><p>2</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>A single observation can only pass, and only under <a class="reference internal" href="#adaptive-smoke">adaptive smoke</a>. It must
+be strictly below <code class="docutils literal notranslate"><span class="pre">W</span></code>. It never establishes a warning or a regression.</p></li>
+<li><p>Fewer than three qualified observations otherwise give insufficient evidence (exit 3).</p></li>
+<li><p>An unapproved package cannot enforce its budgets. Its comparisons stay insufficient evidence,
+and the record keeps the numeric result for review.</p></li>
+</ul>
+<section id="worked-example">
+<h3>Worked example<a class="headerlink" href="#worked-example" title="Link to this heading">#</a></h3>
+<p>Nine pooled <code class="docutils literal notranslate"><span class="pre">load_seconds</span></code> values (seconds) from three selected campaigns:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>100, 100, 100, 100, 101, 102, 102, 102, 102
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>B = 101.0                         the fifth of nine sorted values
+D = 1.0                           deviations: 1, 1, 1, 1, 0, 1, 1, 1, 1
+S = 3 * 1.0 = 3.0                 noise 3.0 / 101.0 = 2.97% &lt;= 25%: stable
+N = max(3.0, 1.0) = 3.0
+W = 1.05 * 101.0 + 3.0 = 109.05
+F = 1.10 * 101.0 + 3.0 = 114.1
+</pre></div>
+</div>
+<p>A candidate median of 108 s passes, 112 s warns and 115 s is a regression. If the same values
+were <code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code>, the 15% limit would apply, and 2.97% would still be stable.</p>
+</section>
+<section id="example-the-suite-serialization-floor">
+<h3>Example: the Suite serialization floor<a class="headerlink" href="#example-the-suite-serialization-floor" title="Link to this heading">#</a></h3>
+<p>Nine pooled <code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code> values (milliseconds), synthetic:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>20.0, 20.1, 20.2, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>B = 20.4, D = 0.2
+S = 0.6                           noise 2.9% &lt;= 15%: stable
+N = max(0.6, 0.4, 0.30 * 20.4) = 6.12
+W = 1.05 * 20.4 + 6.12 = 27.54
+F = 1.10 * 20.4 + 6.12 = 28.56
+</pre></div>
+</div>
+<p>Without the floor, <code class="docutils literal notranslate"><span class="pre">N</span></code> would be 0.6 ms and the failure limit 23.04 ms, so a check that lands on
+a slower host of the same CPU model would report a regression without any code change.</p>
+</section>
+<section id="example-an-isolated-slow-value">
+<h3>Example: an isolated slow value<a class="headerlink" href="#example-an-isolated-slow-value" title="Link to this heading">#</a></h3>
+<p>Nine pooled <code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code> values with one slow outlier:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>2.00, 2.01, 2.02, 1.99, 2.00, 2.01, 1.98, 2.00, 2.60
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>B = 2.00, D = 0.01
+S = 0.03                          noise 1.5% &lt;= 15%: stable
+N = max(0.03, 0.60) = 0.60        the outlier sets the budget noise
+W = 1.05 * 2.00 + 0.60 = 2.70
+F = 1.10 * 2.00 + 0.60 = 2.80
+</pre></div>
+</div>
+<p>The outlier does not block stability, but it widens both limits by 0.60 s. Without it, <code class="docutils literal notranslate"><span class="pre">N</span></code>
+would be about 0.03 s.</p>
+</section>
+<section id="reproduce-the-arithmetic">
+<h3>Reproduce the arithmetic<a class="headerlink" href="#reproduce-the-arithmetic" title="Link to this heading">#</a></h3>
+<p>The gate and the limits are plain Python. Run this from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> with the KPI input Python
+<code class="docutils literal notranslate"><span class="pre">$PY</span></code> from the <a class="reference internal" href="kpi.html#quick-start"><span class="std std-ref">quick start</span></a>. The snippet needs only the standard library
+and the checkout’s own modules, so any CPython 3.12 also runs it.</p>
+<p>Linux, as a shell heredoc:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">from benchmarks.kpi import baseline_selection, noise_sampling</span>
+
+<span class="s">policy = noise_sampling.CURRENT_POLICY</span>
+<span class="s">values = [100.0, 100.0, 100.0, 100.0, 101.0, 102.0, 102.0, 102.0, 102.0]</span>
+<span class="s">stats = baseline_selection.pooled_statistics(values, metric_id=&quot;load_seconds&quot;, acquisition_policy=policy)</span>
+<span class="s">print({key: stats[key] for key in (&quot;median&quot;, &quot;mad&quot;, &quot;noise&quot;, &quot;warning&quot;, &quot;failure&quot;, &quot;stable&quot;)})</span>
+
+<span class="s">gate = noise_sampling.evaluate_warmup(</span>
+<span class="s">    {&quot;load_seconds&quot;: [1.00, 1.02, 0.99], &quot;operation_seconds&quot;: [6.00, 6.90, 5.40]},</span>
+<span class="s">    attempt_count=4,</span>
+<span class="s">    run_count=4,</span>
+<span class="s">    policy=policy,</span>
+<span class="s">)</span>
+<span class="s">print(gate[&quot;decision&quot;], [(row[&quot;metric&quot;], round(row[&quot;noise_fraction&quot;], 4), row[&quot;passes&quot;]) for row in gate[&quot;metrics&quot;]])</span>
+<span class="s">EOF</span>
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>) has no heredoc: save the Python lines between <code class="docutils literal notranslate"><span class="pre">&lt;&lt;'EOF'</span></code> and <code class="docutils literal notranslate"><span class="pre">EOF</span></code> as a file
+in <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, such as <code class="docutils literal notranslate"><span class="pre">kpi_arithmetic.py</span></code>, and run <code class="docutils literal notranslate"><span class="pre">&quot;%PY%&quot;</span> <span class="pre">-B</span> <span class="pre">kpi_arithmetic.py</span></code>.</p>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;median&#39;: 101.0, &#39;mad&#39;: 1.0, &#39;noise&#39;: 3.0, &#39;warning&#39;: 109.05, &#39;failure&#39;: 114.1, &#39;stable&#39;: True}
+collect [(&#39;load_seconds&#39;, 0.03, True), (&#39;operation_seconds&#39;, 0.3, False)]
+</pre></div>
+</div>
+<p>The second gate has the warm-up and three measured runs, but <code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code> has 30%
+noise, so the decision is <code class="docutils literal notranslate"><span class="pre">collect</span></code>.</p>
+</section>
+</section>
+<section id="workload-restarts-in-baseline-collection">
+<h2>Workload restarts in baseline collection<a class="headerlink" href="#workload-restarts-in-baseline-collection" title="Link to this heading">#</a></h2>
+<p>A restart replaces only the failing workload’s current series with a new one in the same
+campaign. Earlier workloads keep their results, and later workloads run as usual.</p>
+<p>Restarts happen only with <code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">collect-baseline</span></code>, the <code class="docutils literal notranslate"><span class="pre">release</span></code> profile and a campaign
+deadline. Every <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">collector</span></a> campaign has a deadline. A standalone
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span> <span class="pre">--mode</span> <span class="pre">collect-baseline</span> <span class="pre">--profile</span> <span class="pre">release</span></code> also grants restarts,
+because <code class="docutils literal notranslate"><span class="pre">--job-seconds</span></code> defaults to 3300; <code class="docutils literal notranslate"><span class="pre">--no-campaign-deadline</span></code> turns them off. Check mode
+never restarts a workload: the same causes stop the campaign there.
+<a class="reference internal" href="kpi_cpu_admission.html#deadlines"><span class="std std-ref">Deadlines</span></a> describes the deadline and its cleanup reserve.</p>
+<section id="restart-causes">
+<h3>Restart causes<a class="headerlink" href="#restart-causes" title="Link to this heading">#</a></h3>
+<p>Only these verified causes restart a workload:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">cause</span></code></p></th>
+<th class="head"><p>Stop</p></th>
+<th class="head"><p>Condition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noise_exhaustion</span></code></p></td>
+<td><p>Successful-run limit</p></td>
+<td><p>Ten successful runs, every required metric has at least three values, and the gate is still not <code class="docutils literal notranslate"><span class="pre">stable</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_contention</span></code></p></td>
+<td><p>CPU retry limit</p></td>
+<td><p>One run used its initial attempt and all ten retries. Every attempt of that run was a verified pre-run CPU-busy or counter rejection, and the last one was CPU-busy</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_counter_rejection</span></code></p></td>
+<td><p>CPU retry limit</p></td>
+<td><p>The same, but the last attempt was a strictly replayed pre-run Windows <code class="docutils literal notranslate"><span class="pre">invalid_pdh_counter_delta</span></code> rejection of a Performance Data Helper (PDH) counter</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_clock_alignment</span></code></p></td>
+<td><p>A result that cannot be retried</p></td>
+<td><p>A strictly replayed pre-run Windows <code class="docutils literal notranslate"><span class="pre">pdh_clock_alignment_unsupported</span></code> rejection: exit 3, no metrics and no work</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Every earlier attempt of the series must also be a clean qualified measurement or a verified
+pre-run CPU rejection. In-operation CPU load never counts.</p>
+<p>After a <code class="docutils literal notranslate"><span class="pre">cpu_clock_alignment</span></code> restart, the new series searches for a CPU placement from
+scratch. That search is charged to the
+<a class="reference internal" href="kpi_cpu_admission.html#shared-cpu-wait-allowance"><span class="std std-ref">shared CPU-wait allowance</span></a>. The allowance, the pool
+and the cohort are never reset.</p>
+<p>These outcomes never restart a workload. They end the campaign with their own verdict:</p>
+<ul class="simple">
+<li><p>product failures (exit 1), harness failures (exit 4) and cancellation (exit 130);</p></li>
+<li><p>operation watchdog timeouts and crashes;</p></li>
+<li><p>in-operation CPU load and a cohort mismatch;</p></li>
+<li><p>the shared CPU-wait allowance stop and the campaign deadline stop;</p></li>
+<li><p>ten successful runs with fewer than three values for some required metric.</p></li>
+</ul>
+</section>
+<section id="when-a-restart-is-refused">
+<h3>When a restart is refused<a class="headerlink" href="#when-a-restart-is-refused" title="Link to this heading">#</a></h3>
+<p>The controller refuses a restart when:</p>
+<ul class="simple">
+<li><p>the campaign was interrupted, or owned process cleanup could not be verified;</p></li>
+<li><p>the campaign has reached its 300-second cleanup reserve before the deadline;</p></li>
+<li><p>the shared CPU-wait allowance has no time left for another CPU check;</p></li>
+<li><p>another campaign-level admission stop is active;</p></li>
+<li><p>the workload has already used its ten restarts.</p></li>
+</ul>
+<p>The allowance test looks only at the next check’s window, not at the new series’ placement
+search. If that search then uses up the allowance, the new series ends at the CPU-wait
+allowance stop. The collector then retries the campaign as <code class="docutils literal notranslate"><span class="pre">cpu_contention</span></code>.</p>
+<p>A refused restart ends the campaign. The collector classifies the campaign as described in
+<a class="reference internal" href="kpi_baselines.html#when-collection-continues-and-stops"><span class="std std-ref">when collection continues and stops</span></a>.</p>
+</section>
+<section id="the-restart-limit">
+<h3>The restart limit<a class="headerlink" href="#the-restart-limit" title="Link to this heading">#</a></h3>
+<p>A workload restarts at most ten times per campaign, all causes combined. It therefore has at
+most eleven series, numbered 0 to 10, of at most 110 attempts each.</p>
+<p>When the limit refuses a verified cause, the stop of series 10 stands. The collector
+classifies the campaign by that cause and starts another campaign while time remains. Earlier
+eligible campaigns stay candidates. The incomplete campaign contributes no values to a package.</p>
+</section>
+<section id="a-new-series">
+<h3>A new series<a class="headerlink" href="#a-new-series" title="Link to this heading">#</a></h3>
+<p>When the controller grants a restart of series <code class="docutils literal notranslate"><span class="pre">k</span></code>:</p>
+<ol class="arabic simple">
+<li><p>It drops the never-started cells of series <code class="docutils literal notranslate"><span class="pre">k</span></code> and saves three new cells for series <code class="docutils literal notranslate"><span class="pre">k+1</span></code>
+before the next attempt starts.</p></li>
+<li><p>Series <code class="docutils literal notranslate"><span class="pre">k+1</span></code> takes a new warm-up. Its samples, runs and attempts count from the start.</p></li>
+<li><p>Its attempt IDs insert <code class="docutils literal notranslate"><span class="pre">-r{k+1}</span></code> after the workload ID. Workload IDs do not change.</p></li>
+</ol>
+<p>For example, a noise exhaustion that ends at
+<code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-static-009-0</span></code> (sample 9, first attempt) is followed by
+<code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-static-r1-000-0</span></code>.</p>
+</section>
+<section id="what-counts-after-a-restart">
+<h3>What counts after a restart<a class="headerlink" href="#what-counts-after-a-restart" title="Link to this heading">#</a></h3>
+<p>Only the final series counts:</p>
+<ul class="simple">
+<li><p>Superseded series stay in the private execution tree, the console log and the public
+<code class="docutils literal notranslate"><span class="pre">measurements.json</span></code>. Their observations are <code class="docutils literal notranslate"><span class="pre">qualified:</span> <span class="pre">false</span></code>.</p></li>
+<li><p>Sample counts, the noise gate, the <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">scorecard</span></a> and the comparisons use the final
+series only.</p></li>
+<li><p>A product, harness or cancellation failure in any series still fails the workload.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">calibration.export</span></code> exports only each workload’s final series; its sampling rows carry no
+<code class="docutils literal notranslate"><span class="pre">series</span></code> or <code class="docutils literal notranslate"><span class="pre">restarts</span></code> field. It also drops the rejected CPU placements of superseded series from
+the selection ledger that it exports, the campaign’s
+<a class="reference internal" href="kpi_evidence.html#cpu-selection-json-fields"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">cpu-selection.json</span></code></span></a>; successful placements stay. The
+exported calibration validates like a campaign without restarts, so superseded values never reach
+a budget.</p></li>
+</ul>
+<p>The calibration reader cannot check why a series was superseded. The controller verifies every
+cause before it grants a restart, and the public record keeps the restart records for review.</p>
+</section>
+<section id="console-and-log-lines">
+<h3>Console and log lines<a class="headerlink" href="#console-and-log-lines" title="Link to this heading">#</a></h3>
+<p>A granted restart prints the cause and the start of the new series. These lines come from the
+console code; the noise values are illustrative.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Restarting this workload only (restart 1): noise limits not met at the successful-run limit (10 successful runs); Operation noise 30.00% &gt; 15%.
+Earlier runs stay retained but are excluded; the new series starts with a new warm-up.
+</pre></div>
+</div>
+<p>A CPU retry restart first prints the <code class="docutils literal notranslate"><span class="pre">Recovery:</span></code> line of the exhausted run; see
+<a class="reference internal" href="#when-a-release-campaign-stops">when a Release campaign stops</a>. For example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Recovery: CPU contention retry allowance exhausted (10/10); insufficient evidence (exit 3); &lt;seconds&gt;s remaining
+Restarting this workload only (restart 2): CPU busy through every retry of one run (initial attempt plus 10 retries).
+Earlier runs stay retained but are excluded; the new series starts with a new warm-up.
+</pre></div>
+</div>
+<p>Each cause has a fixed label:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">cause</span></code></p></th>
+<th class="head"><p>Console label</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noise_exhaustion</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">noise</span> <span class="pre">limits</span> <span class="pre">not</span> <span class="pre">met</span> <span class="pre">at</span> <span class="pre">the</span> <span class="pre">successful-run</span> <span class="pre">limit</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_contention</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">busy</span> <span class="pre">through</span> <span class="pre">every</span> <span class="pre">retry</span> <span class="pre">of</span> <span class="pre">one</span> <span class="pre">run</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_counter_rejection</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CPU</span> <span class="pre">counter</span> <span class="pre">samples</span> <span class="pre">invalid</span> <span class="pre">through</span> <span class="pre">every</span> <span class="pre">retry</span> <span class="pre">of</span> <span class="pre">one</span> <span class="pre">run</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cpu_clock_alignment</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pre-run</span> <span class="pre">CPU</span> <span class="pre">clock</span> <span class="pre">alignment</span> <span class="pre">rejected</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A refusal at the restart limit prints this line before the workload’s <code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped</span></code> line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Restart limit reached (10 restarts): noise limits not met at the successful-run limit; this workload is not restarted again.
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="kpi_evidence.html#the-final-summary"><span class="std std-ref">final summary</span></a> lists the restart history under the
+workload:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>restart 1 after noise limits not met at the successful-run limit (10 successful runs, 12 attempts); the new series began with a new warm-up
+restart 2 after CPU busy through every retry of one run (3 successful runs, 14 attempts); the new series began with a new warm-up
+</pre></div>
+</div>
+<p>When a workload’s final series is series 10 and is not stable, the history ends with
+<code class="docutils literal notranslate"><span class="pre">restart</span> <span class="pre">limit</span> <span class="pre">used</span> <span class="pre">up</span> <span class="pre">(10</span> <span class="pre">restarts);</span> <span class="pre">no</span> <span class="pre">further</span> <span class="pre">restart</span> <span class="pre">was</span> <span class="pre">available</span></code>. That line names no
+cause: the saved records do not show whether series 10 ended at a refused verified cause or at
+a stop that is never restarted.</p>
+<p>When the collector retries such a campaign, it logs the cause and the used-up restart limit in
+<code class="docutils literal notranslate"><span class="pre">public/progress.log</span></code>; see
+<a class="reference internal" href="kpi_baselines.html#when-collection-continues-and-stops"><span class="std std-ref">when collection continues and stops</span></a>.</p>
+<p>The campaign’s private <code class="docutils literal notranslate"><span class="pre">attempts.jsonl</span></code> journal records each grant as a <code class="docutils literal notranslate"><span class="pre">restarted</span></code> event with
+the workload ID, the new series, the cause, the stop and the terminal attempt ID. The
+<a class="reference internal" href="kpi.html#row-caps"><span class="std std-ref">row caps</span></a> bound how many attempts and cells a campaign with restarts can
+record.</p>
+</section>
+</section>
+<section id="sampling-records">
+<h2>Sampling records<a class="headerlink" href="#sampling-records" title="Link to this heading">#</a></h2>
+<p>A Release campaign saves its decisions in a <code class="docutils literal notranslate"><span class="pre">sampling</span></code> block. The block is in the private
+<code class="docutils literal notranslate"><span class="pre">results/summary.json</span></code> and in the public <code class="docutils literal notranslate"><span class="pre">measurements.json</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">policy</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adaptive-release-warmup-robust-load25-noise15-retry10-runs10-restarts10-v10</span></code></p></td>
+<td><p>The <a class="reference internal" href="#adaptive-release-sampling">acquisition policy</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workloads</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p>One row per workload</p></td>
+<td><p>The gate of each workload’s final series</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="workload-rows">
+<h3>Workload rows<a class="headerlink" href="#workload-rows" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">workloads</span></code> row:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">workload_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>One of the nine workload IDs</p></td>
+<td><p>The workload</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">decision</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">stable</span></code>, <code class="docutils literal notranslate"><span class="pre">attempt-limit</span></code> or <code class="docutils literal notranslate"><span class="pre">collect</span></code></p></td>
+<td><p>The <a class="reference internal" href="#the-noise-gate">noise gate</a> decision</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">run_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 to 10</p></td>
+<td><p>Successful runs, warm-up included</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">attempt_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 to 110</p></td>
+<td><p>Actual attempts, CPU rejections included</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qualified_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The smallest value count across the required metrics</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">metrics</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p>One row per required metric, sorted by metric ID</p></td>
+<td><p>See <a class="reference internal" href="#metric-rows">metric rows</a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">series</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Only when the workload was restarted</p></td>
+<td><p>1 to 10</p></td>
+<td><p>The final series</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">restarts</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Only when the workload was restarted</p></td>
+<td><p>One record per superseded series</p></td>
+<td><p>See <a class="reference internal" href="#restart-records">restart records</a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="metric-rows">
+<h3>Metric rows<a class="headerlink" href="#metric-rows" title="Link to this heading">#</a></h3>
+<p>Each <code class="docutils literal notranslate"><span class="pre">metrics</span></code> row. The statistics are <code class="docutils literal notranslate"><span class="pre">null</span></code> while the metric has no value:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metric</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>A required metric ID</p></td>
+<td><p>The metric</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Measured values, warm-up excluded</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">median</span></code></p></td>
+<td><p>number or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Greater than 0</p></td>
+<td><p>Median of the values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mad</span></code></p></td>
+<td><p>number or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Median absolute deviation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">noise</span></code></p></td>
+<td><p>number or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The stability value <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">3</span> <span class="pre">*</span> <span class="pre">MAD</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">noise_fraction</span></code></p></td>
+<td><p>number or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">noise</span> <span class="pre">/</span> <span class="pre">median</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">range_ineligible</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p>Always <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Reserved</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">passes</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>At least three values and <code class="docutils literal notranslate"><span class="pre">S</span></code> within the metric’s noise limit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Note</strong> In a sampling row, <code class="docutils literal notranslate"><span class="pre">noise</span></code> is the stability value <code class="docutils literal notranslate"><span class="pre">S</span> <span class="pre">=</span> <span class="pre">3</span> <span class="pre">*</span> <span class="pre">MAD</span></code>. In a budget package
+row, <code class="docutils literal notranslate"><span class="pre">noise</span></code> is the budget noise <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">=</span> <span class="pre">max(3</span> <span class="pre">*</span> <span class="pre">MAD,</span> <span class="pre">largest</span> <span class="pre">deviation)</span></code>, with the floor of
+<a class="reference internal" href="#budget-limits">budget limits</a> for Suite serialization.</p>
+</div></blockquote>
+<p>This row, with synthetic values, belongs to a workload that was restarted once for noise
+exhaustion and then became stable. Only two of its five metric rows are shown:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;workload_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;benchmark-body-representative-static&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;series&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;restarts&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;cause&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;noise_exhaustion&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;series&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;attempt_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;run_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;qualified_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;terminal_attempt_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;benchmark-body-representative-static-009-0&quot;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;decision&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;stable&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;attempt_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;qualified_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;metrics&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;load_seconds&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;median&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">1.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.010000000000000009</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;noise&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.030000000000000027</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;noise_fraction&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.030000000000000027</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;range_ineligible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;passes&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;metric&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;operation_seconds&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;median&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">6.0</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;mad&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.04999999999999982</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;noise&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.14999999999999947</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;noise_fraction&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.02499999999999991</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;range_ineligible&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;passes&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;run_count&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="restart-records">
+<h3>Restart records<a class="headerlink" href="#restart-records" title="Link to this heading">#</a></h3>
+<p>A restart record holds the final gate counts of the superseded series. Every field is required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cause</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">noise_exhaustion</span></code>, <code class="docutils literal notranslate"><span class="pre">cpu_contention</span></code>, <code class="docutils literal notranslate"><span class="pre">cpu_counter_rejection</span></code> or <code class="docutils literal notranslate"><span class="pre">cpu_clock_alignment</span></code></p></td>
+<td><p>The verified <a class="reference internal" href="#restart-causes">restart cause</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">series</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 to 9</p></td>
+<td><p>The superseded series</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">attempt_count</span></code>, <code class="docutils literal notranslate"><span class="pre">run_count</span></code>, <code class="docutils literal notranslate"><span class="pre">qualified_count</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The superseded series’ final gate counts, as in a <code class="docutils literal notranslate"><span class="pre">workloads</span></code> row</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">terminal_attempt_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>An attempt ID</p></td>
+<td><p>The attempt that ended the superseded series</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Inventory cells and attempts of series 1 or later carry <code class="docutils literal notranslate"><span class="pre">series:</span> <span class="pre">k</span></code>. The original series never carries a <code class="docutils literal notranslate"><span class="pre">series</span></code>
+field. Readers reject:</p>
+<ul class="simple">
+<li><p>an explicit <code class="docutils literal notranslate"><span class="pre">series:</span> <span class="pre">0</span></code>;</p></li>
+<li><p>a series above the workload’s final series or above the restart limit;</p></li>
+<li><p>a number of restart records that differs from the final series number.</p></li>
+</ul>
+</section>
+<section id="smoke-sampling-records">
+<h3>Smoke sampling records<a class="headerlink" href="#smoke-sampling-records" title="Link to this heading">#</a></h3>
+<p>Smoke saves a different <code class="docutils literal notranslate"><span class="pre">sampling</span></code> block, in the private summary only. Every field is
+required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">policy</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">adaptive-approved-smoke-three-v2</span></code> when at least one workload started with a single <a class="reference internal" href="#adaptive-smoke">adaptive</a> observation, otherwise <code class="docutils literal notranslate"><span class="pre">fixed-profile-three-v2</span></code></p></td>
+<td><p>The smoke policy</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workloads[].workload_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>One of the nine workload IDs</p></td>
+<td><p>The workload</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">workloads[].required_observations</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 or 3</p></td>
+<td><p>The number of inventory cells of the workload</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">workloads[].qualified_observations</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>Completed attempts whose required metrics all qualified</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">workloads[].evidence_strength</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single-qualified-observation</span></code>, <code class="docutils literal notranslate"><span class="pre">repeated-qualified-observations</span></code> or <code class="docutils literal notranslate"><span class="pre">insufficient</span></code></p></td>
+<td><p>Whether the workload’s evidence can decide a comparison</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kpi_running.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Run KPI</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kpi_cpu_admission.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">KPI CPU admission</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-at-a-glance">Rules at a glance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#profiles">Profiles</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-smoke">Adaptive smoke</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-release-sampling">Adaptive Release sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#warm-up">Warm-up</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-noise-gate">The noise gate</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-retry-and-attempt-limits">Run, retry and attempt limits</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-a-workload-that-becomes-stable">Example: a workload that becomes stable</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-a-release-campaign-stops">When a Release campaign stops</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-stop-is-explained">How a stop is explained</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#budget-limits">Budget limits</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#worked-example">Worked example</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-the-suite-serialization-floor">Example: the Suite serialization floor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-an-isolated-slow-value">Example: an isolated slow value</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproduce-the-arithmetic">Reproduce the arithmetic</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workload-restarts-in-baseline-collection">Workload restarts in baseline collection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restart-causes">Restart causes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-a-restart-is-refused">When a restart is refused</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-restart-limit">The restart limit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-new-series">A new series</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-counts-after-a-restart">What counts after a restart</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#console-and-log-lines">Console and log lines</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-records">Sampling records</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#workload-rows">Workload rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#metric-rows">Metric rows</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restart-records">Restart records</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoke-sampling-records">Smoke sampling records</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

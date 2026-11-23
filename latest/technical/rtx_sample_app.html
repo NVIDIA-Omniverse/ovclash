@@ -1,0 +1,1842 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovRTX Clash Sample App &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/rtx_sample_app';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Testing and Validation Internals" href="testing.html" />
+    <link rel="prev" title="Sample Internals" href="samples.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Sample Internals</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovRTX Clash Sample App</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovrtx-clash-sample-app">
+<h1>ovRTX Clash Sample App<a class="headerlink" href="#ovrtx-clash-sample-app" title="Link to this heading">#</a></h1>
+<p>The ovRTX clash sample app is the developer viewer of standalone ovclash. It renders a
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a> stage with <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovRTX</span></a>, NVIDIA’s RTX
+rendering runtime, outside <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Kit</span></a>, runs queries through the
+ovclash <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Suite</span></a> and lists their results. It lives in
+<code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/</span></code>.</p>
+<p>This page is for maintainers. It covers what the app shows, why it does not ship, how to launch,
+validate and debug it, where its version pins live, and the implementation rules of its scene
+backends. The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Architecture glossary</span></a> defines the implementation terms.
+The sample README, <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/README.md</span></code>, covers the prerequisites (its
+“Prerequisites” section), the viewer environment (“Viewer environment”), the app’s command line
+(“App command line”), one-shot runs (“One-shot runs”), the user interface (“Using the viewer”),
+how a query runs (“Clash queries”), the viewer’s environment variables (“Environment variables”)
+and a map of the code (“How the code works”).</p>
+<section id="what-it-demonstrates">
+<h2>What it demonstrates<a class="headerlink" href="#what-it-demonstrates" title="Link to this heading">#</a></h2>
+<p>The app runs the non-Kit clash path on one of two scene backends:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code> (the default) opens one <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Stage</span></a> and inspects and
+edits it through public stock <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a> APIs. It lends that
+Stage to <code class="docutils literal notranslate"><span class="pre">ovclash_suite.ClashDetection</span></code> and to ovRTX. Queries therefore see unsaved edits, and
+the source file is never opened again. Viewer code imports no Python
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> on this path.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openusd</span></code> is the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">parity reference</span></a>. It uses Python OpenUSD
+(<code class="docutils literal notranslate"><span class="pre">usd-core</span></code>) for inspection and edits, and the clash runtime opens the stage from its file.</p></li>
+</ul>
+<p>On both backends, a query saves its results in the working clash
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">store</span></a>. Detection does not change the stage or the rendered
+scene. A one-shot run also exports a viewer <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">session layer</span></a>. The
+interactive viewer is a docked <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovui</span></a> (<code class="docutils literal notranslate"><span class="pre">omni.ui</span></code>) workspace. Its ovRTX
+render target follows the size of the viewport panel.</p>
+<p>With point clouds enabled, the viewer narrows <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">search set</span></a> A to the
+<code class="docutils literal notranslate"><span class="pre">Points</span></code> prims at or under it. This is a viewer convention; the Suite runtime does not apply it. See
+<a class="reference internal" href="#point-clouds-in-search-set-a">Point clouds in search set A</a>.</p>
+</section>
+<section id="packaging">
+<h2>Packaging<a class="headerlink" href="#packaging" title="Link to this heading">#</a></h2>
+<p>The app is a developer tool, not part of the product. Packaging keeps it out of both
+artifacts:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Artifact</p></th>
+<th class="head"><p>Rule</p></th>
+<th class="head"><p>Result</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SDK install tree</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> installs only the sample directories that hold a <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> (glob <code class="docutils literal notranslate"><span class="pre">samples/*/CMakeLists.txt</span></code>).</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/</span></code> has none, so it is not installed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python wheel</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scripts/build_wheel.cmake</span></code> copies an explicit list: <code class="docutils literal notranslate"><span class="pre">clash_suite_api</span></code>, <code class="docutils literal notranslate"><span class="pre">clash_api</span></code> and <code class="docutils literal notranslate"><span class="pre">legacy_clash_detection</span></code>.</p></td>
+<td><p>The app is not in the list.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The shipped changelog drops entries whose first line mentions ovRTX.</p>
+</section>
+<section id="launching-it">
+<h2>Launching it<a class="headerlink" href="#launching-it" title="Link to this heading">#</a></h2>
+<p>Run these commands from the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> directory. The two backends are independent: each
+has its own install tree and its own viewer venv. Before you begin, build and install the backend
+with <code class="docutils literal notranslate"><span class="pre">build_&lt;backend&gt;</span> <span class="pre">--release</span> <span class="pre">--install</span></code>, and check the prerequisites in the “Prerequisites”
+section of the sample README. Setup needs access to the public package indexes, unless you name
+local wheels as the “Environment variables” section of the sample README describes.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Goal</p></th>
+<th class="head"><p>Linux</p></th>
+<th class="head"><p>Windows</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Interactive viewer, ovstage backend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./launch_rtx_viewer_ovstage.sh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.\launch_rtx_viewer_ovstage.bat</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Interactive viewer, OpenUSD backend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./launch_rtx_viewer_openusd.sh</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.\launch_rtx_viewer_openusd.bat</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>One-shot run, ovstage backend</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./launch_rtx_viewer_ovstage.sh</span> <span class="pre">--</span> <span class="pre">--one-shot</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.\launch_rtx_viewer_ovstage.bat</span> <span class="pre">--</span> <span class="pre">--one-shot</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Prepare or refresh a viewer venv</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">./setup_ovrtx_viewer.sh</span> <span class="pre">--backend</span> <span class="pre">ovstage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.\setup_ovrtx_viewer.bat</span> <span class="pre">--backend</span> <span class="pre">ovstage</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Prepare the ovstage venv through the build wrapper</p></td>
+<td><p>–</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">.\build.bat</span> <span class="pre">--setup-ovrtx-viewer</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Setup notes:</p>
+<ul class="simple">
+<li><p>Pass <code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">openusd</span></code> to setup for the OpenUSD venv.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build.bat</span> <span class="pre">--setup-ovrtx-viewer</span></code> runs <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.bat</span></code> with its default <code class="docutils literal notranslate"><span class="pre">ovstage</span></code>
+backend and builds nothing. It forwards <code class="docutils literal notranslate"><span class="pre">--build-local-ovui</span></code>, which installs an editable
+local ovui checkout, and <code class="docutils literal notranslate"><span class="pre">--build-local-ovstage</span></code>, which skips the ovstage wheel for a
+local ovstage build. On Linux, pass these options to <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.sh</span></code> directly.</p></li>
+<li><p>In a Windows build tree, the <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer</span></code> CMake target prepares the venv for that
+tree’s backend.</p></li>
+</ul>
+<p>The launchers do not build the backend. Each checks the library that <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> names,
+by default <code class="docutils literal notranslate"><span class="pre">_build/install/&lt;backend&gt;/bin/ovclash.dll</span></code> on Windows or
+<code class="docutils literal notranslate"><span class="pre">_build/install/&lt;backend&gt;/lib/libovclash.so</span></code> on Linux. When it is missing, the launcher
+exits and names the command to run, for example
+<code class="docutils literal notranslate"><span class="pre">ovstage</span> <span class="pre">ovclash</span> <span class="pre">native</span> <span class="pre">library</span> <span class="pre">not</span> <span class="pre">found:</span> <span class="pre">&lt;path&gt;</span></code> followed by
+<code class="docutils literal notranslate"><span class="pre">Run:</span> <span class="pre">./build_ovstage.sh</span> <span class="pre">--release</span> <span class="pre">--install</span></code>. Only the viewer venv is created automatically.</p>
+<p>What a successful start looks like:</p>
+<ul class="simple">
+<li><p>Setup ends with <code class="docutils literal notranslate"><span class="pre">ovRTX</span> <span class="pre">viewer</span> <span class="pre">environment</span> <span class="pre">ready:</span> <span class="pre">&lt;venv</span> <span class="pre">python&gt;</span></code> and exits with 0. A failed
+setup prints <code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">&lt;reason&gt;</span></code> and exits with 1; a failed package download or install ends
+with pip’s own error. To set up without the indexes, name local wheels with
+<code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_PATH</span></code>, <code class="docutils literal notranslate"><span class="pre">OVSTAGE_WHEEL_PATH</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_PIP_OVERRIDE_DIR</span></code> and run setup again;
+<code class="docutils literal notranslate"><span class="pre">--dry-run</span></code> prints the commands first.</p></li>
+<li><p>An interactive launcher prints <code class="docutils literal notranslate"><span class="pre">Launching</span> <span class="pre">ovclash</span> <span class="pre">ovRTX</span> <span class="pre">viewer:</span></code> and the app command line, and
+the viewer window opens.</p></li>
+<li><p>A one-shot run prints its JSON summary on stdout and exits with 0. Its fields are listed under
+<a class="reference internal" href="#validation">Validation</a>.</p></li>
+</ul>
+<p>The default <code class="docutils literal notranslate"><span class="pre">ovui==0.2.0</span></code> wheels require CPython 3.12. The wrappers prefer the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Packman</span></a> CPython 3.12 under <code class="docutils literal notranslate"><span class="pre">_build/deps/target-deps/python</span></code>, which a
+build bootstraps. Without it, they fall back to <code class="docutils literal notranslate"><span class="pre">py</span> <span class="pre">-3</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span></code> on Windows and to <code class="docutils literal notranslate"><span class="pre">python3</span></code> or
+<code class="docutils literal notranslate"><span class="pre">python</span></code> on Linux. When that interpreter is CPython 3.12, setup uses it. When it is another
+version, setup stops with
+<code class="docutils literal notranslate"><span class="pre">error:</span> <span class="pre">The</span> <span class="pre">default</span> <span class="pre">ovui==0.2.0</span> <span class="pre">wheels</span> <span class="pre">require</span> <span class="pre">CPython</span> <span class="pre">3.12;</span> <span class="pre">found</span> <span class="pre">&lt;implementation&gt;:&lt;version&gt;.</span></code>
+and further hints: build once so that the Packman interpreter exists, or run setup with CPython
+3.12 directly, adding <code class="docutils literal notranslate"><span class="pre">--force-recreate</span></code> to replace an existing venv. Core ovclash still supports
+Python 3.10 or newer.</p>
+<p>The sample directory also has <code class="docutils literal notranslate"><span class="pre">run_ovrtx_clash_sample_app.bat</span></code> and
+<code class="docutils literal notranslate"><span class="pre">run_ovrtx_clash_sample_app.sh</span></code>. They differ from the backend launchers:</p>
+<ul class="simple">
+<li><p>They run <code class="docutils literal notranslate"><span class="pre">launch_ovrtx_viewer.py</span></code> with <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> set to the <code class="docutils literal notranslate"><span class="pre">_build/install/openusd</span></code>
+library unless it is already set.</p></li>
+<li><p>They leave the launcher’s <code class="docutils literal notranslate"><span class="pre">--backend</span></code> at <code class="docutils literal notranslate"><span class="pre">ovstage</span></code>. Pass <code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">openusd</span></code> to them,
+because the app rejects a backend that differs from the loaded library.</p></li>
+<li><p>They do not set <code class="docutils literal notranslate"><span class="pre">OVCLASH_DISABLE_BUNDLED_PLUGIN_PATHS</span></code>. On Windows, they add no native
+directories to <code class="docutils literal notranslate"><span class="pre">PATH</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_DLL_DIRS</span></code>.</p></li>
+</ul>
+<section id="what-the-launchers-and-setup-do">
+<h3>What the launchers and setup do<a class="headerlink" href="#what-the-launchers-and-setup-do" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">launch_rtx_viewer_*</span></code> wrappers:</p>
+<ul class="simple">
+<li><p>set <code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_BACKEND</span></code> to their backend;</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> to the backend’s install tree unless it is already set;</p></li>
+<li><p>on Windows, put the install tree’s native directories on <code class="docutils literal notranslate"><span class="pre">PATH</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_DLL_DIRS</span></code>.
+On Linux, only the ovstage wrapper sets a search path, <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>;</p></li>
+<li><p>put <code class="docutils literal notranslate"><span class="pre">python/</span></code> and <code class="docutils literal notranslate"><span class="pre">samples/</span></code> on <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>, so the viewer uses the checkout’s Python
+packages with the installed native library and needs no wheel;</p></li>
+<li><p>set <code class="docutils literal notranslate"><span class="pre">OVCLASH_DISABLE_BUNDLED_PLUGIN_PATHS=1</span></code> unless it is already set;</p></li>
+<li><p>run <code class="docutils literal notranslate"><span class="pre">launch_ovrtx_viewer.py</span> <span class="pre">--backend</span> <span class="pre">&lt;backend&gt;</span></code>, preferring the Packman interpreter.</p></li>
+</ul>
+<p>The ovstage wrappers also set <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code> to an <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> checkout beside the repository
+root unless it is already set. When that checkout’s <code class="docutils literal notranslate"><span class="pre">_build</span></code> directory holds a built ovstage
+runtime, they add it to the library search path. <code class="docutils literal notranslate"><span class="pre">build_ovstage.*</span></code> builds against the ovstage SDK
+staged under <code class="docutils literal notranslate"><span class="pre">_build/deps/pip-deps/</span></code> unless <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">local ovstage mode</span></a> is on.
+Set <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code> explicitly when a sibling <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> checkout must not be picked up.</p>
+<p>The variables that the wrappers set; a value you set first wins, except for
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_BACKEND</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_BACKEND</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code>, <code class="docutils literal notranslate"><span class="pre">openusd</span></code></p></td>
+<td><p>No</p></td>
+<td><p>The wrapper’s backend</p></td>
+<td><p>Selects the scene backend. The launcher’s <code class="docutils literal notranslate"><span class="pre">--backend</span></code> must match it when it is set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code></p></td>
+<td><p>Absolute path of the native library</p></td>
+<td><p>No</p></td>
+<td><p>The backend’s install tree</p></td>
+<td><p>The library that the launcher checks and the app loads</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code></p></td>
+<td><p>A directory</p></td>
+<td><p>No</p></td>
+<td><p>ovstage wrappers: an <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> checkout beside the repository root</p></td>
+<td><p>A built runtime under its <code class="docutils literal notranslate"><span class="pre">_build</span></code> joins the library search path</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_DISABLE_BUNDLED_PLUGIN_PATHS</span></code></p></td>
+<td><p>A flag</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>The ovclash loader adds no OpenUSD plugin paths; <code class="docutils literal notranslate"><span class="pre">launch_ovrtx_viewer.py</span></code> sets them instead</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code> installs, in one pip command, the backend’s requirements file, the
+pinned ovRTX wheel, the stock ovstage wheel and <code class="docutils literal notranslate"><span class="pre">ovui</span></code> into the venv:</p>
+<ul class="simple">
+<li><p>Only <code class="docutils literal notranslate"><span class="pre">requirements_openusd.txt</span></code> adds <code class="docutils literal notranslate"><span class="pre">usd-core</span></code>.</p></li>
+<li><p>Every default source is a public package index, and no credential is involved. The ovRTX
+wheel comes from NVIDIA’s public package index, the one the PyPI <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> release installs
+from, and ovstage (<code class="docutils literal notranslate"><span class="pre">ovstage==&lt;OVSTAGE_VERSION&gt;</span></code>) and <code class="docutils literal notranslate"><span class="pre">ovui</span></code> from pip’s configured index.</p></li>
+<li><p>When setup downloads the pinned ovRTX wheel, pip installs it only when its SHA-256 matches
+the pin in <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_SHA256</span></code>. A wheel from <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_PATH</span></code> or an override directory is
+installed as it is.</p></li>
+<li><p>After an ovstage build, setup installs the ovstage wheel that the build downloaded and
+verified against <code class="docutils literal notranslate"><span class="pre">OVSTAGE_SHA256SUMS</span></code>, from <code class="docutils literal notranslate"><span class="pre">_build/deps/downloads/ovstage</span></code>, so it needs no
+index for ovstage. A cached file that no longer matches its pin is not used.</p></li>
+<li><p>For the ovstage backend, setup checks the required public ovstage APIs after it
+installs. The launcher checks them again before it starts the UI, also with
+<code class="docutils literal notranslate"><span class="pre">--skip-setup</span></code>.</p></li>
+</ul>
+<p>Setup reads these overrides from the environment (<code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code>). For ovstage the first
+match wins: <code class="docutils literal notranslate"><span class="pre">OVSTAGE_WHEEL_PATH</span></code>, a wheel in an override directory, <code class="docutils literal notranslate"><span class="pre">OVSTAGE_PIP_REQUIREMENT</span></code>, the
+build’s verified cached wheel, then <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;OVSTAGE_VERSION&gt;</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_PATH</span></code></p></td>
+<td><p>The path of an ovRTX wheel file</p></td>
+<td><p>No</p></td>
+<td><p>Unset: the pinned wheel, with its digest enforced</p></td>
+<td><p>Installs that wheel as it is. A path that does not exist stops setup.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVSTAGE_WHEEL_PATH</span></code></p></td>
+<td><p>The path of an ovstage wheel file</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Installs that wheel. A path that does not exist stops setup.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_PIP_OVERRIDE_DIR</span></code>, then <code class="docutils literal notranslate"><span class="pre">OVCLASH_PIP_SEED_DIR</span></code></p></td>
+<td><p>A directory</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Searched for the pinned ovRTX and ovstage wheel file names when the matching <code class="docutils literal notranslate"><span class="pre">*_WHEEL_PATH</span></code> is unset</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVSTAGE_PIP_REQUIREMENT</span></code></p></td>
+<td><p>A pip requirement</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Installs ovstage from that requirement when no local ovstage wheel is found</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVSTAGE_VERSION</span></code></p></td>
+<td><p>An ovstage version</p></td>
+<td><p>No</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">OVSTAGE_VERSION</span></code> file</p></td>
+<td><p>The ovstage version that setup looks for and installs</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVUI_PIP_REQUIREMENT</span></code></p></td>
+<td><p>A pip requirement or a wheel path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovui==0.2.0</span></code></p></td>
+<td><p>Replaces the ovui requirement, and skips the CPython 3.12 check</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The app itself reads <code class="docutils literal notranslate"><span class="pre">OVRTX_PYTHON_PATH</span></code>, a directory to import <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> from, such as a local
+ovRTX checkout’s <code class="docutils literal notranslate"><span class="pre">public/python</span></code>. It retries from there when importing the installed <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> or
+checking its API fails; the app’s <code class="docutils literal notranslate"><span class="pre">--ovrtx-python-path</span></code> option takes precedence.</p>
+<p>Run either script with <code class="docutils literal notranslate"><span class="pre">--help</span></code> for its options.</p>
+</section>
+<section id="building-ovui-from-a-local-checkout">
+<h3>Building ovui from a local checkout<a class="headerlink" href="#building-ovui-from-a-local-checkout" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--build-local-ovui</span></code> installs an editable local ovui checkout. Setup looks for it in this
+order:</p>
+<ul class="simple">
+<li><p>the directory that <code class="docutils literal notranslate"><span class="pre">OVUI_SOURCE_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVUI_ROOT</span></code> or <code class="docutils literal notranslate"><span class="pre">OVUI_REPO_ROOT</span></code> names, or its <code class="docutils literal notranslate"><span class="pre">ovui</span></code>
+subdirectory;</p></li>
+<li><p>the checkout whose <code class="docutils literal notranslate"><span class="pre">python</span></code> directory <code class="docutils literal notranslate"><span class="pre">OVUI_PYTHON_PATH</span></code> names;</p></li>
+<li><p>an <code class="docutils literal notranslate"><span class="pre">ovui</span></code> directory in the project directory or one of its parents.</p></li>
+</ul>
+<p>On Windows the build needs the Vulkan headers and loader. Setup uses the first complete source
+in this order:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Vulkan_INCLUDE_DIR</span></code> with <code class="docutils literal notranslate"><span class="pre">Vulkan_LIBRARY</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">VULKAN_SDK</span></code>, or the newest SDK under <code class="docutils literal notranslate"><span class="pre">OVUI_VULKAN_SDK_PARENT</span></code> or
+<code class="docutils literal notranslate"><span class="pre">&lt;system</span> <span class="pre">drive&gt;/VulkanSDK</span></code>.</p></li>
+<li><p>An existing vcpkg install for <code class="docutils literal notranslate"><span class="pre">OVUI_VULKAN_TRIPLET</span></code> (default <code class="docutils literal notranslate"><span class="pre">x64-windows</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">vcpkg</span> <span class="pre">install</span></code> of <code class="docutils literal notranslate"><span class="pre">vulkan-headers</span></code> and <code class="docutils literal notranslate"><span class="pre">vulkan-loader</span></code>, with the vcpkg from
+<code class="docutils literal notranslate"><span class="pre">VCPKG_INSTALLATION_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">VCPKG_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVUI_VCPKG_ROOT</span></code> or <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. When no vcpkg exists
+and <code class="docutils literal notranslate"><span class="pre">git</span></code> is available, setup first clones and bootstraps vcpkg into <code class="docutils literal notranslate"><span class="pre">OVUI_VCPKG_ROOT</span></code>
+(default <code class="docutils literal notranslate"><span class="pre">_build/deps/vcpkg</span></code>).</p></li>
+</ol>
+<p>Setup reads these variables from the environment:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVUI_SOURCE_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVUI_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVUI_REPO_ROOT</span></code></p></td>
+<td><p>An ovui checkout, or a directory with an <code class="docutils literal notranslate"><span class="pre">ovui</span></code> subdirectory</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>The checkouts that setup tries first, in this order</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVUI_PYTHON_PATH</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">python</span></code> directory of an ovui checkout, which holds <code class="docutils literal notranslate"><span class="pre">omni/ui</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Names the checkout through its <code class="docutils literal notranslate"><span class="pre">python</span></code> directory</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Vulkan_INCLUDE_DIR</span></code>, <code class="docutils literal notranslate"><span class="pre">Vulkan_LIBRARY</span></code></p></td>
+<td><p>The Vulkan include directory and loader library</p></td>
+<td><p>No; Windows only, both together</p></td>
+<td><p>Unset</p></td>
+<td><p>The first Vulkan source</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">VULKAN_SDK</span></code></p></td>
+<td><p>A Vulkan SDK directory</p></td>
+<td><p>No; Windows only</p></td>
+<td><p>Unset</p></td>
+<td><p>The second Vulkan source</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVUI_VULKAN_SDK_PARENT</span></code></p></td>
+<td><p>A directory that holds Vulkan SDK versions</p></td>
+<td><p>No; Windows only</p></td>
+<td><p>Unset; <code class="docutils literal notranslate"><span class="pre">&lt;system</span> <span class="pre">drive&gt;/VulkanSDK</span></code> is searched after it</p></td>
+<td><p>Its newest complete SDK is the second source when <code class="docutils literal notranslate"><span class="pre">VULKAN_SDK</span></code> names none</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVUI_VULKAN_TRIPLET</span></code></p></td>
+<td><p>A vcpkg triplet</p></td>
+<td><p>No; Windows only</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">x64-windows</span></code></p></td>
+<td><p>The triplet of the vcpkg install</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">VCPKG_INSTALLATION_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">VCPKG_ROOT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVUI_VCPKG_ROOT</span></code></p></td>
+<td><p>A vcpkg root directory</p></td>
+<td><p>No; Windows only</p></td>
+<td><p>Unset: vcpkg on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, else the one in <code class="docutils literal notranslate"><span class="pre">_build/deps/vcpkg</span></code></p></td>
+<td><p>The vcpkg that installs the headers and loader, tried in this order. Setup clones and bootstraps vcpkg into <code class="docutils literal notranslate"><span class="pre">OVUI_VCPKG_ROOT</span></code>, default <code class="docutils literal notranslate"><span class="pre">_build/deps/vcpkg</span></code>, when it finds none.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When a source is missing or fails, setup prints <code class="docutils literal notranslate"><span class="pre">error:</span></code> with a message that names the fix, and
+exits with 1:</p>
+<ul class="simple">
+<li><p>No local ovui checkout, with a message that contains
+<code class="docutils literal notranslate"><span class="pre">but</span> <span class="pre">no</span> <span class="pre">local</span> <span class="pre">ovui</span> <span class="pre">source</span> <span class="pre">checkout</span> <span class="pre">was</span> <span class="pre">found.</span></code>: set <code class="docutils literal notranslate"><span class="pre">OVUI_SOURCE_ROOT</span></code>.</p></li>
+<li><p>No Vulkan source and no <code class="docutils literal notranslate"><span class="pre">git</span></code>, with a message that contains
+<code class="docutils literal notranslate"><span class="pre">Vulkan</span> <span class="pre">SDK</span> <span class="pre">and</span> <span class="pre">vcpkg</span> <span class="pre">were</span> <span class="pre">not</span> <span class="pre">found,</span> <span class="pre">and</span> <span class="pre">git</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">on</span> <span class="pre">PATH</span> <span class="pre">to</span> <span class="pre">bootstrap</span> <span class="pre">a</span> <span class="pre">local</span> <span class="pre">vcpkg</span> <span class="pre">checkout.</span></code>:
+install the LunarG Vulkan SDK or vcpkg, or set <code class="docutils literal notranslate"><span class="pre">OVUI_VCPKG_ROOT</span></code>.</p></li>
+<li><p>A failed <code class="docutils literal notranslate"><span class="pre">vcpkg</span> <span class="pre">install</span></code>, with a message that contains
+<code class="docutils literal notranslate"><span class="pre">vcpkg</span> <span class="pre">failed</span> <span class="pre">while</span> <span class="pre">installing</span> <span class="pre">ovui's</span> <span class="pre">Vulkan</span> <span class="pre">build</span> <span class="pre">prerequisites.</span></code>: run the vcpkg command that the
+message names by hand, or set <code class="docutils literal notranslate"><span class="pre">VULKAN_SDK</span></code>, or <code class="docutils literal notranslate"><span class="pre">Vulkan_INCLUDE_DIR</span></code> with <code class="docutils literal notranslate"><span class="pre">Vulkan_LIBRARY</span></code>.</p></li>
+</ul>
+</section>
+<section id="the-python-launcher">
+<h3>The Python launcher<a class="headerlink" href="#the-python-launcher" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">launch_ovrtx_viewer.py</span></code>:</p>
+<ul class="simple">
+<li><p>creates the venv, or reruns setup when the venv lacks a required package, <code class="docutils literal notranslate"><span class="pre">omni.ui</span></code> or,
+for ovstage, the required public ovstage APIs, or when an installed ovRTX, ovstage or ovui
+has another version than setup installs, as after a pin update. It stops when setup leaves
+such a version in place. <code class="docutils literal notranslate"><span class="pre">stale_viewer_packages()</span></code> in <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code> compares the
+versions; the import checks alone pass with any version;</p></li>
+<li><p>prepares the process environment for ovui, the ovRTX binaries, the OpenUSD plugins and the
+shader caches;</p></li>
+<li><p>starts <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/ovrtx_clash_sample_app.py</span></code> with the venv Python in
+the output directory and forwards the arguments after <code class="docutils literal notranslate"><span class="pre">--</span></code> to it.</p></li>
+</ul>
+<p>The launcher exposes ovRTX’s core OpenUSD plugins only through <code class="docutils literal notranslate"><span class="pre">OV_PXR_PLUGINPATH_2511</span></code>. It
+keeps them and the <code class="docutils literal notranslate"><span class="pre">_build/install/&lt;backend&gt;/plugins/usd</span></code> trees out of
+<code class="docutils literal notranslate"><span class="pre">PXR_PLUGINPATH_NAME</span></code>, because mixing the two plugin registries can crash Python
+<code class="docutils literal notranslate"><span class="pre">usd-core</span></code>.</p>
+<p>Its options:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--backend</span></code></p></td>
+<td><p>Scene backend, default <code class="docutils literal notranslate"><span class="pre">ovstage</span></code>. The backend launchers pass their own. It must match <code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_BACKEND</span></code> when that is set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--venv-dir</span></code></p></td>
+<td><p>Viewer venv, default <code class="docutils literal notranslate"><span class="pre">_build/deps/venv/ovrtx_viewer_&lt;backend&gt;</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--output-dir</span></code></p></td>
+<td><p>Working directory of the app, for viewer state and the ovRTX cache. Default <code class="docutils literal notranslate"><span class="pre">_build/viewer/&lt;backend&gt;/&lt;configuration&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">&lt;configuration&gt;</span></code> is the build type that the backend install records in <code class="docutils literal notranslate"><span class="pre">ovclash-build-provenance.json</span></code>, or Release when it records no Debug or Release build type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--resolution</span></code></p></td>
+<td><p>Initial interactive render size and window size hint, default <code class="docutils literal notranslate"><span class="pre">1280x720</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--force-setup</span></code></p></td>
+<td><p>Rerun setup before launching. An existing venv is updated, not recreated.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--skip-setup</span></code></p></td>
+<td><p>Do not create or update the venv unless <code class="docutils literal notranslate"><span class="pre">--force-setup</span></code> is given. Fail when the venv is missing or, for ovstage, lacks the scene services. Warn when a pinned package has another version.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--in-process</span></code></p></td>
+<td><p>Run the app in the launcher’s Python process.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--wait-on-error</span></code></p></td>
+<td><p>Keep the console open after an in-process error, so the traceback stays readable.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="version-pins">
+<h2>Version pins<a class="headerlink" href="#version-pins" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Pin</p></th>
+<th class="head"><p>Source of truth</p></th>
+<th class="head"><p>Override</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ovRTX wheel</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVRTX_VERSION</span></code> and the <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_SHA256</span></code> digests in <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_PATH</span></code> for a local wheel; <code class="docutils literal notranslate"><span class="pre">OVRTX_PYTHON_PATH</span></code> or the app’s <code class="docutils literal notranslate"><span class="pre">--ovrtx-python-path</span></code> for a local ovRTX checkout</p></td>
+</tr>
+<tr class="row-odd"><td><p>ovstage wheel</p></td>
+<td><p>the <code class="docutils literal notranslate"><span class="pre">OVSTAGE_VERSION</span></code> file</p></td>
+<td><p>the <code class="docutils literal notranslate"><span class="pre">OVSTAGE_VERSION</span></code> environment variable, <code class="docutils literal notranslate"><span class="pre">OVSTAGE_PIP_REQUIREMENT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVSTAGE_WHEEL_PATH</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>ovui</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_OVUI_PIP_REQUIREMENT</span></code> in <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVUI_PIP_REQUIREMENT</span></code>, or <code class="docutils literal notranslate"><span class="pre">--build-local-ovui</span></code> with <code class="docutils literal notranslate"><span class="pre">OVUI_SOURCE_ROOT</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Python OpenUSD (OpenUSD viewer and smoke only)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">usd-core</span></code> in <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/requirements_openusd.txt</span></code></p></td>
+<td><p>–</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Default pins name official releases, and setup installs them from public package indexes only.
+Pin an ovRTX or ovstage version only once it is published there: a public source tree must set
+up with its default pins.</p>
+<p>The ovRTX version and its wheel digests are written in several files. Change all of them
+together, and take each digest from that wheel’s <code class="docutils literal notranslate"><span class="pre">#sha256=</span></code> link on the <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> page of
+<code class="docutils literal notranslate"><span class="pre">OVRTX_PACKAGE_INDEX</span></code>, NVIDIA’s public package index:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OVRTX_VERSION</span></code> and the <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_SHA256</span></code> table in <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVRTX_VERSION</span></code> and the <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_URLS</span></code> and <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_SHA256</span></code> tables in
+<code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/config.py</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_OVRTX_VERSION</span></code> and the three <code class="docutils literal notranslate"><span class="pre">_OVRTX_WHEEL_SHA256</span></code> values in
+<code class="docutils literal notranslate"><span class="pre">scripts/test_ovrtx_sample.cmake</span></code>;</p></li>
+<li><p>the expected version in <code class="docutils literal notranslate"><span class="pre">test_viewer_release_pins_agree_across_setup_sample_and_cmake</span></code>
+(<code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_ovrtx_viewer_scripts.py</span></code>), which fails when the code copies
+disagree;</p></li>
+<li><p>the ovRTX row of the dependency table in the “Viewer environment” section of the sample
+README.</p></li>
+</ul>
+<p>CI does not render (see <a class="reference internal" href="#validation">Validation</a>), so run the render smoke on a GPU
+machine after an ovRTX bump, for example with <code class="docutils literal notranslate"><span class="pre">--one-shot</span> <span class="pre">--render-smoke</span> <span class="pre">--require-ovrtx</span></code> after
+<code class="docutils literal notranslate"><span class="pre">--</span></code> on a backend launcher. With <code class="docutils literal notranslate"><span class="pre">--require-ovrtx</span></code>, a render failure fails the run with its
+error; with <code class="docutils literal notranslate"><span class="pre">--render-smoke</span></code> alone, the run prints <code class="docutils literal notranslate"><span class="pre">ovrtx</span> <span class="pre">render</span> <span class="pre">smoke</span> <span class="pre">skipped:</span> <span class="pre">&lt;reason&gt;</span></code> and
+reports the reason as <code class="docutils literal notranslate"><span class="pre">render_skipped</span></code> in its JSON summary. Run it as a normal desktop process,
+as the “Rendering” section of the sample README advises.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">usd-core</span></code> version is also written in several files. Change them together:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">usd-core</span></code> in <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/requirements_openusd.txt</span></code>;</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">viewer-openusd</span></code> extra in <code class="docutils literal notranslate"><span class="pre">python/pyproject.toml</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_PYTHON_USD_CORE_VERSION</span></code> in <code class="docutils literal notranslate"><span class="pre">scripts/test_ovrtx_sample.cmake</span></code>;</p></li>
+<li><p>the expected version in <code class="docutils literal notranslate"><span class="pre">test_only_openusd_requirements_install_python_usd</span></code>
+(<code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_ovrtx_backend_environments.py</span></code>), which checks only
+<code class="docutils literal notranslate"><span class="pre">requirements_openusd.txt</span></code>;</p></li>
+<li><p>the requirements row of the dependency table in the “Viewer environment” section of the
+sample README;</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">viewer-openusd</span></code> row of <a class="reference internal" href="../consumer/compatibility.html"><span class="std std-doc">Compatibility</span></a>
+(<code class="docutils literal notranslate"><span class="pre">docs/consumer/compatibility.md</span></code>).</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">OVSTAGE_VERSION</span></code> file is the ovstage pin of the whole project. The backend builds,
+the wheel and the viewer setup all read it. After you change it, run
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">scripts/sync_ovstage_version.py</span> <span class="pre">--write</span></code>:</p>
+<ul class="simple">
+<li><p>It rewrites the <code class="docutils literal notranslate"><span class="pre">ovstage==</span></code> pin in <code class="docutils literal notranslate"><span class="pre">python/pyproject.toml</span></code> and the documented default,
+the <code class="docutils literal notranslate"><span class="pre">Defaults</span> <span class="pre">to</span></code> sentence, in <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and in the “Environment variables” section of the
+sample README.</p></li>
+<li><p>It fails unless each file holds exactly one such pin or sentence.</p></li>
+<li><p>An ovstage wheel build runs it with <code class="docutils literal notranslate"><span class="pre">--check</span></code> and stops when a file is stale.</p></li>
+</ul>
+</section>
+<section id="validation">
+<h2>Validation<a class="headerlink" href="#validation" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">test_ovrtx_sample</span></code> CMake target validates the app; <code class="docutils literal notranslate"><span class="pre">scripts/test_ovrtx_sample.cmake</span></code>
+implements it. It runs against the installed native library of the build tree’s backend.
+It installs its Python dependencies into a separate venv,
+<code class="docutils literal notranslate"><span class="pre">_build/deps/venv/ovrtx_sample_&lt;backend&gt;</span></code>. It:</p>
+<ol class="arabic simple">
+<li><p>runs the canonical Warp buffer-view unittest,
+<code class="docutils literal notranslate"><span class="pre">test_runtime.ClashRuntimeTests.test_report_buffers_can_be_viewed_as_warp_arrays</span></code>, once Warp
+has started in a separate probe process;</p></li>
+<li><p>runs the one-shot smoke on <code class="docutils literal notranslate"><span class="pre">tests/data/mesh_mesh_overlapping.usda</span></code>;</p></li>
+<li><p>checks that the exported <code class="docutils literal notranslate"><span class="pre">viewer_session.usda</span></code> composes that source scene.</p></li>
+</ol>
+<p>Details:</p>
+<ul class="simple">
+<li><p>For the ovstage backend, it installs the stock ovstage wheel through
+<code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code>, which checks the required public APIs.</p></li>
+<li><p>Warp is a native third-party runtime, and on some hosts starting it ends the process natively,
+without a Python traceback. <code class="docutils literal notranslate"><span class="pre">scripts/run_with_warp_runtime_probe.py</span></code> therefore first runs
+<code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">warp</span></code>, <code class="docutils literal notranslate"><span class="pre">warp.init()</span></code> and zero-copy CPU Warp arrays over NumPy buffers in a process that
+loads no ovclash code, and prints each step before it takes it:</p>
+<ul>
+<li><p>When that process ends natively before its last step, the step fails by default. On Windows
+that is an NTSTATUS error code such as 0xC0000409, or exit code 3; elsewhere a signal.</p></li>
+<li><p>Only when <code class="docutils literal notranslate"><span class="pre">OVCLASH_ALLOW_WARP_STARTUP_SKIP</span></code> is true does the step skip the Warp unittest
+instead, with a CMake warning, and still run the one-shot smoke. It is read from <code class="docutils literal notranslate"><span class="pre">-D</span></code> on a
+direct <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-P</span></code> run, which wins, or from the environment, the form a <code class="docutils literal notranslate"><span class="pre">--validate</span></code> run
+passes on. Set it only on a host where Warp is known not to start.</p></li>
+<li><p>A Python error, a hang or an early exit of the probe, and a native end after its last step,
+such as a crash at interpreter exit, fail the step with or without the switch.</p></li>
+<li><p>A host without a usable CUDA driver normally passes the probe, because Warp falls back to its
+CPU device.</p></li>
+</ul>
+</li>
+<li><p>The Warp unittest and the one-shot smoke run with <code class="docutils literal notranslate"><span class="pre">PYTHONFAULTHANDLER=1</span></code>, so a crash that
+Python still sees prints its Python stack.</p></li>
+<li><p>On Linux aarch64 the OpenUSD backend’s smoke skips with a message: <code class="docutils literal notranslate"><span class="pre">usd-core</span></code> has no wheel for
+that platform.</p></li>
+<li><p>The smoke’s stdout, including the JSON result, goes to
+<code class="docutils literal notranslate"><span class="pre">ovrtx_clash_sample_app_smoke/one-shot.log</span></code> in the build tree’s validation directory,
+<code class="docutils literal notranslate"><span class="pre">_build/validation/&lt;backend&gt;/&lt;generator&gt;/&lt;configuration&gt;/</span></code>. <code class="docutils literal notranslate"><span class="pre">&lt;generator&gt;</span></code> is <code class="docutils literal notranslate"><span class="pre">vs</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ninja</span></code>. A build directory outside <code class="docutils literal notranslate"><span class="pre">_build/compile</span></code> gets an <code class="docutils literal notranslate"><span class="pre">external-&lt;id&gt;</span></code> namespace
+instead.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validate_all</span></code> includes the target.</p></li>
+</ul>
+<p>By default the smoke does not render. It covers detection, result persistence and
+session-layer export, and installs no ovRTX:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">OVCLASH_TEST_OVRTX</span></code> to add the render smoke, which needs a GPU and Vulkan. A true
+CMake variable enables it, and so does any non-empty environment value, <code class="docutils literal notranslate"><span class="pre">OFF</span></code> included.</p></li>
+<li><p>CI leaves it unset, so no CI job renders. A passing run without rendering does not prove
+ovRTX rendering; record the GPU coverage that you skipped.</p></li>
+<li><p>Without rendering the step needs no GPU, but it installs its Python packages from the package
+indexes. To drop it from a <code class="docutils literal notranslate"><span class="pre">--validate</span></code> run, for example on a host without access to them, set
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATE_EXCLUDE_TARGETS=test_ovrtx_sample</span></code>.</p></li>
+</ul>
+<p>With rendering enabled:</p>
+<ul class="simple">
+<li><p>The smoke reuses an installed default ovRTX release only after <code class="docutils literal notranslate"><span class="pre">ovrtx_release_ready()</span></code>
+in <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer.py</span></code> verifies its pinned archive digest, files and API. Otherwise it
+installs the pinned URL with that digest enforced.</p></li>
+<li><p>It always reinstalls a wheel from <code class="docutils literal notranslate"><span class="pre">OVRTX_WHEEL_PATH</span></code> or a pip override directory.</p></li>
+<li><p>A non-empty <code class="docutils literal notranslate"><span class="pre">OVRTX_PYTHON_PATH</span></code> uses that ovRTX instead of installing one.</p></li>
+<li><p>On OpenUSD, the render runs in a child process limited by
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_RENDER_SMOKE_TIMEOUT_SECONDS</span></code> (default 120). Cold shader compilation can exceed
+that limit; the “One-shot runs” section of the sample README gives the value for a cold-cache
+run.</p></li>
+<li><p>On ovstage, the render runs in the owning process on the Stage that is already open. The
+renderer closes before its owner.</p></li>
+</ul>
+<p>The smoke reads these variables:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_TEST_OVRTX</span></code></p></td>
+<td><p>A true CMake variable, or any non-empty environment value</p></td>
+<td><p>No</p></td>
+<td><p>Unset: no rendering</p></td>
+<td><p>Adds the render smoke</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_RENDER_SMOKE_TIMEOUT_SECONDS</span></code></p></td>
+<td><p>Seconds</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">120</span></code></p></td>
+<td><p>Limits the OpenUSD render child process</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_ALLOW_WARP_STARTUP_SKIP</span></code></p></td>
+<td><p>A CMake boolean, from <code class="docutils literal notranslate"><span class="pre">-D</span></code> or the environment</p></td>
+<td><p>No</p></td>
+<td><p>False</p></td>
+<td><p>Skips the Warp unittest, with a warning, when Warp ends natively at startup</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A one-shot run saves its query and results in <code class="docutils literal notranslate"><span class="pre">one_shot.ovclashdb</span></code>, writes
+<code class="docutils literal notranslate"><span class="pre">viewer_session.usda</span></code> and reports that path as <code class="docutils literal notranslate"><span class="pre">session_layer</span></code> in the JSON result on
+stdout. Through a launcher, these files land in <code class="docutils literal notranslate"><span class="pre">_build/viewer/&lt;backend&gt;/&lt;configuration&gt;</span></code>
+unless you pass <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>. The “One-shot runs” section of the sample README lists the
+point-cloud and render variants. <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/main.py</span></code> writes these fields, all
+of them on every run:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>An absolute path</p></td>
+<td><p>The source stage</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlaps</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>The overlap count of the query</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">session_layer</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>A path in the output directory</p></td>
+<td><p>The exported <code class="docutils literal notranslate"><span class="pre">viewer_session.usda</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_timing</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>A one-line summary of the phase times</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">phase_timings</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">rss_delta_bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">private_delta_bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">memory_start</span></code>, <code class="docutils literal notranslate"><span class="pre">memory_end</span></code></p></td>
+<td><p>The duration and memory use of each phase</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">detailed_timings</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">level</span></code>, <code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">detail</span></code></p></td>
+<td><p>The finer timings</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">render_skipped</span></code></p></td>
+<td><p>string or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code> when the run rendered or no render was requested</p></td>
+<td><p>Why <code class="docutils literal notranslate"><span class="pre">--render-smoke</span></code> could not render</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">warp_cache_path</span></code></p></td>
+<td><p>string or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">WARP_CACHE_PATH</span></code> environment value</p></td>
+<td><p>The Warp kernel cache that the run used</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The Python tests under <code class="docutils literal notranslate"><span class="pre">tests/sample_app_tests/</span></code> run in the opt-in
+<code class="docutils literal notranslate"><span class="pre">test_python_sample_app</span></code> target. CI appends it to the <code class="docutils literal notranslate"><span class="pre">--validate</span></code> run of every build job outside
+a release; add it to a local run through <code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATE_EXTRA_TARGETS</span></code>. Tests that need Python
+<code class="docutils literal notranslate"><span class="pre">pxr</span></code> skip where it is unavailable.</p>
+<p><code class="docutils literal notranslate"><span class="pre">tests/diagnostics/rtx_viewer_ovstage_isolation.py</span></code> is an opt-in check of the real ovstage
+integration. Run it in the prepared ovstage viewer venv, which has no <code class="docutils literal notranslate"><span class="pre">usd-core</span></code>:</p>
+<ul class="simple">
+<li><p>It checks one source open, the shared Stage identity, queries over unsaved edits, saving
+to a new file, New Stage and that no Python OpenUSD module is imported.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--render</span></code> adds rendering on the shared Stage, pixel checks of a live parent transform and
+its reversal before commit, a query while ovRTX stays attached, a resize and explicit
+resource closure. It needs the ovRTX wheel and a GPU. On a host without them, leave out
+<code class="docutils literal notranslate"><span class="pre">--render</span></code>. Run a GPU diagnostic as a normal desktop process: a restricted agent sandbox can
+render but block the renderer’s shutdown, as the “Rendering” section of the sample README notes.</p></li>
+</ul>
+<p>The “Developer checks” section of the sample README gives the environment and the command. Each
+run creates a new run directory under <code class="docutils literal notranslate"><span class="pre">--output-dir</span></code>, by default
+<code class="docutils literal notranslate"><span class="pre">_build/rtx_viewer_isolation_acceptance</span></code>, and prints its path first.</p>
+</section>
+<section id="debugging-the-native-library-under-the-viewer">
+<h2>Debugging the native library under the viewer<a class="headerlink" href="#debugging-the-native-library-under-the-viewer" title="Link to this heading">#</a></h2>
+<p>On Windows, the <code class="docutils literal notranslate"><span class="pre">rtx_viewer</span></code> target (<code class="docutils literal notranslate"><span class="pre">source/RtxViewerDebugEntrypoint.cpp</span></code>) supports F5
+debugging in the Visual Studio solution:</p>
+<ul class="simple">
+<li><p>It embeds the packaged Python runtime and runs
+<code class="docutils literal notranslate"><span class="pre">launch_ovrtx_viewer.py</span> <span class="pre">--skip-setup</span> <span class="pre">--in-process</span> <span class="pre">--wait-on-error</span></code> in one process.</p></li>
+<li><p>It loads <code class="docutils literal notranslate"><span class="pre">ovclash.dll</span></code> from the build output directory, next to its
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">PDB</span></a> (program database).</p></li>
+<li><p>Its output directory is the launchers’ <code class="docutils literal notranslate"><span class="pre">_build/viewer/&lt;backend&gt;/&lt;configuration&gt;</span></code> root for
+the selected configuration.</p></li>
+</ul>
+<p>See <a class="reference internal" href="build_and_packaging.html#visual-studio-solutions-and-f5-debugging"><span class="std std-ref">Visual Studio solutions and F5 debugging</span></a>
+in the Technical Guide.</p>
+<p>On Linux there is no such target: <code class="docutils literal notranslate"><span class="pre">rtx_viewer</span></code> and <code class="docutils literal notranslate"><span class="pre">setup_ovrtx_viewer</span></code> are Windows-only
+(<a class="reference internal" href="build_and_packaging.html#cmake-targets"><span class="std std-ref">CMake targets</span></a>).</p>
+</section>
+<section id="scene-ownership-and-modules">
+<h2>Scene ownership and modules<a class="headerlink" href="#scene-ownership-and-modules" title="Link to this heading">#</a></h2>
+<p>On the default <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> scene backend, one <code class="docutils literal notranslate"><span class="pre">OvstageScene</span></code> (<code class="docutils literal notranslate"><span class="pre">scene/ovstage.py</span></code>) owns the Stage:</p>
+<ol class="arabic simple">
+<li><p>It opens the source file once with the ovstage <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">population</span></a> API. It
+owns inspection and edits.</p></li>
+<li><p>A query borrows that Stage through <code class="docutils literal notranslate"><span class="pre">ClashDetection.attach_ovstage()</span></code>, unsaved edits included,
+and passes the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">composition</span></a> of its
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">query lease</span></a>. Default selection reads the borrowed Stage. The clash
+runtime evaluates every finite time in private native populations of that composition and
+never evaluates or advances the Stage. Viewer code never reopens the file, and the binding
+never destroys the Stage.</p></li>
+<li><p>ovRTX attaches to the same Stage with <code class="docutils literal notranslate"><span class="pre">renderer.attach_ovstage()</span></code>. The scene detaches the
+renderer before it destroys the Stage.</p></li>
+</ol>
+<p>Viewer code on this path imports no Python OpenUSD. It composes typed USDA user and viewer
+overlays through public ovstage APIs. <a class="reference internal" href="../consumer/ovstage_integration.html"><span class="std std-doc">Using ovclash with an ovstage Stage</span></a>
+gives the attach and owner-operation rules that any Stage owner follows.</p>
+<p>These modules hold the rules of <a class="reference internal" href="#viewer-implementation-rules">Viewer implementation rules</a>. The
+module map in the “How the code works” section of the sample README lists the other
+<code class="docutils literal notranslate"><span class="pre">viewer_parts/</span></code> modules, including the mixins that <code class="docutils literal notranslate"><span class="pre">panels.py</span></code> and <code class="docutils literal notranslate"><span class="pre">properties.py</span></code> compose.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>What it owns</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OvstageScene</span></code>: the Stage, the owner gate and scene lock, query leases, publications, saves and renderer attachment</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_runtime.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SceneDocument</span></code>: time evaluation, Default visibility repair, query publication and the query composition</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_layers.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StockLayers</span></code>: the typed user and viewer overlays, the texts of their surviving references and the saved composition wrapper</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_inspection.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">StockInspection</span></code> and <code class="docutils literal notranslate"><span class="pre">population_desc()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_path_lists.py</span></code>, <code class="docutils literal notranslate"><span class="pre">ovstage_path_strings.py</span></code>, <code class="docutils literal notranslate"><span class="pre">ovstage_core_values.py</span></code>, <code class="docutils literal notranslate"><span class="pre">ovstage_geometry_batches.py</span></code></p></td>
+<td><p>Bounded read and write helpers for inspection and Default publication</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runtime/renderer.py</span></code></p></td>
+<td><p>The ovRTX renderer wrapper: stepping, frame mapping and renderer ownership</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer_parts/app.py</span></code></p></td>
+<td><p>The main loop, including the wait for a running query</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer_parts/clash_controller.py</span></code></p></td>
+<td><p>Query start: scope resolution and the query lease</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer_parts/clash_detection_table.py</span></code></p></td>
+<td><p>The result table</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer_parts/query_management_fields.py</span></code></p></td>
+<td><p>The Query Management settings pane, including the point-cloud label and the ROI (region of interest) rows</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_flow.py</span></code></p></td>
+<td><p>Query execution on the borrowed Stage or in the isolated worker</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="point-clouds-in-search-set-a">
+<h3>Point clouds in search set A<a class="headerlink" href="#point-clouds-in-search-set-a" title="Link to this heading">#</a></h3>
+<p>When a query enables point clouds, the viewer narrows search set A to the <code class="docutils literal notranslate"><span class="pre">Points</span></code> prims at or under
+its paths and leaves search set B untouched. The “Point-cloud queries” section of the sample README
+describes what a user sees. The runtime does not do this: it always runs mesh vs mesh and adds point
+vs mesh (<a class="reference internal" href="../consumer/developer_guide.html#point-clouds-are-additive"><span class="std std-ref">Point clouds are additive</span></a>), so
+without the narrowing a search set A that also holds meshes would still produce mesh-vs-mesh
+results. The Kit clash detection window applies the same convention.</p>
+<p>How the viewer narrows the set:</p>
+<ul class="simple">
+<li><p>On ovstage, <code class="docutils literal notranslate"><span class="pre">viewer_parts/clash_controller.py</span></code> selects the paths from the scene’s prim index
+(<code class="docutils literal notranslate"><span class="pre">type_name</span> <span class="pre">==</span> <span class="pre">&quot;Points&quot;</span></code>) before it takes the query lease. With <code class="docutils literal notranslate"><span class="pre">SETTING_IGNORE_INVISIBLE_PRIMS</span></code>
+on, the default, it skips invisible prims.</p></li>
+<li><p>On OpenUSD, <code class="docutils literal notranslate"><span class="pre">clash_flow.py</span></code> resolves the same set with Python OpenUSD.</p></li>
+<li><p>The Suite ABI and <code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> stay free of <code class="docutils literal notranslate"><span class="pre">pxr</span></code>.</p></li>
+</ul>
+<p>Consequences:</p>
+<ul class="simple">
+<li><p>The label <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Cloud(s)</span> <span class="pre">in</span> <span class="pre">Searchset</span> <span class="pre">A</span></code> in Query Management is a promise of this app, not of
+the runtime.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">UsdGeomPoints</span></code> prim in search set B still clashes as a point cloud.</p></li>
+<li><p>On ovstage, a point cloud inside an instanced asset contributes no geometry. The viewer reports
+a warning on the progress line.</p></li>
+</ul>
+</section>
+<section id="point-cloud-roi-fields">
+<h3>Point-cloud ROI fields<a class="headerlink" href="#point-cloud-roi-fields" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Cloud</span> <span class="pre">Inclusion</span> <span class="pre">ROI</span></code> and <code class="docutils literal notranslate"><span class="pre">Point</span> <span class="pre">Cloud</span> <span class="pre">Exclusion</span> <span class="pre">ROI</span></code> (<code class="docutils literal notranslate"><span class="pre">roi_include_path</span></code>,
+<code class="docutils literal notranslate"><span class="pre">roi_exclude_path</span></code>) are stored with the query. Query duplication, export and import keep them. No
+ovclash code applies them, because ovclash has no point-cloud extraction step; see
+<a class="reference internal" href="../consumer/settings.html"><span class="std std-doc">Settings</span></a>.</p>
+<ul class="simple">
+<li><p>Query Management always hides the exclusion row, as the Kit clash query window does.</p></li>
+<li><p>The inclusion row stays visible, so that the stored value can be inspected and edited. Its
+tooltip says that the value is stored but not applied.</p></li>
+</ul>
+</section>
+</section>
+<section id="viewer-implementation-rules">
+<h2>Viewer implementation rules<a class="headerlink" href="#viewer-implementation-rules" title="Link to this heading">#</a></h2>
+<p><strong>Owner gate.</strong></p>
+<ul class="simple">
+<li><p>Every public <code class="docutils literal notranslate"><span class="pre">OvstageScene</span></code> method except <code class="docutils literal notranslate"><span class="pre">stage_info()</span></code> and the revision properties enters the
+process-wide ovstage owner gate (<code class="docutils literal notranslate"><span class="pre">run_ovstage_owner_operation</span></code>) first, and the scene’s reentrant
+lock second. With <code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_OWNER_EVALUATION</span></code>, native time evaluation already holds the
+gate when it calls back into the scene, so every path keeps this lock order.</p></li>
+<li><p>The native gate also serializes the lifecycle of file-backed ovstage contexts, of the private
+populations that replay a query composition, and of attached <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> callbacks.
+Collision work and data-plane reads do not take it. The scene never holds the gate while it
+waits for a clash call.</p></li>
+<li><p>Renderer preparation, stepping and frame mapping run as one operation
+(<code class="docutils literal notranslate"><span class="pre">run_renderer_operation()</span></code>), so a query lease cannot start between publication and mapping.</p></li>
+<li><p>CUDA frame mappings stay owned until their release. Detaching a renderer releases its
+outstanding frames first.</p></li>
+<li><p>The renderer wrapper destroys only a renderer that it created.</p></li>
+</ul>
+<p><strong>Query leases.</strong></p>
+<ul class="simple">
+<li><p>A query takes an exclusive scene lease (<code class="docutils literal notranslate"><span class="pre">acquire_query_scene()</span></code>) before its worker starts.
+While the lease is active, the scene rejects edits, inspection and rendering with
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>. The viewer therefore holds editing, playback, render commits, reload and save
+until detection and persistence finish.</p></li>
+<li><p>The lease publishes Default once, with the viewer layer muted, and reports the composition of
+that publication as a <code class="docutils literal notranslate"><span class="pre">QueryComposition</span></code>: the exact source string the Stage was opened from,
+which stays the original file after Save As, and the texts of the surviving <code class="docutils literal notranslate"><span class="pre">&quot;/&quot;</span></code> references
+(<code class="docutils literal notranslate"><span class="pre">StockLayers.active_texts()</span></code>), in the order they were added. It captures both under the scene
+lock, after the publication composed every deferred change, so they equal the population sealed
+at the lease <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ordinal</span></a>. The scene is not published again until the
+lease closes, and closing restores the saved mutes and time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_OWNER_EVALUATION</span></code> is a sample-only diagnostic. It keeps the earlier
+owner-evaluated attachment, in which the clash runtime publishes every sample time on the scene
+through <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> with the authored-transform capability, for A/B checks.</p></li>
+<li><p>While the worker runs, the main loop waits up to 16 ms for it after each native UI tick
+(<code class="docutils literal notranslate"><span class="pre">_CLASH_WORKER_YIELD_SECONDS</span></code>). The native UI tick can hold the GIL through vsync. The wait
+gives the worker’s Python steps, and with owner evaluation its owner callbacks, time to run.</p></li>
+</ul>
+<p><strong>Publications.</strong> A publication is one write of the viewer’s composed scene into its Stage,
+sealed at a new ordinal; a Default publication writes the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Default-time</span></a> values.</p>
+<ul class="simple">
+<li><p>Every publication takes a new ordinal, reserved before the native calls. A failed attempt
+therefore never reuses an ordinal. An unchanged frame reuses its publication.</p></li>
+<li><p>A query lease reserves ordinal capacity, so that it can always restore the previous time and
+layer mutes.</p></li>
+<li><p>A failed restoration, or a layer replacement that applied only in part, quarantines the scene.
+Edits, inspection and rendering then fail until the scene is closed and reopened.</p></li>
+<li><p>A save folds the pending user edits into the baseline layer before it writes the composition
+wrapper. It writes the wrapper to a temporary sibling file and then replaces the target
+atomically. When the write fails, the previous references are restored.</p></li>
+<li><p>When a save commits but the following publication fails, <code class="docutils literal notranslate"><span class="pre">SceneSavePublicationError</span></code> keeps the
+saved path and reports the failed step. A failed write of the clash data file beside the stage
+is reported separately, and the clash data stays marked unsaved.</p></li>
+</ul>
+<p><strong>Renderer refresh.</strong> After the first successful step of an attached renderer, ovRTX needs fresh
+viewer notices before it produces a frame. Unmuting the viewer layer, as a query lease or source
+inspection does, requires the same refresh. The wrapper records that step, publishes the viewer
+layer again and steps once more inside the same owner operation. It then exposes only the
+refreshed frame.</p>
+<p><strong>Camera and drag previews.</strong></p>
+<ul class="simple">
+<li><p>A camera-only update writes the camera matrix to the renderer and inspection columns through
+public ovstage attributes, at one new sealed ordinal. It does not repopulate USD. It does not
+rewrite the camera’s reset-stack flag, which the full publication already set, because that
+write would force extra synchronization with RTX.</p></li>
+<li><p>A drag preview writes the local matrices, reset-stack flags and transform-op orders of every
+dragged prim in one publication. With an attached renderer, it computes the incremental GPU
+transform hierarchy before sealing that ordinal; the default CPU hierarchy alone leaves RTX
+geometry at its previous pose. It invalidates the cached composed transforms, so descendants,
+reset boundaries and bounds are recomputed.</p></li>
+<li><p>On ovstage, mouse callbacks queue the latest pose. The main frame loop publishes it at most
+30 times per second, immediately before rendering. This keeps native write and synchronization
+waits outside UI input dispatch. Release commits the final pose and clears any queued preview.</p></li>
+<li><p>Prims that consume the dragged prims through references or inherits update at the next full
+composition: gesture commit, time change, query or save.</p></li>
+<li><p>While a private viewer prim collides with a source path, previews use full composition instead,
+so that they cannot overwrite the stronger viewer opinions.</p></li>
+</ul>
+<p><strong>Default visibility.</strong> Default visibility values that the viewer wrote are restored before the
+next population. Population skips unchanged values, so coalesced resampling can leave flattened
+instance children with stale derived visibility. At that transition, and after source composition
+changes, the scene repairs the renderer visibility from the source hierarchy before it seals the
+publication.</p>
+<p><strong>Caches.</strong></p>
+<ul class="simple">
+<li><p>Stock inspection caches hierarchy and transform records only for the current publication.</p></li>
+<li><p>Native attached reads keep the prototype associations of instance roots until the owner seals
+another ordinal or a source reset retires them. The associations are read lazily, once per
+ordinal.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">OVCLASH_VIEWER_OWNER_EVALUATION</span></code>, a numeric query on the borrowed Stage uses the poses that
+stock population published. For the lease, it keeps only the instance roots excluded from
+collision. It discards them when the instance links, renderer membership, prim count or retained
+change history no longer match. No sampled transform or geometry value is cached. When the
+owner’s time evaluation or the association read fails, the next request for the same time asks
+the owner for a new publication instead of reusing the old one.</p></li>
+</ul>
+<p><strong>Result table.</strong> Result rows keep their formatted strings. They create native
+<code class="docutils literal notranslate"><span class="pre">SimpleStringModel</span></code> objects only when a cell model is accessed, so a large query does not allocate
+every column model before its rows are shown.</p>
+</section>
+<section id="viewer-population-and-inspection">
+<h2>Viewer population and inspection<a class="headerlink" href="#viewer-population-and-inspection" title="Link to this heading">#</a></h2>
+<p>The ovstage scene backend populates one Stage, then runs Python inspection and the Default
+publication, and only then attaches the renderer. On a large stage each of these phases costs
+load time. Measure population, inspection, renderer attachment and the first frame as separate
+phases.</p>
+<p>Regression tests in <code class="docutils literal notranslate"><span class="pre">tests/sample_app_tests/</span></code> pin the rules of this section with call, copy and
+allocation budgets, for example <code class="docutils literal notranslate"><span class="pre">test_ovstage_path_lists.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_ovstage_path_strings.py</span></code>,
+<code class="docutils literal notranslate"><span class="pre">test_ovstage_core_values.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_ovstage_publication_buffers.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test_ovstage_mesh_geometry_batches.py</span></code>.</p>
+<p>The scene creates its first <code class="docutils literal notranslate"><span class="pre">Stage</span></code> inside an owner operation, before it populates the source
+file. When that operation returns, the gate finds the omni client that the new Stage loaded and
+configures its process-wide retry policy, so that the policy applies to the file population.
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_OMNI_CLIENT_RETRY_MAX_MS</span></code> sets that policy and defaults to <code class="docutils literal notranslate"><span class="pre">0</span></code>, which disables reconnect
+retries. Without this order, the policy would not apply yet, and an unreachable
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Nucleus</span></a> payload would stall the first population for the runtime’s
+own reconnect window. See the
+<a class="reference internal" href="../consumer/developer_guide.html#environment-variables"><span class="std std-ref">environment variables</span></a>.</p>
+<section id="population-descriptor">
+<h3>Population descriptor<a class="headerlink" href="#population-descriptor" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">population_desc()</span></code> in <code class="docutils literal notranslate"><span class="pre">scene/ovstage_inspection.py</span></code> describes the RENDERING-domain population:</p>
+<ul class="simple">
+<li><p>Two mutually exclusive selectors, one for non-light prims and one for <code class="docutils literal notranslate"><span class="pre">LightAPI</span></code> prims, so every
+prim matches exactly one. A third, all-prim selector would repeat population work for every
+prim.</p></li>
+<li><p>Both selectors take <code class="docutils literal notranslate"><span class="pre">purpose</span></code> only when it is authored, so that a schema-fallback purpose cannot
+overwrite the inherited rendering purpose.</p></li>
+<li><p>Every selected property also publishes four metadata fields: <code class="docutils literal notranslate"><span class="pre">typeName</span></code>, <code class="docutils literal notranslate"><span class="pre">custom</span></code>,
+<code class="docutils literal notranslate"><span class="pre">allowedTokens</span></code> and <code class="docutils literal notranslate"><span class="pre">default</span></code>. Prims publish <code class="docutils literal notranslate"><span class="pre">typeName</span></code> and <code class="docutils literal notranslate"><span class="pre">instanceable</span></code>, and the stage
+publishes its metadata.</p></li>
+</ul>
+<p>The description is an ovstage <code class="docutils literal notranslate"><span class="pre">population.Desc</span></code>, whose fields all have defaults in ovstage; the
+viewer sets them as follows:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">domains</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PopulationDomain</span></code></p></td>
+<td><p>No (ovstage default <code class="docutils literal notranslate"><span class="pre">NONE</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RENDERING</span></code></p></td>
+<td><p>The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">RENDERING domain</span></a> populates the renderer’s prims and columns</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">selectors</span></code></p></td>
+<td><p>sequence of <code class="docutils literal notranslate"><span class="pre">Selector</span></code></p></td>
+<td><p>No (ovstage default empty)</p></td>
+<td><p>Two selectors: prims without <code class="docutils literal notranslate"><span class="pre">LightAPI</span></code>, and prims with it</p></td>
+<td><p>Each selects every property except the renderer-owned ones (the <code class="docutils literal notranslate"><span class="pre">omni:rtx</span></code> namespace, <code class="docutils literal notranslate"><span class="pre">inputs:shaping:focusTint</span></code>, <code class="docutils literal notranslate"><span class="pre">sourceName</span></code>, <code class="docutils literal notranslate"><span class="pre">productName</span></code>) and takes <code class="docutils literal notranslate"><span class="pre">purpose</span></code> only when it is authored. The light selector also leaves out the light inputs that rendering migrates.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Selector.prim_metadata_paths</span></code></p></td>
+<td><p>sequence of <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>No (ovstage default empty)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">typeName</span></code>, <code class="docutils literal notranslate"><span class="pre">instanceable</span></code></p></td>
+<td><p>The prim metadata that each selector publishes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Selector.property_metadata_paths</span></code></p></td>
+<td><p>sequence of <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>No (ovstage default empty)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">typeName</span></code>, <code class="docutils literal notranslate"><span class="pre">custom</span></code>, <code class="docutils literal notranslate"><span class="pre">allowedTokens</span></code>, <code class="docutils literal notranslate"><span class="pre">default</span></code></p></td>
+<td><p>The property metadata that each selector publishes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stage_metadata_paths</span></code></p></td>
+<td><p>sequence of <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>No (ovstage default empty)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_STAGE_METADATA</span></code> in <code class="docutils literal notranslate"><span class="pre">scene/ovstage_inspection.py</span></code></p></td>
+<td><p>The stage metadata that the population publishes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Inspection, editing, the geometry fallback and saving rely on these fields. They make the viewer’s
+population much more expensive than a clash-geometry population. Do not narrow the descriptor to a
+property whitelist: a value clip can supply builtins such as <code class="docutils literal notranslate"><span class="pre">widths</span></code>, <code class="docutils literal notranslate"><span class="pre">velocities</span></code> and
+<code class="docutils literal notranslate"><span class="pre">primvars:displayOpacity</span></code> that have neither an authored declaration nor a Default opinion.
+<code class="docutils literal notranslate"><span class="pre">test_parent_value_clips_preserve_child_property_types_and_time_values</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/sample_app_tests/test_ovstage_stock_publication.py</span></code> covers those three.
+Reducing the metadata cost needs a narrower or on-demand metadata API in ovstage.</p>
+</section>
+<section id="inspection-reads">
+<h3>Inspection reads<a class="headerlink" href="#inspection-reads" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>A selected-path read can share one prim list among many sparse property groups. <code class="docutils literal notranslate"><span class="pre">ReadPathLists</span></code>
+(<code class="docutils literal notranslate"><span class="pre">scene/ovstage_path_lists.py</span></code>) copies each distinct list once into an owned, read-only <code class="docutils literal notranslate"><span class="pre">uint64</span></code>
+array. Paths are decoded only for the returned rows. The list work is therefore O(P + R) for P
+prims and R returned rows, not O(P * C) for C groups that share the list.</p></li>
+<li><p>The cache holds a native reference on every cached list handle, so a handle cannot be recycled
+while it is cached. It keeps at most 64 lists and 64 MiB per read; one larger list may be kept
+alone. It releases every reference before the read, the query and the dictionary close, also on
+failure.</p></li>
+<li><p>Known columns on explicit paths are read through <code class="docutils literal notranslate"><span class="pre">query_from_path_list</span></code>, without a scene-wide
+attribute-discovery query.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_path_strings.py</span></code> decodes paths in batches through the public dictionary API. Its
+path and token caches belong to one Stage, so native token decoding scales with the number of
+distinct tokens. Composing a path string still costs O(path components).</p></li>
+<li><p>The core read stores compact four-field records (<code class="docutils literal notranslate"><span class="pre">CoreValue</span></code> in <code class="docutils literal notranslate"><span class="pre">scene/ovstage_core_values.py</span></code>)
+and reads unused core payloads as presence only. It still traverses the instance-expanded
+RENDERING-domain population, which can be much larger than the authored prim inventory.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">StockInspection._read</span></code> reads <code class="docutils literal notranslate"><span class="pre">is_array</span></code> and <code class="docutils literal notranslate"><span class="pre">is_delete</span></code> once per native group, because they
+are constant across the group’s rows, and decides array omission once per group.</p></li>
+</ul>
+</section>
+<section id="default-publication">
+<h3>Default publication<a class="headerlink" href="#default-publication" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Local poses and reset flags are written from contiguous owned buffers: <code class="docutils literal notranslate"><span class="pre">float64</span></code> with shape
+(N, 4, 4) and <code class="docutils literal notranslate"><span class="pre">bool</span></code> with shape (N). They do not go through public transform snapshots.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scene/ovstage_geometry_batches.py</span></code> writes Default fallback mesh geometry in batches of meshes
+that share one field set, through the public ragged-array write API. One staging window holds
+at most 4,096 meshes and 128 MiB of write payload. A mesh larger than the byte budget is written
+alone. Avoid a query, a write and a wait per mesh.</p></li>
+<li><p>The first render after a renderer attaches needs one more full publication; see
+<strong>Renderer refresh</strong> in <a class="reference internal" href="#viewer-implementation-rules">Viewer implementation rules</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">replace_user_edits([])</span></code> returns the current revision without publishing when no user opinions
+exist, the scene is clean and no source recomposition is pending. Its health checks run first.
+Clearing real edits, or publishing pending view changes, still advances the revision.</p></li>
+</ul>
+</section>
+</section>
+<section id="where-to-read-next">
+<h2>Where to read next<a class="headerlink" href="#where-to-read-next" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Document</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Prerequisites, viewer environment, app options, one-shot runs, user interface, how a query runs, environment variables and the module map</p></td>
+<td><p>The “Prerequisites”, “Viewer environment”, “App command line”, “One-shot runs”, “Using the viewer”, “Clash queries”, “Environment variables” and “How the code works” sections of the sample README, <code class="docutils literal notranslate"><span class="pre">samples/ovrtx_clash_sample_app/README.md</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>How the other samples are organized, packaged and tested</p></td>
+<td><p><a class="reference internal" href="samples.html"><span class="std std-doc">Sample internals</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Build entrypoints and backend trees</p></td>
+<td><p><a class="reference internal" href="../local_development.html#backends-and-trees"><span class="std std-ref">Backends and trees</span></a> in Local Development</p></td>
+</tr>
+<tr class="row-odd"><td><p>Backend roles</p></td>
+<td><p><a class="reference internal" href="../backends.html"><span class="std std-doc">Backends</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Viewer selection and transform benchmark</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.ovrtx_validation_selection</span></code>, described in <code class="docutils literal notranslate"><span class="pre">benchmarks/ovrtx_validation_selection/README.md</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="samples.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sample Internals</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="testing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Testing and Validation Internals</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-it-demonstrates">What it demonstrates</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#packaging">Packaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#launching-it">Launching it</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-launchers-and-setup-do">What the launchers and setup do</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-ovui-from-a-local-checkout">Building ovui from a local checkout</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-python-launcher">The Python launcher</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-pins">Version pins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#validation">Validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#debugging-the-native-library-under-the-viewer">Debugging the native library under the viewer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scene-ownership-and-modules">Scene ownership and modules</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-clouds-in-search-set-a">Point clouds in search set A</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-cloud-roi-fields">Point-cloud ROI fields</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewer-implementation-rules">Viewer implementation rules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewer-population-and-inspection">Viewer population and inspection</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#population-descriptor">Population descriptor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#inspection-reads">Inspection reads</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-publication">Default publication</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#where-to-read-next">Where to read next</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

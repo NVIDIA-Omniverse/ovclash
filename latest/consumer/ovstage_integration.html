@@ -1,0 +1,1702 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovstage Integration &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/ovstage_integration';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Kit Compatibility" href="kit_compatibility.html" />
+    <link rel="prev" title="Asynchronous Pipelines" href="async_pipelines.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovstage Integration</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovstage-integration">
+<h1>ovstage Integration<a class="headerlink" href="#ovstage-integration" title="Link to this heading">#</a></h1>
+<p>ovclash normally opens a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> stage file itself. An application that
+already owns a live <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> Stage, such as a viewer or an editor, can lend
+that Stage to a clash <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">context</span></a> or a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>
+runtime instead, as an <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">attached stage</span></a>. ovclash then reads the Stage’s
+Default-time evaluation, the Stage evaluated at USD’s Default time code, which holds the values
+authored without time samples, as its owner populated it. Other times come from the owner,
+through a callback, or from ovclash itself: when the owner also describes how it composed the
+Stage, ovclash evaluates those times in private populations, ovstage instances of its own that
+it populates from the same sources, and never moves the owner’s Stage.</p>
+<p>This page covers both halves of that arrangement:</p>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="#the-owner-operation-gate">owner-operation gate</a>, which every process that creates its own
+ovstage Stage next to clash contexts uses, with or without an attachment;</p></li>
+<li><p><a class="reference internal" href="#attaching-a-stage">attaching a Stage</a>: the binding descriptor, the two ways to evaluate time
+and the owner’s duties while clash operations use the Stage.</p></li>
+</ul>
+<p>Everything here is an optional extension of the ovstage <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a>. Released
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">wheels</span></a> and <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archives</span></a> are ovstage builds; the
+unpublished reference build, which reads USD through <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> instead,
+exports none of these symbols. <a class="reference internal" href="threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a> has the
+general handle and lifetime rules.</p>
+<section id="the-api-at-a-glance">
+<h2>The API at a glance<a class="headerlink" href="#the-api-at-a-glance" title="Link to this heading">#</a></h2>
+<p>For each task, the table names the C call on the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical API</span></a>, the C
+call on the Suite API and the Python call:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Task</p></th>
+<th class="head"><p>C, canonical (<code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash_ovstage.h&gt;</span></code>)</p></th>
+<th class="head"><p>C, Suite (<code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite_ovstage.h&gt;</span></code>)</p></th>
+<th class="head"><p>Python</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Run owner work under the gate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_run_owner_operation()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_ovstage_owner_operation()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite.run_ovstage_owner_operation()</span></code>, for both packages</p></td>
+</tr>
+<tr class="row-odd"><td><p>Borrow a Stage</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_attach_ovstage()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">attach_ovstage()</span></code> on <code class="docutils literal notranslate"><span class="pre">ovclash.ClashRuntime</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite.ClashDetection</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Stop borrowing it</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_detach_stage()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_detach_ovstage()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detach_ovstage()</span></code> on both classes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Select the matrix decomposition</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_set_matrix_decomposition()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_get_matrix_decomposition()</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">set_ovstage_matrix_decomposition()</span></code>, <code class="docutils literal notranslate"><span class="pre">get_ovstage_matrix_decomposition()</span></code> on <code class="docutils literal notranslate"><span class="pre">ovclash.ClashRuntime</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="c_quickstart.html#linking"><span class="std std-ref">C/C++ Quickstart</span></a> shows how to build against these headers, and
+<a class="reference internal" href="c_api_conventions.html"><span class="std std-doc">C API Conventions</span></a> gives the status and string rules they follow.</p>
+</section>
+<section id="check-the-backend-first">
+<h2>Check the backend first<a class="headerlink" href="#check-the-backend-first" title="Link to this heading">#</a></h2>
+<p>Only the ovstage build of the library exports the <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_*</span></code> functions and the three
+functions of <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite_ovstage.h&gt;</span></code>. A C program that loads the library at
+run time checks the backend before it resolves them. <code class="docutils literal notranslate"><span class="pre">ovclash_get_backend_info()</span></code> needs no
+context and is safe to call concurrently;
+<a class="reference internal" href="overview.html#identifying-the-loaded-library"><span class="std std-ref">Overview</span></a> lists the four fields and the values that
+the released library reports. Add this function to the C source that loads the library, and call
+it before you resolve any <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_*</span></code> symbol.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="cm">/* Returns 1 for the ovstage build, which also exports the optional ovclash_ovstage_* symbols. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">is_ovstage_backend</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_backend_info_t</span><span class="w"> </span><span class="n">info</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_get_backend_info</span><span class="p">(</span><span class="o">&amp;</span><span class="n">info</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;backend: %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">info</span><span class="p">.</span><span class="n">backend_name</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">backend_name</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">info</span><span class="p">.</span><span class="n">backend_name</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">memcmp</span><span class="p">(</span><span class="n">info</span><span class="p">.</span><span class="n">backend_name</span><span class="p">.</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ovstage&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">backend_name</span></code> borrows a static, library-owned string; never free it. The call fails for a null
+pointer and, on ovstage, inside an owner operation.</p>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">ovclash.backend_info().backend_name</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite.backend_info().backend_name</span></code>
+report <code class="docutils literal notranslate"><span class="pre">&quot;ovstage&quot;</span></code>. The Python methods on this page raise <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the loaded library
+lacks the extension.</p>
+</section>
+<section id="the-owner-operation-gate">
+<h2>The owner-operation gate<a class="headerlink" href="#the-owner-operation-gate" title="Link to this heading">#</a></h2>
+<p>The ovstage backend serializes Stage creation, population, time evaluation and destruction
+across the whole process with one gate, the owner-operation gate. An application that owns its
+own ovstage Stage in a process that also has clash contexts runs that Stage work under the same
+gate, through one of the calls in <a class="reference internal" href="#the-api-at-a-glance">The API at a glance</a>.</p>
+<p>Route this work through the gate:</p>
+<ul class="simple">
+<li><p>Stage creation and destruction;</p></li>
+<li><p>population and source edits;</p></li>
+<li><p>inspection composition;</p></li>
+<li><p>the renderer lifecycle: attach, step and detach.</p></li>
+</ul>
+<p>The rules:</p>
+<ul class="simple">
+<li><p><strong>Lock order.</strong> Acquire the gate before any owner-local lock. An attached <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>
+callback already holds it.</p></li>
+<li><p><strong>Synchronous and borrowed.</strong> The callback runs on the calling thread before the call returns.
+ovclash never retains the callback or its user data.</p></li>
+<li><p><strong>Nesting.</strong> Owner operations nest on one thread, up to 64 levels deep. Owner operations on
+different threads are serialized.</p></li>
+<li><p><strong>No reentry.</strong> Inside an owner operation, every guarded canonical entry point fails,
+destruction included, and so does every Suite function that returns <code class="docutils literal notranslate"><span class="pre">ovclash_suite_result_t</span></code>,
+even one that touches no runtime: data stores, models, export and utility helpers. The error
+text reads <code class="docutils literal notranslate"><span class="pre">clash</span> <span class="pre">runtime</span> <span class="pre">reentry</span> <span class="pre">from</span> <span class="pre">an</span> <span class="pre">ovstage</span> <span class="pre">owner</span> <span class="pre">operation</span> <span class="pre">is</span> <span class="pre">prohibited</span></code>.</p></li>
+<li><p><strong>What still works inside.</strong> Nested owner operations; the Suite last-error getters;
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_settings()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error()</span></code>; and the canonical version, result-string,
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">DLPack</span></a> tensor-view and <code class="docutils literal notranslate"><span class="pre">ovclash_reset_*</span></code> helpers.
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_backend_info()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_backend_info()</span></code> fail.</p></li>
+<li><p><strong>The gate is not a handle lock.</strong> It does not serialize calls on a clash context or runtime.
+Data-plane reads, which read the populated data of the ovstage Stage instance itself rather than
+its USD layers, and collision work do not take it.</p></li>
+</ul>
+<p>In C, the callback returns <code class="docutils literal notranslate"><span class="pre">1</span></code> for success and any other value for failure, and it must not
+throw. The call succeeds when the callback returns <code class="docutils literal notranslate"><span class="pre">1</span></code>. It fails for a null callback, a callback
+failure, excessive nesting or a native exception, and it releases the gate on every exit.
+Diagnostics of a failing callback remain the caller’s responsibility.</p>
+<p>Add these two functions to the C source of the application that owns the Stage, and call
+<code class="docutils literal notranslate"><span class="pre">run_owner_work()</span></code> wherever that application creates, populates or destroys its Stage.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash_ovstage.h&gt;</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">owner_state_t</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">rebuilds</span><span class="p">;</span>
+<span class="p">}</span><span class="w"> </span><span class="n">owner_state_t</span><span class="p">;</span>
+
+<span class="cm">/* Runs under the owner-operation gate. This example counts its runs; your callback makes the</span>
+<span class="cm"> * ovstage calls that create, populate or destroy the application&#39;s own Stage instead.</span>
+<span class="cm"> * It must not throw and must not call into a clash context or runtime. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="nf">rebuild_owner_stage</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_data</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">owner_state_t</span><span class="o">*</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">owner_state_t</span><span class="o">*</span><span class="p">)</span><span class="n">user_data</span><span class="p">;</span>
+<span class="w">    </span><span class="n">state</span><span class="o">-&gt;</span><span class="n">rebuilds</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="cm">/* 1 is success; any other value is a failure */</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">run_owner_work</span><span class="p">(</span><span class="n">owner_state_t</span><span class="o">*</span><span class="w"> </span><span class="n">state</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_result_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_ovstage_run_owner_operation</span><span class="p">(</span><span class="n">rebuild_owner_stage</span><span class="p">,</span><span class="w"> </span><span class="n">state</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<section id="the-gate-in-python">
+<h3>The gate in Python<a class="headerlink" href="#the-gate-in-python" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite.run_ovstage_owner_operation(operation,</span> <span class="pre">/,</span> <span class="pre">*args,</span> <span class="pre">**kwargs)</span></code> calls
+<code class="docutils literal notranslate"><span class="pre">operation(*args,</span> <span class="pre">**kwargs)</span></code> under the gate. The gate is process-wide, so the same call also
+covers <code class="docutils literal notranslate"><span class="pre">ovclash.ClashRuntime</span></code> objects.</p>
+<ul class="simple">
+<li><p>It returns the value of <code class="docutils literal notranslate"><span class="pre">operation</span></code> after it releases the gate.</p></li>
+<li><p>An exception that <code class="docutils literal notranslate"><span class="pre">operation</span></code> raises is re-raised with its original traceback, after the gate
+is released.</p></li>
+<li><p>It raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> when <code class="docutils literal notranslate"><span class="pre">operation</span></code> is not callable, and <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the library
+lacks the extension, when more than 64 operations nest, or when the native gate fails.</p></li>
+<li><p>Inside the operation, the runtime wrappers of both packages raise <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> before they
+change any Python state. Every other Suite call that reaches the native library fails too,
+<code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code> and the other model helpers, data stores and exports included.</p></li>
+</ul>
+<p>Close clash wrappers explicitly with <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> or <code class="docutils literal notranslate"><span class="pre">close()</span></code>. A wrapper that Python
+garbage-collects inside an owner operation cannot release its native handle there. ovclash then
+keeps that wrapper, with its attachments and callbacks, until the <code class="docutils literal notranslate"><span class="pre">ovclash-owner-finalizer</span></code>
+thread has waited for the gate and run the cleanup outside it.</p>
+<blockquote>
+<div><p><strong>Note</strong> The gate also configures the reconnect window of the omni client, the client library
+through which the ovstage runtime reaches <code class="docutils literal notranslate"><span class="pre">omniverse://</span></code> hosts. The first successful client
+discovery, through ovstage instance creation or this gate, reads
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_OMNI_CLIENT_RETRY_MAX_MS</span></code> once per process; the policy also affects other users of that
+process-wide client. <a class="reference internal" href="developer_guide.html#environment-variables"><span class="std std-ref">Environment variables</span></a> describes
+the variable.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="attaching-a-stage">
+<h2>Attaching a Stage<a class="headerlink" href="#attaching-a-stage" title="Link to this heading">#</a></h2>
+<p>An attachment lends an already populated Stage to one context or runtime. ovclash never writes to
+the Stage, never evaluates it on its own and never destroys it. Several contexts may borrow the
+same Stage.</p>
+<p>Default-time selection always reads the borrowed Stage. Finite times, such as the sample times of
+a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> or the time of a static query, come from one of two
+sources:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attachment</p></th>
+<th class="head"><p>Binding</p></th>
+<th class="head"><p>Finite times</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Owner-evaluated</p></td>
+<td><p>No composition</p></td>
+<td><p>The owner publishes each time on its Stage, through the <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> callback; see <a class="reference internal" href="#time-evaluation">Time evaluation</a>. ovclash opens no file and probes no file metadata.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Engine-evaluated</p></td>
+<td><p>A composition</p></td>
+<td><p>ovclash replays the owner’s composition into private ovstage populations and evaluates every finite time there. It never calls back into the owner and never advances the Stage; see <a class="reference internal" href="#engine-evaluated-time">Engine-evaluated time</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="the-binding-descriptor">
+<h3>The binding descriptor<a class="headerlink" href="#the-binding-descriptor" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_binding_t</span></code> carries the Stage and the metadata that the owner has resolved.
+Zero-initialize it, then set its fields and <code class="docutils literal notranslate"><span class="pre">struct_size</span></code>. The attach call copies the descriptor
+and borrows the Stage it names.</p>
+<p>The descriptor names an evaluation of the Stage by its ordinal, ovstage’s sequence number of one
+sealed evaluation. The owner writes an evaluation at an ordinal and advances the Stage’s global
+write floor to it, which commits every ordinal up to the floor for reading; the Stage retains a
+window of recent ordinals, and an ordinal older than that window is no longer retained.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>C type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Meaning and rules</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">struct_size</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sizeof(ovclash_ovstage_binding_t)</span></code></p></td>
+<td><p>Two shorter sizes are also accepted: the size that ends right before <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> means no capabilities and no composition, and the size that ends right before <code class="docutils literal notranslate"><span class="pre">composition</span></code> means no composition. Any other value is rejected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage_instance_t*</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>The live Stage</p></td>
+<td><p>Its instance bundle and version-query slot must be valid, and it must report the ovstage API major and minor version of the pinned <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> that ovclash was built against.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Positive</p></td>
+<td><p>The read ordinal of the Stage’s current evaluation. It must be retained and covered by the global write floor. With a composition, it must stay retained until the attachment ends.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_seconds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Finite, or NaN for Default</p></td>
+<td><p>The time of that evaluation, in seconds. Reads at this time use <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code> without calling <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>, so that publication must be as complete as one that <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> makes. Must be NaN with a composition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Finite and positive</p></td>
+<td><p>The length of one stage unit, in meters. With a composition, it must equal the value that the composition resolves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">start_time_code</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Finite</p></td>
+<td><p>The timeline endpoints, in time codes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">frames_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Finite and positive</p></td>
+<td><p>The stage’s rates. With a composition, <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code> must equal the rate that the composition resolves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_evaluate_time_fn</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Null</p></td>
+<td><p>The time-evaluation callback; see <a class="reference internal" href="#time-evaluation">Time evaluation</a>. Must be null with a composition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">user_data</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">void*</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Null</p></td>
+<td><p>Passed to <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> unchanged.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capabilities</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, or <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code></p></td>
+<td><p>See <a class="reference internal" href="#authored-transform-updates">Authored transform updates</a>. Unknown bits are rejected, and a nonzero value requires <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>. Must be zero with a composition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">composition</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">ovclash_ovstage_composition_t*</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Null</p></td>
+<td><p>Null keeps the attachment owner-evaluated; a composition makes it engine-evaluated. See <a class="reference internal" href="#engine-evaluated-time">Engine-evaluated time</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_get_stage_timeline_data()</span></code> and the Suite timeline getters report the four timeline
+fields of the binding. A minimal owner-evaluated C attachment of a Stage that holds its
+Default-time evaluation follows. Add the function to the owner’s C source, and call it with a
+context from <code class="docutils literal notranslate"><span class="pre">ovclash_create_context()</span></code> after the owner has populated the Stage and committed
+<code class="docutils literal notranslate"><span class="pre">ordinal</span></code>, in place of <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash_ovstage.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;math.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="cm">/* Lends the owner&#39;s populated Stage, sealed at `ordinal`, to one context. The metadata values</span>
+<span class="cm"> * stand for the ones the owner resolved for its Stage. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">attach_owner_stage</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">ovstage_instance_t</span><span class="o">*</span><span class="w"> </span><span class="n">stage</span><span class="p">,</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">ordinal</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_ovstage_binding_t</span><span class="w"> </span><span class="n">binding</span><span class="p">;</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">binding</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">binding</span><span class="p">));</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">struct_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">binding</span><span class="p">);</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">stage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">committed_ordinal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordinal</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">time_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NAN</span><span class="p">;</span><span class="w"> </span><span class="cm">/* the Stage holds its Default-time evaluation */</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">meters_per_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">start_time_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">end_time_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">time_codes_per_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">24.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">frames_per_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">24.0</span><span class="p">;</span>
+<span class="w">    </span><span class="cm">/* evaluate_time, user_data, capabilities and composition stay zero */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ovclash_ovstage_attach_stage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">binding</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">attach_ovstage(stage,</span> <span class="pre">committed_ordinal,</span> <span class="pre">**metadata)</span></code> takes a live <code class="docutils literal notranslate"><span class="pre">ovstage.Stage</span></code>
+and fills the descriptor itself. The keyword arguments match the C fields,
+<code class="docutils literal notranslate"><span class="pre">authored_transform_updates</span></code> sets <code class="docutils literal notranslate"><span class="pre">capabilities</span></code>, and the three <code class="docutils literal notranslate"><span class="pre">composition_*</span></code> keywords fill the
+composition:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage.Stage</span></code></p></td>
+<td><p>Yes, positional</p></td>
+<td><p>None</p></td>
+<td><p>The live Stage to borrow.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes, positional</p></td>
+<td><p>None</p></td>
+<td><p>A positive unsigned 64-bit ordinal; C field <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_seconds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p>NaN, the Default time</p></td>
+<td><p>C field <code class="docutils literal notranslate"><span class="pre">time_seconds</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>C field <code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_time_code</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>C fields of the same names.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">frames_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">24.0</span></code></p></td>
+<td><p>C fields of the same names.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code></p></td>
+<td><p>Callable that takes the time in seconds and returns the new ordinal as an <code class="docutils literal notranslate"><span class="pre">int</span></code>, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>C field <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>; see <a class="reference internal" href="#time-evaluation">Time evaluation</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">authored_transform_updates</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> sets <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code> in <code class="docutils literal notranslate"><span class="pre">capabilities</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">composition_root</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code>, a path-like object, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code>, no composition</p></td>
+<td><p>The exact path, URL or USDA text that the owner opened the Stage from. USDA is USD’s text format.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">composition_layers</span></code></p></td>
+<td><p>Sequence of <code class="docutils literal notranslate"><span class="pre">str</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">()</span></code></p></td>
+<td><p>The USDA texts of the owner’s root merges, earliest first.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">composition_root_is_usda</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> when <code class="docutils literal notranslate"><span class="pre">composition_root</span></code> is USDA text.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>It raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> when <code class="docutils literal notranslate"><span class="pre">stage</span></code> is not a live <code class="docutils literal notranslate"><span class="pre">ovstage.Stage</span></code>, an argument has the wrong type
+or a keyword is unknown. <code class="docutils literal notranslate"><span class="pre">composition_root</span></code> must be a <code class="docutils literal notranslate"><span class="pre">str</span></code> or path-like object, and a <code class="docutils literal notranslate"><span class="pre">str</span></code> with
+<code class="docutils literal notranslate"><span class="pre">composition_root_is_usda</span></code>; <code class="docutils literal notranslate"><span class="pre">composition_layers</span></code> must be an ordered sequence that holds only <code class="docutils literal notranslate"><span class="pre">str</span></code>,
+not a <code class="docutils literal notranslate"><span class="pre">str</span></code> itself and not a set, whose iteration order would decide the layer strength. It raises
+<code class="docutils literal notranslate"><span class="pre">ValueError</span></code> when:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code> is not a positive unsigned 64-bit integer;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">authored_transform_updates</span></code> is set without <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">composition_layers</span></code> or <code class="docutils literal notranslate"><span class="pre">composition_root_is_usda</span></code> is given without <code class="docutils literal notranslate"><span class="pre">composition_root</span></code>;</p></li>
+<li><p>the root or a layer is empty or contains NUL;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">composition_root</span></code> is combined with <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>, with <code class="docutils literal notranslate"><span class="pre">authored_transform_updates=True</span></code> or
+with a <code class="docutils literal notranslate"><span class="pre">time_seconds</span></code> other than NaN.</p></li>
+</ul>
+<p>It raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the extension is missing, an async handle, the handle of an
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">async pipeline</span></a>, is alive or the native attachment fails. The runtime
+keeps the encoded composition until the attachment ends, and passes a path-like root through
+<code class="docutils literal notranslate"><span class="pre">os.fspath()</span></code> without resolving it. Open the Stage from an absolute path or a URL and pass that
+string; <a class="reference internal" href="#engine-evaluated-time">Engine-evaluated time</a> gives the reason.</p>
+</section>
+<section id="what-an-attachment-changes">
+<h3>What an attachment changes<a class="headerlink" href="#what-an-attachment-changes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Scope and error text.</strong> A successful attachment, first or replacement, clears the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a>, and on the canonical API the last error. Set the scope after you
+attach.</p></li>
+<li><p><strong>Results.</strong> A replacement attachment invalidates geometry, results and
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">pipelines</span></a>. In Python, <code class="docutils literal notranslate"><span class="pre">ClashRuntime.attach_ovstage()</span></code> also closes open
+overlap reports.</p></li>
+<li><p><strong>Full-scene traversal.</strong> A non-empty scope turns the engine’s
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">full-scene traversal</span></a> off.</p>
+<ul>
+<li><p>Canonical: attaching does not turn it back on, as <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code> does not. Set a scope
+after attaching, or call <code class="docutils literal notranslate"><span class="pre">ovclash_set_full_scene(context,</span> <span class="pre">true)</span></code> for an unscoped run.
+Otherwise the run selects nothing.</p></li>
+<li><p>Suite: a successful attachment turns it back on when the run settings in effect enable
+<code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>. Those are the settings last applied with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings()</span></code> or, before any apply, the defaults, which enable it.</p></li>
+</ul>
+</li>
+<li><p><strong>Active work.</strong> Attaching is rejected while an async handle is alive, including a completed
+handle that is not yet released. The Suite API also rejects a live fetch, a
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> operation that has begun and is not yet destroyed.</p></li>
+<li><p><strong>Failure.</strong> A failed attachment keeps the previous attachment and scope.</p></li>
+</ul>
+<p>ovclash reads the Stage as its owner populated it. For example,
+<a class="reference internal" href="settings.html#scope-and-selection"><span class="std std-ref">subcomponent filtering</span></a> needs the composed <code class="docutils literal notranslate"><span class="pre">kind</span></code> values, the
+USD prim metadata that marks a prim as a subcomponent: when the owner’s population holds none,
+every mesh resolves to the empty root, and enabling the filter drops every pair. An
+engine-evaluated attachment reads kinds from the Stage too, not from its private populations.</p>
+</section>
+<section id="ending-an-attachment">
+<h3>Ending an attachment<a class="headerlink" href="#ending-an-attachment" title="Link to this heading">#</a></h3>
+<p>None of these calls destroys the Stage:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Surface</p></th>
+<th class="head"><p>Calls that end the attachment</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>C, canonical</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_detach_stage()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context()</span></code>, an <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code> call that passes argument validation, a replacement attachment, <code class="docutils literal notranslate"><span class="pre">ovclash_release_context()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>C, Suite</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_detach_ovstage()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_reset_runtime()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_open_stage()</span></code>, a replacement attachment, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_destroy_runtime()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Python, <code class="docutils literal notranslate"><span class="pre">ovclash.ClashRuntime</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detach_ovstage()</span></code>, <code class="docutils literal notranslate"><span class="pre">reset()</span></code>, another attachment, <code class="docutils literal notranslate"><span class="pre">open_stage()</span></code> with a non-empty path (even when the open then fails), <code class="docutils literal notranslate"><span class="pre">destroy()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Python, <code class="docutils literal notranslate"><span class="pre">ovclash_suite.ClashDetection</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">detach_ovstage()</span></code>, <code class="docutils literal notranslate"><span class="pre">reset()</span></code>, another attachment, <code class="docutils literal notranslate"><span class="pre">open_stage()</span></code> or <code class="docutils literal notranslate"><span class="pre">set_stage_path()</span></code> with a non-empty path (even when the open then fails), <code class="docutils literal notranslate"><span class="pre">destroy()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>Ending an engine-evaluated attachment also destroys its private populations and drops its
+composition.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code> keeps the attachment, with its composition. It destroys the private
+populations of an engine-evaluated attachment, and the next finite-time read replays the
+composition again, unless a detected units or rate mismatch already fails it.</p></li>
+<li><p>Detaching invalidates results and pipelines, and <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_detach_stage()</span></code> also clears
+the last error. Detaching is rejected while an async handle, or on the Suite API a fetch, is
+alive.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_detach_stage()</span></code> on a context without an attachment also succeeds. It still
+clears the results and forgets a stage opened with <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code>.</p></li>
+<li><p>An attached Stage has no stored path. After a reset, attach it again before the next run.</p></li>
+</ul>
+</section>
+<section id="time-evaluation">
+<h3>Time evaluation<a class="headerlink" href="#time-evaluation" title="Link to this heading">#</a></h3>
+<p>An owner-evaluated attachment, one without a composition, reads every time from the Stage.
+<code class="docutils literal notranslate"><span class="pre">evaluate_time(user_data,</span> <span class="pre">seconds,</span> <span class="pre">&amp;ordinal,</span> <span class="pre">&amp;error)</span></code> asks the owner to evaluate the Stage at a
+time in seconds. NaN means the Default time. ovclash never calls it for an attachment with a
+composition.</p>
+<ul class="simple">
+<li><p><strong>Success.</strong> Before it returns <code class="docutils literal notranslate"><span class="pre">1</span></code>, the callback publishes the complete sampled canonical local
+transforms and reset-stack opinions, the <code class="docutils literal notranslate"><span class="pre">resetXformStack</span></code> flags that stop a prim from
+inheriting its parent’s transform. That includes invisible instance placements, the transforms
+of hidden instances, and prototype operands, the prims inside the prototypes that instances
+share. The callback then seals a new ordinal. It writes that ordinal to <code class="docutils literal notranslate"><span class="pre">ordinal</span></code>. Each new ordinal
+must be greater than the previous one and fit the ordinal type of the ovstage implementation.</p></li>
+<li><p><strong>Failure.</strong> Any other return value, conventionally <code class="docutils literal notranslate"><span class="pre">0</span></code>, fails the evaluation. The callback may
+set <code class="docutils literal notranslate"><span class="pre">error</span></code> to a UTF-8 diagnostic, which must stay valid until the enclosing ovclash call
+returns. That text becomes the clash error.</p></li>
+<li><p><strong>Thread.</strong> The callback runs on the pipeline thread, which can be a native worker. It runs as
+an owner operation: the thread already holds the gate, nested owner operations are allowed, and
+owner locks come after the gate. It must not throw or enter a clash runtime. It must never wait
+for another thread that takes the gate, because that deadlocks.</p></li>
+<li><p><strong>Serialization.</strong> One context invokes its callback serially. The owner serializes callbacks
+and every external use of a Stage that several contexts share.</p></li>
+</ul>
+<p>Without a callback, only the evaluation in the descriptor is available. A read at
+<code class="docutils literal notranslate"><span class="pre">time_seconds</span></code>, and a Default-time selection, use that frozen snapshot. Any other time fails, so
+a dynamic query on such an attachment needs <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>.</p>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">evaluate_time(seconds)</span></code> returns the new ordinal as an <code class="docutils literal notranslate"><span class="pre">int</span></code>. An exception it raises,
+or an ordinal that is not a positive unsigned 64-bit integer, fails the evaluation with the
+exception text as the error.</p>
+</section>
+<section id="engine-evaluated-time">
+<h3>Engine-evaluated time<a class="headerlink" href="#engine-evaluated-time" title="Link to this heading">#</a></h3>
+<p>A composition tells ovclash how the owner built its Stage’s USD source, so that ovclash can
+evaluate time itself. A dynamic query then never republishes the owner’s Stage and never
+moves the time that the owner renders. Set <code class="docutils literal notranslate"><span class="pre">composition</span></code> in the binding to an
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_composition_t</span></code>, or pass the <code class="docutils literal notranslate"><span class="pre">composition_*</span></code> keywords in Python. The attach call
+copies the composition and every string it names.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>C type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Meaning and rules</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">struct_size</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint64_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sizeof(ovclash_ovstage_composition_t)</span></code></p></td>
+<td><p>Any other value is rejected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">root</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_string_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Non-empty UTF-8</p></td>
+<td><p>The exact string that the owner opened its USD source from: the path or <code class="docutils literal notranslate"><span class="pre">omniverse://</span></code> URL it passed to <code class="docutils literal notranslate"><span class="pre">ovstage_population_open_usd_from_file</span></code> or <code class="docutils literal notranslate"><span class="pre">ovstage_population_open_usd_from_file_with_desc</span></code> (Python <code class="docutils literal notranslate"><span class="pre">open_usd</span></code> or <code class="docutils literal notranslate"><span class="pre">open_usd_with_desc</span></code>), or the USDA text it passed to <code class="docutils literal notranslate"><span class="pre">ovstage_population_open_usd_from_string</span></code> or <code class="docutils literal notranslate"><span class="pre">ovstage_population_open_usd_from_string_with_desc</span></code> (Python <code class="docutils literal notranslate"><span class="pre">open_usd_from_string</span></code> or <code class="docutils literal notranslate"><span class="pre">open_usd_from_string_with_desc</span></code>). The replay does not depend on which of them the owner called. ovclash passes the string to ovstage unchanged and never resolves it, so a relative path resolves against the process working directory at each replay.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">root_kind</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_COMPOSITION_ROOT_FILE</span></code> (<code class="docutils literal notranslate"><span class="pre">0</span></code>) or <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_COMPOSITION_ROOT_USDA</span></code> (<code class="docutils literal notranslate"><span class="pre">1</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_COMPOSITION_ROOT_FILE</span></code> for a path or URL, <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_COMPOSITION_ROOT_USDA</span></code> for USDA text. Any other value is rejected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_layers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> or more</p></td>
+<td><p>The number of entries in <code class="docutils literal notranslate"><span class="pre">layers</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">layers</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">ovclash_string_t*</span></code></p></td>
+<td><p>When <code class="docutils literal notranslate"><span class="pre">nb_layers</span></code> is not 0</p></td>
+<td><p>Null when <code class="docutils literal notranslate"><span class="pre">nb_layers</span></code> is 0</p></td>
+<td><p>The USDA texts of the owner’s surviving <code class="docutils literal notranslate"><span class="pre">ovstage_population_add_usd_reference_from_string(stage,</span> <span class="pre">text,</span> <span class="pre">&quot;/&quot;)</span></code> merges, in the order the owner added them, earliest first. Leave out a merge that the owner removed, for example to mute it. May be null only when <code class="docutils literal notranslate"><span class="pre">nb_layers</span></code> is 0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">root</span></code> and every layer are non-empty UTF-8 without an embedded NUL. The binding must also set
+<code class="docutils literal notranslate"><span class="pre">time_seconds</span></code> to NaN, because the Stage holds its Default-time evaluation at
+<code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code>, and leave <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> null and <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> zero, so no owner callback
+ever runs. Attaching fails otherwise.</p>
+<p>Each read has one source:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Read</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Default selection, mesh geometry, visibility and subcomponent kinds</p></td>
+<td><p>The Stage at <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Immediate depth and <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">depenetration</span></a> queries, and matrix queries at the Default time</p></td>
+<td><p>The Stage at <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Units and the timeline</p></td>
+<td><p>The binding</p></td>
+</tr>
+<tr class="row-odd"><td><p>Transforms at every sample time, and at the time of a static query</p></td>
+<td><p>A private population of the composition</p></td>
+</tr>
+<tr class="row-even"><td><p>Static and dynamic classification, which enables static-pair pruning: the <a class="reference internal" href="settings.html#time-sampling"><span class="std std-ref">purge of permanent static overlaps</span></a>, which drops pairs of two transform-static meshes</p></td>
+<td><p>A private population of the composition</p></td>
+</tr>
+<tr class="row-odd"><td><p>Matrix prefetch, and matrix queries at finite time codes</p></td>
+<td><p>A private population of the composition</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>How ovclash replays a composition:</p>
+<ul class="simple">
+<li><p>It makes the same population calls with the same strings in the same order, into ovstage
+instances of its own: it opens the root, merges each layer at <code class="docutils literal notranslate"><span class="pre">/</span></code>, and then populates only what
+it reads. The strength order of the layers, where a later merge is stronger, and the anchoring
+of the inline layers therefore follow the owner’s.</p></li>
+<li><p>It replays under the owner-operation gate, first at the first finite-time read. A
+classification population lasts for one classification. The transform population lasts until
+the attachment ends or <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>; a read at an earlier time than the last one
+replays it again, as a file-backed stage reopens its file.</p></li>
+<li><p>At the first finite-time read it compares the composed <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> and
+<code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> with the binding. When the stage reports a rate of 24 together with another
+<code class="docutils literal notranslate"><span class="pre">framesPerSecond</span></code>, an authored 24 and an absent rate look alike. Either value is then accepted
+for sampling, which works in seconds, and the first matrix query by time code first resolves
+the rate from the root alone.</p></li>
+<li><p>A composition that ovstage cannot replay, or metadata that differs from the binding, fails that
+first finite-time read with one of the texts in <a class="reference internal" href="#messages">Messages</a>. Attaching does not open
+the root.</p></li>
+<li><p>A detected <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> or <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> mismatch fails every later finite-time read
+and classification on that attachment with the same message, without replaying again, also
+after <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>, until the next attach. Once a matrix query by time code
+disproves an ambiguous rate, later sampling reads and classifications fail too. A replay
+failure that ovstage reports is not remembered, and the next finite-time read replays again.</p></li>
+</ul>
+<p>The owner’s contract:</p>
+<ul class="simple">
+<li><p>At every finite time, the canonical local transforms and reset-stack opinions of the Stage
+equal those of a fresh population of the composition. ovclash cannot verify this. A stale or
+missing layer gives wrong finite-time poses without an error; a structural difference, such as
+an instance root that only one of the two makes instanceable, fails the run.</p></li>
+<li><p>A transform that the owner writes only into the data plane, outside its USD layers, is
+therefore seen by Default selection and by no finite-time read. A composition cannot express
+references at other target paths or file references either. An owner that relies on any of
+them at finite times attaches without a composition and evaluates time itself.</p></li>
+<li><p>The root file and every file that the root or a layer references stay unchanged on disk until
+the attachment ends. ovclash reopens the root by its string at every replay, including the first
+finite-time read, the next finite-time read after a failed replay, the first one after
+<code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>, a read at an earlier time than the last one, each classification
+and, for an ambiguous rate, the first matrix query by time code. After a changed file is
+saved, Default selection still reads the Stage, but finite-time poses and the static and
+dynamic classification come from the new file: wrong poses without an error, or a failed run.
+A relative root resolves against the process working directory at each replay, so open the
+Stage from an absolute path or a URL and pass that string.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code> stays retained until the attachment ends. ovclash reads the Stage there
+again after <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>.</p></li>
+<li><p>The owner never holds the owner-operation gate while it waits for a clash call, because ovclash
+takes the gate to replay the composition.</p></li>
+</ul>
+<p>An engine-evaluated attachment in C, for a Stage that the owner opened from a file and then
+merged one layer into, follows. Add the function to the owner’s C source, and call it with a
+context from <code class="docutils literal notranslate"><span class="pre">ovclash_create_context()</span></code> after the owner has committed <code class="docutils literal notranslate"><span class="pre">ordinal</span></code>, in place of
+<code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash_ovstage.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;math.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="cm">/* The owner opened `path`, an absolute path or a URL, at the Default time, merged `layer_text`</span>
+<span class="cm"> * at &quot;/&quot; and sealed `ordinal`. ovclash evaluates every finite time itself and never calls back</span>
+<span class="cm"> * into the owner. The root file and every file that the root or a layer references stay</span>
+<span class="cm"> * unchanged until the attachment ends. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">attach_composed_stage</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">                                 </span><span class="n">ovstage_instance_t</span><span class="o">*</span><span class="w"> </span><span class="n">stage</span><span class="p">,</span>
+<span class="w">                                 </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">ordinal</span><span class="p">,</span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">path</span><span class="p">,</span>
+<span class="w">                                 </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">layer_text</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">layers</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+<span class="w">    </span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layer_text</span><span class="p">;</span>
+<span class="w">    </span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">layer_text</span><span class="p">);</span>
+
+<span class="w">    </span><span class="n">ovclash_ovstage_composition_t</span><span class="w"> </span><span class="n">composition</span><span class="p">;</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">composition</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">composition</span><span class="p">));</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">struct_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">composition</span><span class="p">);</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">root</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">path</span><span class="p">;</span><span class="w"> </span><span class="cm">/* the exact string the owner opened */</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">root</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">path</span><span class="p">);</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">root_kind</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">OVCLASH_OVSTAGE_COMPOSITION_ROOT_FILE</span><span class="p">;</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">nb_layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">composition</span><span class="p">.</span><span class="n">layers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">layers</span><span class="p">;</span><span class="w"> </span><span class="cm">/* earliest merge first */</span>
+
+<span class="w">    </span><span class="n">ovclash_ovstage_binding_t</span><span class="w"> </span><span class="n">binding</span><span class="p">;</span>
+<span class="w">    </span><span class="n">memset</span><span class="p">(</span><span class="o">&amp;</span><span class="n">binding</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">binding</span><span class="p">));</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">struct_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">binding</span><span class="p">);</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">stage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stage</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">committed_ordinal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ordinal</span><span class="p">;</span><span class="w"> </span><span class="cm">/* retained until the attachment ends */</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">time_seconds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NAN</span><span class="p">;</span><span class="w">          </span><span class="cm">/* required with a composition */</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">meters_per_unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.01</span><span class="p">;</span><span class="w">      </span><span class="cm">/* the values the composition resolves */</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">start_time_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">end_time_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">48.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">time_codes_per_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">24.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">frames_per_second</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">24.0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">binding</span><span class="p">.</span><span class="n">composition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">composition</span><span class="p">;</span><span class="w"> </span><span class="cm">/* evaluate_time, user_data and capabilities stay zero */</span>
+<span class="w">    </span><span class="cm">/* The call copies the composition and its strings, so they may go out of scope afterwards. */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ovclash_ovstage_attach_stage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">binding</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="authored-transform-updates">
+<h3>Authored transform updates<a class="headerlink" href="#authored-transform-updates" title="Link to this heading">#</a></h3>
+<p>ovclash classifies each mesh as static or animated from the raw authored <code class="docutils literal notranslate"><span class="pre">xformOp:*</span></code> records,
+the USD transform-operation attributes such as <code class="docutils literal notranslate"><span class="pre">xformOp:translate</span></code>.
+Only a mesh classified as static allows static-pair pruning. An owner’s population need not
+publish those records, so by default ovclash classifies no mesh of an owner-evaluated attachment
+as static. An engine-evaluated attachment needs no capability: ovclash classifies its meshes from
+a private population of the composition, as it does for a file.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code> in <code class="docutils literal notranslate"><span class="pre">capabilities</span></code>
+(<code class="docutils literal notranslate"><span class="pre">authored_transform_updates=True</span></code> in Python) declares that the owner meets the full contract
+that the flag’s declaration in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash_ovstage.h&gt;</span></code> states. In short:</p>
+<ul class="simple">
+<li><p>The owner populates every composed raw <code class="docutils literal notranslate"><span class="pre">xformOp:*</span></code> value and the USD-default
+<code class="docutils literal notranslate"><span class="pre">xformOpOrder:usd-metadata:default</span></code> for all prims, ancestors and prototypes. A missing order
+must mean that no default order is authored.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> may be called twice at identical finite seconds and must publish a newer
+ordinal both times. Between those two ordinals, the raw-op update records hold exactly the
+initially valued operations that have more than one effective composed USD time sample.</p></li>
+<li><p>No source edits, topology changes or manual raw-op writes occur during a query, and the owner
+keeps the complete update interval until the callback returns.</p></li>
+</ul>
+<p>The capability requires <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>. Leave <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> zero unless the owner meets the
+whole contract.</p>
+</section>
+</section>
+<section id="the-owner-s-duties-while-attached">
+<h2>The owner’s duties while attached<a class="headerlink" href="#the-owner-s-duties-while-attached" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Keep the Stage, <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> and its user data alive until the attachment ends and every
+operation that uses it has finished.</p></li>
+<li><p>While clash operations use the Stage, exclude rendering, source edits, time changes and
+destruction. Let clash operations finish before you detach or destroy the Stage.</p></li>
+<li><p>Serialize all calls on one context or runtime. Never reenter it from <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>.</p></li>
+<li><p>With a composition, keep <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code> retained, keep the root file and every file that
+the root or a layer references unchanged on disk, and keep the composition true to the Stage,
+as <a class="reference internal" href="#engine-evaluated-time">Engine-evaluated time</a> states. Never hold the owner-operation gate
+while you wait for a clash call.</p></li>
+<li><p>In Python, close the clash wrappers that depend on a Stage, with <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> or <code class="docutils literal notranslate"><span class="pre">close()</span></code>,
+before you destroy that Stage.</p></li>
+</ul>
+<p>This Python example creates and populates a Stage as its owner, lends it for one static query and
+destroys it again. <code class="docutils literal notranslate"><span class="pre">scene.usda</span></code> stands for your stage.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ovstage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span><span class="p">,</span> <span class="n">run_ovstage_owner_operation</span>
+
+<span class="n">usda_text</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_stage</span><span class="p">():</span>
+    <span class="n">stage</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">Stage</span><span class="p">(</span><span class="s2">&quot;clash-owner&quot;</span><span class="p">)</span>
+    <span class="c1"># Populate at the time the attachment declares below; ovclash trusts that declaration.</span>
+    <span class="n">ovstage</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">open_usd_from_string</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">usda_text</span><span class="p">,</span> <span class="n">ordinal</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+    <span class="n">stage</span><span class="o">.</span><span class="n">advance_write_floor</span><span class="p">(</span><span class="n">ordinal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">stage</span>
+
+
+<span class="n">stage</span> <span class="o">=</span> <span class="n">run_ovstage_owner_operation</span><span class="p">(</span><span class="n">create_stage</span><span class="p">)</span>  <span class="c1"># the owner creates and populates the stage</span>
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">attach_ovstage</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">time_seconds</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>  <span class="c1"># borrows the stage at ordinal 1</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overlaps:&quot;</span><span class="p">,</span> <span class="n">clash</span><span class="o">.</span><span class="n">get_nb_overlaps</span><span class="p">())</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>  <span class="c1"># ends the attachment; the stage stays alive</span>
+    <span class="n">run_ovstage_owner_operation</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>  <span class="c1"># the owner destroys it</span>
+</pre></div>
+</div>
+<p>The same owner can merge an edit layer on top of the file and lend the Stage with its
+composition. ovclash then evaluates every finite time in its own populations of <code class="docutils literal notranslate"><span class="pre">scene.usda</span></code> plus
+that layer, and the owner’s Stage stays at its Default-time evaluation. The owner opens the file
+by its absolute path, passes that same string, and leaves the file unchanged until the attachment
+ends:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ovstage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span><span class="p">,</span> <span class="n">run_ovstage_owner_operation</span>
+
+<span class="c1"># Absolute, because ovclash reopens the root by this string at each replay.</span>
+<span class="n">scene_path</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+<span class="n">edit_layer</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;#usda 1.0</span>
+<span class="s2">over &quot;World&quot;</span>
+<span class="s2">{</span>
+<span class="s2">    over &quot;Crate&quot;</span>
+<span class="s2">    {</span>
+<span class="s2">        double3 xformOp:translate = (0, 0, 50)</span>
+<span class="s2">    }</span>
+<span class="s2">}</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">create_stage</span><span class="p">():</span>
+    <span class="n">stage</span> <span class="o">=</span> <span class="n">ovstage</span><span class="o">.</span><span class="n">Stage</span><span class="p">(</span><span class="s2">&quot;clash-owner&quot;</span><span class="p">)</span>
+    <span class="n">ovstage</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">open_usd</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">scene_path</span><span class="p">,</span> <span class="n">ordinal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># at the Default time</span>
+    <span class="n">stage</span><span class="o">.</span><span class="n">advance_write_floor</span><span class="p">(</span><span class="n">ordinal</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="n">ovstage</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">add_usd_reference_from_string</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">edit_layer</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+    <span class="n">ovstage</span><span class="o">.</span><span class="n">population</span><span class="o">.</span><span class="n">apply_usd_changes</span><span class="p">(</span><span class="n">stage</span><span class="p">,</span> <span class="n">ordinal</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">stage</span><span class="o">.</span><span class="n">advance_write_floor</span><span class="p">(</span><span class="n">ordinal</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">stage</span>
+
+
+<span class="n">stage</span> <span class="o">=</span> <span class="n">run_ovstage_owner_operation</span><span class="p">(</span><span class="n">create_stage</span><span class="p">)</span>
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">attach_ovstage</span><span class="p">(</span>
+        <span class="n">stage</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">,</span>  <span class="c1"># the Default-time evaluation with the edit layer</span>
+        <span class="n">composition_root</span><span class="o">=</span><span class="n">scene_path</span><span class="p">,</span>  <span class="c1"># the exact string the owner opened</span>
+        <span class="n">composition_layers</span><span class="o">=</span><span class="p">[</span><span class="n">edit_layer</span><span class="p">],</span>  <span class="c1"># earliest merge first</span>
+    <span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overlaps:&quot;</span><span class="p">,</span> <span class="n">clash</span><span class="o">.</span><span class="n">get_nb_overlaps</span><span class="p">())</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="n">run_ovstage_owner_operation</span><span class="p">(</span><span class="n">stage</span><span class="o">.</span><span class="n">destroy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pass the Stage’s <code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code> and timeline keywords as for any attachment. The first
+finite-time read fails when <code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code> or <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code> differs from what the
+composition resolves. The one exception is a root that reports a rate of 24 together with another
+<code class="docutils literal notranslate"><span class="pre">framesPerSecond</span></code>: either value is accepted for sampling, and the first matrix query by time code
+checks the rate (see <a class="reference internal" href="#engine-evaluated-time">Engine-evaluated time</a>). After a detected mismatch,
+every later finite-time read and classification on that attachment fails with the same message,
+without replaying again, until the next attach; once a matrix query by time code disproves the
+rate, later sampling reads and classifications fail too. A replay failure that ovstage reports is
+not remembered, and the next finite-time read replays again.</p>
+</section>
+<section id="matrix-decomposition">
+<h2>Matrix decomposition<a class="headerlink" href="#matrix-decomposition" title="Link to this heading">#</a></h2>
+<p>On ovstage, each canonical context selects how mesh matrices are decomposed: OpenUSD-compatible
+math (the default) or the original ovclash math, for comparisons. The selection belongs to the
+context and survives a reset and a stage replacement. The Suite API has no equivalent control.
+<a class="reference internal" href="README.html#comparing-ovstage-matrix-decompositions"><span class="std std-ref">Comparing ovstage matrix decompositions</span></a>
+gives the Python and C calls and their effect on results.</p>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">#</a></h2>
+<p>The last error, or the Python exception, of a failed integration call contains one of these
+texts:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Message</p></th>
+<th class="head"><p>Cause</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash</span> <span class="pre">runtime</span> <span class="pre">reentry</span> <span class="pre">from</span> <span class="pre">an</span> <span class="pre">ovstage</span> <span class="pre">owner</span> <span class="pre">operation</span> <span class="pre">is</span> <span class="pre">prohibited</span></code></p></td>
+<td><p>A clash call from inside an owner operation or an <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> callback.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">existing</span> <span class="pre">ovstage</span> <span class="pre">binding</span> <span class="pre">descriptor</span> <span class="pre">size</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">struct_size</span></code> is none of the three accepted sizes: the full size, the size without <code class="docutils literal notranslate"><span class="pre">composition</span></code> and the size without <code class="docutils literal notranslate"><span class="pre">capabilities</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Null</span> <span class="pre">existing</span> <span class="pre">ovstage</span> <span class="pre">binding</span></code></p></td>
+<td><p>C: a null <code class="docutils literal notranslate"><span class="pre">binding</span></code> pointer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">existing</span> <span class="pre">ovstage</span> <span class="pre">binding</span> <span class="pre">descriptor</span></code></p></td>
+<td><p>A null Stage, a zero or out-of-range ordinal, invalid timeline metadata or invalid capabilities.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Invalid</span> <span class="pre">existing</span> <span class="pre">ovstage</span> <span class="pre">binding</span> <span class="pre">composition:</span> <span class="pre">&lt;reason&gt;</span></code></p></td>
+<td><p>The composition is invalid, or the binding combines it with <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>, nonzero <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> or a finite <code class="docutils literal notranslate"><span class="pre">time_seconds</span></code>. <code class="docutils literal notranslate"><span class="pre">&lt;reason&gt;</span></code> names the rule, for example <code class="docutils literal notranslate"><span class="pre">time_seconds</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">NaN</span></code> or <code class="docutils literal notranslate"><span class="pre">unknown</span> <span class="pre">root_kind</span></code>; a rejected layer adds <code class="docutils literal notranslate"><span class="pre">,</span> <span class="pre">layer</span> <span class="pre">&lt;index&gt;</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">ordinal</span> <span class="pre">is</span> <span class="pre">not</span> <span class="pre">committed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code>, or an ordinal that <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> returned, is above the Stage’s global write floor.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">ordinal</span> <span class="pre">is</span> <span class="pre">no</span> <span class="pre">longer</span> <span class="pre">retained</span></code></p></td>
+<td><p>The ordinal is older than the oldest ordinal the Stage retains.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Incompatible</span> <span class="pre">attached</span> <span class="pre">ovstage</span> <span class="pre">API</span> <span class="pre">version</span> <span class="pre">&lt;major&gt;.&lt;minor&gt;;</span> <span class="pre">ovclash</span> <span class="pre">requires</span> <span class="pre">&lt;major&gt;.&lt;minor&gt;</span></code></p></td>
+<td><p>The Stage comes from an ovstage implementation whose API major or minor version differs from that of the pinned <code class="docutils literal notranslate"><span class="pre">ovstage</span></code>. The first version is the Stage’s, the second the one ovclash was built against.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Incompatible</span> <span class="pre">attached</span> <span class="pre">ovstage</span> <span class="pre">data-plane</span> <span class="pre">vtable</span></code></p></td>
+<td><p>The Stage’s instance bundle lacks entries that ovclash reads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">requires</span> <span class="pre">an</span> <span class="pre">owner</span> <span class="pre">evaluation</span> <span class="pre">callback</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">requested</span> <span class="pre">time</span></code></p></td>
+<td><p>A read at another time on an owner-evaluated attachment without <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>, such as a dynamic query.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">owner</span> <span class="pre">must</span> <span class="pre">return</span> <span class="pre">a</span> <span class="pre">newer</span> <span class="pre">committed</span> <span class="pre">ordinal</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> returned an ordinal that is not greater than the current one.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">owner</span> <span class="pre">evaluation</span> <span class="pre">failed</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> failed without setting a diagnostic.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span> <span class="pre">composition</span> <span class="pre">root</span> <span class="pre">failed:</span> <span class="pre">&lt;ovstage</span> <span class="pre">error&gt;</span></code></p></td>
+<td><p>A finite-time read of an engine-evaluated attachment could not open the composition’s root. The next finite-time read tries again.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span> <span class="pre">composition</span> <span class="pre">layer</span> <span class="pre">&lt;index&gt;</span> <span class="pre">failed:</span> <span class="pre">&lt;ovstage</span> <span class="pre">error&gt;</span></code></p></td>
+<td><p>ovstage rejected the layer at that zero-based index while replaying the composition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span> <span class="pre">composition</span> <span class="pre">repopulation</span> <span class="pre">failed:</span> <span class="pre">&lt;ovstage</span> <span class="pre">error&gt;</span></code></p></td>
+<td><p>ovstage could not populate the composed source after the merges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">composition</span> <span class="pre">resolves</span> <span class="pre">&lt;field&gt;</span> <span class="pre">&lt;value&gt;,</span> <span class="pre">but</span> <span class="pre">the</span> <span class="pre">binding</span> <span class="pre">reports</span> <span class="pre">&lt;value&gt;</span></code></p></td>
+<td><p>The composed <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> or <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> differs from the binding’s <code class="docutils literal notranslate"><span class="pre">meters_per_unit</span></code> or <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>. Every later finite-time read and classification on that attachment fails with the same message until the next attach.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Attached</span> <span class="pre">ovstage</span> <span class="pre">committed</span> <span class="pre">ordinal</span> <span class="pre">is</span> <span class="pre">no</span> <span class="pre">longer</span> <span class="pre">retained;</span> <span class="pre">reattach</span></code></p></td>
+<td><p>An engine-evaluated attachment read the Stage at <code class="docutils literal notranslate"><span class="pre">committed_ordinal</span></code> again, for example after <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>, and the owner no longer retains that ordinal. Attach again at a retained ordinal.</p></td>
+</tr>
+<tr class="row-odd"><td><p>A text that starts with <code class="docutils literal notranslate"><span class="pre">composition_root</span></code>, <code class="docutils literal notranslate"><span class="pre">composition_layers</span></code> or <code class="docutils literal notranslate"><span class="pre">composition_root_is_usda</span></code>, such as <code class="docutils literal notranslate"><span class="pre">composition_root</span> <span class="pre">cannot</span> <span class="pre">be</span> <span class="pre">combined</span> <span class="pre">with</span> <span class="pre">evaluate_time</span></code> or <code class="docutils literal notranslate"><span class="pre">composition_layers</span> <span class="pre">must</span> <span class="pre">hold</span> <span class="pre">only</span> <span class="pre">str</span></code></p></td>
+<td><p>Python: a composition keyword breaks one of the rules under <a class="reference internal" href="#the-binding-descriptor">The binding descriptor</a>. The exception is a <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> or <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Existing-stage</span> <span class="pre">attachment</span> <span class="pre">requires</span> <span class="pre">the</span> <span class="pre">ovstage</span> <span class="pre">backend</span> <span class="pre">extension</span></code></p></td>
+<td><p>Python: the loaded library is not an ovstage build.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span> <span class="pre">owner</span> <span class="pre">operation</span> <span class="pre">failed</span> <span class="pre">or</span> <span class="pre">exceeded</span> <span class="pre">the</span> <span class="pre">nesting</span> <span class="pre">limit</span> <span class="pre">of</span> <span class="pre">64</span></code></p></td>
+<td><p>Python: the gate failed, or more than 64 owner operations nest.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="troubleshooting.html"><span class="std std-doc">Troubleshooting</span></a> covers the other consumer failures, and
+<a class="reference internal" href="troubleshooting.html#zero-overlaps-or-a-scoped-run-traverses-the-whole-stage"><span class="std std-ref">Zero overlaps, or a scoped run traverses the whole stage</span></a>
+the scope behavior that <a class="reference internal" href="#what-an-attachment-changes">What an attachment changes</a> describes.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="async_pipelines.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Asynchronous Pipelines</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kit_compatibility.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Kit Compatibility</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-api-at-a-glance">The API at a glance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#check-the-backend-first">Check the backend first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-owner-operation-gate">The owner-operation gate</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gate-in-python">The gate in Python</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attaching-a-stage">Attaching a Stage</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-binding-descriptor">The binding descriptor</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-an-attachment-changes">What an attachment changes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ending-an-attachment">Ending an attachment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#time-evaluation">Time evaluation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#engine-evaluated-time">Engine-evaluated time</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authored-transform-updates">Authored transform updates</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-owner-s-duties-while-attached">The owner’s duties while attached</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-decomposition">Matrix decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#messages">Messages</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

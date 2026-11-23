@@ -1,0 +1,1771 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovstage Source Extraction Internals &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/source_extraction';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Shared repository tooling" href="../shared_tooling.html" />
+    <link rel="prev" title="Transform Evaluation Internals" href="transforms.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovstage Source Extraction Internals</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovstage-source-extraction-internals">
+<h1>ovstage Source Extraction Internals<a class="headerlink" href="#ovstage-source-extraction-internals" title="Link to this heading">#</a></h1>
+<p>This page of the <a class="reference internal" href="../technical_guide.html"><span class="std std-doc">Technical Guide</span></a> explains how the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage backend</span></a>, which reads <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a>
+through the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage</span></a> runtime, turns a
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">populated</span></a> stage into clash source meshes. It covers the extraction
+order, instancing identity, the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Default-time</span></a> reads,
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Earliest</span></a>-topology recovery, subcomponent kinds and the source
+diagnostics. The
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Architecture glossary</span></a> defines the implementation terms.</p>
+<p>It is written for maintainers of <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReader*.cpp</span></code>. Related topics live on these
+pages:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Canonical page</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Which populations exist, who opens them and how long they live</p></td>
+<td><p><a class="reference internal" href="runtime.html#stage-populations"><span class="std std-ref">Stage populations</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>How the numeric population moves between times</p></td>
+<td><p><a class="reference internal" href="runtime.html#numeric-population-state"><span class="std std-ref">Numeric population state</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Which operations take the process-wide lifecycle lock</p></td>
+<td><p><a class="reference internal" href="runtime.html#lifecycle-lock"><span class="std std-ref">Lifecycle lock</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Default-time world-matrix read rules</p></td>
+<td><p><a class="reference internal" href="runtime.html#default-time-transform-reads"><span class="std std-ref">Default-time transform reads</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>How <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">placements</span></a> share prototype geometry</p></td>
+<td><p><a class="reference internal" href="performance.html#instanced-stages-share-geometry"><span class="std std-ref">Instanced stages share geometry</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="extraction-at-a-glance">
+<h2>Extraction at a glance<a class="headerlink" href="#extraction-at-a-glance" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Pipeline</span></a> step 1 (<code class="docutils literal notranslate"><span class="pre">Finding</span> <span class="pre">meshes...</span></code>, zero-based) extracts the
+source. <code class="docutils literal notranslate"><span class="pre">OvstageSceneReader::populateFromFileCached()</span></code> (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReader.cpp</span></code>) reads from
+the Default-time <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">selection population</span></a>: the cached file population, or
+the <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">attached stage</span></a>. Its core is <code class="docutils literal notranslate"><span class="pre">loadMeshGeometry()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderGeometry.cpp</span></code>.</p>
+<p>Before extraction, a cached file selection joins any numeric helper and lazily prepares composed
+subcomponent kinds when filtering needs them. It publishes the label <code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">subcomponent</span> <span class="pre">kinds</span></code>
+before step 1. The preparation uses the retained USD source at Default time, without reopening the
+file, and publishes its new <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ordinal</span></a> before extraction queries start.
+When the repopulation would add prims, the selection is reopened instead and step 3 reads the kinds
+(<a class="reference internal" href="#subcomponent-kinds">Subcomponent kinds</a>).</p>
+<p>The core extraction runs in this order. Each row publishes its label as the async step name
+<code class="docutils literal notranslate"><span class="pre">Finding</span> <span class="pre">meshes...</span> <span class="pre">&lt;label&gt;</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>#</p></th>
+<th class="head"><p>Work</p></th>
+<th class="head"><p>Label</p></th>
+<th class="head"><p>Runs when</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>Query Mesh prims: <code class="docutils literal notranslate"><span class="pre">usd-prim-type</span> <span class="pre">IN</span> <span class="pre">Mesh</span></code>, or <code class="docutils literal notranslate"><span class="pre">usd-schemas</span> <span class="pre">CONTAINS</span> <span class="pre">UsdGeomMesh</span></code> when no prim has the literal type (<code class="docutils literal notranslate"><span class="pre">createMeshQuery()</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Querying</span> <span class="pre">meshes</span></code></p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>List the prototype roots (<code class="docutils literal notranslate"><span class="pre">collectPrototypeRoots()</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Querying</span> <span class="pre">prototypes</span></code></p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>Read composed kinds from a separate population (<a class="reference internal" href="#subcomponent-kinds">Subcomponent kinds</a>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">subcomponent</span> <span class="pre">kinds</span></code></p></td>
+<td><p>Subcomponent filtering on, in a noncached file read or a cached selection whose kind repopulation was rejected; other cached selections already have their kind map</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>Scan the Default points and start the numeric helper (<a class="reference internal" href="#earliest-topology-recovery">Earliest-topology recovery</a>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Scanning</span> <span class="pre">default</span> <span class="pre">geometry</span></code></p></td>
+<td><p>File-backed selection extraction: unscoped, or starting the helper</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>Mesh census: paths, deduplication and visibility (<code class="docutils literal notranslate"><span class="pre">collectMeshPaths()</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Collecting</span> <span class="pre">mesh</span> <span class="pre">paths</span> <span class="pre">and</span> <span class="pre">visibility</span></code></p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>Read <code class="docutils literal notranslate"><span class="pre">points</span></code>, <code class="docutils literal notranslate"><span class="pre">faceVertexIndices</span></code>, <code class="docutils literal notranslate"><span class="pre">faceVertexCounts</span></code>, <code class="docutils literal notranslate"><span class="pre">holeIndices</span></code> and Default world matrices</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">points</span></code> to <code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">world</span> <span class="pre">transforms</span></code></p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>Resolve the subcomponent roots of ordinary and prototype meshes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">subcomponent</span> <span class="pre">roots</span></code></p></td>
+<td><p>Subcomponent filtering on</p></td>
+</tr>
+<tr class="row-odd"><td><p>8</p></td>
+<td><p>Prepare instance roots (<code class="docutils literal notranslate"><span class="pre">prepareInstanceRoots()</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Preparing</span> <span class="pre">instance</span> <span class="pre">roots</span></code></p></td>
+<td><p>File-backed, Default time, the stage has prototypes</p></td>
+</tr>
+<tr class="row-even"><td><p>9</p></td>
+<td><p>Recover the topology of meshes without Default points</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Recovering</span> <span class="pre">sampled</span> <span class="pre">topology</span></code></p></td>
+<td><p>A selected mesh has no Default points</p></td>
+</tr>
+<tr class="row-odd"><td><p>10</p></td>
+<td><p>Apply the root-layer invalid-face-count scan, freeze geometry, skip meshes without topology</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Validating</span> <span class="pre">geometry</span></code></p></td>
+<td><p>Always</p></td>
+</tr>
+<tr class="row-even"><td><p>11</p></td>
+<td><p>Replace each prototype mesh with its placements (<code class="docutils literal notranslate"><span class="pre">expandInstanceProxies()</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Expanding</span> <span class="pre">instances</span></code></p></td>
+<td><p>The stage has prototypes</p></td>
+</tr>
+<tr class="row-odd"><td><p>12</p></td>
+<td><p>Resolve the subcomponent roots of placements</p></td>
+<td><p>(none)</p></td>
+<td><p>Subcomponent filtering on, placements exist</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Then <code class="docutils literal notranslate"><span class="pre">populateFromFileCached()</span></code> reads point clouds (<code class="docutils literal notranslate"><span class="pre">Reading</span> <span class="pre">point</span> <span class="pre">clouds</span></code>), only when
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_ENABLE_POINT_CLOUDS</span></code> is set.
+<a class="reference internal" href="../consumer/settings.html#canonical-c"><span class="std std-ref">Canonical C</span></a> in the settings reference lists every flag of
+<code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> (<code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code>) that this page names.</p>
+<p>A mesh that lacks points, face indices or face counts after step 9 is skipped, not fatal. The
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">OpenUSD backend</span></a> skips it too.</p>
+</section>
+<section id="population-local-instancing-identity">
+<h2>Population-local instancing identity<a class="headerlink" href="#population-local-instancing-identity" title="Link to this heading">#</a></h2>
+<p>ovstage mirrors each instanceable reference into a synthesized <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">prototype</span></a>
+root such as <code class="docutils literal notranslate"><span class="pre">/__Prototype_1</span></code>. It reports one mesh per prototype, in prototype space. ovclash
+therefore keeps, per population, a map from each real <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">instance root</span></a> to
+its prototype root. <code class="docutils literal notranslate"><span class="pre">collectPrototypeByInstanceRoot()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderGeometryInstancing.cpp</span></code> builds it.</p>
+<section id="building-the-identity-map">
+<h3>Building the identity map<a class="headerlink" href="#building-the-identity-map" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>List the prototype roots. A file-backed population, and an engine population replayed from an
+attached <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">composition</span></a>, call <code class="docutils literal notranslate"><span class="pre">ovstage_instancing_get_prototype_roots</span></code>,
+which takes no ordinal. An attached, data-plane-only stage instead queries
+<code class="docutils literal notranslate"><span class="pre">usd-schemas</span> <span class="pre">CONTAINS</span> <span class="pre">PrototypeRootAPI</span></code> at the population ordinal.</p></li>
+<li><p>Read <code class="docutils literal notranslate"><span class="pre">_protoPath</span></code> once: one <code class="docutils literal notranslate"><span class="pre">HAS</span> <span class="pre">_protoPath</span></code> query at the population’s sealed ordinal.</p></li>
+<li><p>Keep a row as a graph edge only when its target is exactly a prototype root. Renderer proxy
+rows target prototype children and can outnumber the edges many times. The reader therefore
+decodes source paths for edge rows only.</p></li>
+<li><p>Build <code class="docutils literal notranslate"><span class="pre">detail::InstancingGraph</span></code> (<code class="docutils literal notranslate"><span class="pre">source/InstancingGraph.h</span></code>). It holds dense prototype IDs and,
+per prototype, the sources that instantiate it.</p></li>
+<li><p>Flatten each prototype’s instance roots through nested instances. Then sort, deduplicate and
+reduce them to minimal roots.</p></li>
+<li><p>Fail when one root maps to two prototypes:
+<code class="docutils literal notranslate"><span class="pre">Ambiguous</span> <span class="pre">prototype</span> <span class="pre">association</span> <span class="pre">for</span> <span class="pre">instance</span> <span class="pre">root:</span> <span class="pre">&lt;root&gt;</span></code>.</p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">_protoPath</span></code> reader skips <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">tombstones</span></a> and null targets and respects
+the group’s row mapping. It rejects unsupported shapes, dtypes, GPU payloads and pending
+synchronization.</p>
+</section>
+<section id="flattening-nested-instances">
+<h3>Flattening nested instances<a class="headerlink" href="#flattening-nested-instances" title="Link to this heading">#</a></h3>
+<p>Example: a rack prototype contains an instanced box.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>_protoPath edges (source -&gt; target)
+  /World/RackA        -&gt; /__Prototype_1
+  /World/RackB        -&gt; /__Prototype_1
+  /__Prototype_1/Box  -&gt; /__Prototype_2
+
+Flattened instance roots
+  /__Prototype_1: /World/RackA, /World/RackB
+  /__Prototype_2: /World/RackA/Box, /World/RackB/Box
+</pre></div>
+</div>
+<p>The rules (<code class="docutils literal notranslate"><span class="pre">InstancingGraph::flattened()</span></code>):</p>
+<ul class="simple">
+<li><p>A source’s owner is the deepest prototype root that is a path-component prefix of it. The
+prototype being flattened is excluded from that lookup.</p></li>
+<li><p>An owned source expands through every instance root of its owner, with the same suffix.
+<code class="docutils literal notranslate"><span class="pre">/__Prototype_1/Box</span></code> becomes <code class="docutils literal notranslate"><span class="pre">/World/RackA/Box</span></code> and <code class="docutils literal notranslate"><span class="pre">/World/RackB/Box</span></code>.</p></li>
+<li><p>A guard on the active expansion chain stops cycles.</p></li>
+<li><p>Minimal-root reduction runs only on the complete answer. Outer roots <code class="docutils literal notranslate"><span class="pre">/W/A</span></code> and <code class="docutils literal notranslate"><span class="pre">/W/A/B</span></code> with
+the suffix <code class="docutils literal notranslate"><span class="pre">/X</span></code> must give both <code class="docutils literal notranslate"><span class="pre">/W/A/X</span></code> and <code class="docutils literal notranslate"><span class="pre">/W/A/B/X</span></code>. Reducing the outer list first would drop
+<code class="docutils literal notranslate"><span class="pre">/W/A/B</span></code> and lose <code class="docutils literal notranslate"><span class="pre">/W/A/B/X</span></code>.</p></li>
+</ul>
+</section>
+<section id="ownership-and-lifetime">
+<h3>Ownership and lifetime<a class="headerlink" href="#ownership-and-lifetime" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The graph lives inside one <code class="docutils literal notranslate"><span class="pre">collectInstanceRoots()</span></code> call. Only the root/prototype map survives.</p></li>
+<li><p>The map belongs to one population. The Default selection population keeps
+<code class="docutils literal notranslate"><span class="pre">mSelectionPrototypeByInstanceRoot</span></code>. The numeric population builds its own
+<code class="docutils literal notranslate"><span class="pre">mNumericPrototypeByInstanceRoot</span></code> at its sealed ordinal. Synthetic prototype names never cross
+populations.</p></li>
+<li><p>Default extraction reuses the selection map in <code class="docutils literal notranslate"><span class="pre">prepareInstanceRoots()</span></code>. It does not read
+<code class="docutils literal notranslate"><span class="pre">_protoPath</span></code> again. Lazy kind enrichment refreshes the map at its new sealed ordinal before
+extraction begins.</p></li>
+<li><p>A reset or reopen clears the affected map. The map never stores sampled world values.</p></li>
+<li><p>Never cache the graph across populations or edits. Neither the ordinal nor the layout generation
+can invalidate it safely.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">validateInstanceRoots()</span></code> always runs after the map is built, before visibility and transform
+handling. It drops roots that are not real paths.</p></li>
+<li><p>Graph outputs are candidate roots, not clash mesh counts. They change neither geometry sharing
+nor per-sample proxy transform composition.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">PrototypeRootIndex</span></code> (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderInternal.h</span></code>) is a separate membership lookup. It
+answers whether a path lies inside a prototype root, once per collected mesh path. It hashes the
+leading path prefixes instead of scanning the root list.</p>
+</section>
+<section id="scoped-expansion">
+<h3>Scoped expansion<a class="headerlink" href="#scoped-expansion" title="Link to this heading">#</a></h3>
+<p>With a scope, <code class="docutils literal notranslate"><span class="pre">prepareInstanceRoots()</span></code> keeps only the roots that can place something in it:</p>
+<ul class="simple">
+<li><p>a root inside a scope;</p></li>
+<li><p>a root that a scope lies below;</p></li>
+<li><p>every enclosing instance root of a kept root.</p></li>
+</ul>
+<p>Validation, visibility and root-matrix reads see only those roots. A read failure on a root that
+can place nothing in scope therefore does not fail a scoped run.</p>
+<p>Example from <code class="docutils literal notranslate"><span class="pre">testScopedInstanceExpansion</span></code> (<code class="docutils literal notranslate"><span class="pre">tests/native/InstancingGraphSourceOptimizationCases.h</span></code>,
+fixture <code class="docutils literal notranslate"><span class="pre">tests/data/scoped_placement_visibility.usda</span></code>). The stage has five instance roots:
+<code class="docutils literal notranslate"><span class="pre">/World/BoxA</span></code>, <code class="docutils literal notranslate"><span class="pre">/World/HiddenGroup/BoxB</span></code>, <code class="docutils literal notranslate"><span class="pre">/World/PileA</span></code>, <code class="docutils literal notranslate"><span class="pre">/World/PileA/Box</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/World/PileA/HiddenBox</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Scope</p></th>
+<th class="head"><p>Kept instance roots</p></th>
+<th class="head"><p>Why</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/World</span></code></p></td>
+<td><p>All five</p></td>
+<td><p>Every root lies inside the scope.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/World/HiddenGroup/BoxB/Shown</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/World/HiddenGroup/BoxB</span></code></p></td>
+<td><p>The scope lies below the root.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">/World/PileA/HiddenBox</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/World/PileA</span></code>, <code class="docutils literal notranslate"><span class="pre">/World/PileA/HiddenBox</span></code></p></td>
+<td><p>The enclosing root stays. <code class="docutils literal notranslate"><span class="pre">/World/PileA/Box</span></code> places nothing in scope.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">/World/Elsewhere</span></code></p></td>
+<td><p>None</p></td>
+<td><p>No root can place anything there.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>With <code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code> on, a scoped run filters each placement by visibility. The walk
+splits at the placement’s instance root:</p>
+<ul class="simple">
+<li><p>Below the root, it reads the prototype mesh’s own ancestry, once per mesh.</p></li>
+<li><p>From the root up to a scope, it reads once per root and scope.</p></li>
+<li><p>The whole walk runs per placement when a scope lies below the root, or when another instance
+root lies between the root and the mesh.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">testScopedInstanceExpansion</span></code> compares every scoped result with the unscoped expansion and with the
+whole walk per placement.</p>
+<p>An unscoped run drops hidden instance roots in <code class="docutils literal notranslate"><span class="pre">prepareInstanceRoots()</span></code>. It first reads every local
+<code class="docutils literal notranslate"><span class="pre">visibility</span></code> opinion those walks need in one batched query
+(<code class="docutils literal notranslate"><span class="pre">mesh.proxy_expansion.visibility_prefetch</span></code>).</p>
+</section>
+</section>
+<section id="ovstage-static-source-extraction">
+<h2>ovstage static source extraction<a class="headerlink" href="#ovstage-static-source-extraction" title="Link to this heading">#</a></h2>
+<p>A static ovstage run spends serial time outside the collision kernel: population, source
+extraction (step 1), full-detail report capture, SQLite writes and population destruction. The
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">narrow phase</span></a> is already parallel, so more collision workers do not
+shorten these phases.</p>
+<p>Population destruction runs under the lifecycle lock. Retiring a population earlier lowers retained
+memory, but it does not remove the cost. <code class="docutils literal notranslate"><span class="pre">OvstageSceneReader::reset()</span></code> destroys the numeric
+population first: while the selection population still holds the shared composition, the numeric
+destroy is cheaper.</p>
+<p>Requirements for a source-side optimization:</p>
+<ul class="simple">
+<li><p>Prove complete pair, frame and payload parity against the unchanged OpenUSD computation.</p></li>
+<li><p>Keep load diagnostics, such as failed cooks and unavailable payloads, in the comparison.
+Silently loading less content looks faster.</p></li>
+<li><p>Measure whole phases with the <a class="reference internal" href="#source-diagnostics">source diagnostics</a>.</p></li>
+</ul>
+<section id="mesh-collection-and-default-transforms">
+<h3>Mesh collection and Default transforms<a class="headerlink" href="#mesh-collection-and-default-transforms" title="Link to this heading">#</a></h3>
+<p><strong>Census</strong> (<code class="docutils literal notranslate"><span class="pre">collectMeshPaths()</span></code>):</p>
+<ul class="simple">
+<li><p>Paths are deduplicated by path handle. The path dictionary interns one handle per path.</p></li>
+<li><p>An unscoped selection extraction first tries the packed census (<code class="docutils literal notranslate"><span class="pre">tryCollectPackedMeshPaths()</span></code>).
+It reads the virtual <code class="docutils literal notranslate"><span class="pre">usd-path</span></code> column of the literal-type query. It uses the result only after
+it checks row metadata, handle identity, uniqueness and complete coverage.</p></li>
+<li><p>Schema-origin queries, and malformed or unsupported packed responses, use the ordinary census
+over the <code class="docutils literal notranslate"><span class="pre">usd-prim-type</span></code> rows (or the <code class="docutils literal notranslate"><span class="pre">usd-schemas</span></code> rows of a schema-only population).</p></li>
+<li><p>Path strings are decoded per read group, not per row: one <code class="docutils literal notranslate"><span class="pre">primPathsToStrings()</span></code> call per
+nonempty group (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderQueries.cpp</span></code>).</p></li>
+<li><p>A scoped census keeps prototype-space meshes, which no scope can match. Expansion applies the
+scope to their placements.</p></li>
+</ul>
+<p><strong>Visibility</strong> (with <code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code>):</p>
+<ul class="simple">
+<li><p>Unscoped: one bulk <code class="docutils literal notranslate"><span class="pre">_worldVisibility</span></code> read. A mesh without a row falls back to its local
+<code class="docutils literal notranslate"><span class="pre">visibility</span></code> opinions. One batched read covers all such meshes and their ancestors. A path
+without an opinion counts as visible, for this extraction only.</p></li>
+<li><p>Scoped: the walk reads local opinions only from the mesh up to the matching scope. A hidden
+ancestor above the scope does not hide the mesh. A mesh that several scopes match stays when any
+of them leaves it visible.</p></li>
+<li><p>Prototype-space meshes skip this filter. Expansion filters each placement instead.</p></li>
+</ul>
+<p><strong>Default read cache</strong> (unscoped file-backed selection extraction):</p>
+<ul class="simple">
+<li><p>The census keeps raw path handles beside its owned paths (<code class="docutils literal notranslate"><span class="pre">DefaultMeshReadCache</span></code>).</p></li>
+<li><p>Points, topology and Default world rows route through those handles to the selected mesh slots.
+No row path is decoded again.</p></li>
+<li><p>The cache owns Default points only when their visibility is known. A row of unknown world
+visibility, or a points-less row outside the selection, discards the owned points. The ordinary
+reads then run.</p></li>
+</ul>
+<p><strong>Scoped extraction:</strong></p>
+<ul class="simple">
+<li><p>It keeps no such cache.</p></li>
+<li><p>When the scope selects fewer meshes than the query, the points, topology and world reads go
+through a query of the selected handles (<code class="docutils literal notranslate"><span class="pre">createQueryFromHandles()</span></code>). A malformed mesh outside
+the scope cannot fail the run, as on OpenUSD. A malformed selected mesh still fails it.</p></li>
+</ul>
+<p><strong>Default world matrices</strong> (<code class="docutils literal notranslate"><span class="pre">copyWorldMatrices()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderTransforms.cpp</span></code>):</p>
+<ul class="simple">
+<li><p>Read the published world rows: <code class="docutils literal notranslate"><span class="pre">omni:fabric:worldMatrix</span></code>, then <code class="docutils literal notranslate"><span class="pre">worldMatrix</span></code>. The first valid
+row wins.</p></li>
+<li><p>Coverage is tracked per selected mesh. Equal row counts never prove coverage.</p></li>
+<li><p>Only meshes without a published world row, plus prototype meshes, read their ancestry. One
+shared query covers all of them. Each ancestor walk stops at a path already collected
+(<code class="docutils literal notranslate"><span class="pre">collectTransformPathsForPrimPaths()</span></code>).</p></li>
+<li><p>Local matrices (<code class="docutils literal notranslate"><span class="pre">omni:fabric:localMatrix</span></code>, then <code class="docutils literal notranslate"><span class="pre">omni:xform</span></code>) are read only when a mesh lacks a
+world row. Reset flags (<code class="docutils literal notranslate"><span class="pre">omni:resetXformStack</span></code>) are read for the whole ancestry, because
+prototype meshes need them.</p></li>
+</ul>
+<p><strong>Group metadata:</strong> every value read checks its group’s metadata before any row callback
+(<code class="docutils literal notranslate"><span class="pre">validateReadGroupMetadata()</span></code>). It rejects a group with both an index map and a mask, a map or
+mask whose count differs from the row count, and pending CUDA synchronization.</p>
+</section>
+<section id="earliest-topology-recovery">
+<h3>Earliest-topology recovery<a class="headerlink" href="#earliest-topology-recovery" title="Link to this heading">#</a></h3>
+<p>A mesh can author its points only as time samples. Its Default points are then empty. On a
+file-backed stage, ovstage takes such a mesh’s points and topology from its earliest authored
+samples, as OpenUSD does (<code class="docutils literal notranslate"><span class="pre">copyDefaultMissingMeshTopologyFromEarliestSamples()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderGeometry.cpp</span></code>).</p>
+<ul>
+<li><p>Recovery reads only the affected paths. Default selection, visibility and worlds stay. Sampled
+visibility or worlds never replace Default inputs.</p></li>
+<li><p>Default and sample prototype identities are remapped independently.</p></li>
+<li><p>Path predicates cannot match native-instance contents. A request for ordinary meshes only uses
+exact-path topology selectors. A request that includes prototype content uses the full
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">RENDERING domain</span></a> description.</p></li>
+<li><p>An attached caller-owned stage gets no recovery, with or without a composition: its Default
+geometry always comes from the owner’s Stage. A pipeline run, or an immediate depth or
+depenetration query, that extracts a mesh without Default points from it fails with this error:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Attached ovstage mesh topology is unavailable at Default; the owner must supply complete geometry
+</pre></div>
+</div>
+</li>
+</ul>
+<p>Which source supplies the Earliest topology (the first matching row applies):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Run</p></th>
+<th class="head"><p>Source</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Dynamic run</p></td>
+<td><p>A dedicated Earliest population, destroyed right after the read. Dynamic runs advance the numeric population every sample, which would resample the recovered topology.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Static run whose affected meshes include prototype content</p></td>
+<td><p>A dedicated population. Only it can take the every-Mesh RENDERING-domain description.</p></td>
+</tr>
+<tr class="row-even"><td><p>Static run with <code class="docutils literal notranslate"><span class="pre">OVCLASH_RETAINED_SOURCE_SNAPSHOT=1</span></code> and a capable producer</p></td>
+<td><p>The retained source (<a class="reference internal" href="#retained-source-snapshot">Retained source snapshot</a>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Static run when the numeric population already exists</p></td>
+<td><p>A dedicated population. The existing population keeps its time.</p></td>
+</tr>
+<tr class="row-even"><td><p>Any other static file-backed run</p></td>
+<td><p>The numeric population, opened at Earliest with exact-path topology selectors</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When the numeric population supplies the topology, the forward advance to the requested time then
+serves the run’s numeric transforms. No second population opens.</p>
+<p><strong>The numeric helper thread</strong> (<code class="docutils literal notranslate"><span class="pre">startNumericTopologyPrefetch()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReader.cpp</span></code>):</p>
+<ul class="simple">
+<li><p>It opens the numeric population at Earliest while extraction continues. It runs unless
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_SINGLE_THREADED</span></code> (<code class="docutils literal notranslate"><span class="pre">RunSettings.single_threaded</span></code> in Python) is set.</p></li>
+<li><p>A scan of the Default points predicts the affected meshes: in scope, outside prototypes, before
+visibility filtering. The helper starts on one <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> as soon as the scan ends.</p></li>
+<li><p>It opens the population even when the scan predicts no affected mesh. The run’s transform reads
+then advance it instead of opening another.</p></li>
+<li><p>A failed open or a too-narrow prediction is a miss. Recovery then reopens the population with the
+exact set.</p></li>
+<li><p>Neither <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">scheduler</span></a> nor <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> governs the thread. It holds the
+lifecycle lock while it populates. Kind preparation completes before the helper starts.</p></li>
+<li><p>The reader joins it before it reads numeric state, repopulates the selection for kinds, replaces
+the selection or resets the source.</p></li>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, the run opens the numeric population at Earliest only when a mesh needs
+recovery.</p></li>
+</ul>
+<p><strong>Requirement: do not skip recovery on indirect evidence.</strong> A stage without time samples, clips or
+splines can still need it. Example: a static mesh that authors <code class="docutils literal notranslate"><span class="pre">double3[]</span> <span class="pre">points</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>def Mesh &quot;Wide&quot;
+{
+    double3[] points = [(0, 0, 0), (1, 0, 0), (0, 1, 0)]
+    int[] faceVertexCounts = [3]
+    int[] faceVertexIndices = [0, 1, 2]
+}
+</pre></div>
+</div>
+<p>ovstage publishes an empty float32 <code class="docutils literal notranslate"><span class="pre">points</span></code> row for it at Default and an authored float64 row at
+Earliest. Recovery must read that row and reject it, and step 1 fails with:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ovstage attribute has unexpected tensor dtype for points (code=2, bits=64, lanes=3)
+</pre></div>
+</div>
+<p>Limitations of the pinned ovstage runtime rule out these shortcuts:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Shortcut</p></th>
+<th class="head"><p>Why it fails</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Open at Default, then apply Earliest</p></td>
+<td><p>The producer does not create missing point slots. Sampled and clip-backed geometry is lost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Replace RENDERING-domain membership with a generic all-prims selector</p></td>
+<td><p>The API has no abstract/defined predicate, so class assets and their nested instances become clash placements. The lean population also loses the RENDERING domain’s <code class="docutils literal notranslate"><span class="pre">lastGlobalTime</span></code>, which resolves the stage rate (<a class="reference internal" href="runtime.html#direct-transform-queries"><span class="std std-ref">Direct transform queries</span></a>).</p></td>
+</tr>
+<tr class="row-even"><td><p>Compose hierarchy worlds from selectors only</p></td>
+<td><p>They fail across <code class="docutils literal notranslate"><span class="pre">Scope</span></code> and typeless parents.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Advance the RENDERING selection population to a finite time</p></td>
+<td><p>Prototype leaf matrices stay at their Default values, so numeric transforms keep their own population (<a class="reference internal" href="runtime.html#stage-populations"><span class="std std-ref">Stage populations</span></a>).</p></td>
+</tr>
+<tr class="row-even"><td><p>Derive a separate numeric population from the loaded selection source</p></td>
+<td><p>Repopulation updates its source instance in place; it cannot populate a second instance from that retained source. Advancing the selection to numeric time would violate its role.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="numeric-population">
+<h3>Numeric population<a class="headerlink" href="#numeric-population" title="Link to this heading">#</a></h3>
+<p>The numeric population serves every finite-time matrix read. Its role and time transitions are on
+<a class="reference internal" href="runtime.html#stage-populations"><span class="std std-ref">Stage populations</span></a> and
+<a class="reference internal" href="runtime.html#numeric-population-state"><span class="std std-ref">Numeric population state</span></a>. This section covers the topology
+selectors that static recovery adds (<code class="docutils literal notranslate"><span class="pre">openNumericTransformPopulation()</span></code> in
+<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderNumericPopulation.cpp</span></code>).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Selector</p></th>
+<th class="head"><p>Prim predicate</p></th>
+<th class="head"><p>Properties</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Transforms (always)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IS_A(Mesh,</span> <span class="pre">Points)</span> <span class="pre">OR</span> <span class="pre">HAS_PROPERTY(xformOpOrder)</span></code></p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p>Topology (static recovery only)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">IS_A(Mesh)</span> <span class="pre">AND</span> <span class="pre">HAS_PATH(&lt;affected</span> <span class="pre">paths&gt;)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">points</span></code>, <code class="docutils literal notranslate"><span class="pre">faceVertexCounts</span></code>, <code class="docutils literal notranslate"><span class="pre">faceVertexIndices</span></code>, <code class="docutils literal notranslate"><span class="pre">holeIndices</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The population uses <code class="docutils literal notranslate"><span class="pre">domains</span> <span class="pre">=</span> <span class="pre">NONE</span></code>. Prototype content never goes into the topology selector.</p>
+<p>A population with topology selectors behaves as follows:</p>
+<ul class="simple">
+<li><p>The advance from Earliest to the first finite time reuses it. So do reads at the same time.</p></li>
+<li><p>Before each later finite advance, the source checks the latest sealed ordinal for raw <code class="docutils literal notranslate"><span class="pre">points</span></code> or
+topology writes (<code class="docutils literal notranslate"><span class="pre">numericTopologyMayHaveUpdates()</span></code>). This includes advances for direct
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_prim_matrix</span></code> calls.</p>
+<ul>
+<li><p>Writes observed, or the check fails: reopen a transform-only population at the new time.</p></li>
+<li><p>No writes: keep the population. The next advance checks again, because the check observes
+writes, not sample counts.</p></li>
+</ul>
+</li>
+<li><p>A reopen retires the numeric plans and rebuilds the numeric prototype associations. The Default
+selection and its copied geometry stay.</p></li>
+</ul>
+</section>
+<section id="subcomponent-kinds">
+<h3>Subcomponent kinds<a class="headerlink" href="#subcomponent-kinds" title="Link to this heading">#</a></h3>
+<p>Subcomponent filtering (<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_SUBCOMPONENT_FILTERING</span></code>) needs each mesh’s
+subcomponent root: its nearest ancestor-or-self whose composed kind is <code class="docutils literal notranslate"><span class="pre">subcomponent</span></code>. This function
+turns it on in C. Put it in a C source file of your own that links the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> CMake target, and
+pass a context from <code class="docutils literal notranslate"><span class="pre">ovclash_create_context</span></code>; it returns 0 on success:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">enable_subcomponent_filtering</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">context</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_settings_t</span><span class="w"> </span><span class="n">settings</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_reset_settings</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">OVCLASH_SETTINGS_FLAG_SUBCOMPONENT_FILTERING</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ovclash_set_settings</span><span class="p">(</span><span class="n">context</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Cached file-backed stage:</strong></p>
+<ol class="arabic simple">
+<li><p>Opening the file and extracting with subcomponent filtering off do no kind preparation. The
+first extraction that needs kinds calls <code class="docutils literal notranslate"><span class="pre">loadSelectionSubcomponentKinds()</span></code> before creating
+extraction queries. It joins any numeric helper first and skips repopulation when there are no
+meshes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repopulateDefaultSubcomponentKinds()</span></code> uses <code class="docutils literal notranslate"><span class="pre">ovstage_population_repopulate_usd_with_desc()</span></code> on
+the existing selection instance. A <code class="docutils literal notranslate"><span class="pre">domains</span> <span class="pre">=</span> <span class="pre">NONE</span></code>, <code class="docutils literal notranslate"><span class="pre">HAS_KIND(subcomponent)</span></code> description
+selects <code class="docutils literal notranslate"><span class="pre">usd-metadata:kind</span></code> and no properties. It reads composed kinds from retained layers and
+selected variants without reopening USD. The lifecycle mutex still covers enqueue, wait and
+write-floor advance.</p></li>
+<li><p>Preparation seals a newer selection ordinal, checks that the selection’s membership did not
+change (the requirement “never let enrichment change selection membership” of
+<a class="reference internal" href="#subcomponent-kinds">Subcomponent kinds</a>), reads the kind map with a <code class="docutils literal notranslate"><span class="pre">HAS</span></code> query and
+refreshes the selection’s prototype associations. ovstage rejects <code class="docutils literal notranslate"><span class="pre">IN</span></code> on the kind attribute.
+The ordinal, associations and complete map are published together before mesh or point-cloud
+extraction.</p></li>
+<li><p>The map (<code class="docutils literal notranslate"><span class="pre">SubcomponentKinds</span></code>) stays with the selection across repeated runs, scopes and setting
+toggles, including an empty result. Reset or file replacement drops it. A failed preparation
+retires the selection rather than retaining a partially updated publication, so a retry starts
+from a fresh population.</p></li>
+</ol>
+<p><strong>Separate kind population:</strong> a noncached file read (<code class="docutils literal notranslate"><span class="pre">OvstageSceneReader::populateFromFile()</span></code> with
+subcomponent roots; the immediate-query fallback asks for none), and a cached selection whose
+repopulation was rejected, read kinds in step 3. <code class="docutils literal notranslate"><span class="pre">populateSubcomponentKindsFromFile()</span></code> opens a
+short-lived instance with the same narrow selector. <code class="docutils literal notranslate"><span class="pre">readSubcomponentKindsFromFile()</span></code> reads its
+map and <code class="docutils literal notranslate"><span class="pre">keyKindsBySelectionPrototypes()</span></code> translates prototype-local paths through the instance
+roots both populations share. The temporary instance is destroyed before extraction continues. A
+cached selection keeps that map, as it keeps a repopulated one.</p>
+<p><strong>Attached caller-owned stage:</strong> no kind population runs. The root walk reads kinds from the
+owner’s stage, one batched read per hierarchy level (<code class="docutils literal notranslate"><span class="pre">readSubcomponentWalkNodes()</span></code>).</p>
+<p>Root-layer USDA text cannot supply kinds. It misses kinds that arrive through references, which is
+how production assets author them. It also records kinds in unselected variants.</p>
+<p><strong>Requirement: never let enrichment change selection membership.</strong> The narrow description
+requests only subcomponent kind metadata, but a selector also populates every prim it selects,
+with reserved type/schema fields, its ancestors and the instance links of its prototype. For a
+prim that the RENDERING domain already holds this adds only the kind. A selected prim that the
+RENDERING domain never traverses, such as one below a class, an over or a PointInstancer’s
+prototypes, would instead become a new clash mesh, placement or direct-query answer, and
+repopulation removes nothing.
+<code class="docutils literal notranslate"><span class="pre">loadSelectionSubcomponentKinds()</span></code> therefore counts every populated prim and collects the instance
+roots before and after the repopulation. Any difference rejects it: the reader retires the
+selection, reopens it and uses the separate kind population. A published enriched selection
+therefore keeps the mesh membership, Default poses and instance placements of the RENDERING
+selection, including typed Mesh roots and unrendered classes. Repopulation replaces the source’s
+future update scope. Never repopulate an attached owner’s stage or an advanced numeric population.
+Use it only on the owned Default selection, and in one other place: the replay of an attached
+composition repopulates a fresh engine instance whose open selected nothing, to write its rows
+from the merged source and set the scope of later time applications
+(<a class="reference internal" href="runtime.html#attached-stage-populations"><span class="std std-ref">Attached-stage populations</span></a>).</p>
+<p><strong>Placements:</strong></p>
+<ul class="simple">
+<li><p>A prototype mesh’s root walk ends below its prototype root. A root found inside the prototype is
+re-rooted on each placement.</p></li>
+<li><p>A placement left without a root takes the root of its instance root.
+<code class="docutils literal notranslate"><span class="pre">copyPlacementSubcomponentRootPaths()</span></code> walks each such instance root and its ancestors once.</p></li>
+<li><p>That walk reads a nested instance root, or any other
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">instance proxy</span></a>, at its counterpart in the prototype of the nearest
+enclosing instance root. The shared engine’s <code class="docutils literal notranslate"><span class="pre">UsdUtils::getSubComponentRoot()</span></code> walks the
+parents of an instance proxy the same way.</p></li>
+<li><p>Placements of one prototype can therefore resolve different roots.</p></li>
+</ul>
+<p><strong>Invalid face counts:</strong> ovstage population may sanitize faces with fewer than three vertices.
+OpenUSD rejects the whole mesh instead.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">loadUsdaInvalidFaceCountMeshPaths()</span></code> (<code class="docutils literal notranslate"><span class="pre">source/UsdTextFallbacks.cpp</span></code>) scans the root layer of a
+text stage (first line contains <code class="docutils literal notranslate"><span class="pre">#usda</span></code>) for such meshes.</p></li>
+<li><p>Step 10 gives each such mesh a single two-vertex face, so triangulation rejects it.</p></li>
+<li><p>A direct opinion beats any variant opinion. A variant opinion counts only when the root layer
+selects its variant.</p></li>
+<li><p>The scan depends only on the file. It stays with the cached selection population and serves
+later selections and the immediate depth and depenetration queries.</p></li>
+</ul>
+<p>Tests that pin this section:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Test</p></th>
+<th class="head"><p>Executable</p></th>
+<th class="head"><p>Pins</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentKindsFollowSelectionPopulation</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>Lazy same-instance metadata publication without another file open, scope/toggle reuse, current-ordinal reads, and failure retiring the selection so that a retry starts from a fresh population.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentRepopulationPreservesInstancing</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>Enrichment preserves complete instanced geometry and hidden-source placement membership.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentRepopulationTypedRootsAndEmpty</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>Typed Mesh roots and unrendered classes remain distinct; a meshless file skips enrichment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentRepopulationRejectsAddedPrims</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>A repopulation that would place instances below a class and an over is rejected once; the reopened selection and its separate kind population keep the concrete placement, filtering on and off.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentRepopulationKeepsNumericPlan</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>A prefetched numeric population and its selected-path plan survive enrichment.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentRepopulationKeepsPointClouds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>Point geometry, widths and numeric playback are unchanged by enrichment.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testPlacementSubcomponentRoots</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>The root of every placement.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testInvalidFaceCountsFollowSelectionPopulation</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span></code></p></td>
+<td><p>The invalid-face scan is reused, and rescanned after a reset or for another file.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testInstancedKindsKeepPlacements</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.native.test</span></code>, both backends</p></td>
+<td><p>Placements survive kinds on <code class="docutils literal notranslate"><span class="pre">instanced_kinds_hidden_source.usda</span></code>, filtering off and on.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentFilteringOfInstancedPlacements</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.native.test</span></code>, both backends</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">instanced_subcomponent_kinds.usda</span></code> matches its <code class="docutils literal notranslate"><span class="pre">instanceable</span> <span class="pre">=</span> <span class="pre">false</span></code> twin. The fixture places kinds inside the asset, on a placement ancestor, on a subcomponent shared with an ordinary mesh, on the asset root, on a nested instance root, and inside an asset that only a nested instance root places.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">testSubcomponentFilteringFromReferencedKinds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.native.test</span></code>, both backends</p></td>
+<td><p>Kinds that arrive through references.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">testRootLayerVariantOpinions</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.native.test</span></code>, both backends</p></td>
+<td><p>Variant opinions for kinds and invalid face counts.</p></td>
+</tr>
+<tr class="row-even"><td><p>All cases</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.usda_text_fallbacks.test</span></code></p></td>
+<td><p>The root-layer text scanner.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="source-diagnostics">
+<h2>Source diagnostics<a class="headerlink" href="#source-diagnostics" title="Link to this heading">#</a></h2>
+<p>These environment variables turn on source diagnostics. Each one takes effect only when it is
+exactly <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Effect</p></th>
+<th class="head"><p>Output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SOURCE_PERF</span></code></p></td>
+<td><p>Phase timing of ovstage source work, and <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Suite</span></a> fetch totals on both backends (<code class="docutils literal notranslate"><span class="pre">source/SourcePerf.h</span></code>). Read once per process.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[source-perf]</span></code> lines on stdout, <code class="docutils literal notranslate"><span class="pre">[fetch-perf]</span></code> lines on stderr</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SHADOW_DEFAULT_TRANSFORMS</span></code></p></td>
+<td><p>Audits selected-geometry numeric matrices against the Default selection population</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[default-transform-shadow]</span></code> lines on stdout</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_RETAINED_SOURCE_SNAPSHOT</span></code></p></td>
+<td><p>Private experiment: reads topology and numeric matrices from a retained source</p></td>
+<td><p>None of its own</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="phase-timing">
+<h3>Phase timing<a class="headerlink" href="#phase-timing" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SourcePerfScope</span></code> (<code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderInternal.h</span></code>) prints one line when a phase begins and
+one when it ends:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[source-perf] begin phase=&quot;&lt;name&gt;&quot; input=&lt;count&gt;
+[source-perf] end phase=&quot;&lt;name&gt;&quot; elapsed_s=&lt;seconds&gt; input=&lt;count&gt; output=&lt;count&gt;
+</pre></div>
+</div>
+<p>The fields of these lines (<code class="docutils literal notranslate"><span class="pre">SourcePerfScope</span></code>):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">phase</span></code></p></td>
+<td><p>quoted string</p></td>
+<td><p>Yes</p></td>
+<td><p>A phase name, such as <code class="docutils literal notranslate"><span class="pre">pipeline.finding_meshes</span></code></p></td>
+<td><p>The measured phase</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">elapsed_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>In <code class="docutils literal notranslate"><span class="pre">end</span></code> lines only</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>The time between the two lines</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">input</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>An unsigned 64-bit count; <code class="docutils literal notranslate"><span class="pre">0</span></code> when the phase has no input count</p></td>
+<td><p>The items the phase started with</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">output</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>In <code class="docutils literal notranslate"><span class="pre">end</span></code> lines only</p></td>
+<td><p>An unsigned 64-bit count</p></td>
+<td><p>The items the phase produced</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The phases that matter most for step 1:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Phase</p></th>
+<th class="head"><p>Measures</p></th>
+<th class="head"><p>input / output</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline.finding_meshes</span></code></p></td>
+<td><p>All of step 1, including retained numeric preparation. Compare step 1 by this phase.</p></td>
+<td><p>0 / 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.geometry</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">loadMeshGeometry()</span></code> only. It excludes part of step 1.</p></td>
+<td><p>0 / extracted meshes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numeric.prefetch.background_open</span></code></p></td>
+<td><p>The helper’s Earliest open</p></td>
+<td><p>predicted paths / 0</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">numeric.population.wait</span></code></p></td>
+<td><p>Waiting for a numeric population</p></td>
+<td><p>0 / 0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">topology_fallback.prefetch_miss</span></code></p></td>
+<td><p>Recovery’s check of the helper’s prediction</p></td>
+<td><p>affected paths / 1 on a miss, 0 on a hit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">topology_fallback.recovered_points</span></code></p></td>
+<td><p>Meshes that gained points from recovery</p></td>
+<td><p>affected paths / recovered</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.subcomponent.kind_population</span></code></p></td>
+<td><p>Retained-source kind preparation, including its membership check, or a separate kind population, including its read</p></td>
+<td><p>0 / kinds read</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.subcomponent.read_kinds</span></code></p></td>
+<td><p>Kind reads from an attached stage</p></td>
+<td><p>paths / kinds found</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.subcomponent.placement_roots</span></code></p></td>
+<td><p>The placement root walk</p></td>
+<td><p>instance roots / rooted placements</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.proxy_expansion.visibility_prefetch</span></code></p></td>
+<td><p>The batched local visibility read of unscoped expansion</p></td>
+<td><p>paths / paths</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mesh.default_world.read_world_attributes</span></code></p></td>
+<td><p>Published world-row reads</p></td>
+<td><p>selected meshes / meshes that received a published world row</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">copyWorldMatrices()</span></code> also prints
+<code class="docutils literal notranslate"><span class="pre">[source-perf]</span> <span class="pre">default_mesh_world_fallback</span> <span class="pre">meshes=&lt;n&gt;</span> <span class="pre">missing_world=&lt;n&gt;</span> <span class="pre">ancestry=&lt;n&gt;</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[fetch-perf]</span></code> lines summarize one Suite fetch.
+<a class="reference internal" href="suite_runtime.html#fetch-timing-diagnostics"><span class="std std-ref">Fetch timing diagnostics</span></a> explains their fields.</p>
+<p>Worked example. Save this script as <code class="docutils literal notranslate"><span class="pre">source_perf.py</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Run one static query and report how many meshes the source extraction selected.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span><span class="p">,</span> <span class="n">RunSettings</span>
+
+<span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">RunSettings</span><span class="p">())</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_query_stats</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;meshes=</span><span class="si">{</span><span class="n">stats</span><span class="o">.</span><span class="n">nb_meshes</span><span class="si">}</span><span class="s2"> overlaps=</span><span class="si">{</span><span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Run it from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> with an ovstage build of <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> importable
+(<a class="reference internal" href="../local_development.html#running-the-module-from-a-source-checkout"><span class="std std-ref">Running the module from a source checkout</span></a>
+shows the setup).</p>
+<p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">OVCLASH_SOURCE_PERF</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>source_perf.py<span class="w"> </span>tests/data/source_optimization_reads.usda<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-E<span class="w"> </span><span class="s1">&#39;^\[source-perf\] end phase=&quot;(pipeline\.finding_meshes|mesh\.geometry|numeric\.prefetch\.background_open|topology_fallback\.[a-z_]+)&quot;|^meshes=&#39;</span>
+</pre></div>
+</div>
+<p>Windows (PowerShell):</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:OVCLASH_SOURCE_PERF</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">python</span> <span class="n">source_perf</span><span class="p">.</span><span class="n">py</span> <span class="n">tests</span><span class="p">/</span><span class="n">data</span><span class="p">/</span><span class="n">source_optimization_reads</span><span class="p">.</span><span class="n">usda</span> <span class="p">|</span> <span class="nb">Select-String</span> <span class="o">-CaseSensitive</span> <span class="n">-Pattern</span> <span class="s1">&#39;^\[source-perf\] end phase=&quot;(pipeline\.finding_meshes|mesh\.geometry|numeric\.prefetch\.background_open|topology_fallback\.[a-z_]+)&quot;|^meshes=&#39;</span>
+<span class="nb">Remove-Item</span> <span class="n">Env</span><span class="p">:</span><span class="n">OVCLASH_SOURCE_PERF</span>
+</pre></div>
+</div>
+<p>The fixture has four meshes. <code class="docutils literal notranslate"><span class="pre">/World/Hidden/C</span></code> is invisible, and <code class="docutils literal notranslate"><span class="pre">/World/Sampled</span></code> authors its
+points only as time samples. Output, with <code class="docutils literal notranslate"><span class="pre">&lt;seconds&gt;</span></code> in place of each measured time:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[source-perf] end phase=&quot;numeric.prefetch.background_open&quot; elapsed_s=&lt;seconds&gt; input=1 output=0
+[source-perf] end phase=&quot;topology_fallback.prefetch_miss&quot; elapsed_s=&lt;seconds&gt; input=1 output=0
+[source-perf] end phase=&quot;topology_fallback.numeric_population&quot; elapsed_s=&lt;seconds&gt; input=1 output=0
+[source-perf] end phase=&quot;topology_fallback.recovered_points&quot; elapsed_s=&lt;seconds&gt; input=1 output=1
+[source-perf] end phase=&quot;topology_fallback.prototype_paths&quot; elapsed_s=&lt;seconds&gt; input=1 output=0
+[source-perf] end phase=&quot;mesh.geometry&quot; elapsed_s=&lt;seconds&gt; input=0 output=3
+[source-perf] end phase=&quot;pipeline.finding_meshes&quot; elapsed_s=&lt;seconds&gt; input=0 output=0
+meshes=3 overlaps=0
+</pre></div>
+</div>
+<p>How to read it:</p>
+<ul class="simple">
+<li><p>The scan predicted one affected mesh, and the helper opened the numeric population with it
+(<code class="docutils literal notranslate"><span class="pre">background_open</span> <span class="pre">...</span> <span class="pre">input=1</span></code>).</p></li>
+<li><p>The prediction covered every affected path (<code class="docutils literal notranslate"><span class="pre">prefetch_miss</span> <span class="pre">...</span> <span class="pre">output=0</span></code>), so recovery read the
+helper’s population.</p></li>
+<li><p>Recovery gave points to one mesh (<code class="docutils literal notranslate"><span class="pre">recovered_points</span> <span class="pre">...</span> <span class="pre">output=1</span></code>). None of the affected paths
+lies in a prototype (<code class="docutils literal notranslate"><span class="pre">prototype_paths</span> <span class="pre">...</span> <span class="pre">output=0</span></code>).</p></li>
+<li><p>Extraction kept three meshes. The invisible one was filtered out.</p></li>
+</ul>
+</section>
+<section id="default-transform-shadow">
+<h3>Default transform shadow<a class="headerlink" href="#default-transform-shadow" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SHADOW_DEFAULT_TRANSFORMS=1</span></code> builds independent canonical plans for the numeric and the
+Default selection population during selected-geometry numeric reads. It compares:</p>
+<ul class="simple">
+<li><p>the final matrices, bitwise;</p></li>
+<li><p>local and reset rows;</p></li>
+<li><p>the enclosing-root operand chains.</p></li>
+</ul>
+<p>It pairs population-local prototypes through the real instance roots they share. Unknown
+associations, missing required rows and read failures mark the report <code class="docutils literal notranslate"><span class="pre">status=incomplete</span></code>. The
+audit adds reads and memory. It changes no result.</p>
+<p>Example on <code class="docutils literal notranslate"><span class="pre">tests/data/instance_reset_transforms.usda</span></code>, with <code class="docutils literal notranslate"><span class="pre">source_perf.py</span></code> from
+<a class="reference internal" href="#phase-timing">Phase timing</a>, run from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> in the same way.</p>
+<p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">OVCLASH_SHADOW_DEFAULT_TRANSFORMS</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>source_perf.py<span class="w"> </span>tests/data/instance_reset_transforms.usda
+</pre></div>
+</div>
+<p>Windows (PowerShell):</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:OVCLASH_SHADOW_DEFAULT_TRANSFORMS</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">python</span> <span class="n">source_perf</span><span class="p">.</span><span class="n">py</span> <span class="n">tests</span><span class="p">/</span><span class="n">data</span><span class="p">/</span><span class="n">instance_reset_transforms</span><span class="p">.</span><span class="n">usda</span>
+<span class="nb">Remove-Item</span> <span class="n">Env</span><span class="p">:</span><span class="n">OVCLASH_SHADOW_DEFAULT_TRANSFORMS</span>
+</pre></div>
+</div>
+<p>Output, with the middle of the report line elided:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[default-transform-shadow] status=complete time=0 numeric_ordinal=2 selection_ordinal=1 requested=10 compared=10 matrix_mismatches=0 ... missing_required_selection_rows=0 conflicting_rows=0 phase=comparison reason=&quot;&quot;
+meshes=10 overlaps=3
+</pre></div>
+</div>
+<p>Up to eight <code class="docutils literal notranslate"><span class="pre">[default-transform-shadow]</span> <span class="pre">example=&quot;...&quot;</span></code> lines follow the report line. Each names one
+mismatching, unpaired or conflicting path.</p>
+<p>The report line is a diagnostic, not a stable format. It prints every field in this order, as
+<code class="docutils literal notranslate"><span class="pre">name=value</span></code> (<code class="docutils literal notranslate"><span class="pre">DefaultTransformShadowReport</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageSceneReaderNumericPlan.cpp</span></code>):</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">status</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complete</span></code>, <code class="docutils literal notranslate"><span class="pre">incomplete</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">complete</span></code> only when both reads succeeded with equal output counts, every operand and chain normalized, every output was compared and every reader closed cleanly. A complete report can still hold mismatches.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds</p></td>
+<td><p>The finite time of the numeric read</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numeric_ordinal</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_ordinal</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>The sealed ordinals that the numeric and the selection reads used</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">requested</span></code>, <code class="docutils literal notranslate"><span class="pre">compared</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Paths requested, and outputs compared with the primary result</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">matrix_mismatches</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Selection-population matrices that differ bitwise from the primary result</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">numeric_audit_mismatches</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Rebuilt numeric matrices that differ bitwise from the primary result</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numeric_read_ok</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_read_ok</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Whether each read succeeded</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">paired_prototypes</span></code>, <code class="docutils literal notranslate"><span class="pre">ambiguous_prototype_pairs</span></code>, <code class="docutils literal notranslate"><span class="pre">unpaired_numeric_prototypes</span></code>, <code class="docutils literal notranslate"><span class="pre">unpaired_selection_prototypes</span></code>, <code class="docutils literal notranslate"><span class="pre">unpaired_operand_prefixes</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>How the population-local prototypes paired through their shared instance roots</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">numeric_root_bindings</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_root_bindings</span></code>, <code class="docutils literal notranslate"><span class="pre">root_chain_mismatches</span></code>, <code class="docutils literal notranslate"><span class="pre">output_chain_mismatches</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>The enclosing-root bindings of each read, and the root and operand chains that differ</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">common_local_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">local_value_mismatches</span></code>, <code class="docutils literal notranslate"><span class="pre">numeric_only_local_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_only_local_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_only_nonidentity_local_rows</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Local-matrix rows found in both populations or in one only, and the shared rows whose values differ</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">common_reset_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">reset_value_mismatches</span></code>, <code class="docutils literal notranslate"><span class="pre">numeric_only_reset_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_only_reset_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_only_true_reset_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">numeric_true_reset_rows</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_true_reset_rows</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>The same comparison for the reset flags</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">missing_required_selection_rows</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Required leaf rows that the selection population lacks</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">conflicting_rows</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>–</p></td>
+<td><p>Repeated operands of one read whose rows disagree, and duplicate root names in the selection bindings</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">phase</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">selection_context</span></code>, <code class="docutils literal notranslate"><span class="pre">numeric_prepare</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_prepare</span></code>, <code class="docutils literal notranslate"><span class="pre">numeric_read</span></code>, <code class="docutils literal notranslate"><span class="pre">selection_read</span></code>, <code class="docutils literal notranslate"><span class="pre">comparison</span></code>, <code class="docutils literal notranslate"><span class="pre">cleanup</span></code></p></td>
+<td><p>The step that the audit reached, or the step that failed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reason</span></code></p></td>
+<td><p>quoted string</p></td>
+<td><p>Yes</p></td>
+<td><p>Empty when nothing failed</p></td>
+<td><p>The failure text</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="retained-source-snapshot">
+<h3>Retained source snapshot<a class="headerlink" href="#retained-source-snapshot" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_RETAINED_SOURCE_SNAPSHOT=1</span></code> is a private experiment (<code class="docutils literal notranslate"><span class="pre">source/OvstageRetainedSource.h</span></code>).</p>
+<ul class="simple">
+<li><p>It takes effect only with a producer that exposes the extension
+<code class="docutils literal notranslate"><span class="pre">ovstage.experimental.retained_source_snapshot</span></code>, version 1. The packaged ovstage runtime does
+not.</p></li>
+<li><p>Static runs recover the Earliest topology of ordinary meshes from the retained source instead of
+a population. Prototype content still takes a dedicated population.</p></li>
+<li><p>Static runs without point clouds also read finite-time canonical local matrices and reset flags
+from it, during <code class="docutils literal notranslate"><span class="pre">Finding</span> <span class="pre">meshes...</span> <span class="pre">Preparing</span> <span class="pre">retained</span> <span class="pre">transforms</span></code>. The Default selection and the
+world-matrix arithmetic stay the same.</p></li>
+<li><p>Its <code class="docutils literal notranslate"><span class="pre">read_snapshot</span></code> requests run under the lifecycle lock.</p></li>
+<li><p>Its matrix cache is keyed on the stage, time, path list, source generation and floating-point
+control modes. Any other read uses the numeric population. An unsupported mapping falls back to
+the ordinary provider.</p></li>
+<li><p>It serves file-backed stages only. An attached stage never uses it, and the engine populations
+of an attached composition read through the ordinary numeric path.</p></li>
+<li><p>It adds no public ABI and no OpenUSD linkage.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash.instancing_graph.test</span> <span class="pre">--retained-source-integration</span></code> tests it against a producer closure
+named by <code class="docutils literal notranslate"><span class="pre">OVCLASH_DIAG_PRODUCER_CLOSURE</span></code>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="transforms.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Transform Evaluation Internals</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../shared_tooling.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Shared repository tooling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#extraction-at-a-glance">Extraction at a glance</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-local-instancing-identity">Population-local instancing identity</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-identity-map">Building the identity map</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#flattening-nested-instances">Flattening nested instances</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ownership-and-lifetime">Ownership and lifetime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scoped-expansion">Scoped expansion</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovstage-static-source-extraction">ovstage static source extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh-collection-and-default-transforms">Mesh collection and Default transforms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#earliest-topology-recovery">Earliest-topology recovery</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-population">Numeric population</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#subcomponent-kinds">Subcomponent kinds</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-diagnostics">Source diagnostics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#phase-timing">Phase timing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#default-transform-shadow">Default transform shadow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retained-source-snapshot">Retained source snapshot</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1101 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contributing &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=d27f7911"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fc986d73"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'contributing';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Backends" href="backends.html" />
+    <link rel="prev" title="Local Development" href="local_development.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="local_development.html">Local Development</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Contributing</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="contributing">
+<h1>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">#</a></h1>
+<p>This page is for contributors who change ovclash in a source checkout: the native runtime, the
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">C ABIs</span></a> (C application binary interfaces), the Python packages,
+the samples, the build scripts, the tests or the documentation. It states what a change contains,
+which validation it needs, and the style, license and documentation rules it follows.</p>
+<p><a class="reference internal" href="local_development.html"><span class="std std-doc">Local Development</span></a> explains how to build, test and package ovclash.
+<code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> in the <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> folder holds the full engineering rules; this page summarizes the
+ones that apply to most changes.</p>
+<section id="sources-of-truth">
+<h2>Sources of truth<a class="headerlink" href="#sources-of-truth" title="Link to this heading">#</a></h2>
+<p>When sources disagree, trust them in this order:</p>
+<ol class="arabic simple">
+<li><p>The public headers under <code class="docutils literal notranslate"><span class="pre">include/</span></code> and the executable tests define public API behavior.</p></li>
+<li><p>The repository <code class="docutils literal notranslate"><span class="pre">README.md</span></code> defines the supported product workflows and packaging.</p></li>
+<li><p>The <a class="reference internal" href="technical_guide.html"><span class="std std-doc">Technical Guide</span></a> and its topic pages explain the implementation and
+its performance.</p></li>
+</ol>
+<p>Commit history and review records describe past work, not the current state. Check every status
+or path claim against the current source before you act on it.</p>
+</section>
+<section id="what-a-change-contains">
+<h2>What a change contains<a class="headerlink" href="#what-a-change-contains" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>One concern.</strong> Keep a change scoped to the area it fixes or adds. Do not reformat unrelated
+files, and never reformat a file wholesale in an unrelated change.</p></li>
+<li><p><strong>Tests.</strong> Add or update the tests that pin the new behavior. Prefer tests that derive their
+expectations from the source over prose snapshots or copied API and source counts.</p></li>
+<li><p><strong>Documentation.</strong> Update the pages that describe the changed behavior in the same change; see
+<a class="reference internal" href="#documentation">Documentation</a>. Keep public commands, their <code class="docutils literal notranslate"><span class="pre">--help</span></code> output, the repository
+<code class="docutils literal notranslate"><span class="pre">README.md</span></code> and <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> in step.</p></li>
+<li><p><strong>The rationale in the commit message.</strong> The changelog is generated from the merged commits at
+release; see <a class="reference internal" href="#changelog">Changelog</a>.</p></li>
+<li><p><strong>Validation evidence.</strong> Run the checks that <a class="reference internal" href="#required-validation">Required validation</a> lists
+for the affected surface, and record any target you excluded and any GPU coverage you skipped.</p></li>
+</ul>
+<p>Before you hand a change over, inspect its final diff for developer-local paths, stale header
+names, unquoted path handling, contradictions between pages, and missing backend validation.</p>
+<p>A local test never publishes, uploads, signs or contacts an external service unless that action
+is explicitly requested and configured.</p>
+<section id="rules-that-shape-many-changes">
+<h3>Rules that shape many changes<a class="headerlink" href="#rules-that-shape-many-changes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Backend parity.</strong> <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, the runtime through which ovclash
+reads <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a>, is the product
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">backend</span></a>. The OpenUSD backend is an unpublished, unchanged
+reference: for the same stage and settings, the default ovstage configuration must match it,
+except for the differences <a class="reference internal" href="backends.html"><span class="std std-doc">Backends</span></a> lists. Reproduce an unexpected difference in a
+test that runs on both backends and compares result payloads, then correct ovstage. Never change
+the OpenUSD adapter or the engine’s arithmetic to manufacture agreement.</p></li>
+<li><p><strong>Shared engine sources.</strong> <code class="docutils literal notranslate"><span class="pre">source/usdclash/</span></code> holds the shared clash-detection engine sources,
+which ovclash does not modify. Keep standalone adapter changes in
+<code class="docutils literal notranslate"><span class="pre">source/OpenUsdClashBackend.cpp</span></code>. <code class="docutils literal notranslate"><span class="pre">scripts/usdclash_sources.cmake</span></code> lists the native inputs; add
+a new source file there and to <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>, or it does not compile.</p></li>
+<li><p><strong>Public API.</strong> Adding, removing or changing a public declaration needs the API inventory
+tests, both backend implementations, the Python bindings, the samples and the documentation,
+the export checks, and a deliberate version and compatibility decision.</p></li>
+<li><p><strong>Build scripts.</strong> Scripts must not depend on the checkout location. Anchor paths to the
+script, quote and escape paths, keep writable caches inside the checkout, and make every local
+dependency root overridable. Windows and Linux entry points behave the same, and an unsupported
+option fails explicitly.</p></li>
+</ul>
+</section>
+</section>
+<section id="required-validation">
+<h2>Required validation<a class="headerlink" href="#required-validation" title="Link to this heading">#</a></h2>
+<p>Run the narrowest relevant tests while you develop
+(<a class="reference internal" href="technical/testing.html#run-focused-tests"><span class="std std-ref">Run focused tests</span></a>), then the full checks for each
+surface the change touches:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Change</p></th>
+<th class="head"><p>Required evidence</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ovstage-only runtime</p></td>
+<td><p>ovstage native and Python tests, and <code class="docutils literal notranslate"><span class="pre">build_ovstage.*</span> <span class="pre">--release</span> <span class="pre">--validate</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenUSD adapter</p></td>
+<td><p>OpenUSD native and Python tests, and <code class="docutils literal notranslate"><span class="pre">build_openusd.*</span> <span class="pre">--release</span> <span class="pre">--validate</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Engine or public behavior</p></td>
+<td><p>Both backend validations (<code class="docutils literal notranslate"><span class="pre">test_all.*</span> <span class="pre">--release</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Canonical or <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">Suite</span></a> ABI and bindings</p></td>
+<td><p>API, export and inventory tests, and both backend validations</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">Wheel</span></a>, <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>, licenses</p></td>
+<td><p>Packaging and unit tests, product wheel verification, packaged sample tests and the SDK archive C-consumer check; the OpenUSD wheel check when shared code changes. For the external ovstage runtime also <code class="docutils literal notranslate"><span class="pre">test_external_runtime_packaging.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_external_runtime_selection.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_sdk_consumer_config.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_sdk_consumer_startup.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_sdk_consumer_archive.py</span></code>, <code class="docutils literal notranslate"><span class="pre">test_sample_launcher_external_runtime.py</span></code> and <code class="docutils literal notranslate"><span class="pre">test_kpi_runtime_metadata_producer.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Wrapper, path or tool discovery</p></td>
+<td><p>Focused script-mode tests on each affected OS and the arbitrary-working-directory and special-character fixtures; for output paths also <code class="docutils literal notranslate"><span class="pre">test_generated_layout.py</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Documentation or commands</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">build_docs.*</span> <span class="pre">--links-only</span></code>, relative link and anchor checks, <code class="docutils literal notranslate"><span class="pre">test_shipped_skills.py</span></code>, <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">scripts/check_repo_structure.py</span></code> for the entry files, and executable <code class="docutils literal notranslate"><span class="pre">--help</span></code> or command checks where available</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sample viewer on <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">ovRTX</span></a>, NVIDIA’s RTX rendering runtime</p></td>
+<td><p>Sample-app tests and the detection-only one-shot sample smoke; optionally the rendering smoke on a GPU host</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="local_development.html#test-and-validate"><span class="std std-ref">Test and validate</span></a> describes the validation run and its
+output, and <a class="reference internal" href="local_development.html#troubleshooting"><span class="std std-ref">Troubleshooting</span></a> in Local Development covers
+build, download and validation failures. Ordinary <code class="docutils literal notranslate"><span class="pre">--validate</span></code> excludes the full KPI workloads and
+the Sentinel checker and correctness runs; they have their own entry points.
+<a class="reference internal" href="guides/sentinel.html"><span class="std std-doc">Sentinel</span></a> checks engine correctness and serialization equivalence, and
+<a class="reference internal" href="guides/kpi.html"><span class="std std-doc">KPI</span></a> measures performance.</p>
+<p>The ovRTX rendering smoke (<code class="docutils literal notranslate"><span class="pre">OVCLASH_TEST_OVRTX</span></code>) and the sample-app suite (<code class="docutils literal notranslate"><span class="pre">test_python_sample_app</span></code>)
+are opt-in; rendering needs a GPU and the Vulkan graphics API. A passing run without rendering does
+not prove ovRTX rendering.</p>
+<p>Run the backend C-consumer and sample checks one backend at a time. <code class="docutils literal notranslate"><span class="pre">test_c_compat.cmake</span></code>
+recreates the shared <code class="docutils literal notranslate"><span class="pre">_build/c_compat_install</span></code>, and the C++ Suite sample builds in
+<code class="docutils literal notranslate"><span class="pre">_build/samples/clash_suite_api</span></code> by default, so separate backend trees do not isolate them.
+Sequential validations of both backends in one checkout are supported.</p>
+</section>
+<section id="code-style">
+<h2>Code style<a class="headerlink" href="#code-style" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Native C and C++ code follows the <a class="reference internal" href="code_style_cpp.html"><span class="std std-doc">C/C++ code style</span></a>.</p></li>
+<li><p>Python code follows the <a class="reference internal" href="code_style_python.html"><span class="std std-doc">Python code style</span></a>. Its MUST rules apply to all
+project-owned Python: a module docstring and docstrings for public classes, functions and
+methods (test methods included); full annotations on public non-test functions and methods;
+<code class="docutils literal notranslate"><span class="pre">snake_case</span></code> functions and <code class="docutils literal notranslate"><span class="pre">CapWords</span></code> classes; the Black code formatter and the isort import
+sorter at 120 columns; and no module over 100,000 bytes.</p></li>
+<li><p>Where a guide is silent, match the surrounding file. Vendored code, the shared engine sources
+and adapted third-party code keep their own conventions.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">format</span></code>, the format command of the <code class="docutils literal notranslate"><span class="pre">repo</span></code> tool that <code class="docutils literal notranslate"><span class="pre">repo.sh</span></code> and <code class="docutils literal notranslate"><span class="pre">repo.bat</span></code> run, applies
+the Python formatters and the license headers. Before you begin, have a source checkout; the
+first run fetches the tool’s dependencies with Packman, and
+<a class="reference internal" href="local_development.html#troubleshooting"><span class="std std-ref">Troubleshooting</span></a> in Local Development covers a failed
+download. Run it from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, with <code class="docutils literal notranslate"><span class="pre">repo.bat</span></code> on Windows and <code class="docutils literal notranslate"><span class="pre">./repo.sh</span></code> on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./repo.sh<span class="w"> </span>format<span class="w"> </span>--python-only<span class="w"> </span>--modified<span class="w">    </span><span class="c1"># format the Python files you changed</span>
+./repo.sh<span class="w"> </span>format<span class="w"> </span>--legal-only<span class="w"> </span>--verify<span class="w">       </span><span class="c1"># check every license header, change nothing</span>
+</pre></div>
+</div>
+<p>Each command exits with code 0 on success. With <code class="docutils literal notranslate"><span class="pre">--verify</span></code>, a nonzero exit code means that a
+header differs, and the command names each such file.</p>
+<p><a class="reference internal" href="code_style_python.html#tooling-and-review"><span class="std std-ref">Tooling and review</span></a> lists the other selections. CI
+checks only license headers, so format every Python file you change before review. Reviewers apply
+the other style rules by hand.</p>
+</section>
+<section id="license-headers">
+<h2>License headers<a class="headerlink" href="#license-headers" title="Link to this heading">#</a></h2>
+<p>ovclash source is licensed under Apache-2.0 (<code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code>). A new source file carries this
+two-line SPDX header (Software Package Data Exchange, a standard for machine-readable license
+tags), written in the file’s comment syntax:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SPDX-FileCopyrightText: Copyright (c) &lt;years&gt; NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.
+SPDX-License-Identifier: Apache-2.0
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SPDX-FileCopyrightText</span></code></p></td>
+<td><p>Text</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Copyright</span> <span class="pre">(c)</span> <span class="pre">&lt;years&gt;</span> <span class="pre">NVIDIA</span> <span class="pre">CORPORATION</span> <span class="pre">&amp;</span> <span class="pre">AFFILIATES.</span> <span class="pre">All</span> <span class="pre">rights</span> <span class="pre">reserved.</span></code></p></td>
+<td><p>The copyright line. <code class="docutils literal notranslate"><span class="pre">&lt;years&gt;</span></code> is the creation year, or a range that ends with the current year, such as <code class="docutils literal notranslate"><span class="pre">2025-2026</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SPDX-License-Identifier</span></code></p></td>
+<td><p>SPDX license identifier</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Apache-2.0</span></code></p></td>
+<td><p>The license of the file. A file under another license is listed in the <code class="docutils literal notranslate"><span class="pre">OTHER_LICENSES</span></code> of <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_source_licenses.py</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>The header comes first, after a shebang or <code class="docutils literal notranslate"><span class="pre">&#64;echo</span> <span class="pre">off</span></code> when the file has one, and is followed
+by one blank line. In C and C++, a file comment never joins the pair.</p></li>
+<li><p>For a new original file, <code class="docutils literal notranslate"><span class="pre">&lt;years&gt;</span></code> is the creation year. Preserve an existing notice, its
+license and its start year when you edit, move or derive a file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">repo.toml</span></code> sets <code class="docutils literal notranslate"><span class="pre">use_current_year_as_end_year</span></code>, so every header names the current year as
+its end year, for example <code class="docutils literal notranslate"><span class="pre">2025-2026</span></code>. When the year changes, <code class="docutils literal notranslate"><span class="pre">./repo.sh</span> <span class="pre">format</span> <span class="pre">--legal-only</span></code>
+on Linux, or <code class="docutils literal notranslate"><span class="pre">repo.bat</span> <span class="pre">format</span> <span class="pre">--legal-only</span></code> on Windows, updates every header; commit that
+update as one change of its own.</p></li>
+<li><p>Markdown pages and JSON files carry no header. reStructuredText pages carry the pair as
+<code class="docutils literal notranslate"><span class="pre">..</span> <span class="pre">SPDX-...</span></code> comment lines.</p></li>
+</ul>
+<p>Two checks enforce the rules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">./repo.sh</span> <span class="pre">format</span> <span class="pre">--legal-only</span> <span class="pre">--verify</span></code> (<code class="docutils literal notranslate"><span class="pre">repo.bat</span></code> on Windows) reports every C/C++, Python
+and <code class="docutils literal notranslate"><span class="pre">cmake/**/*.h.in</span></code> file whose header differs from the template in <code class="docutils literal notranslate"><span class="pre">repo.toml</span></code>, without
+changing files. It checks no code formatting. Its file lists exclude the shared engine link
+<code class="docutils literal notranslate"><span class="pre">source/usdclash/</span></code>, third-party code and <code class="docutils literal notranslate"><span class="pre">_build/</span></code>. CI runs the same check, and a mismatch
+fails it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_source_licenses.py</span></code> runs in the Python runtime suite of every
+<code class="docutils literal notranslate"><span class="pre">--validate</span></code> run. It covers the file kinds in its <code class="docutils literal notranslate"><span class="pre">CHECKED_PATTERNS</span></code>: C/C++, Python, CMake,
+shell, batch, <code class="docutils literal notranslate"><span class="pre">.cmd</span></code> and PowerShell scripts, <code class="docutils literal notranslate"><span class="pre">.in</span></code> templates, TOML, <code class="docutils literal notranslate"><span class="pre">.cfg</span></code>, YAML, XML, linker
+maps, pip requirements and reStructuredText files. It requires that:</p>
+<ul>
+<li><p>every tracked file of those kinds carries the Apache-2.0 SPDX pair with an NVIDIA copyright
+line;</p></li>
+<li><p>a file under another license is listed in the test’s <code class="docutils literal notranslate"><span class="pre">OTHER_LICENSES</span></code> and declared in
+<code class="docutils literal notranslate"><span class="pre">THIRD-PARTY-NOTICES.txt</span></code>, and a file that cannot carry a header is listed in its
+<code class="docutils literal notranslate"><span class="pre">NO_SPDX_HEADER</span></code>;</p></li>
+<li><p>no tracked file declares a proprietary license or carries a proprietary notice;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">licenses/physx/LICENSE.md</span></code> matches the license file of the
+<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">PhysX</span></a> SDK, NVIDIA’s physics SDK, when a <code class="docutils literal notranslate"><span class="pre">physx/</span></code> source
+tree sits beside <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>; without one, the copy is authoritative.</p></li>
+</ul>
+</li>
+</ul>
+<p>The wheel and the SDK archive are governed by <code class="docutils literal notranslate"><span class="pre">licenses/LICENSE-binary.txt</span></code>.</p>
+</section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">docs/</span></code> is the source tree of two sites that the Sphinx documentation generator renders to HTML,
+rooted at <code class="docutils literal notranslate"><span class="pre">docs/index.md</span></code> (the full site) and <code class="docutils literal notranslate"><span class="pre">docs/index_public.md</span></code> (the public site, which a
+public source export renders). Its pages belong to one of these sets:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Set</p></th>
+<th class="head"><p>Where</p></th>
+<th class="head"><p>Ships as Markdown</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Consumer pages</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">docs/consumer/</span></code></p></td>
+<td><p>Yes, at the same path in the SDK archive. The wheel ships no consumer page.</p></td>
+</tr>
+<tr class="row-odd"><td><p>API reference</p></td>
+<td><p><a class="reference internal" href="api.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">docs/api.md</span></code></span></a> (Doxygen, the C/C++ documentation generator) and <a class="reference internal" href="python_api.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">docs/python_api.rst</span></code></span></a> (autodoc, the docstring reader of Sphinx)</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>Source and contributor pages</p></td>
+<td><p>Every other page under <code class="docutils literal notranslate"><span class="pre">docs/</span></code></p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All three sets render to HTML. An SDK archive built from the public source carries the Markdown
+pages only, never the rendered site. The repository <code class="docutils literal notranslate"><span class="pre">README.md</span></code> and the READMEs under
+<code class="docutils literal notranslate"><span class="pre">benchmarks/</span></code> and <code class="docutils literal notranslate"><span class="pre">tests/sentinel/</span></code> follow the rules of the source and contributor pages.</p>
+<p>Rules for every change to the documentation:</p>
+<ul>
+<li><p><strong>Add a page to the right <code class="docutils literal notranslate"><span class="pre">{toctree}</span></code></strong>, the directive of a root page that lists its site’s
+table of contents, in <code class="docutils literal notranslate"><span class="pre">docs/index.md</span></code> and in <code class="docutils literal notranslate"><span class="pre">docs/index_public.md</span></code>, and to <code class="docutils literal notranslate"><span class="pre">docs/README.md</span></code>,
+in the same change. A page that stays off the public site goes in the exclude list of the
+<code class="docutils literal notranslate"><span class="pre">ovclash-public</span></code> project in <code class="docutils literal notranslate"><span class="pre">repo.toml</span></code> instead of <code class="docutils literal notranslate"><span class="pre">docs/index_public.md</span></code>; add the page’s path
+to it. A page in no toctree of its site fails the render.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sphinx_exclude_patterns</span></code>, in <code class="docutils literal notranslate"><span class="pre">[repo_docs.projects.ovclash-public]</span></code> of <code class="docutils literal notranslate"><span class="pre">repo.toml</span></code></p></td>
+<td><p>TOML array of strings</p></td>
+<td><p>Yes: the public site must exclude <code class="docutils literal notranslate"><span class="pre">index.md</span></code>, the root of the full site</p></td>
+<td><p>Sphinx glob patterns relative to <code class="docutils literal notranslate"><span class="pre">docs/</span></code>, such as <code class="docutils literal notranslate"><span class="pre">&quot;index.md&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;api/**&quot;</span></code></p></td>
+<td><p>The files that the public site does not render.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><strong>Write consumer pages for the installed package.</strong> They link only to sibling pages in
+<code class="docutils literal notranslate"><span class="pre">docs/consumer/</span></code> and never use <code class="docutils literal notranslate"><span class="pre">../</span></code>. They name no <code class="docutils literal notranslate"><span class="pre">scripts/</span></code>, <code class="docutils literal notranslate"><span class="pre">tests/</span></code>, <code class="docutils literal notranslate"><span class="pre">_build</span></code> or other
+source-checkout path, describe no build from source and contain public information only.
+The wheel ships no consumer page; its own Markdown names one with the label
+<code class="docutils literal notranslate"><span class="pre">(SDK</span> <span class="pre">archive):</span></code> in front of the reference.</p></li>
+<li><p><strong>Use standard Markdown</strong> for links, headings, tables, code blocks and notes (<code class="docutils literal notranslate"><span class="pre">&gt;</span> <span class="pre">**Note**</span></code>
+blockquotes). MyST is the Markdown dialect that Sphinx reads; the only MyST constructs allowed are
+<code class="docutils literal notranslate"><span class="pre">{toctree}</span></code> in <code class="docutils literal notranslate"><span class="pre">docs/index.md</span></code> and <code class="docutils literal notranslate"><span class="pre">docs/index_public.md</span></code>, <code class="docutils literal notranslate"><span class="pre">{eval-rst}</span></code> in
+<a class="reference internal" href="api.html"><span class="std std-doc"><code class="docutils literal notranslate"><span class="pre">docs/api.md</span></code></span></a>, and <code class="docutils literal notranslate"><span class="pre">{literalinclude}</span></code> of a public C ABI header under <code class="docutils literal notranslate"><span class="pre">include/</span></code>.</p></li>
+<li><p><strong>Name source, test, script and configuration files as backticked paths</strong>, such as
+<code class="docutils literal notranslate"><span class="pre">scripts/usdclash_sources.cmake</span></code>, not as links. Sphinx copies every linked file that is not a
+page into the rendered site, and the SDK archive ships that site. Links to the public headers
+under <code class="docutils literal notranslate"><span class="pre">include/</span></code> are the exception.</p></li>
+<li><p><strong>Never copy sample, test or implementation source</strong> into a page. Show a short snippet with
+only the lines that make the point.</p></li>
+<li><p><strong>Link between pages</strong> with relative links to the <code class="docutils literal notranslate"><span class="pre">.md</span></code> file, written out in full, such as
+<code class="docutils literal notranslate"><span class="pre">backends.md</span></code> or <code class="docutils literal notranslate"><span class="pre">consumer/persistence.md#clash-states</span></code>.</p></li>
+<li><p><strong>Describe current behavior only.</strong> Do not record dated measurements, profiling history,
+incident stories, commit hashes or absolute and developer-local paths.</p></li>
+<li><p><strong>Record no benchmark results.</strong> A time, speedup, ratio or throughput measured on one machine
+does not hold on other hardware. Say how to measure and how to read the result, and show
+placeholders such as <code class="docutils literal notranslate"><span class="pre">&lt;seconds&gt;</span></code> in example output.</p></li>
+<li><p>Use lowercase file names joined by underscores. Markdown pages carry no SPDX header.</p></li>
+</ul>
+<p>After every documentation edit, run the link check of the shipped Markdown. It needs no build
+tree and takes seconds. From <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./build_docs.sh<span class="w"> </span>--links-only
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>build_docs.bat --links-only
+</pre></div>
+</div>
+<p>The check passes when it prints two <code class="docutils literal notranslate"><span class="pre">documentation</span> <span class="pre">payload</span> <span class="pre">OK</span></code> lines, one for the SDK archive layout
+and one for the wheel layout, and exits with code 0. A broken link prints <code class="docutils literal notranslate"><span class="pre">ERROR:</span> <span class="pre">&lt;problem&gt;</span></code> and
+then <code class="docutils literal notranslate"><span class="pre">Documentation</span> <span class="pre">link</span> <span class="pre">check</span> <span class="pre">failed</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">&lt;layout&gt;</span> <span class="pre">layout</span> <span class="pre">(exit</span> <span class="pre">code:</span> <span class="pre">&lt;code&gt;)</span></code>, and the check
+keeps its stage under <code class="docutils literal notranslate"><span class="pre">_build/docs-link-check/</span></code> for inspection.</p>
+<p>The full render (<code class="docutils literal notranslate"><span class="pre">build_docs</span></code> without <code class="docutils literal notranslate"><span class="pre">--links-only</span></code>) needs an install tree. Without one,
+<code class="docutils literal notranslate"><span class="pre">build_docs.sh</span></code> stops with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">installed</span> <span class="pre">library</span> <span class="pre">at</span> <span class="pre">&lt;path&gt;.</span></code> and <code class="docutils literal notranslate"><span class="pre">build_docs.bat</span></code> with
+<code class="docutils literal notranslate"><span class="pre">FAILED:</span> <span class="pre">installed</span> <span class="pre">runtime</span> <span class="pre">check.</span> <span class="pre">No</span> <span class="pre">library</span> <span class="pre">at</span> <span class="pre">&quot;&lt;path&gt;&quot;.</span></code>
+<a class="reference internal" href="local_development.html#building-this-documentation"><span class="std std-ref">Building this documentation</span></a> describes both
+gates, and <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> (“Doc authoring conventions”) has the complete authoring rules.</p>
+</section>
+<section id="changelog">
+<h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> is the only changelog in the tree. Its version section is written once, at
+release, from the merged commits and the descriptions of the changes that brought them.</p>
+<ul class="simple">
+<li><p><strong>Do not add changelog entries in a feature change.</strong> Concurrent changes that append to one
+version heading conflict with each other. Put the rationale in the commit message instead,
+which the generator reads.</p></li>
+<li><p>A change to the file’s structure, such as its heading format, belongs with the change that
+defines it.</p></li>
+<li><p>Keep <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> historical: add entries, never rewrite released facts.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">docs/consumer/CHANGELOG.md</span></code> is its generated consumer copy, rendered as the
+<a class="reference internal" href="consumer/CHANGELOG.html"><span class="std std-doc">Changelog</span></a> page. Never edit it: every build regenerates it from
+<code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code>.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="local_development.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Local Development</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="backends.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Backends</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-truth">Sources of truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-a-change-contains">What a change contains</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-that-shape-many-changes">Rules that shape many changes</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-validation">Required validation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-style">Code style</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#license-headers">License headers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documentation">Documentation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#changelog">Changelog</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

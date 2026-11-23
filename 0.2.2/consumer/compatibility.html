@@ -1,0 +1,1246 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>System Requirements and Compatibility &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/compatibility';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C API Conventions" href="c_api_conventions.html" />
+    <link rel="prev" title="Limitations" href="limitations.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">System Requirements and Compatibility</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="system-requirements-and-compatibility">
+<h1>System Requirements and Compatibility<a class="headerlink" href="#system-requirements-and-compatibility" title="Link to this heading">#</a></h1>
+<p>This page lists what ovclash, the clash detection library for <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a>
+scenes, needs on the machine that runs it, and how a release stays compatible with other
+releases, with stored clash data and with <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a> code. It ships as
+<code class="docutils literal notranslate"><span class="pre">docs/consumer/compatibility.md</span></code> in the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>.</p>
+<section id="system-requirements">
+<h2>System requirements<a class="headerlink" href="#system-requirements" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Requirement</p></th>
+<th class="head"><p>Wheel</p></th>
+<th class="head"><p>SDK archive</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Operating system and CPU</p></td>
+<td><p>Windows x86_64, Linux x86_64 or Linux aarch64</p></td>
+<td><p>The same</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linux C and C++ runtime</p></td>
+<td><p>glibc 2.35 or newer, and a <code class="docutils literal notranslate"><span class="pre">libstdc++</span></code> that provides <code class="docutils literal notranslate"><span class="pre">GLIBCXX_3.4.30</span></code></p></td>
+<td><p>The same</p></td>
+</tr>
+<tr class="row-even"><td><p>Windows C++ runtime</p></td>
+<td><p>The Microsoft Visual C++ Redistributable (x64)</p></td>
+<td><p>The same</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python</p></td>
+<td><p>3.10 or newer</p></td>
+<td><p>3.10 or newer, for the Python packages, the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">sample launchers</span></a> and <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a></p></td>
+<td><p>The exact version that the release pins. pip installs it with the wheel.</p></td>
+<td><p>The exact version that the release pins, installed from <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SQLite</p></td>
+<td><p>The operating system’s SQLite library, for <a class="reference internal" href="sqlite_serializer.html"><span class="std std-doc">SQLite stores</span></a> and <a class="reference internal" href="legacy_container.html"><span class="std std-doc">legacy containers</span></a> only</p></td>
+<td><p>The same</p></td>
+</tr>
+<tr class="row-even"><td><p>C or C++ toolchain</p></td>
+<td><p>Not used</p></td>
+<td><p>A C or C++ compiler. The C++ samples need C++17 and CMake 3.16 or newer.</p></td>
+</tr>
+<tr class="row-odd"><td><p>GPU</p></td>
+<td><p>Not required</p></td>
+<td><p>Not required</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="platforms-and-package-names">
+<h3>Platforms and package names<a class="headerlink" href="#platforms-and-package-names" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Wheel</p></th>
+<th class="head"><p>SDK archive</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Windows x86_64</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-py3-none-win_amd64.whl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-windows-x86_64.zip</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Linux x86_64</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-py3-none-manylinux_2_35_x86_64.whl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-linux-x86_64.tar.gz</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Linux aarch64</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-py3-none-manylinux_2_35_aarch64.whl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-linux-aarch64.tar.gz</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>No package exists for any other operating system or CPU.</p></li>
+<li><p>Each package carries the launchers of its own platform only: <code class="docutils literal notranslate"><span class="pre">.bat</span></code> launchers on Windows and
+<code class="docutils literal notranslate"><span class="pre">.sh</span></code> launchers on Linux.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">py3-none</span></code> tag means that the wheel holds no compiled Python extension. The Python packages
+load the native library through <code class="docutils literal notranslate"><span class="pre">ctypes</span></code>, so the wheel is not tied to one Python version.</p></li>
+</ul>
+</section>
+<section id="linux-glibc-baseline">
+<h3>Linux glibc baseline<a class="headerlink" href="#linux-glibc-baseline" title="Link to this heading">#</a></h3>
+<p>The Linux binaries require at most the <code class="docutils literal notranslate"><span class="pre">GLIBC_2.35</span></code> and <code class="docutils literal notranslate"><span class="pre">GLIBCXX_3.4.30</span></code> symbol versions, and the
+build checks every Linux binary against that baseline. A system with glibc 2.35 or newer and the
+<code class="docutils literal notranslate"><span class="pre">libstdc++</span></code> of GCC 12 or newer meets it, for example Ubuntu 22.04 or later.</p>
+<ul class="simple">
+<li><p>pip installs the wheel only where the glibc version meets the <code class="docutils literal notranslate"><span class="pre">manylinux_2_35</span></code> tag. pip does not
+check <code class="docutils literal notranslate"><span class="pre">libstdc++</span></code>.</p></li>
+<li><p>The SDK archive has no tag. <code class="docutils literal notranslate"><span class="pre">ldd</span> <span class="pre">--version</span></code> prints the glibc version of a machine.</p></li>
+<li><p>On an older system, the dynamic loader refuses the library with a message that names the missing
+<code class="docutils literal notranslate"><span class="pre">GLIBC_</span></code> or <code class="docutils literal notranslate"><span class="pre">GLIBCXX_</span></code> version.</p></li>
+</ul>
+</section>
+<section id="windows-visual-c-runtime">
+<h3>Windows Visual C++ runtime<a class="headerlink" href="#windows-visual-c-runtime" title="Link to this heading">#</a></h3>
+<p>ovclash does not bundle the MSVC runtime (<code class="docutils literal notranslate"><span class="pre">MSVCP140.dll</span></code>, <code class="docutils literal notranslate"><span class="pre">VCRUNTIME140.dll</span></code> and
+<code class="docutils literal notranslate"><span class="pre">VCRUNTIME140_1.dll</span></code>), although its Windows binaries import it. Install the
+<a class="reference external" href="https://aka.ms/vs/17/release/vc_redist.x64.exe">Microsoft Visual C++ Redistributable (x64)</a> on
+every machine that runs ovclash. Without it the native library does not load, and <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ovclash</span></code>
+raises an <code class="docutils literal notranslate"><span class="pre">OSError</span></code> that names the runtime libraries the machine cannot load; see
+<a class="reference internal" href="troubleshooting.html#visual-c-runtime-missing-windows"><span class="std std-ref">Troubleshooting</span></a>.</p>
+</section>
+<section id="python-versions">
+<h3>Python versions<a class="headerlink" href="#python-versions" title="Link to this heading">#</a></h3>
+<p>The wheel declares <code class="docutils literal notranslate"><span class="pre">Requires-Python:</span> <span class="pre">&gt;=3.10</span></code>. The SDK archive carries the same Python packages
+under <code class="docutils literal notranslate"><span class="pre">python/</span></code>, with the same requirement. <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> also runs a Python 3.10 or newer
+interpreter at configure time, to check that interpreter’s installed ovstage.</p>
+<p>The optional extras pin these version ranges:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Extra</p></th>
+<th class="head"><p>Adds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">viewer</span></code>, <code class="docutils literal notranslate"><span class="pre">viewer-ovstage</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">numpy&gt;=1.24,&lt;3</span></code> and <code class="docutils literal notranslate"><span class="pre">warp-lang&gt;=1.16,&lt;2</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">viewer-openusd</span></code></p></td>
+<td><p>The same, plus <code class="docutils literal notranslate"><span class="pre">usd-core==26.5</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The core API needs no extra. <a class="reference internal" href="README.html#optional-extras"><span class="std std-ref">Optional extras</span></a> says what each one is for.</p>
+</section>
+<section id="the-ovstage-runtime">
+<h3>The ovstage runtime<a class="headerlink" href="#the-ovstage-runtime" title="Link to this heading">#</a></h3>
+<p>ovclash reads USD through ovstage. Each ovclash release pins exactly one ovstage version, and
+neither package bundles it. ovstage supplies the USD runtime, so ovclash needs no <code class="docutils literal notranslate"><span class="pre">usd-core</span></code> of its
+own. The pinned version is published on public PyPI.</p>
+<ul>
+<li><p><strong>Wheel.</strong> The wheel’s metadata declares <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;pin&gt;</span></code>, and pip installs that version with
+ovclash. At import the wheel checks only that a complete ovstage runtime is installed, not its
+version, so it relies on pip to keep the pin. Do not upgrade, downgrade or uninstall <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> on
+its own, and do not install ovclash with <code class="docutils literal notranslate"><span class="pre">--no-deps</span></code>.</p></li>
+<li><p><strong>SDK archive.</strong> <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> holds exactly <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;pin&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;pin&gt;</span></code> is the
+pinned ovstage version. Install it into every interpreter that builds or runs your code. From
+the extracted SDK archive root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> and the SDK archive’s Python packages accept only the pinned version.
+Another version, or none, is an error that names the interpreter and the install command.
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code> selects another installation of the same version. The sample
+launchers prepare the pin themselves; see
+<a class="reference internal" href="samples.html#how-the-launchers-select-a-runtime"><span class="std std-ref">How the launchers select a runtime</span></a>.
+<a class="reference internal" href="c_quickstart.html#installing-the-ovstage-runtime"><span class="std std-ref">Installing the ovstage runtime</span></a> covers the
+CMake side.</p>
+</li>
+</ul>
+<p>To read the pin of an installed package:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>Where</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Wheel</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">importlib.metadata</span> <span class="pre">as</span> <span class="pre">m;</span> <span class="pre">print(m.requires('ovclash'))&quot;</span></code> lists <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;pin&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>SDK archive</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Both</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">ovstage_version</span></code> field of <code class="docutils literal notranslate"><span class="pre">ovclash-build-provenance.json</span></code> at the package root</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The pinned ovstage runtime carries a namespaced <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a>, so the Python
+packages publish its plugin registry only through <code class="docutils literal notranslate"><span class="pre">OV_PXR_PLUGINPATH_2511</span></code>, not through
+<code class="docutils literal notranslate"><span class="pre">PXR_PLUGINPATH_NAME</span></code>. <a class="reference internal" href="README.html#usd-coexistence"><span class="std std-ref">USD coexistence</span></a> covers a process that also
+loads another OpenUSD.</p>
+</section>
+<section id="system-sqlite">
+<h3>System SQLite<a class="headerlink" href="#system-sqlite" title="Link to this heading">#</a></h3>
+<p>SQLite stores, and legacy <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> containers, use the operating system’s SQLite library.
+ovclash neither links nor bundles SQLite. It loads the library at run time, once per process:</p>
+<ul class="simple">
+<li><p>On Windows, it loads only <code class="docutils literal notranslate"><span class="pre">winsqlite3.dll</span></code> from the System32 directory.</p></li>
+<li><p>On Linux, it loads <code class="docutils literal notranslate"><span class="pre">libsqlite3.so.0</span></code>, else <code class="docutils literal notranslate"><span class="pre">libsqlite3.so</span></code>. Install the distribution’s SQLite
+library package where neither exists, for example <code class="docutils literal notranslate"><span class="pre">libsqlite3-0</span></code> on Debian and Ubuntu.</p></li>
+</ul>
+<p>The <a class="reference internal" href="directory_serializer.html"><span class="std std-doc">JSON directory store</span></a> and the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical API</span></a> do not use SQLite.
+<a class="reference internal" href="sqlite_serializer.html#system-sqlite-library"><span class="std std-ref">System SQLite library</span></a> gives the error messages.</p>
+</section>
+</section>
+<section id="maturity-and-versioning">
+<h2>Maturity and versioning<a class="headerlink" href="#maturity-and-versioning" title="Link to this heading">#</a></h2>
+<p>ovclash is pre-1.0 software. The wheel’s metadata classifies it as
+<code class="docutils literal notranslate"><span class="pre">Development</span> <span class="pre">Status</span> <span class="pre">::</span> <span class="pre">3</span> <span class="pre">-</span> <span class="pre">Alpha</span></code>.</p>
+<ul class="simple">
+<li><p>One <code class="docutils literal notranslate"><span class="pre">MAJOR.MINOR.PATCH</span></code> version covers the native library, both
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">C ABIs</span></a> and the Python packages.</p></li>
+<li><p>A wheel version can carry a local version label after a <code class="docutils literal notranslate"><span class="pre">+</span></code>, as PEP 440, the Python standard for
+version numbers, allows. When you compare versions yourself, compare <code class="docutils literal notranslate"><span class="pre">value.split(&quot;+&quot;,</span> <span class="pre">1)[0]</span></code>.</p></li>
+<li><p>Before 1.0, a minor or patch release can carry a breaking change, and the
+<a class="reference internal" href="CHANGELOG.html"><span class="std std-doc">changelog</span></a> calls out each one. A release lists them under a
+<code class="docutils literal notranslate"><span class="pre">Changed</span> <span class="pre">—</span> <span class="pre">breaking</span></code> heading, or among the entries under <code class="docutils literal notranslate"><span class="pre">Changed</span></code>.</p></li>
+</ul>
+<p>The <a class="reference internal" href="CHANGELOG.html"><span class="std std-doc">changelog</span></a> also states the deprecation policy for entry points that shipped in
+a release:</p>
+<ul class="simple">
+<li><p>An entry point that is going away is deprecated in a <code class="docutils literal notranslate"><span class="pre">0.x.N</span></code> release. It keeps working, and its
+declaration carries a message that names its replacement and the release that removes it.</p></li>
+<li><p>It is removed no earlier than <code class="docutils literal notranslate"><span class="pre">0.(x+1).0</span></code>, one minor release later.</p></li>
+<li><p>The replacement is added beside it, with a <code class="docutils literal notranslate"><span class="pre">_v2</span></code> (or higher) suffix, instead of a changed
+signature.</p></li>
+<li><p>A release that deprecates or removes an entry point lists each one in a <code class="docutils literal notranslate"><span class="pre">Deprecated</span></code> section
+of the <a class="reference internal" href="CHANGELOG.html"><span class="std std-doc">changelog</span></a>.</p></li>
+</ul>
+<p>No entry point is deprecated at present, and neither API layer is.</p>
+</section>
+<section id="checking-versions-at-run-time">
+<h2>Checking versions at run time<a class="headerlink" href="#checking-versions-at-run-time" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>What</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>C</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Version of the loaded native library</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.version()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.version_string()</span></code>, <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span> <span class="pre">--version</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_version()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_get_version_string()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Version of the Python package</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.__version__</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite.__version__</span></code></p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p>Version of the headers you compiled against</p></td>
+<td><p>–</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_MAJOR</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_MINOR</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_PATCH</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_STRING</span></code> in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/version.h&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Backend</span></a> and capabilities</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">backend_info()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_backend_info()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash-build-provenance.json</span></code> at the package root records the build’s identity, including the
+ovclash version, the backend and the pinned ovstage version. Released packages report the
+<code class="docutils literal notranslate"><span class="pre">ovstage</span></code> backend. The file is one JSON object; in a released package its fields are:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>The format version of this file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_version</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>The release version</p></td>
+<td><p>The ovclash version of the build.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">backend</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovstage</span></code></p></td>
+<td><p>The backend that the native library was built with.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage_version</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>Dotted numbers</p></td>
+<td><p>The ovstage version that the release pins.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">build_type</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>A CMake build type, such as <code class="docutils literal notranslate"><span class="pre">Release</span></code></p></td>
+<td><p>The build configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">generator</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>A CMake generator name</p></td>
+<td><p>The CMake generator of the build.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_revision</span></code></p></td>
+<td><p>string or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>40 lowercase hexadecimal characters, or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>The source revision of the build; <code class="docutils literal notranslate"><span class="pre">null</span></code> when the build could not verify its source.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_tree</span></code></p></td>
+<td><p>string or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>40 lowercase hexadecimal characters, or <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>The identity of the source tree, <code class="docutils literal notranslate"><span class="pre">null</span></code> under the same condition.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source_dirty</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Whether the source had changes outside its revision.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_verified</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Whether the build verified its source identity.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">openusd_package</span></code>, <code class="docutils literal notranslate"><span class="pre">openusd_version</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Unused by the ovstage backend.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>These checks run without your help:</p>
+<ul class="simple">
+<li><p>Importing either Python package compares the native library’s <code class="docutils literal notranslate"><span class="pre">major.minor.patch</span></code> with the
+package version, and raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> on a mismatch. A partial upgrade therefore fails at
+import; see <a class="reference internal" href="troubleshooting.html#library-and-package-versions-differ"><span class="std std-ref">Troubleshooting</span></a>.</p></li>
+<li><p>The SDK archive’s <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> and Python packages check the installed ovstage
+against the pin; see
+<a class="reference internal" href="troubleshooting.html#the-installed-ovstage-does-not-match-the-sdk"><span class="std std-ref">Troubleshooting</span></a>.</p></li>
+</ul>
+<p>C and C++ code checks itself. The headers describe the version you compiled against, and the
+loaded library can be another one. Compare <code class="docutils literal notranslate"><span class="pre">ovclash_get_version()</span></code> with the <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/version.h&gt;</span></code>
+constants at startup. Before 1.0 a patch release can break the ABI, so compare all three numbers.
+<a class="reference internal" href="c_api_conventions.html#checking-the-loaded-library"><span class="std std-ref">Checking the loaded library</span></a> shows the check.</p>
+<p>The SDK archive’s CMake package accepts any newer version: <code class="docutils literal notranslate"><span class="pre">find_package(ovclash</span> <span class="pre">0.2)</span></code> also finds
+a 0.3 release. Add <code class="docutils literal notranslate"><span class="pre">EXACT</span></code> to require one version.</p>
+</section>
+<section id="stored-data">
+<h2>Stored data<a class="headerlink" href="#stored-data" title="Link to this heading">#</a></h2>
+<p>Store formats carry their own version numbers, which are not ovclash release numbers.
+Compatibility is forward-only: a release opens stores in its own format, and migrates an older
+SQLite store when a migration path to the current schema exists. No release opens a store in a
+newer format, and nothing converts a store back.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Store</p></th>
+<th class="head"><p>Compatibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SQLite <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code></p></td>
+<td><p>Each table records its schema version. Releases with the same table versions read and write the same files. A store with older tables opens only after a migration, which works in place and exists only for the versions that page lists. A store with newer tables is refused. See <a class="reference internal" href="sqlite_serializer.html#schema-versions-and-forward-compatibility"><span class="std std-ref">Schema versions and forward compatibility</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>JSON directory store</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">manifest.json</span></code> records the format version. Version 1 is the only format, and a store with an unsupported version does not open. See <a class="reference internal" href="directory_serializer.html"><span class="std std-doc">directory_serializer.md</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Legacy <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> container</p></td>
+<td><p>ovclash writes container format version 1 and rejects a newer version. The SQLite payload follows the SQLite rules, and migration works on a temporary copy, never on the container. See <a class="reference internal" href="legacy_container.html"><span class="std std-doc">legacy_container.md</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Because migration is in place and an older release refuses a migrated store, copy a store before
+you migrate it if an older release must still read it.</p>
+</section>
+<section id="kit-compatibility">
+<h2>Kit compatibility<a class="headerlink" href="#kit-compatibility" title="Link to this heading">#</a></h2>
+<p>ovclash runs outside Kit and needs no Kit SDK or runtime. It uses no Kit services, such
+as the timeline, the current USD context (the Kit object that holds the application’s open stage)
+or the product UI. Three parts keep Kit-era code and data
+working:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> exposes the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a> under the module
+names of the Kit extension, for code that you port from Kit. A few names are missing, and a few
+behaviors differ; see <a class="reference internal" href="kit_compatibility.html"><span class="std std-doc">Kit Compatibility</span></a> and its
+<a class="reference internal" href="kit_compatibility.html#behavioral-differences-to-check"><span class="std std-ref">behavioral differences</span></a>.</p></li>
+<li><p>The Suite API reads and writes Kit-era <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> containers; see
+<a class="reference internal" href="legacy_container.html"><span class="std std-doc">Legacy Containers</span></a>.</p></li>
+<li><p>The canonical C ABI keeps some entry points only for compatibility with Kit’s clash interface.
+<a class="reference internal" href="limitations.html#kept-only-for-kit-compatibility"><span class="std std-ref">Limitations</span></a> lists them and what they do here.</p></li>
+</ul>
+<p>The engine’s default settings mirror the Kit extension’s defaults. <code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code> is stored and read
+back, but it has no effect; see <a class="reference internal" href="settings.html#settings-without-effect"><span class="std std-ref">Settings without effect</span></a>.</p>
+</section>
+<section id="upgrading">
+<h2>Upgrading<a class="headerlink" href="#upgrading" title="Link to this heading">#</a></h2>
+<p>Before you begin, know which package you installed, the wheel or the SDK archive, and where.
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span> <span class="pre">--version</span></code> prints the version of the loaded native library as
+<code class="docutils literal notranslate"><span class="pre">ovclash</span> <span class="pre">&lt;version&gt;</span></code>. Upgrade the whole package, never a part of it.</p>
+<ol class="arabic simple">
+<li><p>Read the <a class="reference internal" href="CHANGELOG.html"><span class="std std-doc">changelog</span></a> entries of every release between yours and the new one,
+for breaking changes under <code class="docutils literal notranslate"><span class="pre">Changed</span> <span class="pre">—</span> <span class="pre">breaking</span></code> and <code class="docutils literal notranslate"><span class="pre">Changed</span></code>, and for <code class="docutils literal notranslate"><span class="pre">Deprecated</span></code> sections.</p></li>
+<li><p>Wheel: upgrade it as <a class="reference internal" href="#upgrading-the-wheel">Upgrading the wheel</a> describes.</p></li>
+<li><p>SDK archive: upgrade it as <a class="reference internal" href="#upgrading-the-sdk-archive">Upgrading the SDK archive</a> describes.</p></li>
+<li><p>Open each of your stores with the new release.</p></li>
+<li><p>Copy each SQLite store that reports incompatible tables and that an older release must still
+read.</p></li>
+<li><p>Migrate each SQLite store that reports incompatible tables that can be migrated, as
+<a class="reference internal" href="sqlite_serializer.html#schema-versions-and-forward-compatibility"><span class="std std-ref">Schema versions and forward compatibility</span></a>
+describes.</p></li>
+<li><p>Refresh the sample environments as
+<a class="reference internal" href="#refreshing-the-sample-environments">Refreshing the sample environments</a> describes.</p></li>
+</ol>
+<p>Do only the one of steps 2 and 3 that matches your package. A store that has no migration path to
+the new schema does not open in the new release; keep reading it with the release that wrote it.</p>
+<p>The upgrade is complete when the new release reports its version: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span> <span class="pre">--version</span></code>
+prints <code class="docutils literal notranslate"><span class="pre">ovclash</span> <span class="pre">&lt;version&gt;</span></code> with the new version, and a C or C++ program’s
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_version_string()</span></code> returns it.</p>
+<section id="upgrading-the-wheel">
+<h3>Upgrading the wheel<a class="headerlink" href="#upgrading-the-wheel" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">ovclash</span></code>. pip also installs the new release’s ovstage
+pin.</p></li>
+</ol>
+<p>When pip finds no wheel for your platform or Python, check
+<a class="reference internal" href="#platforms-and-package-names">Platforms and package names</a> and
+<a class="reference internal" href="#python-versions">Python versions</a>. An import that raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> after the upgrade
+means that the native library and the Python package differ in version; see
+<a class="reference internal" href="troubleshooting.html#library-and-package-versions-differ"><span class="std std-ref">Troubleshooting</span></a>.</p>
+</section>
+<section id="upgrading-the-sdk-archive">
+<h3>Upgrading the SDK archive<a class="headerlink" href="#upgrading-the-sdk-archive" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Extract the new archive.</p></li>
+<li><p>Install its <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> into every interpreter that you build or run with.</p></li>
+<li><p>Point <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code> at the library of the new SDK archive.</p></li>
+<li><p>Windows only: replace the old SDK archive’s <code class="docutils literal notranslate"><span class="pre">bin\</span></code> on your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> with the new one’s.</p></li>
+<li><p>Configure your CMake build again with the new <code class="docutils literal notranslate"><span class="pre">ovclash_DIR</span></code>. When <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code>
+fails, its message names the cause;
+<a class="reference internal" href="troubleshooting.html#configuring-with-cmake"><span class="std std-ref">Configuring with CMake</span></a> lists the messages and
+their fixes.</p></li>
+<li><p>Rebuild every native consumer against the new headers: a pre-1.0 release can change a
+signature or a struct layout. When the compile fails on a changed declaration, the
+<code class="docutils literal notranslate"><span class="pre">Changed</span> <span class="pre">—</span> <span class="pre">breaking</span></code> and <code class="docutils literal notranslate"><span class="pre">Changed</span></code> entries of the <a class="reference internal" href="CHANGELOG.html"><span class="std std-doc">changelog</span></a> describe the
+change.</p></li>
+</ol>
+<p>Linux programs need no <code class="docutils literal notranslate"><span class="pre">PATH</span></code> change: they find the library through the run paths that the
+rebuild of step 6 records.</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--target</span> <span class="pre">&lt;dir&gt;</span> <span class="pre">--upgrade</span></code> across a pin change can leave a stale
+<code class="docutils literal notranslate"><span class="pre">ovstage-*.dist-info</span></code> beside the new one. The SDK archive’s ovstage check then reports two
+versions; <a class="reference internal" href="troubleshooting.html#the-installed-ovstage-does-not-match-the-sdk"><span class="std std-ref">Troubleshooting</span></a>
+gives the fix.</p>
+</section>
+<section id="refreshing-the-sample-environments">
+<h3>Refreshing the sample environments<a class="headerlink" href="#refreshing-the-sample-environments" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Outside an SDK archive, or with <code class="docutils literal notranslate"><span class="pre">--wheel</span></code>, the <code class="docutils literal notranslate"><span class="pre">run_custom_clash</span></code> launchers reuse the virtual
+environment that their first run created, <code class="docutils literal notranslate"><span class="pre">.venv-ovclash</span></code> beside the script.
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION</span></code> does not repin it, so delete it to pick up the new release; see
+<a class="reference internal" href="samples.html#the-clash-processor"><span class="std std-ref">The Clash Processor</span></a>. Inside an SDK archive without
+<code class="docutils literal notranslate"><span class="pre">--wheel</span></code>, they run against that SDK archive and create no <code class="docutils literal notranslate"><span class="pre">.venv-ovclash</span></code>.</p></li>
+<li><p>The other sample launchers cache one environment per package location, ovstage pin and
+interpreter. A release extracted to a new location, or one with a new ovstage pin, gets a new
+environment; one that reuses both reuses the environment. Delete the ones that you no longer
+need from the cache directory that
+<a class="reference internal" href="samples.html#how-the-launchers-select-a-runtime"><span class="std std-ref">How the launchers select a runtime</span></a> names.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="limitations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Limitations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="c_api_conventions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">C API Conventions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-requirements">System requirements</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#platforms-and-package-names">Platforms and package names</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-glibc-baseline">Linux glibc baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-visual-c-runtime">Windows Visual C++ runtime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-versions">Python versions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ovstage-runtime">The ovstage runtime</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-sqlite">System SQLite</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maturity-and-versioning">Maturity and versioning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-versions-at-run-time">Checking versions at run time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stored-data">Stored data</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kit-compatibility">Kit compatibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#upgrading">Upgrading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upgrading-the-wheel">Upgrading the wheel</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#upgrading-the-sdk-archive">Upgrading the SDK archive</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#refreshing-the-sample-environments">Refreshing the sample environments</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

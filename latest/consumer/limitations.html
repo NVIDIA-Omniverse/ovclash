@@ -1,0 +1,1209 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Limitations &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/limitations';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="System Requirements and Compatibility" href="compatibility.html" />
+    <link rel="prev" title="Troubleshooting" href="troubleshooting.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Limitations</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="limitations">
+<h1>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h1>
+<p>This page lists what standalone ovclash does not do, and how to work around each limit. The
+released <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">wheel</span></a> and <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> read
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> through the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a>
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a>, so every row applies to them. An unpublished reference build
+that reads USD through <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> differs in places; the comments in the
+public headers, such as <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code>, name each difference.</p>
+<p>Related pages:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="kit_compatibility.html"><span class="std std-doc">Kit Compatibility</span></a> lists the Kit Python names that the
+<code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> package does not provide.</p></li>
+<li><p><a class="reference internal" href="troubleshooting.html"><span class="std std-doc">Troubleshooting</span></a> lists error messages with their causes and fixes.</p></li>
+<li><p><a class="reference internal" href="settings.html"><span class="std std-doc">Settings</span></a> gives every setting’s default and effect.</p></li>
+</ul>
+<section id="kept-only-for-kit-compatibility">
+<h2>Kept only for Kit compatibility<a class="headerlink" href="#kept-only-for-kit-compatibility" title="Link to this heading">#</a></h2>
+<p>These entry points and settings exist so that code written for the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a>
+clash interface still builds and runs. None of them changes clash results.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Behavior in ovclash</p></th>
+<th class="head"><p>Use instead</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_meshes</span></code></p></td>
+<td><p>Always returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> and records a “not supported” error. Debug-mesh creation is Kit-only.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_report_ex</span></code>. It reports colliding faces, outline segments and colliding point indices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_meshes</span></code></p></td>
+<td><p>Does nothing. It returns success unless the context is null or an async run is active.</p></td>
+<td><p>Nothing. There are never debug meshes to release.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_delete_duplicate_meshes</span></code></p></td>
+<td><p>Does nothing. It returns success unless the context is null or an async run is active. Stage editing is Kit-only, so the duplicates stay reported.</p></td>
+<td><p>Remove duplicates in your own pipeline. Read the pairs with <code class="docutils literal notranslate"><span class="pre">ovclash_get_duplicated_meshes_data</span></code> (Python: <code class="docutils literal notranslate"><span class="pre">ClashRuntime.get_duplicate()</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_timeline_data</span></code></p></td>
+<td><p>Returns fixed values: every time is <code class="docutils literal notranslate"><span class="pre">0.0</span></code> and <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> is <code class="docutils literal notranslate"><span class="pre">24.0</span></code>. It ignores the open stage, and no call changes it.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_stage_timeline_data</span></code> reads the stage’s own timeline. See <a class="reference internal" href="#take-the-sampled-range-from-the-stage">Take the sampled range from the stage</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p>Stored, read back and written into persisted query settings. Nothing reads it: <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USDRT</span></a>, Kit’s runtime scene representation, is not part of ovclash. This covers <code class="docutils literal notranslate"><span class="pre">ovclash_set_use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_USDRT</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_SETTING_USE_USDRT</span></code> (Python: <code class="docutils literal notranslate"><span class="pre">SettingId.SETTING_USE_USDRT</span></code>) and <code class="docutils literal notranslate"><span class="pre">RunSettings.use_usdrt</span></code>.</p></td>
+<td><p>Nothing needed.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROI include and exclude paths</p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ROI paths</span></a> (region of interest) <code class="docutils literal notranslate"><span class="pre">ClashQuery.roi_include_path</span></code> and <code class="docutils literal notranslate"><span class="pre">ClashQuery.roi_exclude_path</span></code> (C: <code class="docutils literal notranslate"><span class="pre">ovclash_suite_query_set_roi_include_path</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_query_set_roi_exclude_path</span></code>) are persisted for Kit record compatibility. No query reads them.</p></td>
+<td><p>An A/B <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a>, the two search sets of <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">prim</span></a> paths: <code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths</span></code> or <code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_scope</span></code> on the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical API</span></a>. On the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>: <code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_scope</span></code> or <code class="docutils literal notranslate"><span class="pre">ClashDetection.set_scope_paths</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PointCloudSettings</span></code></p></td>
+<td><p>A persisted record only. The serializers store it and read it back. ovclash does not generate or process point clouds from it.</p></td>
+<td><p>Author point clouds in your own pipeline. ovclash collides existing <code class="docutils literal notranslate"><span class="pre">UsdGeomPoints</span></code> prims.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds_experimental</span></code></p></td>
+<td><p>Stored but never read.</p></td>
+<td><p>Nothing needed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="result-and-run-limits">
+<h2>Result and run limits<a class="headerlink" href="#result-and-run-limits" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Limitation</p></th>
+<th class="head"><p>Workaround</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Overlap index</span></a> order</p></td>
+<td><p>The index passed to <code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_data</span></code> is an identifier, not a rank. Two runs over the same stage with the same settings report the same overlaps and data. The order can differ.</p></td>
+<td><p>Key on <code class="docutils literal notranslate"><span class="pre">name0</span></code>/<code class="docutils literal notranslate"><span class="pre">name1</span></code> or <code class="docutils literal notranslate"><span class="pre">clashHash</span></code>, and sort in your own code. See <a class="reference internal" href="#key-overlaps-by-prim-pair">Key overlaps by prim pair</a> and <a class="reference internal" href="developer_guide.html#overlap-index-order-is-not-contractual"><span class="std std-ref">Overlap index order is not contractual</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Meshes that cannot be cooked</p></td>
+<td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">PhysX</span></a> cannot <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">cook</span></a> some meshes, for example one whose triangles are all degenerate. ovclash drops such a mesh from the run. The run still succeeds, and the pairs of that mesh are missing.</p></td>
+<td><p>Compare <code class="docutils literal notranslate"><span class="pre">nbCookedMeshes</span></code> from <code class="docutils literal notranslate"><span class="pre">ovclash_get_query_stats</span></code> with <code class="docutils literal notranslate"><span class="pre">nbMeshes</span></code> minus <code class="docutils literal notranslate"><span class="pre">nbSharedMeshes</span></code>. A lower count means meshes were dropped. <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error</span></code> gives the number of meshes that failed to cook and names the first one. Read it before any other call on the context. A mesh whose triangulation yields no triangles is dropped with only a log line. With logging on (<code class="docutils literal notranslate"><span class="pre">ovclash_set_log</span></code>), every dropped mesh is printed. See <a class="reference internal" href="#detect-dropped-meshes">Detect dropped meshes</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Duplicate search in dynamic runs</p></td>
+<td><p>Duplicate-mesh search is off for a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a>. <code class="docutils literal notranslate"><span class="pre">ovclash_set_only_find_duplicates</span></code> with an <code class="docutils literal notranslate"><span class="pre">ovclash_set_times</span></code> range whose start and end differ reports nothing.</p></td>
+<td><p>Search for duplicates with a static query, where the start time equals the end time. See <a class="reference internal" href="performance.html#dynamic-runs"><span class="std std-ref">Dynamic runs</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point-cloud depth</p></td>
+<td><p>Depth is mesh-only. A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">point-vs-mesh</span></a> overlap reports a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">maximum local depth</span></a> (<code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code>) of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> in every mode. <code class="docutils literal notranslate"><span class="pre">ovclash_compute_max_local_depth</span></code> and the Suite depth calls fail for it.</p></td>
+<td><p>Check the overlap type before you request depth. Canonical API: compare <code class="docutils literal notranslate"><span class="pre">type</span></code> with <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVERLAP_PAIR_TYPE_POINT_VS_MESH</span></code> (Python: <code class="docutils literal notranslate"><span class="pre">ovclash.OverlapType.POINT_VS_MESH</span></code>). Suite C: compare <code class="docutils literal notranslate"><span class="pre">ovclash_suite_overlap_data_t::type</span></code> with <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_OVERLAP_POINT_CLOUD_MESH</span></code>, or call <code class="docutils literal notranslate"><span class="pre">ovclash_suite_clash_info_is_point_cloud_clash()</span></code> for a stored clash. Suite Python: call <code class="docutils literal notranslate"><span class="pre">ClashDetection.is_depth_computation_supported(overlap_type)</span></code>, for example with <code class="docutils literal notranslate"><span class="pre">ClashInfo.overlap_type</span></code>. See <a class="reference internal" href="developer_guide.html#the-depth-entry-points-are-mesh-only"><span class="std std-ref">The depth entry points are mesh-only</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Point-cloud widths in reports</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_overlap_report_t::pointSize0</span></code> holds one width for the whole cloud. It excludes the scaling of the prim transform. When the authored per-point widths are all equal, it holds that width. When they vary, it is <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></td>
+<td><p>Read the widths from USD by the indices in <code class="docutils literal notranslate"><span class="pre">collidingPoints0</span></code>. Or set one width for every point with <code class="docutils literal notranslate"><span class="pre">ovclash_set_point_size</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Settings changed between steps</p></td>
+<td><p>A run fixes <code class="docutils literal notranslate"><span class="pre">ovclash_set_subcomponent_filtering</span></code>, the <a class="reference internal" href="settings.html#scope-and-selection"><span class="std std-ref">subcomponent filter</span></a> that skips a pair whose two meshes share a subcomponent root, when it selects meshes, so a later change has no effect on that run. A change to <code class="docutils literal notranslate"><span class="pre">ovclash_set_point_size</span></code> between <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> calls applies from the run’s next sample on, so one run mixes two sizes.</p></td>
+<td><p>Change settings only between runs.</p></td>
+</tr>
+<tr class="row-even"><td><p>Thread-count setting</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code> is ignored in single-threaded mode. It is also ignored under the new task manager, which is on by default.</p></td>
+<td><p>Turn the new task manager off: <code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager(context,</span> <span class="pre">false)</span></code> in C, or <code class="docutils literal notranslate"><span class="pre">runtime.set_run_settings(runtime.get_run_settings(),</span> <span class="pre">new_task_manager=False)</span></code> on a Python <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code>. See <a class="reference internal" href="performance.html#threading"><span class="std std-ref">Threading</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Asynchronous pipelines</span></a></p></td>
+<td><p>There is no timeout. <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> blocks until the worker stops. <code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline</span></code> only requests a stop. A worker that never stops can only be abandoned with the process.</p></td>
+<td><p>Poll <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code> against your own deadline, and cancel when it passes. Then call <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> exactly once. See <a class="reference internal" href="#cancel-a-run-after-a-deadline">Cancel a run after a deadline</a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="scene-limits">
+<h2>Scene limits<a class="headerlink" href="#scene-limits" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>Limitation</p></th>
+<th class="head"><p>Workaround</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Stage location</p></td>
+<td><p>The stage you open must be an existing local file. <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage</span></code> checks that the path exists before it loads anything, so a URI such as <code class="docutils literal notranslate"><span class="pre">omniverse://...</span></code> is rejected as the stage path.</p></td>
+<td><p>Copy the root layer to a local path. References, payloads and assets inside the stage may still use <code class="docutils literal notranslate"><span class="pre">omniverse://</span></code> URLs; see <a class="reference internal" href="troubleshooting.html#opening-a-stage-stalls-on-an-unreachable-omniverse-host"><span class="std std-ref">Opening a stage stalls on an unreachable omniverse:// host</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Instanced point clouds</p></td>
+<td><p>ovclash drops a <code class="docutils literal notranslate"><span class="pre">UsdGeomPoints</span></code> prim under an instanceable prim, one marked <code class="docutils literal notranslate"><span class="pre">instanceable</span> <span class="pre">=</span> <span class="pre">true</span></code> so that USD shares its subtree between instances, so that cloud collides with nothing. This matters only when point clouds are enabled; they are off by default.</p></td>
+<td><p>Keep point clouds out of instanceable prims. ovclash collides a non-instanced cloud normally.</p></td>
+</tr>
+<tr class="row-even"><td><p>Unresolved transform animation</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_static_overlaps</span></code> is on by default and drops pairs whose meshes are static for the whole run. A mesh counts as static only when ovclash can prove it from authored data. When an active transform operation of the mesh or of an ancestor has no authored initial value, the mesh counts as non-static, and a dynamic run keeps its pairs. On a stage attached with <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage</span></code> without a composition, every mesh counts as non-static unless the binding’s <code class="docutils literal notranslate"><span class="pre">capabilities</span></code> field sets <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code>.</p></td>
+<td><p>Author an initial value for every active transform operation on the mesh and its ancestors. For an attached stage, supply its composition (Python: <code class="docutils literal notranslate"><span class="pre">attach_ovstage(...,</span> <span class="pre">composition_root=...,</span> <span class="pre">composition_layers=...)</span></code>): ovclash then classifies the meshes from its own population of that composition, as for a file; see <a class="reference internal" href="ovstage_integration.html#engine-evaluated-time"><span class="std std-ref">Engine-evaluated time</span></a>. Otherwise set the capability. It requires <code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code> (Python: <code class="docutils literal notranslate"><span class="pre">attach_ovstage(...,</span> <span class="pre">evaluate_time=...,</span> <span class="pre">authored_transform_updates=True)</span></code>). Set it only when the stage owner meets its population contract, which <a class="reference internal" href="ovstage_integration.html#authored-transform-updates"><span class="std std-ref">Authored transform updates</span></a> summarizes from the flag’s declaration in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash_ovstage.h&gt;</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="workaround-examples">
+<h2>Workaround examples<a class="headerlink" href="#workaround-examples" title="Link to this heading">#</a></h2>
+<p>Before you begin: the Python examples are standalone scripts that need the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package
+installed, as <a class="reference internal" href="python_quickstart.html"><span class="std std-doc">Python Quickstart</span></a> shows. Replace <code class="docutils literal notranslate"><span class="pre">scene.usda</span></code> with the path
+of your stage file and run each script with that Python. The C example is a function for your
+own program, which builds against the SDK archive as <a class="reference internal" href="c_quickstart.html#linking"><span class="std std-ref">C/C++ Quickstart</span></a>
+shows.</p>
+<section id="take-the-sampled-range-from-the-stage">
+<h3>Take the sampled range from the stage<a class="headerlink" href="#take-the-sampled-range-from-the-stage" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_get_timeline_data</span></code> does not describe the stage. Read the stage’s own timeline and
+convert its time codes to seconds. Reject a rate that is not positive and finite before you
+divide by it. <code class="docutils literal notranslate"><span class="pre">get_stage_timeline_data()</span></code> returns an <code class="docutils literal notranslate"><span class="pre">ovclash.StageTimelineData</span></code>, which reads the
+root layer of the open stage. It raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when no stage is open or attached.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_time_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code> when unauthored</p></td>
+<td><p>The stage’s <code class="docutils literal notranslate"><span class="pre">startTimeCode</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">end_time_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code> when unauthored</p></td>
+<td><p>The stage’s <code class="docutils literal notranslate"><span class="pre">endTimeCode</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>The authored <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code>, else the authored <code class="docutils literal notranslate"><span class="pre">framesPerSecond</span></code>, else <code class="docutils literal notranslate"><span class="pre">24.0</span></code></p></td>
+<td><p>The effective rate. Divide a time code by it to get seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">frames_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">24.0</span></code> when unauthored</p></td>
+<td><p>The stage’s <code class="docutils literal notranslate"><span class="pre">framesPerSecond</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A stage attached with <code class="docutils literal notranslate"><span class="pre">attach_ovstage()</span></code> reports the timeline fields of its attachment, as
+supplied. <a class="reference internal" href="developer_guide.html#reading-results"><span class="std std-ref">Reading results</span></a> gives the C form,
+<code class="docutils literal notranslate"><span class="pre">ovclash_stage_timeline_data_t</span></code>, and <a class="reference internal" href="settings.html#ovclash-python"><span class="std std-ref">ovclash Python</span></a> gives the type
+and default of each <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> field that the script sets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">ClashRuntime</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">timeline</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_stage_timeline_data</span><span class="p">()</span>
+    <span class="n">rate</span> <span class="o">=</span> <span class="n">timeline</span><span class="o">.</span><span class="n">time_codes_per_second</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">rate</span><span class="p">)</span> <span class="ow">and</span> <span class="n">rate</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unusable timeCodesPerSecond: </span><span class="si">{</span><span class="n">rate</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span>
+        <span class="n">runtime</span><span class="o">.</span><span class="n">get_run_settings</span><span class="p">(),</span>  <span class="c1"># keep the other settings</span>
+        <span class="n">set_times</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">start_time</span><span class="o">=</span><span class="n">timeline</span><span class="o">.</span><span class="n">start_time_code</span> <span class="o">/</span> <span class="n">rate</span><span class="p">,</span>  <span class="c1"># seconds, not time codes</span>
+        <span class="n">end_time</span><span class="o">=</span><span class="n">timeline</span><span class="o">.</span><span class="n">end_time_code</span> <span class="o">/</span> <span class="n">rate</span><span class="p">,</span>
+        <span class="n">time_codes_per_second</span><span class="o">=</span><span class="n">rate</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overlaps:&quot;</span><span class="p">,</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">())</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The script prints <code class="docutils literal notranslate"><span class="pre">overlaps:</span> <span class="pre">&lt;count&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;count&gt;</span></code> is the number of overlapping prim pairs
+over the sampled range. A stage with an unusable rate raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> instead.</p>
+<p>In C, the same values come from <code class="docutils literal notranslate"><span class="pre">ovclash_get_stage_timeline_data</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_times(context,</span> <span class="pre">start_seconds,</span> <span class="pre">end_seconds,</span> <span class="pre">timeCodesPerSecond)</span></code> applies them.</p>
+</section>
+<section id="detect-dropped-meshes">
+<h3>Detect dropped meshes<a class="headerlink" href="#detect-dropped-meshes" title="Link to this heading">#</a></h3>
+<p>A mesh that PhysX cannot cook leaves a message in the last error, although every step
+succeeds. Read it right after the run, then compare the counters. <code class="docutils literal notranslate"><span class="pre">get_query_stats()</span></code> returns an
+<code class="docutils literal notranslate"><span class="pre">ovclash.QueryStats</span></code>, the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">query statistics</span></a> of the last run. Every count is
+0 before the pipeline has run.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nb_meshes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The meshes that the run selected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_shared_meshes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The selected meshes that are shared instances and reuse the cooked data of another selected mesh.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nb_cooked_meshes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The unique meshes that the run cooked. A value below <code class="docutils literal notranslate"><span class="pre">nb_meshes</span> <span class="pre">-</span> <span class="pre">nb_shared_meshes</span></code> means that meshes that could not be cooked were dropped from the results.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_point_clouds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The point clouds that the run selected.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="developer_guide.html#reading-results"><span class="std std-ref">Reading results</span></a> gives the C form, <code class="docutils literal notranslate"><span class="pre">ovclash_stats_t</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">ClashRuntime</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">last_error</span><span class="p">()</span>  <span class="c1"># read first: a later call can replace it</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_query_stats</span><span class="p">()</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_meshes</span> <span class="o">-</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_shared_meshes</span>
+    <span class="k">if</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_cooked_meshes</span> <span class="o">&lt;</span> <span class="n">expected</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">expected</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">stats</span><span class="o">.</span><span class="n">nb_cooked_meshes</span><span class="si">}</span><span class="s2"> mesh(es) dropped. </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>On a stage with one mesh that cannot be cooked, the output looks like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 mesh(es) dropped. ovstage: 1 mesh(es) failed to cook and were dropped from this run, starting with &#39;/World/Degenerate&#39;. Their overlaps are missing from the results. Compare nbCookedMeshes with nbMeshes minus nbSharedMeshes, and enable logging to name every dropped mesh.
+</pre></div>
+</div>
+</section>
+<section id="key-overlaps-by-prim-pair">
+<h3>Key overlaps by prim pair<a class="headerlink" href="#key-overlaps-by-prim-pair" title="Link to this heading">#</a></h3>
+<p>Do not store an overlap index between runs. Key each overlap on its prim paths, and sort the
+keys when you need a stable order. <code class="docutils literal notranslate"><span class="pre">get_overlap_details(index,</span> <span class="pre">record_index=0)</span></code> returns an
+<code class="docutils literal notranslate"><span class="pre">ovclash.OverlapDetails</span></code> for one record of the overlap at <code class="docutils literal notranslate"><span class="pre">index</span></code>. <code class="docutils literal notranslate"><span class="pre">get_overlap_record()</span></code> returns
+an <code class="docutils literal notranslate"><span class="pre">ovclash.OverlapRecord</span></code>, which has only the <code class="docutils literal notranslate"><span class="pre">name0</span></code>, <code class="docutils literal notranslate"><span class="pre">name1</span></code>, <code class="docutils literal notranslate"><span class="pre">nb_records</span></code>, <code class="docutils literal notranslate"><span class="pre">nb_elements</span></code>,
+<code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">time</span></code> fields.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>A prim path, or <code class="docutils literal notranslate"><span class="pre">None</span></code> when empty</p></td>
+<td><p>The first prim: the point cloud of a point-vs-mesh pair, else a mesh.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">name1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>A prim path, or <code class="docutils literal notranslate"><span class="pre">None</span></code> when empty</p></td>
+<td><p>The second prim, a mesh.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_hash</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tuple[int,</span> <span class="pre">int]</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Two 64-bit words</p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash hash</span></a>, a hash of the two prim paths.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mesh_hash0</span></code>, <code class="docutils literal notranslate"><span class="pre">mesh_hash1</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tuple[int,</span> <span class="pre">int]</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Two 64-bit words</p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">mesh hash</span></a> of each prim’s data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nb_records</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>1 or more</p></td>
+<td><p>The frames in which the pair overlaps. Always 1 for a static query.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_elements</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>0 or more</p></td>
+<td><p>The overlapping triangles or points in this frame.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">type</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.OverlapType</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MESH_VS_MESH</span></code>, <code class="docutils literal notranslate"><span class="pre">POINT_VS_MESH</span></code> or <code class="docutils literal notranslate"><span class="pre">UNDEFINED</span></code></p></td>
+<td><p>The pair type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds</p></td>
+<td><p>The frame’s time, in seconds, not USD time codes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">min_distance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code> or more</p></td>
+<td><p>The minimum distance between the pair’s triangles, in <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">stage units</span></a>. <code class="docutils literal notranslate"><span class="pre">0.0</span></code> when they touch or interpenetrate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, or <code class="docutils literal notranslate"><span class="pre">0.0</span></code> or more</p></td>
+<td><p>The maximum local depth, in stage units. <code class="docutils literal notranslate"><span class="pre">-1.0</span></code> when depth was not computed, and always <code class="docutils literal notranslate"><span class="pre">0.0</span></code> for a point-vs-mesh overlap.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="developer_guide.html#overlap-records"><span class="std std-ref">Overlap records</span></a> gives the C form, <code class="docutils literal notranslate"><span class="pre">ovclash_overlap_data_t</span></code>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">ClashRuntime</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="n">overlaps</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">()):</span>
+        <span class="n">details</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_details</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="n">overlaps</span><span class="p">[(</span><span class="n">details</span><span class="o">.</span><span class="n">name0</span><span class="p">,</span> <span class="n">details</span><span class="o">.</span><span class="n">name1</span><span class="p">)]</span> <span class="o">=</span> <span class="n">details</span>
+    <span class="k">for</span> <span class="n">name0</span><span class="p">,</span> <span class="n">name1</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">overlaps</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">name0</span><span class="p">,</span> <span class="n">name1</span><span class="p">,</span> <span class="n">overlaps</span><span class="p">[(</span><span class="n">name0</span><span class="p">,</span> <span class="n">name1</span><span class="p">)]</span><span class="o">.</span><span class="n">nb_elements</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The script prints one line per overlapping prim pair, sorted by path: the two prim paths and the
+number of overlapping elements, triangles or points, in the pair’s first frame.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OverlapDetails.clash_hash</span></code> is an alternative key. It hashes the two prim paths.</p>
+</section>
+<section id="cancel-a-run-after-a-deadline">
+<h3>Cancel a run after a deadline<a class="headerlink" href="#cancel-a-run-after-a-deadline" title="Link to this heading">#</a></h3>
+<p>Before you begin: your program builds against the SDK archive, and the context has an open stage
+and a pipeline created with <code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline()</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> has no timeout. Poll against your own deadline, cancel when it
+passes, and finish exactly once. Add these two functions to your C source, and call
+<code class="docutils literal notranslate"><span class="pre">run_with_deadline()</span></code> instead of running the steps with <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step()</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;time.h&gt;</span>
+
+<span class="cp">#ifdef _WIN32</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;windows.h&gt;</span>
+<span class="cp">#else</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sleep_briefly</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="cp">#ifdef _WIN32</span>
+<span class="w">    </span><span class="n">Sleep</span><span class="p">(</span><span class="mi">50</span><span class="p">);</span><span class="w"> </span><span class="cm">/* milliseconds */</span>
+<span class="cp">#else</span>
+<span class="w">    </span><span class="n">usleep</span><span class="p">(</span><span class="mi">50</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">1000</span><span class="p">);</span><span class="w"> </span><span class="cm">/* microseconds */</span>
+<span class="cp">#endif</span>
+<span class="p">}</span>
+
+<span class="cm">/* Runs the created pipeline and cancels it after timeout_s seconds. */</span>
+<span class="n">ovclash_result_t</span><span class="w"> </span><span class="nf">run_with_deadline</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">timeout_s</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_async_t</span><span class="o">*</span><span class="w"> </span><span class="n">async</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_result_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_run_pipeline_async</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">async</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="kt">time_t</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_is_pipeline_running</span><span class="p">(</span><span class="n">async</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">running</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">difftime</span><span class="p">(</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">),</span><span class="w"> </span><span class="n">start</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">timeout_s</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">ovclash_cancel_pipeline</span><span class="p">(</span><span class="n">async</span><span class="p">);</span><span class="w"> </span><span class="cm">/* requests a stop; does not join */</span>
+<span class="w">            </span><span class="k">break</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">sleep_briefly</span><span class="p">();</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_finish_pipeline</span><span class="p">(</span><span class="n">async</span><span class="p">);</span><span class="w"> </span><span class="cm">/* joins the worker and frees the handle */</span>
+<span class="w">    </span><span class="n">async</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w">                            </span><span class="cm">/* the handle is gone */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>After a cancel, <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code>. That status reports
+the cancelled run, not a failed join: the context is usable again. In Python,
+<code class="docutils literal notranslate"><span class="pre">AsyncPipeline.cancel()</span></code> requests the stop and finishes the run in one call; see
+<a class="reference internal" href="async_pipelines.html#python"><span class="std std-ref">Asynchronous Pipelines</span></a>.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="troubleshooting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Troubleshooting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="compatibility.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">System Requirements and Compatibility</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kept-only-for-kit-compatibility">Kept only for Kit compatibility</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result-and-run-limits">Result and run limits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scene-limits">Scene limits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#workaround-examples">Workaround examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#take-the-sampled-range-from-the-stage">Take the sampled range from the stage</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#detect-dropped-meshes">Detect dropped meshes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#key-overlaps-by-prim-pair">Key overlaps by prim pair</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cancel-a-run-after-a-deadline">Cancel a run after a deadline</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

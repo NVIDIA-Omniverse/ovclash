@@ -1,0 +1,1049 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Backends &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=d27f7911"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fc986d73"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'backends';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ovclash C/C++ Code Style" href="code_style_cpp.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Backends</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="backends">
+<h1>Backends<a class="headerlink" href="#backends" title="Link to this heading">#</a></h1>
+<p>ovclash builds one shared library, <code class="docutils literal notranslate"><span class="pre">ovclash</span></code>, against one of two scene-access
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">backends</span></a>. The backend is chosen at build time.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Backend</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>ovstage</strong></p></td>
+<td><p>The product backend. It reads the scene through <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, a separate runtime package. Every released <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">wheel</span></a> and <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> is an ovstage build.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>OpenUSD</strong></p></td>
+<td><p>A permanently retained reference implementation on the <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> library. It is never published.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The OpenUSD build gives the same public contract a second, independent implementation, which
+runs against the same tests. Every ovclash CI pipeline builds and tests it. Its wheel and SDK
+archive are developer artifacts, and release verification rejects them.</p>
+<p><strong>Parity requirement.</strong> For the same stage and settings, the two backends must report the same
+overlap pairs, counts, face indices, distances and depths. This holds with ovstage in its default
+OPENUSD <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">matrix-decomposition mode</span></a>. The only exceptions are report
+order and the differences recorded on this page. Any other difference is a parity defect: correct
+the ovstage result, and do not change the OpenUSD reference to make a comparison pass.</p>
+<p><strong>The OVCLASH matrix-decomposition mode</strong> is an opt-in ovstage mode for comparison. It uses
+the original ovclash decomposition math. It can change clash membership and report payloads.
+It keeps ovstage scene access and does not switch backends. See
+<a class="reference internal" href="consumer/README.html#comparing-ovstage-matrix-decompositions"><span class="std std-ref">Comparing ovstage matrix decompositions</span></a>.</p>
+<p>The consumer documentation describes the ovstage backend only. This page is the one place that
+describes OpenUSD behavior.</p>
+<section id="selecting-a-backend">
+<h2>Selecting a backend<a class="headerlink" href="#selecting-a-backend" title="Link to this heading">#</a></h2>
+<p>You do not select a backend at run time. It is a compile-time property of the library you
+loaded:</p>
+<ul class="simple">
+<li><p>The CMake option <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ONLY</span></code> fixes it at build time.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">build_ovstage.*</span></code> and <code class="docutils literal notranslate"><span class="pre">build_openusd.*</span></code> set the option for you. They install into
+<code class="docutils literal notranslate"><span class="pre">_build/install/ovstage/</span></code> and <code class="docutils literal notranslate"><span class="pre">_build/install/openusd/</span></code>; see
+<a class="reference internal" href="local_development.html#backends-and-trees"><span class="std std-ref">Backends and trees</span></a>.</p></li>
+<li><p>No environment variable or API call switches a library that is already loaded. To use the
+other backend, load the other library.</p></li>
+<li><p>For the Python packages, set <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> to the library’s absolute
+path before the first import.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_BACKEND</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite.ClashDetection(backend=...)</span></code> look like backend switches
+and are not. <a class="reference internal" href="consumer/developer_guide.html#environment-variables"><span class="std std-ref">Environment variables</span></a>
+describes both.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ONLY</span></code> (CMake option)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code>, <code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ON</span></code> builds the ovstage backend, <code class="docutils literal notranslate"><span class="pre">OFF</span></code> the OpenUSD backend. The build wrappers set it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code> (environment)</p></td>
+<td><p>The absolute path of a native library</p></td>
+<td><p>With the SDK archive’s Python packages</p></td>
+<td><p>Unset: the wheel loads the library it bundles</p></td>
+<td><p>Both Python packages load this library. It wins when both variables are set. A relative path raises <code class="docutils literal notranslate"><span class="pre">OSError</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> (environment)</p></td>
+<td><p>The absolute path of a native library</p></td>
+<td><p>As <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code></p></td>
+<td><p>Unset</p></td>
+<td><p>Read when <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_LIB</span></code> is unset, with the same effect.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The two backends link OpenUSD, the library that reads <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a>
+(Universal Scene Description) scenes, differently:</p>
+<ul class="simple">
+<li><p><strong>ovstage</strong> has no direct OpenUSD linkage. The build forces <code class="docutils literal notranslate"><span class="pre">OVCLASH_USE_NAMESPACED_USD</span></code> off
+for it and prints its <code class="docutils literal notranslate"><span class="pre">USD</span> <span class="pre">mode</span></code> as <code class="docutils literal notranslate"><span class="pre">none</span></code>. Scene access goes through the ovstage API.</p></li>
+<li><p><strong>OpenUSD</strong> requires <code class="docutils literal notranslate"><span class="pre">OVCLASH_USE_NAMESPACED_USD</span></code> on, and links namespaced, Python-free
+OpenUSD. Its wheel and SDK archive bundle that OpenUSD closure; the ovstage packages depend on
+the pinned <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> distribution instead.</p></li>
+</ul>
+<p>To ask a loaded library which backend it is, call <code class="docutils literal notranslate"><span class="pre">backend_info</span></code>;
+<a class="reference internal" href="consumer/overview.html#identifying-the-loaded-library"><span class="std std-ref">Identifying the loaded library</span></a> describes
+the fields.
+<a class="reference internal" href="technical/build_and_packaging.html#backend-markers"><span class="std std-ref">Backend markers</span></a> lists the files that record
+the backend in an install tree and in each package, and
+<a class="reference internal" href="technical/build_and_packaging.html#package-identity"><span class="std std-ref">Package identity</span></a> gives the version, contents
+and publication status of each backend’s packages.
+<a class="reference internal" href="consumer/README.html#usd-coexistence"><span class="std std-ref">USD coexistence</span></a> describes the plugin-path variables that
+matter when another OpenUSD build shares the process.</p>
+</section>
+<section id="what-the-backend-changes">
+<h2>What the backend changes<a class="headerlink" href="#what-the-backend-changes" title="Link to this heading">#</a></h2>
+<p>This table lists the recorded divergences that a caller can observe. Equal aggregate clash
+counts alone do not prove that per-pair payloads match.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Area</p></th>
+<th class="head"><p>Behavior</p></th>
+<th class="head"><p>Consequence</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Overlap-report buffer ownership</p></td>
+<td><p>ovstage hands out borrowed views into context-owned storage. The OpenUSD engine allocates buffers per report, and <code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_report</span></code> is the only call that frees them.</p></td>
+<td><p>Release every report, and never hold one across a pipeline step or run. That is correct on both backends. On OpenUSD a skipped release leaks, and releasing the context does not recover the buffers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cancellation scope</p></td>
+<td><p>ovstage’s cancel flag is a per-context atomic. OpenUSD’s is a process-global volatile flag; the backend has no per-context cancellation. <code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled</span></code> therefore answers for the whole process on OpenUSD. On ovstage it answers for the context, and reports 0 for a null handle.</p></td>
+<td><p>On OpenUSD, cancelling one context can abort another context’s run in the same process, and a set flag makes later <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> calls fail on every context. A stop at the limit of the <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">broad phase</span></a> (the step that pairs meshes by their world bounds) counts as a cancellation, so it blocks the stepped runs of every context until a reset. Finishing, resetting or releasing any context clears the flag for all of them. The Python <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> and <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> request cancellation when their <code class="docutils literal notranslate"><span class="pre">with</span></code> block exits on an exception, including <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code>, so on OpenUSD that cleanup reaches every context as well. A single-context program is not affected.</p></td>
+</tr>
+<tr class="row-even"><td><p>Out-of-memory flag</p></td>
+<td><p>ovstage records an allocation failure per context, and the call that hit it fails with <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code>. OpenUSD’s flag is process-global and written without synchronization. An OpenUSD run that ran out of memory can report zero overlaps with a success status.</p></td>
+<td><p>On OpenUSD, check <code class="docutils literal notranslate"><span class="pre">ovclash_is_out_of_memory</span></code> after every run, and read it only after the pipeline has finished. One context’s out-of-memory state reaches every context in the process, and releasing any context clears it. Do not drive OpenUSD contexts concurrently.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Async progress polling</p></td>
+<td><p>ovstage returns a locked snapshot clamped to the counted work. The OpenUSD engine reads its progress counters without synchronization. The <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">Suite</span></a> API, the product layer, forwards <code class="docutils literal notranslate"><span class="pre">progress</span></code> unclamped.</p></td>
+<td><p>An OpenUSD <code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data_async</span></code> poll can briefly report <code class="docutils literal notranslate"><span class="pre">progress</span></code> or <code class="docutils literal notranslate"><span class="pre">stepProgress</span></code> outside <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0]</span></code>, or a non-finite value. Clamp it, and treat a non-finite value as unknown. Results are unaffected.</p></td>
+</tr>
+<tr class="row-even"><td><p>Async launch and completion</p></td>
+<td><p>OpenUSD rejects <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async</span></code> when a pipeline was created but no stage is open. ovstage launches that run, and <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> then reports the missing stage. On OpenUSD, a handle launched without a pipeline reports <code class="docutils literal notranslate"><span class="pre">finished</span></code> while <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code> still reports true. <code class="docutils literal notranslate"><span class="pre">ovclash_release_context</span></code> with a live handle finishes the run and frees the handle on OpenUSD; ovstage joins the worker.</p></td>
+<td><p>Open the stage before you launch. Decide completion from <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code>, never from <code class="docutils literal notranslate"><span class="pre">finished</span></code>. Releasing a context blocks until its run completes on both backends.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pipeline status fidelity</p></td>
+<td><p>On ovstage, <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> return <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> when a phase fails, and the reason is in the context’s last error. On OpenUSD, <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> succeeds once the phase was invoked, and <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> succeeds once the worker was joined and the run was not cancelled.</p></td>
+<td><p>On OpenUSD a failed phase can still report success and leave incomplete results. Cross-check <code class="docutils literal notranslate"><span class="pre">ovclash_is_out_of_memory</span></code> and the result counts there. On both backends, run the steps in order. Neither backend diagnoses an out-of-order step. The ovstage final step reports success without doing its work when earlier steps have not completed.</p></td>
+</tr>
+<tr class="row-even"><td><p>Uniform per-point widths</p></td>
+<td><p>ovstage collapses a per-point width array whose values are all equal back to that single width. The OpenUSD engine keys off the array length alone and reports <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_overlap_report_t::pointSize0</span></code> differs between backends for a point cloud authored with one equal width per point. A genuinely varying array reports <code class="docutils literal notranslate"><span class="pre">0.0</span></code> on both.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point size changed between the steps of one run</p></td>
+<td><p>ovstage tests and reports a new <code class="docutils literal notranslate"><span class="pre">ovclash_set_point_size</span></code> value from the run’s next sample on. OpenUSD keeps the size it computed before the run’s first sample.</p></td>
+<td><p>Results differ for that run’s later samples. Change the point size between runs, not between steps.</p></td>
+</tr>
+<tr class="row-even"><td><p>Subcomponent filtering changed between the steps of one run</p></td>
+<td><p>ovstage fixes the <code class="docutils literal notranslate"><span class="pre">ovclash_set_subcomponent_filtering</span></code> value when the run selects meshes. OpenUSD applies a change to the run’s remaining steps.</p></td>
+<td><p>Results differ for the rest of that run. Change the setting between runs, not between steps.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Threading controls</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code> and <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> choose the scheduler and worker budget differently on each backend; see <a class="reference internal" href="#threading-controls-on-each-backend">Threading controls on each backend</a>. On OpenUSD, with multithreading active, the default new task manager returns overlaps in a run-dependent order. ovstage keeps the same order under every setting.</p></td>
+<td><p><strong>Report order only.</strong> Counts, membership and per-pair data do not change on either backend. See <a class="reference internal" href="#overlap-ordering-is-not-contractual">Overlap ordering is not contractual</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Instanced point clouds</p></td>
+<td><p>ovstage sees a <code class="docutils literal notranslate"><span class="pre">UsdGeomPoints</span></code> prim inside an instanceable reference only in prototype space, the shared <code class="docutils literal notranslate"><span class="pre">/__Prototype_&lt;id&gt;</span></code> copy that USD composes once for all placements. It has no point-cloud equivalent of mesh instance-proxy expansion, which replaces a prototype-space mesh with one mesh (an instance proxy) per placement, so it drops those clouds during collection. OpenUSD collides every placement.</p></td>
+<td><p><strong>Results differ</strong> for callers that enable <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_ENABLE_POINT_CLOUDS</span></code> (off by default). On <code class="docutils literal notranslate"><span class="pre">tests/data/instanced_points.usda</span></code>, OpenUSD finds 4 pairs and ovstage 1. The drop is deliberate. ovstage regenerates the <code class="docutils literal notranslate"><span class="pre">/__Prototype_&lt;id&gt;</span></code> root names on every <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">population</span></a>, each load of the stage into ovstage. A time-sampled run would therefore lose a selected prototype-space cloud at the next population and fail, losing every result.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Unresolved transform animation</p></td>
+<td><p>ovstage sometimes cannot prove from authored data whether a mesh’s transform is animated, for example when an active transform operation has no initial value. It then treats the mesh as non-static.</p></td>
+<td><p>With <code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_static_overlaps</span></code> on (the default), ovstage can keep a pair that OpenUSD purges. ovstage never purges a pair on an unproven static classification.</p></td>
+</tr>
+<tr class="row-even"><td><p>Cooked-mesh counter</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_stats_t::nbCookedMeshes</span></code> from <code class="docutils literal notranslate"><span class="pre">ovclash_get_query_stats</span></code> counts successful <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">cooks</span></a> on ovstage and attempted cooks on OpenUSD.</p></td>
+<td><p>A failed cook lowers the count only on ovstage. Comparing it with <code class="docutils literal notranslate"><span class="pre">nbMeshes</span></code> minus <code class="docutils literal notranslate"><span class="pre">nbSharedMeshes</span></code> therefore detects dropped geometry only on ovstage.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">omniverse://</span></code> assets</p></td>
+<td><p>ovstage resolves <code class="docutils literal notranslate"><span class="pre">omniverse://</span></code> URLs through the <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">omni client</span></a> of its runtime, the client library for the asset servers of NVIDIA Omniverse, NVIDIA’s platform for OpenUSD-based 3D applications. <code class="docutils literal notranslate"><span class="pre">OVCLASH_OMNI_CLIENT_RETRY_MAX_MS</span></code> sets that client’s reconnect window: optional, an unsigned 32-bit decimal number of milliseconds, <code class="docutils literal notranslate"><span class="pre">0</span></code> (fail at once) by default; <a class="reference internal" href="consumer/developer_guide.html#environment-variables"><span class="std std-ref">Environment variables</span></a> defines it. The OpenUSD backend cannot resolve them.</p></td>
+<td><p>On OpenUSD, payloads, references and MDL (Material Definition Language) assets on a Nucleus host, an Omniverse asset server, fail to load, so their geometry is missing from the results. Use local copies of those assets. On both backends the stage itself must be a local file.</p></td>
+</tr>
+<tr class="row-even"><td><p>Query memory</p></td>
+<td><p>On ovstage, <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory</span></code> frees the current query’s source data, meshes, point clouds, results, dynamic state and broad-phase bounding volume hierarchy (<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">BVH</span></a>). On OpenUSD it frees no query memory and keeps every result; <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code> is the call that frees it.</p></td>
+<td><p>In a long-lived OpenUSD process, reset the context between queries to return memory.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <a class="reference internal" href="api.html"><span class="std std-doc">C API Reference</span></a> documents smaller per-call differences on each function. Examples:</p>
+<ul class="simple">
+<li><p>which rejections record last-error text;</p></li>
+<li><p>what <code class="docutils literal notranslate"><span class="pre">ovclash_set_sort_mode</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds_experimental</span></code> do on each backend.
+On OpenUSD the latter selects another multithreaded point-vs-mesh path when point clouds are
+enabled and multithreading is active; ovstage stores it and never reads it;</p></li>
+<li><p>that ovstage ignores the <code class="docutils literal notranslate"><span class="pre">stageId</span></code> argument of <code class="docutils literal notranslate"><span class="pre">ovclash_set_scope</span></code>;</p></li>
+<li><p>which steps a duplicate-only run (<code class="docutils literal notranslate"><span class="pre">ovclash_set_only_find_duplicates</span></code>) skips. OpenUSD stops its
+<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">narrow phase</span></a>, the exact test of each candidate pair, after
+the duplicate test; ovstage skips the BVH, broad-phase and narrow-phase steps;</p></li>
+<li><p>when per-pair details go stale. OpenUSD reports them stale when a
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">prim</span></a> of the pair no longer exists (<code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">result</span> <span class="pre">details</span> <span class="pre">are</span> <span class="pre">stale</span> <span class="pre">because</span> <span class="pre">a</span> <span class="pre">prim</span> <span class="pre">of</span> <span class="pre">the</span> <span class="pre">pair</span> <span class="pre">no</span> <span class="pre">longer</span> <span class="pre">exists</span> <span class="pre">(stage</span> <span class="pre">replaced</span> <span class="pre">or</span> <span class="pre">prim</span> <span class="pre">removed);</span> <span class="pre">run</span> <span class="pre">the</span> <span class="pre">pipeline</span> <span class="pre">again</span></code>). ovstage reports them stale when their mesh
+selection was replaced, by a new stage, the mesh-selection step of a new run or a failed
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_prim_matrix</span></code> read (<code class="docutils literal notranslate"><span class="pre">...</span> <span class="pre">result</span> <span class="pre">details</span> <span class="pre">are</span> <span class="pre">stale</span> <span class="pre">because</span> <span class="pre">their</span> <span class="pre">mesh</span> <span class="pre">selection</span> <span class="pre">was</span> <span class="pre">replaced;</span> <span class="pre">run</span> <span class="pre">the</span> <span class="pre">pipeline</span> <span class="pre">again</span></code>);</p></li>
+<li><p>the rejection text of <code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_meshes</span></code>, which fails on both backends:
+<code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_meshes:</span> <span class="pre">not</span> <span class="pre">supported</span> <span class="pre">by</span> <span class="pre">the</span> <span class="pre">ovclash</span> <span class="pre">OpenUSD</span> <span class="pre">backend</span></code> on OpenUSD;</p></li>
+<li><p>that the Python <code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_ovstage_dynamic_matrix_cache()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> on
+OpenUSD, which does not export the setter.</p></li>
+</ul>
+<p><strong>Mesh instancing is not a backend difference.</strong> On ovstage, <code class="docutils literal notranslate"><span class="pre">expandInstanceProxies()</span></code> replaces
+each prototype-space mesh with one mesh per placement. Instanced meshes, including mesh-typed
+instance roots and nested placements, are therefore collided at their world placements on both
+backends. <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_typed_instance_roots.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_nested_instance_visibility.py</span></code> cover these cases.</p>
+<section id="threading-controls-on-each-backend">
+<h3>Threading controls on each backend<a class="headerlink" href="#threading-controls-on-each-backend" title="Link to this heading">#</a></h3>
+<p>None of the three controls changes which pairs overlap or what is reported about them;
+<code class="docutils literal notranslate"><span class="pre">testThreadingControlsDoNotChangeOverlapSet</span></code> checks this on both backends.
+<a class="reference internal" href="consumer/performance.html#threading"><span class="std std-ref">Performance</span></a> describes the product behavior and the
+defaults.</p>
+<p><a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">Carbonite</span></a> is NVIDIA’s plugin and runtime framework; its
+<code class="docutils literal notranslate"><span class="pre">carb.tasking</span></code> scheduler is one of the worker sources that these settings choose between. Each
+setting is optional and has the same type and fresh-context default on both backends.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>OpenUSD backend</p></th>
+<th class="head"><p>ovstage backend</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_single_threaded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Forces serial execution. Multithreading also requires the Carbonite tasking interface.</p></td>
+<td><p>Forces serial execution of every parallel phase. Also disables sampled-matrix prefetch and the helper thread that populates static transforms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>Selects between two Carbonite broad-phase and narrow-phase implementations. Matters only when multithreading is active. With multithreading active, the new manager returns overlaps in a run-dependent order.</p></td>
+<td><p>True selects Carbonite and its scheduler budget and ignores <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code>. False selects bounded <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> workers. The order is the same under every setting.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>; any value is accepted and clamped to 256</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+<td><p>Read only by the legacy task manager, as its task split. The new manager takes its worker count from Carbonite.</p></td>
+<td><p>Read only by the <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> manager: at most <code class="docutils literal notranslate"><span class="pre">min(max(nb_tasks,</span> <span class="pre">1),</span> <span class="pre">hardware</span> <span class="pre">concurrency,</span> <span class="pre">available</span> <span class="pre">work)</span></code> workers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>After detection, the same controls choose the workers for native report extraction and for
+fetch-and-save frame preparation on both backends. <code class="docutils literal notranslate"><span class="pre">new_task_manager=false</span></code> selects <code class="docutils literal notranslate"><span class="pre">std::thread</span></code>
+workers bounded by <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> on OpenUSD as well.</p>
+</section>
+<section id="not-backend-differences">
+<h3>Not backend differences<a class="headerlink" href="#not-backend-differences" title="Link to this heading">#</a></h3>
+<p>These behaviors are often mistaken for ovstage limitations. They are limitations of the
+standalone product and behave the same on both backends; see
+<a class="reference internal" href="consumer/limitations.html"><span class="std std-doc">Limitations</span></a>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_meshes</span></code> always fails.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_meshes</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_delete_duplicate_meshes</span></code> are no-ops.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_timeline_data</span></code> reports a fixed host timeline.</p></li>
+</ul>
+<p>To read the open stage’s own timeline, call <code class="docutils literal notranslate"><span class="pre">ovclash_get_stage_timeline_data</span></code>. Both backends
+answer it from the stage’s root-layer metadata. A stage attached with
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage</span></code> reports its binding’s values. An attachment with a composition
+also checks <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> and <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> against that composition at its first
+finite-time read.</p>
+</section>
+</section>
+<section id="overlap-ordering-is-not-contractual">
+<h2>Overlap ordering is not contractual<a class="headerlink" href="#overlap-ordering-is-not-contractual" title="Link to this heading">#</a></h2>
+<p>The index passed to <code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_data</span></code> is an identifier, not a rank.
+<a class="reference internal" href="consumer/developer_guide.html#overlap-index-order-is-not-contractual"><span class="std std-ref">Overlap index order is not contractual</span></a>
+states the consumer rule and shows how to sort. The order differs between the backends, and on
+OpenUSD it can differ from run to run (see <a class="reference internal" href="#threading-controls-on-each-backend">Threading controls on each backend</a>).</p>
+<p>The order comes from the shared clash engine, so sorting in the OpenUSD adapter would not make
+the backends agree. A deterministic order would have to be a product feature, specified in the
+header and applied on both backends.</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="consumer/overview.html"><span class="std std-doc">ovclash Overview</span></a> – what ships, and how to query the loaded runtime.</p></li>
+<li><p><a class="reference internal" href="consumer/limitations.html"><span class="std std-doc">Limitations</span></a> – what the product does not do, with workarounds.</p></li>
+<li><p><a class="reference internal" href="consumer/async_pipelines.html"><span class="std std-doc">Asynchronous Pipelines</span></a> – cancellation, progress and finish
+status of async runs.</p></li>
+<li><p><a class="reference internal" href="consumer/threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a> – threading controls and result
+order.</p></li>
+<li><p><a class="reference internal" href="api.html"><span class="std std-doc">C API Reference</span></a> – per-function backend notes.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="contributing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Contributing</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="code_style_cpp.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ovclash C/C++ Code Style</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#selecting-a-backend">Selecting a backend</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-the-backend-changes">What the backend changes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#threading-controls-on-each-backend">Threading controls on each backend</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#not-backend-differences">Not backend differences</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlap-ordering-is-not-contractual">Overlap ordering is not contractual</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

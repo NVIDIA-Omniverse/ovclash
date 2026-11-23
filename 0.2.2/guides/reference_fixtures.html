@@ -1,0 +1,1578 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Representative fixture stages &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/reference_fixtures';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sentinel correctness validation" href="sentinel.html" />
+    <link rel="prev" title="KPI frozen contracts and maintenance" href="kpi_contracts.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Representative fixture stages</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="representative-fixture-stages">
+<h1>Representative fixture stages<a class="headerlink" href="#representative-fixture-stages" title="Link to this heading">#</a></h1>
+<p>KPI measures three generated <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">bundles</span></a>: <code class="docutils literal notranslate"><span class="pre">body-representative</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code> and <code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code>, a full-motion Body bundle that only
+the Dynamic depth workload uses. Each bundle is a directory that holds one USD stage, its
+<code class="docutils literal notranslate"><span class="pre">root.usda</span></code> and layer files, and the <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> manifest. The <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">KPI glossary</span></a>
+defines bundle, stage, workload and the other KPI terms used here. The source-only
+<code class="docutils literal notranslate"><span class="pre">benchmarks.kpi.reference_fixtures</span></code> package generates the first two bundles from fixed recipes;
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_fixtures/profiles.py</span></code> defines their size tiers.
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_depth.py</span></code> generates the depth bundle from the
+<code class="docutils literal notranslate"><span class="pre">body-representative</span></code> recipe.</p>
+<p>Generation, inspection and the structural census use only the Python standard library. They
+need no stage assets, <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> Python bindings (<code class="docutils literal notranslate"><span class="pre">pxr</span></code>),
+renderer, sample application or network access. <code class="docutils literal notranslate"><span class="pre">measure</span></code> is the exception: it needs a
+configured <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a> runtime, the ovstage backend of the
+<code class="docutils literal notranslate"><span class="pre">ovclash</span></code> Python package.</p>
+<p>This page covers the bundles. <a class="reference internal" href="kpi_overview.html"><span class="std std-doc">KPI workloads and metrics</span></a> lists the nine
+workloads, their settings, counts and saved sizes, and
+<a class="reference internal" href="kpi_contracts.html"><span class="std std-doc">KPI frozen contracts and maintenance</span></a> owns the pins. <a class="reference internal" href="sentinel.html"><span class="std std-doc">Sentinel</span></a>
+owns product correctness.</p>
+<section id="generate-and-retain-stages">
+<h2>Generate and retain stages<a class="headerlink" href="#generate-and-retain-stages" title="Link to this heading">#</a></h2>
+<p>KPI <a class="reference internal" href="kpi_contracts.html#preparation"><span class="std std-ref">preparation</span></a> generates all three bundles before measurement,
+stops when one differs from its pin, and reuses them for every workload. A check generates them
+once, after its budget coverage check passes; a check without compatible coverage stops before
+generation. A baseline collection generates them once per collection, before its first campaign,
+and reads no installed budgets. The launchers and CI run both through the KPI driver; see
+<a class="reference internal" href="kpi.html#how-a-kpi-run-works"><span class="std std-ref">how a KPI run works</span></a>.</p>
+<blockquote>
+<div><p><strong>Note</strong> Generate the bundles with the KPI input Python, the packaged CPython 3.12. The pins
+match only the bytes it writes: other interpreter versions can print different digits for a
+few floating-point values. Python 3.14, for example, writes 17 layers of
+<code class="docutils literal notranslate"><span class="pre">body-representative</span></code> differently, and KPI preparation then stops with
+<code class="docutils literal notranslate"><span class="pre">generated</span> <span class="pre">representative</span> <span class="pre">bundle</span> <span class="pre">differs</span> <span class="pre">from</span> <span class="pre">frozen</span> <span class="pre">bytes</span></code>.</p>
+</div></blockquote>
+<p>To generate the bundles yourself, run these commands from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> with <code class="docutils literal notranslate"><span class="pre">$PY</span></code> (<code class="docutils literal notranslate"><span class="pre">%PY%</span></code> in
+<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>), the KPI input Python of the <a class="reference internal" href="kpi.html#quick-start"><span class="std std-ref">quick start</span></a>. Each output directory
+must not exist yet. If generation fails, delete its output directory, if present, before you
+retry.</p>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi.reference_fixtures<span class="w"> </span>generate<span class="w"> </span>--profile<span class="w"> </span>body-representative<span class="w"> </span>--output<span class="w"> </span>_build/reference-fixtures/body-representative
+<span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi.reference_fixtures<span class="w"> </span>generate<span class="w"> </span>--profile<span class="w"> </span>cockpit-representative<span class="w"> </span>--output<span class="w"> </span>_build/reference-fixtures/cockpit-representative
+<span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;from pathlib import Path; from benchmarks.kpi import representative_depth; r = representative_depth.generate_bundle(Path(&#39;_build/reference-fixtures/body-representative-depth&#39;)); print(r[&#39;manifest_sha256&#39;], r[&#39;closure_digest&#39;])&quot;</span>
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -m benchmarks.kpi.reference_fixtures generate --profile body-representative --output _build/reference-fixtures/body-representative
+<span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -m benchmarks.kpi.reference_fixtures generate --profile cockpit-representative --output _build/reference-fixtures/cockpit-representative
+<span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -c <span class="s2">&quot;from pathlib import Path; from benchmarks.kpi import representative_depth; r = representative_depth.generate_bundle(Path(&#39;_build/reference-fixtures/body-representative-depth&#39;)); print(r[&#39;manifest_sha256&#39;], r[&#39;closure_digest&#39;])&quot;</span>
+</pre></div>
+</div>
+<p>Each command exits 0 when its bundle is sealed. <code class="docutils literal notranslate"><span class="pre">generate</span></code> prints a JSON summary with these
+fields:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">manifest_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>SHA-256 of the <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">closure_digest</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">closure_digest</span></code> of <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code>; see <a class="reference internal" href="#bundle-manifest-and-seal">bundle manifest and seal</a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">files</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 or more</p></td>
+<td><p>Number of member layers</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bytes</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>1 or more</p></td>
+<td><p>Sum of the member layer sizes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">elapsed_seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds</p></td>
+<td><p>Wall time of the command</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p>See <a class="reference internal" href="#generation-metadata">generation metadata</a></p></td>
+<td><p>The generation metadata stored in <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="generation-metadata">
+<h3>Generation metadata<a class="headerlink" href="#generation-metadata" title="Link to this heading">#</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">metadata</span></code> object holds these fields:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">profile_id</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--profile</span></code> value</p></td>
+<td><p>The generated profile</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">family</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">body</span></code> or <code class="docutils literal notranslate"><span class="pre">cockpit</span></code></p></td>
+<td><p>The assembly family</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">duration_seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">--duration</span></code>, default 2.0</p></td>
+<td><p>The animation duration</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanced</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code>; <code class="docutils literal notranslate"><span class="pre">false</span></code> with <code class="docutils literal notranslate"><span class="pre">--ordinary-references</span></code></p></td>
+<td><p>Whether the references are instanceable</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">recipe</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code> is <code class="docutils literal notranslate"><span class="pre">reference-fixtures-v1</span></code></p></td>
+<td><p>The recipe parameters: <code class="docutils literal notranslate"><span class="pre">identifier</span></code>, <code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">duration_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">instanced</span></code>, <code class="docutils literal notranslate"><span class="pre">tessellation_divisor</span></code>, <code class="docutils literal notranslate"><span class="pre">discretionary_triangle_scale</span></code>, <code class="docutils literal notranslate"><span class="pre">workload_intent</span></code>, <code class="docutils literal notranslate"><span class="pre">serialization_stress</span></code> and <code class="docutils literal notranslate"><span class="pre">byte_preflight</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">inventory</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Authored and composed geometry counts, and path and hierarchy summaries</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">contacts</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The planned contacts: <code class="docutils literal notranslate"><span class="pre">cluster_pairs</span></code>, <code class="docutils literal notranslate"><span class="pre">cluster_groups</span></code>, <code class="docutils literal notranslate"><span class="pre">gates</span></code>, <code class="docutils literal notranslate"><span class="pre">probes</span></code> and <code class="docutils literal notranslate"><span class="pre">membership_digest</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">motion</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">samples_per_second</span></code> is 32</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">mover_key_counts</span></code>, <code class="docutils literal notranslate"><span class="pre">pose_digest</span></code>, <code class="docutils literal notranslate"><span class="pre">samples_per_second</span></code> and <code class="docutils literal notranslate"><span class="pre">sample_count</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qualification</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">native_verified</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">native_verified</span></code>, <code class="docutils literal notranslate"><span class="pre">coverage</span></code> and <code class="docutils literal notranslate"><span class="pre">exclusions</span></code>: what the generator does not prove</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">policy</span></code> is <code class="docutils literal notranslate"><span class="pre">recipe-version</span></code></p></td>
+<td><p>The recipe identity: <code class="docutils literal notranslate"><span class="pre">policy</span></code>, <code class="docutils literal notranslate"><span class="pre">sha256</span></code> and <code class="docutils literal notranslate"><span class="pre">recipe</span></code> (the <code class="docutils literal notranslate"><span class="pre">identifier</span></code> and <code class="docutils literal notranslate"><span class="pre">version</span></code> of <code class="docutils literal notranslate"><span class="pre">recipe.json</span></code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="pinned-bundles">
+<h3>Pinned bundles<a class="headerlink" href="#pinned-bundles" title="Link to this heading">#</a></h3>
+<p>The depth command prints only its <code class="docutils literal notranslate"><span class="pre">manifest_sha256</span></code> and <code class="docutils literal notranslate"><span class="pre">closure_digest</span></code>. With the pinned
+interpreter, the three bundles reproduce their pins:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bundle</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">manifest_sha256</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">closure_digest</span></code></p></th>
+<th class="head text-right"><p>Files</p></th>
+<th class="head text-right"><p>Bytes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">body-representative</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">d60eecbf098a0162fbf46117418295dcb12a5a595b3ac47e59c34256e68c073d</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5d7e7c425598b3fff2dad8fa67f8550523b38eb7133c886718b134ba3316f2ca</span></code></p></td>
+<td class="text-right"><p>102</p></td>
+<td class="text-right"><p>47,523,889</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">5259275efd9a934829438d39666bf0871190ca4fd7769501a1f59f8731c9af53</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ef8bf2016e273cedc40588f801cecd476d948859ce815d4f1247b7d0cb1a193f</span></code></p></td>
+<td class="text-right"><p>2,200</p></td>
+<td class="text-right"><p>120,791,385</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">a773e8a47997ffa8af0a51d896699a48451a922bc5a343e47b700af218574f71</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">6b8c39b3affea1c1aabfd959504d1218ae4c54197301efcb2ee30766df6ffb57</span></code></p></td>
+<td class="text-right"><p>102</p></td>
+<td class="text-right"><p>47,513,313</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The authority for these values is <code class="docutils literal notranslate"><span class="pre">bundle.sha256</span></code> and <code class="docutils literal notranslate"><span class="pre">bundle.closure_digest</span></code> of each profile in
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_expectations.json</span></code>, and <code class="docutils literal notranslate"><span class="pre">fixture.bundle</span></code> in
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_depth.json</span></code>. The table changes with them. Expected work comes
+only from the reviewed contract files, never from a candidate build.</p>
+<p>The depth bundle has no <code class="docutils literal notranslate"><span class="pre">generate</span> <span class="pre">--profile</span></code> entry; <code class="docutils literal notranslate"><span class="pre">representative_depth.generate_bundle</span></code> is
+its only generator. Of its layers, only <code class="docutils literal notranslate"><span class="pre">root.usda</span></code> differs from the <code class="docutils literal notranslate"><span class="pre">body-representative</span></code>
+bundle: it holds the Body motion compressed to 1.125 seconds and a probe schedule for
+8 samples/s. Its bundle metadata records the recipe identifier <code class="docutils literal notranslate"><span class="pre">representative-depth-v1</span></code>.</p>
+<p>An intentional recipe change requires a version bump in
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_fixtures/recipe.json</span></code> and refreshed pins; see
+<a class="reference internal" href="kpi_contracts.html#refresh-pinned-fixture-identities"><span class="std std-ref">refresh pinned fixture identities</span></a>.
+Comment, docstring and formatting edits need no refresh.</p>
+<p>Open <code class="docutils literal notranslate"><span class="pre">root.usda</span></code> and keep the whole bundle directory. <code class="docutils literal notranslate"><span class="pre">root.usda</span></code> references the other layers,
+so it is not a portable stage on its own, and its size is not the input size.</p>
+</section>
+</section>
+<section id="bundle-manifest-and-seal">
+<h2>Bundle manifest and seal<a class="headerlink" href="#bundle-manifest-and-seal" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">generate</span></code> seals each bundle by writing <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> exclusively; an existing <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> is
+never replaced. It holds exactly these fields, all required; a reader rejects any other field:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Manifest format version</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">encoding</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">usda</span></code></p></td>
+<td><p>Layer encoding: USDA, the ASCII text format of USD layers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">entry</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">root.usda</span></code></p></td>
+<td><p>The entry layer, relative to the bundle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">policy</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">{&quot;load&quot;:</span> <span class="pre">&quot;all&quot;,</span> <span class="pre">&quot;variants&quot;:</span> <span class="pre">&quot;authored&quot;}</span></code></p></td>
+<td><p>The composition policy</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p>At most 2 MiB of JSON</p></td>
+<td><p>Generation metadata (recipe, source identity, inventory, contact and motion summaries); see <a class="reference internal" href="#generation-metadata">generation metadata</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">metadata_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>SHA-256 of the canonical JSON of <code class="docutils literal notranslate"><span class="pre">metadata</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">members</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p>One object per layer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">path</span></code> (string, relative to the bundle), <code class="docutils literal notranslate"><span class="pre">size_bytes</span></code> (integer) and <code class="docutils literal notranslate"><span class="pre">sha256</span></code> (string) of every layer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">closure_digest</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>SHA-256 of the canonical JSON of every other field of the manifest</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The printed <code class="docutils literal notranslate"><span class="pre">manifest_sha256</span></code> is the SHA-256 of the <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> bytes. The recipe identity in
+the metadata is the identifier and version of <code class="docutils literal notranslate"><span class="pre">recipe.json</span></code> with their SHA-256, for example
+<code class="docutils literal notranslate"><span class="pre">{&quot;policy&quot;:</span> <span class="pre">&quot;recipe-version&quot;,</span> <span class="pre">&quot;sha256&quot;:</span> <span class="pre">&quot;...&quot;,</span> <span class="pre">&quot;recipe&quot;:</span> <span class="pre">{&quot;identifier&quot;:</span> <span class="pre">&quot;reference-fixtures-v1&quot;,</span> <span class="pre">&quot;version&quot;:</span> <span class="pre">1}}</span></code>.</p>
+</section>
+<section id="inspect-a-bundle">
+<h2>Inspect a bundle<a class="headerlink" href="#inspect-a-bundle" title="Link to this heading">#</a></h2>
+<p>Before you begin: generate the bundle as in
+<a class="reference internal" href="#generate-and-retain-stages">generate and retain stages</a>, and set <code class="docutils literal notranslate"><span class="pre">$PY</span></code> (<code class="docutils literal notranslate"><span class="pre">%PY%</span></code>) as in the
+<a class="reference internal" href="kpi.html#quick-start"><span class="std std-ref">quick start</span></a>. From <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, pass the bundle directory, here the Cockpit
+bundle of that section.</p>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi.reference_fixtures<span class="w"> </span>inspect<span class="w"> </span>_build/reference-fixtures/cockpit-representative
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -m benchmarks.kpi.reference_fixtures inspect _build/reference-fixtures/cockpit-representative
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">inspect</span></code> re-reads the whole bundle, prints the verified manifest as JSON and exits 0. It checks the member
+inventory, every member’s size and SHA-256, the closure digest, and the USDA syntax and
+composition of every layer. Every member must be an ordinary <code class="docutils literal notranslate"><span class="pre">.usda</span></code> file listed in
+<code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> and reachable from <code class="docutils literal notranslate"><span class="pre">root.usda</span></code>. Links, reparse points, hard-linked aliases,
+undeclared files and asset paths that leave the bundle are rejected. The bundle directory and
+every directory above it must also be real directories: <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">inspect</span></code> and KPI
+preparation reject a path that passes through a symlink, junction or other reparse point.</p>
+<p><code class="docutils literal notranslate"><span class="pre">--sha256</span> <span class="pre">DIGEST</span></code> also requires the <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> bytes to have that SHA-256. It then hashes the
+members without reparsing them. Pass only the digest of a fully validated manifest: the
+<code class="docutils literal notranslate"><span class="pre">manifest_sha256</span></code> that <code class="docutils literal notranslate"><span class="pre">generate</span></code> printed, or a pinned value from
+<a class="reference internal" href="#pinned-bundles">pinned bundles</a>.</p>
+<p>When a command rejects an input or a file or native call fails (<code class="docutils literal notranslate"><span class="pre">OSError</span></code>, <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> or
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>), <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">inspect</span></code> and <code class="docutils literal notranslate"><span class="pre">measure</span></code> print <code class="docutils literal notranslate"><span class="pre">reference</span> <span class="pre">fixtures:</span> <span class="pre">&lt;reason&gt;</span></code> and
+exit with code 4. An option that does not parse prints the usage message and exits with code
+2.</p>
+</section>
+<section id="geometry-and-motion">
+<h2>Geometry and motion<a class="headerlink" href="#geometry-and-motion" title="Link to this heading">#</a></h2>
+<p>Body combines repeated carriers and roofs, nested instanced warehouse racks and departing
+assemblies. Cockpit combines deep paths, geometry payload layers, repeated tool prototypes,
+hidden branches and independent Module and Tool motion. Both recipes include diverse
+transforms, instancing and distinct mesh definitions. The bundle inventory reports authored
+geometry and composed placements separately; it makes no claim about contact correctness.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code> is a single recipe with triangle-budget <code class="docutils literal notranslate"><span class="pre">divisor</span></code> 16. The KPI <code class="docutils literal notranslate"><span class="pre">smoke</span></code> and
+<code class="docutils literal notranslate"><span class="pre">release</span></code> <a class="reference internal" href="kpi_sampling.html#profiles"><span class="std std-ref">profiles</span></a> measure the same bundle. It is not a large-scene
+stress test. Its 63 instances of 21 tool prototypes and 6,400 hidden-branch meshes exercise deep
+composition, prototype fan-out and file opening. Hidden branches exercise filtering of invisible
+prims; their visibility is not animated. Contact construction covers:</p>
+<ul class="simple">
+<li><p>spoke hubs and dense crossing-panel groups;</p></li>
+<li><p>co-located duplicate pairs and a <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">broad-phase</span></a> decoy stack;</p></li>
+<li><p>resting and crossing gates and motion probes;</p></li>
+<li><p>one undivided high-triangle tail mesh per role (Structure, Module and Tool).</p></li>
+</ul>
+<p>These are construction targets, not verified native results.
+<a class="reference internal" href="kpi_overview.html#counts-and-saved-stage-sizes"><span class="std std-ref">Counts and saved stage sizes</span></a> lists the bundle
+inventory.</p>
+<p><code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code> generation first runs a byte preflight
+(<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_fixtures/preflight.py</span></code>). It predicts the authored USDA size, adds an
+8% margin and fails when the prediction exceeds 160,000,000 bytes. It never adjusts the recipe
+to fit. The prediction is not a hard upper bound and covers authored USDA only. The bundle
+metadata records the result as <code class="docutils literal notranslate"><span class="pre">recipe.byte_preflight</span></code>.</p>
+<p>Mover keys come from fixed 120-second (Cockpit) and 100-second (Body) timelines. Generation
+scales the key times to the animation duration, two seconds by default, and keeps every pose.
+Cockpit has 7 Module keys and 14 Tool keys. Each of the 15 Body movers (3 carriers and 12
+roofs) has 601 keys. Ordinary Dynamic and Suite-save workloads (fresh saves through the
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Suite API</span></a>) sample 0–2 seconds at
+32 samples/s. The 1/32-second step is exact in binary, so the grid has 65 poses, both ends
+included. The depth bundle compresses the same Body motion into 1.125 seconds, and Dynamic
+depth samples it at 8 samples/s (10 poses). Detection is sampled: a contact that occurs only
+between two poses is not guaranteed to be found.</p>
+<p>Query scopes and settings are frozen in the work contract; see
+<a class="reference internal" href="kpi_overview.html#the-nine-workloads"><span class="std std-ref">the nine workloads</span></a>. A different interval, task manager,
+geometry scope or sample rate defines different work and cannot reuse the existing
+expectations.</p>
+</section>
+<section id="structural-census">
+<h2>Structural census<a class="headerlink" href="#structural-census" title="Link to this heading">#</a></h2>
+<p>Before you begin: generate or copy a sealed bundle, and set <code class="docutils literal notranslate"><span class="pre">$PY</span></code> (<code class="docutils literal notranslate"><span class="pre">%PY%</span></code>) as in the
+<a class="reference internal" href="kpi.html#quick-start"><span class="std std-ref">quick start</span></a>. From <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, replace <code class="docutils literal notranslate"><span class="pre">SAVED_BUNDLE</span></code> with that bundle’s
+directory, such as <code class="docutils literal notranslate"><span class="pre">_build/reference-fixtures/cockpit-representative</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">NEW_REPORT_DIRECTORY</span></code> with a directory outside the bundle, such as <code class="docutils literal notranslate"><span class="pre">_build/census</span></code>.
+<code class="docutils literal notranslate"><span class="pre">--bundle</span></code> takes the path of <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code>. <code class="docutils literal notranslate"><span class="pre">--output</span></code> must be a new file outside the bundle
+directory; an output that already exists or lies inside the bundle stops the command with a
+usage error and exit code 2.</p>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi.reference_census<span class="w"> </span>--bundle<span class="w"> </span>SAVED_BUNDLE/bundle.json<span class="w"> </span>--output<span class="w"> </span>NEW_REPORT_DIRECTORY/census.json
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -m benchmarks.kpi.reference_census --bundle SAVED_BUNDLE/bundle.json --output NEW_REPORT_DIRECTORY/census.json
+</pre></div>
+</div>
+<p>On success the command writes <code class="docutils literal notranslate"><span class="pre">census.json</span></code>, prints a one-line JSON summary with sorted keys,
+and exits 0. A changed or unsupported bundle, or an exceeded
+<a class="reference internal" href="#saved-reference-diagnostic-limits">diagnostic limit</a>, raises a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>, exits nonzero and
+writes no <code class="docutils literal notranslate"><span class="pre">census.json</span></code>. The summary copies these fields from <code class="docutils literal notranslate"><span class="pre">census.json</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">output</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--output</span></code> path as given</p></td>
+<td><p>The written census</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">provenance.profile_id</span></code></p></td>
+<td><p>The bundle’s profile</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sizes</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">usda_bytes</span></code> and <code class="docutils literal notranslate"><span class="pre">layers</span></code></p></td>
+<td><p>The bundle size</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">visible</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">expanded.visible</span></code></p></td>
+<td><p>The composed visible geometry counts</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">checks</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">metadata_cross_checks</span></code></p></td>
+<td><p>The comparison with the bundle metadata; each count has <code class="docutils literal notranslate"><span class="pre">metadata</span></code>, <code class="docutils literal notranslate"><span class="pre">census</span></code> and <code class="docutils literal notranslate"><span class="pre">match</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">elapsed_seconds</span></code></p></td>
+<td><p>Wall time of the census</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The census verifies every member, then reports at time code zero:</p>
+<ul class="simple">
+<li><p>authored and composed geometry, visible and hidden;</p></li>
+<li><p>prim types, face counts and triangle equivalents;</p></li>
+<li><p>instance boundaries, path depth and transform classes.</p></li>
+</ul>
+<p>It also compares its visible-mesh and expanded visible-triangle counts with the bundle metadata
+(<code class="docutils literal notranslate"><span class="pre">metadata_cross_checks</span></code>). Rotation counts describe transform bases, not surface-normal
+directions. Instance-boundary counts are not native prototype-cache entries. A census qualifies
+neither collision results nor timing.</p>
+<p><code class="docutils literal notranslate"><span class="pre">census.json</span></code> holds these top-level fields, all required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Census format version</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">provenance</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">profile_id</span></code>, <code class="docutils literal notranslate"><span class="pre">bundle_sha256</span></code> (the <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> SHA-256), <code class="docutils literal notranslate"><span class="pre">closure_digest</span></code>, <code class="docutils literal notranslate"><span class="pre">source_sha</span></code> (the recipe identity digest), <code class="docutils literal notranslate"><span class="pre">admitted_manifest_supplied</span></code> and <code class="docutils literal notranslate"><span class="pre">member_hashes_verified</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sizes</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">usda_bytes</span></code> and <code class="docutils literal notranslate"><span class="pre">layers</span></code> of the bundle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">authored</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Geometry counts over all prim specs in all layers, with a face-vertex-count histogram</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">expanded</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Composed geometry counts as <code class="docutils literal notranslate"><span class="pre">visible</span></code>, <code class="docutils literal notranslate"><span class="pre">all</span></code> and <code class="docutils literal notranslate"><span class="pre">hidden</span></code>, each with its face-vertex-count histogram</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prims</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>Authored, composed and visible prim counts by type, with totals and mesh path depths</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">composition</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">native_prototype_cache_count</span></code> is <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p>Authored composition arcs, instance boundaries and instance nesting depth</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">transforms</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">time_code</span></code> is <code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Transform classes of authored, composed and visible prims, the source <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> and the rotation and scale definitions</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metadata_cross_checks</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>For each compared inventory count, such as <code class="docutils literal notranslate"><span class="pre">expanded_visible_triangles</span></code>: <code class="docutils literal notranslate"><span class="pre">metadata</span></code>, <code class="docutils literal notranslate"><span class="pre">census</span></code> and <code class="docutils literal notranslate"><span class="pre">match</span></code> (boolean)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">elapsed_seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds</p></td>
+<td><p>Wall time of the census</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">definitions</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The text definitions of authored, composed, visible, polygon and depth counts</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="diagnostic-recipes-and-tools">
+<h2>Diagnostic recipes and tools<a class="headerlink" href="#diagnostic-recipes-and-tools" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_fixtures/profiles.py</span></code> also defines diagnostic recipes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Profile</p></th>
+<th class="head"><p>Purpose</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">body-validation</span></code>, <code class="docutils literal notranslate"><span class="pre">cockpit-validation</span></code></p></td>
+<td><p>Small recipes with every triangle budget clamped to 256</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body-ci</span></code>, <code class="docutils literal notranslate"><span class="pre">cockpit-ci</span></code></p></td>
+<td><p>Intermediate recipes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cockpit-serialization-ci</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">cockpit-ci</span></code> assembly plus extra permanent probes that stress report serialization</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">generate</span> <span class="pre">--ordinary-references</span></code> authors ordinary instead of instanceable references (USD
+references marked <code class="docutils literal notranslate"><span class="pre">instanceable</span></code>, whose instances share one prototype), and
+<code class="docutils literal notranslate"><span class="pre">generate</span> <span class="pre">--duration</span> <span class="pre">SECONDS</span></code> sets another animation duration (default 2.0). A representative
+recipe generated with either option no longer matches its pins. KPI never generates or
+measures these variants. The Python tests in <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_reference_fixture_*.py</span></code>
+cover the generator. The opt-in <code class="docutils literal notranslate"><span class="pre">test_kpi_full_fixtures</span></code> target runs the slow full-profile
+generation checks; see
+<a class="reference internal" href="kpi_contracts.html#ordinary-tests-and-dedicated-workloads"><span class="std std-ref">ordinary tests and dedicated workloads</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">measure</span></code> runs a saved bundle through the ovstage runtime that <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ovclash</span></code> loads in the calling
+environment. Before you begin, you need a Python interpreter in which <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ovclash</span></code> loads the
+ovstage backend, for example a virtual environment with the ovstage <code class="docutils literal notranslate"><span class="pre">ovclash</span></code>
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">wheel</span></a> installed. <code class="docutils literal notranslate"><span class="pre">python</span></code> in the command stands for that
+interpreter. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-c</span> <span class="pre">&quot;import</span> <span class="pre">ovclash;</span> <span class="pre">print(ovclash.backend_info().backend_name)&quot;</span></code> prints
+<code class="docutils literal notranslate"><span class="pre">ovstage</span></code> when it is the right one. When it prints <code class="docutils literal notranslate"><span class="pre">openusd</span></code> or <code class="docutils literal notranslate"><span class="pre">unknown</span></code>, or <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">ovclash</span></code>
+fails, <code class="docutils literal notranslate"><span class="pre">measure</span></code> cannot run in that interpreter: install the ovstage <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> wheel into it, or use
+one that has it. Run the command from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, so that <code class="docutils literal notranslate"><span class="pre">benchmarks</span></code> is importable, and replace
+<code class="docutils literal notranslate"><span class="pre">SAVED_BUNDLE</span></code> and <code class="docutils literal notranslate"><span class="pre">NEW_REPORT_DIRECTORY</span></code> as for the <a class="reference internal" href="#structural-census">structural census</a>. It
+writes a JSON receipt to a new path outside the bundle:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi.reference_fixtures<span class="w"> </span>measure<span class="w"> </span>--kind<span class="w"> </span>dynamic<span class="w"> </span>--report<span class="w"> </span>NEW_REPORT_DIRECTORY/receipt.json<span class="w"> </span>SAVED_BUNDLE
+</pre></div>
+</div>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--kind</span> <span class="pre">{static,dynamic}</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code> queries time zero. <code class="docutils literal notranslate"><span class="pre">dynamic</span></code> samples the bundle’s animation duration; for Cockpit it uses the KPI scopes, Structure against Module, Tool and Probes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--rate</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">32</span></code></p></td>
+<td><p>Dynamic samples per second</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--tasks</span> <span class="pre">N</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">4</span></code></p></td>
+<td><p>Worker tasks, 1 to 256; 1 runs single-threaded</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--payloads</span></code></p></td>
+<td><p>off</p></td>
+<td><p>Also read every full native report, with report flags 30: the outline, the faces of both meshes and the points</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--report</span> <span class="pre">PATH</span></code></p></td>
+<td><p>required</p></td>
+<td><p>New receipt path outside the bundle</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The command prints the receipt and writes it to <code class="docutils literal notranslate"><span class="pre">--report</span></code>. It exits 0 when the audit passes and
+2 when the audit failed; a rejected input exits 4 with <code class="docutils literal notranslate"><span class="pre">reference</span> <span class="pre">fixtures:</span> <span class="pre">&lt;reason&gt;</span></code>. The
+receipt holds these fields, all required:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Receipt format version</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profile</span></code>, <code class="docutils literal notranslate"><span class="pre">family</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">family</span></code> is <code class="docutils literal notranslate"><span class="pre">body</span></code> or <code class="docutils literal notranslate"><span class="pre">cockpit</span></code></p></td>
+<td><p>The bundle’s profile ID and assembly family</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kind</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static</span></code> or <code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--kind</span></code> value</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">duration_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">rate</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The bundle’s animation duration and the <code class="docutils literal notranslate"><span class="pre">--rate</span></code> value</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tasks</span></code>, <code class="docutils literal notranslate"><span class="pre">samples</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">--tasks</span></code> value and the number of sampled times</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">closure_digest</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>The measured bundle’s closure digest</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">measurement_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>The KPI measurement identity; see <a class="reference internal" href="kpi_contracts.html#measurement-identity"><span class="std std-ref">measurement identity</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">backend</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">backend_name</span></code> is <code class="docutils literal notranslate"><span class="pre">ovstage</span></code></p></td>
+<td><p>The fields of <code class="docutils literal notranslate"><span class="pre">ovclash.backend_info()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">native_library_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>SHA-256 of the loaded native library</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">settings</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The settings applied to the run</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">scope</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">search sets</span></a> <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>, arrays of prim paths; both empty for a full-scene run</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">timeline</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The stage timeline data</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">open_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">create_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">capture_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">audit_seconds</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds</p></td>
+<td><p>Stage opening, pipeline creation, the sum of the pipeline steps, result capture and audit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">phases</span></code></p></td>
+<td><p>array of objects</p></td>
+<td><p>Yes</p></td>
+<td><p>One per pipeline step</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code> (string) and <code class="docutils literal notranslate"><span class="pre">seconds</span></code> (number) of each step</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stats</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The query statistics</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">results</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>The result counts, the per-sample record histogram and the membership digests; with <code class="docutils literal notranslate"><span class="pre">--payloads</span></code>, also the report fingerprints</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">audit</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">status</span></code> is <code class="docutils literal notranslate"><span class="pre">failed</span></code> on a failed audit</p></td>
+<td><p>The audit against the contact plan, including <code class="docutils literal notranslate"><span class="pre">fully_qualified</span></code> and <code class="docutils literal notranslate"><span class="pre">mesh_coverage</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">environment</span></code></p></td>
+<td><p>object</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">qualified</span></code> is <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Diagnostic host counters before the run and process memory at result-ready; no CPU admission</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qualification</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p></p></td>
+<td><p>States that the receipt is a diagnostic measurement only</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">measure</span></code> rejects a backend other than ovstage and a bundle whose recipe identity differs from
+<code class="docutils literal notranslate"><span class="pre">recipe.json</span></code>. It cannot tell
+whether the current generator modules generated the bundle, so regenerate a diagnostic bundle
+after you edit them. <code class="docutils literal notranslate"><span class="pre">measure</span></code> is outside the KPI path: it approves neither expected work nor a
+timing budget. Product correctness coverage belongs in <a class="reference internal" href="sentinel.html"><span class="std std-doc">Sentinel</span></a>.</p>
+</section>
+<section id="saved-reference-diagnostic-limits">
+<h2>Saved-reference diagnostic limits<a class="headerlink" href="#saved-reference-diagnostic-limits" title="Link to this heading">#</a></h2>
+<p>The saved-bundle readers in <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_capture.py</span></code>, <code class="docutils literal notranslate"><span class="pre">reference_census.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">reference_geometry.py</span></code> validate the closed USDA grammar and the member hashes, and they bound
+their work. By default they allow a 180-second construction deadline, 4,000,000 composition
+operations, 250,000 composed nodes and 256 MiB of accounted composition storage (conservative
+accounting, not the process’s resident set size, RSS). An exhausted bound prevents a complete diagnostic or qualification and
+never authorizes a partial result.</p>
+<p><code class="docutils literal notranslate"><span class="pre">reference_geometry</span></code> is the independent geometry oracle of the reference-fixture tests; no KPI
+check, budget or baseline flow imports it. Its native fixture tests run only with
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_KPI_REFERENCE_GEOMETRY_NATIVE=1</span></code> and a configured runtime.</p>
+</section>
+<section id="package-layout">
+<h2>Package layout<a class="headerlink" href="#package-layout" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/reference_fixtures/</span></code> package holds these modules:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Module</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">__main__.py</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">generate</span></code>, <code class="docutils literal notranslate"><span class="pre">inspect</span></code> and <code class="docutils literal notranslate"><span class="pre">measure</span></code> commands</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">profiles.py</span></code>, <code class="docutils literal notranslate"><span class="pre">recipe.json</span></code></p></td>
+<td><p>The size tiers by profile ID, and the recipe identifier and version</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">generator.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">build_plan()</span></code> plans a profile and <code class="docutils literal notranslate"><span class="pre">generate()</span></code> writes its layers. Re-exports the names of <code class="docutils literal notranslate"><span class="pre">plan_model.py</span></code>, <code class="docutils literal notranslate"><span class="pre">pools.py</span></code>, <code class="docutils literal notranslate"><span class="pre">contact_cuts.py</span></code> and <code class="docutils literal notranslate"><span class="pre">usda_writer.py</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">plan_model.py</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">Mesh</span></code>, <code class="docutils literal notranslate"><span class="pre">Group</span></code>, <code class="docutils literal notranslate"><span class="pre">Pool</span></code> and <code class="docutils literal notranslate"><span class="pre">Plan</span></code> dataclasses and the deterministic number, digest, seeded-name and triangle-budget helpers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pools.py</span></code></p></td>
+<td><p>The contact-group pool layout</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">contact_cuts.py</span></code></p></td>
+<td><p>The contact-boundary cuts that the planner applies to a built plan</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">usda_writer.py</span></code></p></td>
+<td><p>The streaming USDA writer of the bundle layers (<code class="docutils literal notranslate"><span class="pre">_Writer</span></code>)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">structure.py</span></code>, <code class="docutils literal notranslate"><span class="pre">dimensions.py</span></code>, <code class="docutils literal notranslate"><span class="pre">clusters.py</span></code>, <code class="docutils literal notranslate"><span class="pre">part_transforms.py</span></code></p></td>
+<td><p>Hierarchy recipes, cluster dimensions, special contact shapes and part frames</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">geometry.py</span></code>, <code class="docutils literal notranslate"><span class="pre">recipe_angles.py</span></code></p></td>
+<td><p>Streamed mesh surfaces and exact angle values</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">motion.py</span></code></p></td>
+<td><p>Mover keys, sample grids and analytical contact plans</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bundle.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">generate_bundle()</span></code>, which generates and seals a bundle for the <code class="docutils literal notranslate"><span class="pre">generate</span></code> command; the source identity; bundle verification for <code class="docutils literal notranslate"><span class="pre">inspect</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">preflight.py</span></code></p></td>
+<td><p>The Cockpit byte preflight</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">native.py</span></code>, <code class="docutils literal notranslate"><span class="pre">audit.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">measure</span></code>: the native run and the audit of its results against the contact plan</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">generator.py</span></code> looks up the contact cuts and <code class="docutils literal notranslate"><span class="pre">_Writer</span></code> in its own globals, so tests patch those
+names on <code class="docutils literal notranslate"><span class="pre">generator</span></code>. <code class="docutils literal notranslate"><span class="pre">preflight.estimate_plan</span></code> subclasses <code class="docutils literal notranslate"><span class="pre">_Writer</span></code> to count bytes, so the
+method names and signatures of <code class="docutils literal notranslate"><span class="pre">_Writer</span></code> are an extension API.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kpi_contracts.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">KPI frozen contracts and maintenance</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="sentinel.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Sentinel correctness validation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generate-and-retain-stages">Generate and retain stages</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-metadata">Generation metadata</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pinned-bundles">Pinned bundles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bundle-manifest-and-seal">Bundle manifest and seal</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inspect-a-bundle">Inspect a bundle</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometry-and-motion">Geometry and motion</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#structural-census">Structural census</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagnostic-recipes-and-tools">Diagnostic recipes and tools</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#saved-reference-diagnostic-limits">Saved-reference diagnostic limits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-layout">Package layout</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

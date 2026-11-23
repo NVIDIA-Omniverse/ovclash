@@ -1,0 +1,1242 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Sentinel settings coverage audit &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/sentinel_coverage_audit';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Sentinel repository goldens" href="sentinel_goldens.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Sentinel settings coverage audit</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sentinel-settings-coverage-audit">
+<h1>Sentinel settings coverage audit<a class="headerlink" href="#sentinel-settings-coverage-audit" title="Link to this heading">#</a></h1>
+<p>This page maps ovclash settings and their interactions to the layer that tests them:</p>
+<ul class="simple">
+<li><p>the engine corpus of <a class="reference internal" href="sentinel.html"><span class="std std-doc">Sentinel</span></a>, ovclash’s correctness campaign;</p></li>
+<li><p>the <a class="reference internal" href="sentinel.html#native-controls"><span class="std std-ref">native controls</span></a> that the combined Sentinel gate runs: one
+Sentinel <code class="docutils literal notranslate"><span class="pre">run</span></code>, whose verdict needs every native control, serialization comparison and engine
+cell to pass;</p></li>
+<li><p>ordinary validation outside Sentinel.</p></li>
+</ul>
+<p>It does not claim that every combination of settings is covered. Paths on this page are relative
+to the <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> project directory. The Sentinel <a class="reference internal" href="sentinel.html#glossary"><span class="std std-ref">glossary</span></a> defines the
+terms used here, such as case, variant, witness, obligation, cell, golden and build tuple.</p>
+<p>Five named engine cases assert interactions and boundaries that individually correct settings do
+not establish; see
+<a class="reference internal" href="#implemented-interaction-and-boundary-checks">implemented interaction and boundary checks</a>.
+They also compare their typed results with reviewed goldens for each build tuple. An
+independent expected answer never replaces a golden, and a golden never replaces an independent
+expected answer. <a class="reference internal" href="sentinel_goldens.html#propose-and-accept-results"><span class="std std-ref">Propose and accept results</span></a>
+describes the golden workflow.</p>
+<section id="what-counts-as-coverage">
+<h2>What counts as coverage<a class="headerlink" href="#what-counts-as-coverage" title="Link to this heading">#</a></h2>
+<p>Three layers test settings:</p>
+<ol class="arabic simple">
+<li><p><strong>Sentinel engine corpus.</strong> Named cases with frozen settings and actions, independent
+semantic checks and <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">backend</span></a>-specific repository goldens.
+<code class="docutils literal notranslate"><span class="pre">tests/sentinel/engine_cases.json</span></code> declares the cases, and
+<code class="docutils literal notranslate"><span class="pre">tests/sentinel/engine_contract.json</span></code> declares the obligations they satisfy; see
+<a class="reference internal" href="sentinel.html#case-fields"><span class="std std-ref">case fields</span></a> and <a class="reference internal" href="sentinel.html#obligation-fields"><span class="std std-ref">obligation fields</span></a>.</p></li>
+<li><p><strong>Native controls in the combined Sentinel gate.</strong> <code class="docutils literal notranslate"><span class="pre">tests/sentinel/native_targets.py</span></code>
+requires the installed <code class="docutils literal notranslate"><span class="pre">ovclash.native.test</span></code> without a selector, which runs every test
+registered in <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeClash.cpp</span></code>. It also requires a fixed list of other
+native test programs; see <a class="reference internal" href="sentinel.html#native-controls"><span class="std std-ref">native controls</span></a>. These assertions
+count toward the combined gate even without a matching engine case. <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ONLY</span></code>
+guards in <code class="docutils literal notranslate"><span class="pre">TestNativeClash.cpp</span></code> decide which tests each backend registers.</p></li>
+<li><p><strong>Ordinary validation outside Sentinel.</strong> The Python runtime test group that
+<code class="docutils literal notranslate"><span class="pre">scripts/test_python_runtime.cmake</span></code> runs, and the native test programs that
+<code class="docutils literal notranslate"><span class="pre">scripts/test_cpp.cmake</span></code> runs. A native test program is a Sentinel native control only when
+<code class="docutils literal notranslate"><span class="pre">native_targets.py</span></code> lists it.</p></li>
+</ol>
+<p>Most <code class="docutils literal notranslate"><span class="pre">test_sentinel_*</span></code> Python modules are checker tests. They test the checkers’ rejection
+logic, and their existence does not prove that a product scenario ran.
+<code class="docutils literal notranslate"><span class="pre">scripts/python_test_inventory.py</span></code> names the three serialization modules that run against the
+installed SDK instead.</p>
+<p><code class="docutils literal notranslate"><span class="pre">engine_contract.json</span></code> gives every canonical setting, a member of <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> or a
+settings flag with a canonical mapping, an explicit coverage decision:</p>
+<ul class="simple">
+<li><p>a <code class="docutils literal notranslate"><span class="pre">behavior</span></code> disposition with the obligations that exercise it, or</p></li>
+<li><p>a <code class="docutils literal notranslate"><span class="pre">transport-only</span></code> disposition with a reason.</p></li>
+</ul>
+<p>Each setting with a canonical mapping carries its decision in
+<code class="docutils literal notranslate"><span class="pre">settings.&lt;name&gt;.canonical_coverage</span></code>. The two <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Suite API</span></a>-only
+settings, <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> and <code class="docutils literal notranslate"><span class="pre">discard_touching</span></code>, have none. <code class="docutils literal notranslate"><span class="pre">canonical_input_coverage</span></code> holds the
+decisions for <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_LOG</span></code>, <code class="docutils literal notranslate"><span class="pre">startTime</span></code>, <code class="docutils literal notranslate"><span class="pre">endTime</span></code> and <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code>, all
+four of them and no other name. A coverage decision holds exactly these fields:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">disposition</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">behavior</span></code>, <code class="docutils literal notranslate"><span class="pre">transport-only</span></code></p></td>
+<td><p>Whether an obligation exercises the setting’s behavior.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">obligations</span></code></p></td>
+<td><p>array of strings</p></td>
+<td><p>Yes</p></td>
+<td><p>Unique obligation IDs of the contract: at least one for <code class="docutils literal notranslate"><span class="pre">behavior</span></code>, none for <code class="docutils literal notranslate"><span class="pre">transport-only</span></code></p></td>
+<td><p>The obligations that exercise the setting.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">reason</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>Nonempty</p></td>
+<td><p>Why the decision holds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_sentinel_source_inventory.py</span></code> fails when an <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> member</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>or settings flag has no mapping or no decision. A linked obligation is a requirement, not</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p>evidence that it ran. The “Updating fields and settings” section of <code class="docutils literal notranslate"><span class="pre">tests/sentinel/README.md</span></code></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p>describes how to add a setting.</p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference download internal" download="" href="../_downloads/f59a3205beba7077207adaf1786a8a3e/ovclash.h"><span class="xref download myst">ovclash.h</span></a> defines the canonical behavior.
+<code class="docutils literal notranslate"><span class="pre">source/suite/SuiteSettings.cpp</span></code> translates the Suite settings declared in
+<a class="reference download internal" download="" href="../_downloads/0787f6e3c1a0c597134654655394aeca/ovclash_suite_types.h"><span class="xref download myst">ovclash_suite_types.h</span></a>.
+<code class="docutils literal notranslate"><span class="pre">tests/sentinel/source_inventory.json</span></code> labels <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> <code class="docutils literal notranslate"><span class="pre">mapped-settings</span></code>: its member
+names and types must match the launch defaults and the typed native capture. It labels
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t</span></code> and both Python <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> classes <code class="docutils literal notranslate"><span class="pre">structural-only</span></code>. Neither
+disposition is runtime interaction coverage.</p>
+<p>Four kinds of evidence answer different questions:</p>
+<ul class="simple">
+<li><p>Requested and effective settings readback shows that a value reached the API.</p></li>
+<li><p>A private event shows that an implementation path ran.</p></li>
+<li><p>An independent expected answer establishes the named geometric or policy behavior.</p></li>
+<li><p>A golden comparison detects a change to the retained typed outputs of an approved case.</p></li>
+</ul>
+<p>For example, equal overlap reports cannot prove that a bounds offset was applied when both
+offset values produce the same candidate pairs. A golden detects an unexpected payload change,
+but it does not prove the depth algorithm. Sentinel expands only the variants and axes that each
+case declares. The <code class="docutils literal notranslate"><span class="pre">extended</span></code> profile adds seeds, repeats and task budgets, not interactions; see
+<a class="reference internal" href="sentinel.html#declared-combinations-and-coverage-limits"><span class="std std-ref">declared combinations and coverage limits</span></a>.</p>
+</section>
+<section id="named-engine-coverage">
+<h2>Named engine coverage<a class="headerlink" href="#named-engine-coverage" title="Link to this heading">#</a></h2>
+<p>The case IDs in this table are entries in <code class="docutils literal notranslate"><span class="pre">tests/sentinel/engine_cases.json</span></code>; a leading <code class="docutils literal notranslate"><span class="pre">-</span></code>
+abbreviates the case ID before it, and <code class="docutils literal notranslate"><span class="pre">*</span></code> matches every case with that prefix.
+<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_cases.json</span></code> holds the option recipes and their expected answers.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Settings or behavior</p></th>
+<th class="head"><p>Sentinel cases</p></th>
+<th class="head"><p>What the evidence establishes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Scope, full scene, visibility and subcomponents</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-selection-scope</span></code>, <code class="docutils literal notranslate"><span class="pre">-prefix</span></code>, <code class="docutils literal notranslate"><span class="pre">-b-only</span></code>, <code class="docutils literal notranslate"><span class="pre">-visibility</span></code>, <code class="docutils literal notranslate"><span class="pre">-subcomponent</span></code>, <code class="docutils literal notranslate"><span class="pre">-reselection</span></code>, <code class="docutils literal notranslate"><span class="pre">-stale-details</span></code>; <code class="docutils literal notranslate"><span class="pre">engine-options-subcomponent</span></code></p></td>
+<td><p>Selected pair membership, empty and B-only outcomes, instance-root visibility, subcomponent filtering, reselection and stale-detail rejection.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Time range and sample rate</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-schedule-*</span></code></p></td>
+<td><p>Sample times from independent repeated binary64 addition across sample and time-code rates, start and end boundaries, empty and nonempty samples and retained timestamps. On <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, also actual sample events and applied times.</p></td>
+</tr>
+<tr class="row-even"><td><p>Static and dynamic purging</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-classification-purge-flags</span></code>, <code class="docutils literal notranslate"><span class="pre">-pre-purge</span></code>, <code class="docutils literal notranslate"><span class="pre">-authored-ops</span></code>, <code class="docutils literal notranslate"><span class="pre">-masked-ops</span></code>, <code class="docutils literal notranslate"><span class="pre">-unknown-initial</span></code>, <code class="docutils literal notranslate"><span class="pre">-ancestors</span></code></p></td>
+<td><p>All four purge-flag combinations, authored animation classification and applicable pre-purge observations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Duplicates and redundant contacts</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-duplicates</span></code></p></td>
+<td><p>Ordinary versus duplicate-only results, redundant filtering, moving and static representative ordering, scope and subcomponent eligibility, and zero and positive tolerance controls.</p></td>
+</tr>
+<tr class="row-even"><td><p>Coplanar and clearance queries</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-coplanar</span></code>, <code class="docutils literal notranslate"><span class="pre">-tolerance</span></code></p></td>
+<td><p>Coplanar on and off, dyadic near-miss thresholds, and soft, hard and mixed report geometry under the declared schedulers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pose, bounds and area epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-epsilons</span></code>, <code class="docutils literal notranslate"><span class="pre">-bounds-limits</span></code></p></td>
+<td><p>Zero and positive pose values, zero, positive and negative bounds values, triangle-area thresholds below and above the authored area, and the 2/3/0 candidate counts that the finite <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">broad-phase</span></a> limit exposes. Not every epsilon use site is independently checked.</p></td>
+</tr>
+<tr class="row-even"><td><p>Cooking flags and leaf size</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-bounds</span></code>, <code class="docutils literal notranslate"><span class="pre">-quantization</span></code>, <code class="docutils literal notranslate"><span class="pre">-leaf-size</span></code></p></td>
+<td><p>Both values of each flag, every accepted leaf size 1 to 15, and selected flag combinations. On ovstage, private events also check the cooking parameters, the tight-bounds mesh flag and the retry at 15 after a leaf size of 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Any-hit and triangle limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-any-hit</span></code>, <code class="docutils literal notranslate"><span class="pre">-limits</span></code>, <code class="docutils literal notranslate"><span class="pre">-hit-depth</span></code></p></td>
+<td><p>Unlimited versus capped element counts, and retained-hit MINIMAL depth with culling and restoration (the depth modes <code class="docutils literal notranslate"><span class="pre">DISABLED</span></code>, <code class="docutils literal notranslate"><span class="pre">MINIMAL</span></code>, <code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code> and <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> are described in <a class="reference internal" href="../consumer/settings.html#penetration-depth"><span class="std std-ref">penetration depth</span></a>). <code class="docutils literal notranslate"><span class="pre">any-hit-one</span></code> sets a triangle limit of 17 and checks that any-hit overrides it with one hit.</p></td>
+</tr>
+<tr class="row-even"><td><p>Broad-phase limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-limits</span></code>, <code class="docutils literal notranslate"><span class="pre">-bounds-limits</span></code>; <code class="docutils literal notranslate"><span class="pre">engine-recovery-phase-failure</span></code></p></td>
+<td><p>Zero-limit cancellation, healthy recovery after reset, the unlimited control, and exact positive finite N and N-1 boundaries with async finish and restoration on an independently counted scene.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intersection code (<code class="docutils literal notranslate"><span class="pre">overlap_code</span></code>, which selects the triangle intersection kernel; see <a class="reference internal" href="../consumer/settings.html#detection"><span class="std std-ref">Settings</span></a>) and sort mode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-overlap-code</span></code>, <code class="docutils literal notranslate"><span class="pre">-kernel-boundary</span></code>, <code class="docutils literal notranslate"><span class="pre">-sort</span></code>; <code class="docutils literal notranslate"><span class="pre">engine-reports-floating-point-kernel0</span></code></p></td>
+<td><p>Codes 0, 1, 2, 3 and <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> and sort modes 0, 1, 2 and <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> on their authored scenes, including the duplicate triangle count that sort mode <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code> zeroes. Exact positive, separated and coplanar boundaries for codes 0 to 3, and one selected code-0 subnormal domain.</p></td>
+</tr>
+<tr class="row-even"><td><p>Depth, touching contacts and cutoff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-depth</span></code>, <code class="docutils literal notranslate"><span class="pre">-depth-culling</span></code>, <code class="docutils literal notranslate"><span class="pre">-contact</span></code>, <code class="docutils literal notranslate"><span class="pre">-hit-depth</span></code></p></td>
+<td><p>All four canonical depth modes, disabled-mode behavior, touching and soft-contact culling, and analytically certified shallow and deep MINIMAL thresholds, including equality, retained-hit limits and restoration. The cutoff recipes check culling only; see the <a class="reference internal" href="#engine-corpus-gaps-covered-by-the-combined-gate">combined-gate table</a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point clouds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-points</span></code>, <code class="docutils literal notranslate"><span class="pre">-point-options</span></code>, <code class="docutils literal notranslate"><span class="pre">-point-width-contract</span></code>, <code class="docutils literal notranslate"><span class="pre">-instanced-points-contract</span></code>; <code class="docutils literal notranslate"><span class="pre">engine-live-point_*</span></code> and <code class="docutils literal notranslate"><span class="pre">engine-live-instanced_points</span></code></p></td>
+<td><p>Points disabled and enabled, point and mesh isolation under tolerance, depth and culling, report masks 16 and 30, the experimental flag alone, authored, overridden, varying and uniform widths, backend-specific instancing, and retained dynamic and mixed payloads.</p></td>
+</tr>
+<tr class="row-even"><td><p>Scheduling and optimizations</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-scheduler-controls</span></code>, <code class="docutils literal notranslate"><span class="pre">engine-optimization-*</span></code></p></td>
+<td><p>Task budgets, the serial override, fresh scheduler equality, worker participation and the declared cache, prefetch, window and chunk boundaries. All optimization cases except <code class="docutils literal notranslate"><span class="pre">engine-optimization-fresh-schedulers</span></code> are ovstage-only.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Transform decomposition and lifecycle</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-decomposition</span></code>, <code class="docutils literal notranslate"><span class="pre">engine-transforms-*</span></code></p></td>
+<td><p>Both ovstage decomposition modes, reset and reselection, matrix words, default and numeric time, composed transforms, instances and history.</p></td>
+</tr>
+<tr class="row-even"><td><p>Invalid settings and delivery</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">engine-options-invalid-settings</span></code>, <code class="docutils literal notranslate"><span class="pre">engine-reports-*</span></code>, <code class="docutils literal notranslate"><span class="pre">engine-delivery-*</span></code>, <code class="docutils literal notranslate"><span class="pre">engine-recovery-*</span></code></p></td>
+<td><p>Rejection and preservation, report masks and typed payloads, floating-point controls, lifecycle, persistence and selected failure and recovery obligations.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Private cooking and bounds evidence comes from <code class="docutils literal notranslate"><span class="pre">check_private_paths</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_paths.py</span></code>, which runs for the ovstage <code class="docutils literal notranslate"><span class="pre">bounds</span></code>, <code class="docutils literal notranslate"><span class="pre">quantization</span></code>
+and <code class="docutils literal notranslate"><span class="pre">leaf-size</span></code> recipes. The <code class="docutils literal notranslate"><span class="pre">pending</span></code> strings in <code class="docutils literal notranslate"><span class="pre">option_cases.json</span></code> are not a reliable list of
+missing checks: those three entries still list these private events as pending.</p>
+</section>
+<section id="implemented-interaction-and-boundary-checks">
+<h2>Implemented interaction and boundary checks<a class="headerlink" href="#implemented-interaction-and-boundary-checks" title="Link to this heading">#</a></h2>
+<p>Each case in this section asserts an interaction or boundary that individually correct settings
+do not establish. Its oracle derives the expected answers from exact rational geometry and the
+public contract, never from native output. The docstrings of the oracle modules
+<code class="docutils literal notranslate"><span class="pre">option_hit_depth.py</span></code>, <code class="docutils literal notranslate"><span class="pre">option_point_interactions.py</span></code>, <code class="docutils literal notranslate"><span class="pre">option_bounds_limits.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">option_kernel_boundaries.py</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/</span></code> describe their fixtures and proofs. The
+neighboring native checks are named so that new coverage does not duplicate them.</p>
+<section id="any-hit-or-a-triangle-limit-with-depth-and-depth-culling">
+<h3>Any-hit or a triangle limit with depth and depth culling<a class="headerlink" href="#any-hit-or-a-triangle-limit-with-depth-and-depth-culling" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_set_any_hit</span></code> keeps one representative triangle pair per mesh pair and computes
+<code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> from that pair only. A truncated hit set can therefore change the depth and the
+contact-epsilon culling decision. <code class="docutils literal notranslate"><span class="pre">engine-options-hit-depth</span></code>
+(<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_hit_depth.py</span></code>) uses two triangle pairs with MINIMAL depths 1/8
+and 1/2, in both orders. It runs unlimited, limit-one and any-hit settings, steps the contact
+epsilon around both depths, and then restores disabled culling. The header does not say which
+pair is retained, so either face is accepted. Each execution tuple needs all six variants and a
+shallow culling witness for both limiting modes. Witnesses cannot be pooled across backends,
+configurations, seeds or repeats.</p>
+<p><code class="docutils literal notranslate"><span class="pre">testTriangleLimitAndAnyHitSetters</span></code>, <code class="docutils literal notranslate"><span class="pre">testMaxLocalDepthDirectSetter</span></code> and
+<code class="docutils literal notranslate"><span class="pre">testContactEpsilonDirectSetter</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeMeshQueries.cpp</span></code> check these
+settings one at a time. On ovstage, <code class="docutils literal notranslate"><span class="pre">testNarrowPhaseReuse</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/native/TestNarrowPhaseReuse.cpp</span></code> checks <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">narrow-phase</span></a>
+reuse and invalidation when they
+change.</p>
+</section>
+<section id="point-cloud-isolation-from-mesh-clearance-and-depth-culling">
+<h3>Point-cloud isolation from mesh clearance and depth culling<a class="headerlink" href="#point-cloud-isolation-from-mesh-clearance-and-depth-culling" title="Link to this heading">#</a></h3>
+<p>The header says that the point-vs-mesh narrow phase ignores the tolerance, so it reports no
+point near misses. A point-vs-mesh overlap reports a <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> of 0.0 in every depth mode.
+On ovstage, <code class="docutils literal notranslate"><span class="pre">testMeshPair</span></code> in <code class="docutils literal notranslate"><span class="pre">source/OvstageClashCollision.cpp</span></code> applies contact-epsilon culling
+to mesh pairs only, and <code class="docutils literal notranslate"><span class="pre">runNarrowPhase</span></code> collects point hits separately.</p>
+<p><code class="docutils literal notranslate"><span class="pre">engine-options-point-options</span></code> (<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_point_interactions.py</span></code>) places a
+point hit, a point near miss and a mesh clearance pair in one scoped scene. 36 of its 38
+variants enable point clouds and combine these values (2 × 3 × 3 × 2):</p>
+<ul class="simple">
+<li><p>tolerance 0 and 1/4;</p></li>
+<li><p>disabled, MINIMAL and HIGH depth;</p></li>
+<li><p>disabled, zero and 1/4 contact epsilon;</p></li>
+<li><p>report masks 16 (<code class="docutils literal notranslate"><span class="pre">OVCLASH_OVERLAP_REPORT_FLAG_POINTS0</span></code>) and 30 (the <code class="docutils literal notranslate"><span class="pre">OUTLINE</span></code>, <code class="docutils literal notranslate"><span class="pre">FACES0</span></code>,
+<code class="docutils literal notranslate"><span class="pre">FACES1</span></code> and <code class="docutils literal notranslate"><span class="pre">POINTS0</span></code> bits of <code class="docutils literal notranslate"><span class="pre">ovclash_overlap_report_flag_t</span></code>).</p></li>
+</ul>
+<p>The other two variants run with point clouds disabled. The native
+<code class="docutils literal notranslate"><span class="pre">testPointCloudExperimentalMatchesStandalonePointClouds</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/native/TestNativePointClouds.cpp</span></code> checks that the experimental point path reports the
+same results.</p>
+</section>
+<section id="bounds-epsilon-and-the-positive-finite-broadphase-limit">
+<h3>Bounds epsilon and the positive finite broadphase limit<a class="headerlink" href="#bounds-epsilon-and-the-positive-finite-broadphase-limit" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">engine-options-bounds-limits</span></code> (<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_bounds_limits.py</span></code>) uses three
+disjoint triangles on distinct parallel planes, with tight bounds. The bounds computation turns
+each half-extent h = 1/2 into (h + epsilon) * (1 + epsilon). The scene therefore has two
+candidate pairs at epsilon 0, three at 1/4 and none at -1/4. The X spacing of the triangles
+detects an ignored epsilon, a missing offset or scale term, and an offset applied after the
+scaling.</p>
+<p><code class="docutils literal notranslate"><span class="pre">BoundsConfig</span></code> private events record the mesh flags, not the numeric epsilon. The case therefore
+infers the candidate count from the public limit contract of <code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit</span></code>: a
+run whose candidate count exceeds the limit is cancelled, not truncated. Seven async runs check
+the strict boundary:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Run</p></th>
+<th class="head"><p>Epsilon</p></th>
+<th class="head"><p>Limit</p></th>
+<th class="head"><p>Candidates</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>1</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>success</p></td>
+</tr>
+<tr class="row-odd"><td><p>2</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>error</p></td>
+</tr>
+<tr class="row-even"><td><p>3</p></td>
+<td><p>1/4</p></td>
+<td><p>2</p></td>
+<td><p>3</p></td>
+<td><p>error</p></td>
+</tr>
+<tr class="row-odd"><td><p>4</p></td>
+<td><p>1/4</p></td>
+<td><p>3</p></td>
+<td><p>3</p></td>
+<td><p>success</p></td>
+</tr>
+<tr class="row-even"><td><p>5</p></td>
+<td><p>-1/4</p></td>
+<td><p>0</p></td>
+<td><p>0</p></td>
+<td><p>success</p></td>
+</tr>
+<tr class="row-odd"><td><p>6</p></td>
+<td><p>0</p></td>
+<td><p>1</p></td>
+<td><p>2</p></td>
+<td><p>error</p></td>
+</tr>
+<tr class="row-even"><td><p>7</p></td>
+<td><p>0</p></td>
+<td><p>2</p></td>
+<td><p>2</p></td>
+<td><p>success</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each successful run takes a snapshot, which must have zero overlaps. <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code>
+reports the cancellation and clears it on both backends; the nonblocking poll before it need not
+observe the cancellation yet.</p>
+<p>The -1/4 run proves that shrinking is applied. It does not detect over-shrinking, such as
+applying the offset twice. The separate <code class="docutils literal notranslate"><span class="pre">bounds-epsilon-negative</span></code> recipe keeps its overlapping
+pair at -1/8. <code class="docutils literal notranslate"><span class="pre">testBroadphaseLimitSetsGlobalCancellation</span></code> and
+<code class="docutils literal notranslate"><span class="pre">testBroadphaseLimitAsyncFinishReportsError</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativePipeline.cpp</span></code> cover
+zero-limit failure and recovery. <code class="docutils literal notranslate"><span class="pre">testStaticDuplicateBookkeepingPreservesLimitsAndLifecycle</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeDynamicDuplicates.cpp</span></code> checks that static duplicate bookkeeping does not
+count toward the limit, and <code class="docutils literal notranslate"><span class="pre">test_full_reports_survive_multiple_narrowphase_chunks</span></code> in
+<code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_parallel_phase_results.py</span></code> exceeds a large finite limit.</p>
+</section>
+<section id="kernel-choices-at-coplanar-and-floating-point-boundaries">
+<h3>Kernel choices at coplanar and floating-point boundaries<a class="headerlink" href="#kernel-choices-at-coplanar-and-floating-point-boundaries" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">engine-options-kernel-boundary</span></code> (<code class="docutils literal notranslate"><span class="pre">tests/sentinel/oracles/option_kernel_boundaries.py</span></code>) runs
+intersection codes 0 to 3 at zero tolerance, with coplanar handling off and then on. Its one
+scene holds an exact positive segment hit, a separated pair whose axis-aligned bounding boxes
+(AABBs) overlap, and a strictly coplanar pair. It checks pair membership and the face buffers
+(report mask 12), not outline segments. The case excludes positive tolerance on purpose:
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">PhysX</span></a> selects its distance leaf function before it reads the
+kernel selector (<code class="docutils literal notranslate"><span class="pre">getLeafFunc</span></code> in the repository’s
+<code class="docutils literal notranslate"><span class="pre">physx/source/geomutils/src/mesh/GuBV4_MeshMeshOverlap.cpp</span></code>). A clearance case repeated across
+codes would test that the selector is ignored, not four kernels.</p>
+<p><code class="docutils literal notranslate"><span class="pre">engine-reports-floating-point-kernel0</span></code> runs the <code class="docutils literal notranslate"><span class="pre">fp-subnormal-kernel0</span></code> recipe: code 0 on the
+subnormal fixture, with the legacy manager, a <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> run
+and the architecture’s round-to-nearest mode that flushes denormals. It uses its own v4 request
+protocol. The other floating-point recipes in <code class="docutils literal notranslate"><span class="pre">tests/sentinel/fp_scenario.py</span></code> keep code 3 and the v3
+protocol. The header allows the kernels to differ marginally in borderline hit classification, so
+both cases check selected proved domains. They do not claim equality across kernels, rounding modes
+or cooking profiles.</p>
+</section>
+</section>
+<section id="engine-corpus-gaps-covered-by-the-combined-gate">
+<h2>Engine-corpus gaps covered by the combined gate<a class="headerlink" href="#engine-corpus-gaps-covered-by-the-combined-gate" title="Link to this heading">#</a></h2>
+<p>Promoting these checks to named cases would keep the evidence in one place, but a combined
+Sentinel run already requires them. <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeClash.cpp</span></code> registers them. All
+native files in the table are in <code class="docutils literal notranslate"><span class="pre">tests/native/</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Gap in the engine corpus</p></th>
+<th class="head"><p>Required native check</p></th>
+<th class="head"><p>Remaining distinction</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A contact cutoff stopping refinement for a retained pair</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testContactEpsilonDirectSetter</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/native/TestNativeMeshQueries.cpp</span></code></p></td>
+<td><p>In HIGH mode, a cutoff stops depth refinement for a retained pair, and clearing it restores the full depth. The check compares with reviewed reference depths, not an independent proof. The MEDIUM cutoff recipes of <code class="docutils literal notranslate"><span class="pre">engine-options-contact</span></code> check culling and do not isolate the cutoff path.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Direct setters versus the whole settings structure, defaults and rejected values</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testQueryOptionDirectSetters</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativeMeshQueries.cpp</span></code>; <code class="docutils literal notranslate"><span class="pre">testSettingsRoundTrip</span></code>, <code class="docutils literal notranslate"><span class="pre">testDefaultTableMatchesFreshContext</span></code> and <code class="docutils literal notranslate"><span class="pre">testSettingsValidationParityAcrossBackends</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativeContracts.cpp</span></code></p></td>
+<td><p>Named cases need not repeat every setter.</p></td>
+</tr>
+<tr class="row-even"><td><p>Scope and subcomponent filtering frozen during a run</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testScopeGroupingFixedAtSelection</span></code> (both backends) and <code class="docutils literal notranslate"><span class="pre">testSubcomponentFilteringFixedAtSelection</span></code> (ovstage only) in <code class="docutils literal notranslate"><span class="pre">TestNativeSelection.cpp</span></code></p></td>
+<td><p>They pin the declared backend difference: <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> reads the subcomponent flag again in later phases. The Sentinel action schema (<code class="docutils literal notranslate"><span class="pre">tests/sentinel/action_schema.py</span></code>) cannot change a setting between the steps of one run: <code class="docutils literal notranslate"><span class="pre">run</span></code> executes every step, and <code class="docutils literal notranslate"><span class="pre">select</span></code> stops after mesh selection (steps 0 and 1).</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point size changed during a run</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testPointCloudStaticDataFollowsPointSize</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativePointClouds.cpp</span></code></p></td>
+<td><p>Registered on ovstage only, where it checks that a new point size reaches the next sample. OpenUSD keeps the size it computed before the first sample; that is a declared backend difference, not a required equality.</p></td>
+</tr>
+<tr class="row-even"><td><p>Record and immediate depth and depenetration queries, hidden meshes and rejected arguments</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testMeshVsMesh</span></code>, <code class="docutils literal notranslate"><span class="pre">testImmediateQueriesIgnoreVisibilityFiltering</span></code>, <code class="docutils literal notranslate"><span class="pre">testImmediateMaxDepthRejectsExactDuplicatePair</span></code>, <code class="docutils literal notranslate"><span class="pre">testImmediateQueriesRejectNullMatrices</span></code> and <code class="docutils literal notranslate"><span class="pre">testRejectedQueriesReplaceStaleErrorsOnBothBackends</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativeMeshQueries.cpp</span></code></p></td>
+<td><p>These tests call <code class="docutils literal notranslate"><span class="pre">ovclash_compute_max_local_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_depenetrate_meshes</span></code> and the <code class="docutils literal notranslate"><span class="pre">ovclash_imm_*</span></code> queries directly; engine report snapshots do not exercise them. <code class="docutils literal notranslate"><span class="pre">testSuiteImmediateDepthQueriesReplaceStaleErrors</span></code> and <code class="docutils literal notranslate"><span class="pre">testSuiteImmediateDepthQueriesAcceptValidDirections</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativeSuite.cpp</span></code> cover the Suite immediate queries.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">DLPack</span></a> report views and attached ovstage transport</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">testOverlapReportDlpackViews</span></code> in <code class="docutils literal notranslate"><span class="pre">TestNativeContracts.cpp</span></code>; <code class="docutils literal notranslate"><span class="pre">testAttachedOvstageLifetimeAndMetadata</span></code> (ovstage only) in <code class="docutils literal notranslate"><span class="pre">TestAttachedOvstage.cpp</span></code></p></td>
+<td><p>Python lifetime and protocol behavior still needs the ordinary Python tests.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="coverage-outside-sentinel">
+<h2>Coverage outside Sentinel<a class="headerlink" href="#coverage-outside-sentinel" title="Link to this heading">#</a></h2>
+<p>Ordinary Python and Suite validation covers consumer routes beyond the native controls. All
+files are in <code class="docutils literal notranslate"><span class="pre">tests/python_tests/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test_runtime.py</span></code>: <code class="docutils literal notranslate"><span class="pre">test_run_settings_round_trip_through_the_native_context</span></code>,
+<code class="docutils literal notranslate"><span class="pre">test_report_buffers_implement_the_dlpack_protocol</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test_report_buffers_can_be_viewed_as_warp_arrays</span></code>. The NumPy and
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Warp</span></a> checks skip when those optional packages are missing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_runtime_lifetimes.py</span></code>: the async pipeline and overlap report owner-lifetime tests.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_suite_api_run_settings_and_scope.py</span></code>:
+<code class="docutils literal notranslate"><span class="pre">test_suite_run_settings_translate_all_original_python_settings</span></code>,
+<code class="docutils literal notranslate"><span class="pre">test_suite_run_settings_derive_stage_times_like_original_python</span></code>,
+<code class="docutils literal notranslate"><span class="pre">test_suite_run_settings_prefer_the_native_stage_timeline</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test_suite_set_settings_sampling_rate_override_keeps_stage_times</span></code>. They check Suite naming,
+the depth gate and selector conversion, and timeline derivation. Canonical option cases do not
+replace these translation checks.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_suite_original_behavior.py</span></code>: <code class="docutils literal notranslate"><span class="pre">test_depth_queries</span></code> checks Suite contact classification
+and discard behavior on the <code class="docutils literal notranslate"><span class="pre">contact_cases.usda</span></code> fixture. <code class="docutils literal notranslate"><span class="pre">SuiteSettings.cpp</span></code> translates the
+Suite <code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code> gate and its three-valued <code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code> selector into
+the four-valued canonical depth mode, so the two settings domains differ.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_attached_ovstage.py</span></code>: Python owner operations, callback errors and borrowed-stage
+lifetime. The source inventory entry for <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_binding_t</span></code> makes no behavioral claim
+for attachment transport.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_parallel_phase_results.py</span></code>: threading and narrow-phase chunk regressions. Sentinel has
+its own optimization cases; they do not replace these regressions.</p></li>
+</ul>
+</section>
+<section id="backend-differences-and-inert-settings">
+<h2>Backend differences and inert settings<a class="headerlink" href="#backend-differences-and-inert-settings" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="../backends.html"><span class="std std-doc">Backends</span></a>, <a class="reference internal" href="../consumer/limitations.html"><span class="std std-doc">Limitations</span></a>, the divergence ledger of
+the “Backend contract” section of <code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> and the public header constrain new expected
+answers and goldens:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_use_usdrt</span></code> is stored, read back and serialized with the query settings, but it
+changes no clash result on either backend. The engine contract marks it <code class="docutils literal notranslate"><span class="pre">transport-only</span></code>,
+and Sentinel launches with it off. The log flag is also <code class="docutils literal notranslate"><span class="pre">transport-only</span></code>; ordinary Python
+tests, such as <code class="docutils literal notranslate"><span class="pre">test_cli_log_flag_reaches_the_backend_diagnostics_without_touching_stdout</span></code>,
+check its diagnostics.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds_experimental</span></code> alone does not enable point clouds; the
+<code class="docutils literal notranslate"><span class="pre">points-experimental-alone</span></code> variant of <code class="docutils literal notranslate"><span class="pre">engine-options-points</span></code> checks this. With point clouds
+enabled, the flag is inert on ovstage and, when multi-threading is active, selects a
+multi-threaded point-vs-mesh path on OpenUSD. The native equality check covers experimental
+versus regular results.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code> bounds the legacy manager, selected when <code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager</span></code>
+is off. The new manager ignores it, and <code class="docutils literal notranslate"><span class="pre">ovclash_set_single_threaded</span></code> overrides either manager.
+Overlap index order is not contractual; see
+<a class="reference internal" href="../consumer/developer_guide.html#overlap-index-order-is-not-contractual"><span class="std std-ref">overlap index order is not contractual</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_sort_mode</span></code> changes behavior on ovstage only for <code class="docutils literal notranslate"><span class="pre">UINT32_MAX</span></code>, which zeroes the
+duplicate triangle count. That case is observable and covered. Neither backend validates the
+value, so other values are accepted, not invalid input.</p></li>
+<li><p>Uniform per-point widths and instanced point clouds have declared backend-specific results and
+existing tests. Do not report them as missing point coverage or force them into a
+cross-backend equality check.</p></li>
+<li><p>Matrix decomposition selection (<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_set_matrix_decomposition</span></code>) is ovstage-only.
+Subcomponent and point-size changes during a run, OpenUSD cancellation scope, async progress
+synchronization and step-status fidelity are declared limitations. New checks should pin those
+contracts, not redefine them.</p></li>
+<li><p>Compare default tables within one API surface. Canonical, Suite and curated Python defaults
+differ on purpose, and the <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> structural inventory does not assert one universal
+default configuration.</p></li>
+</ul>
+</section>
+<section id="open-items-and-adding-coverage">
+<h2>Open items and adding coverage<a class="headerlink" href="#open-items-and-adding-coverage" title="Link to this heading">#</a></h2>
+<p>No named case isolates the contact-cutoff path for a retained pair. Such a case would keep the
+evidence in one place. It is less urgent because the combined gate already requires
+<code class="docutils literal notranslate"><span class="pre">testContactEpsilonDirectSetter</span></code>.</p>
+<p>For each addition:</p>
+<ul class="simple">
+<li><p>bind the requested and effective values;</p></li>
+<li><p>assert the complete applicable payloads;</p></li>
+<li><p>add negative checker tests for missing or wrong evidence;</p></li>
+<li><p>require actual private path events when the public answer cannot tell the paths apart.</p></li>
+</ul>
+<p>Reuse a deterministic stage when it fits, but fewer process launches do not add semantic
+coverage. A new setting also needs a <a class="reference internal" href="#what-counts-as-coverage">coverage decision</a> in
+<code class="docutils literal notranslate"><span class="pre">engine_contract.json</span></code>. Follow
+<a class="reference internal" href="sentinel.html#add-or-change-a-case"><span class="std std-ref">add or change a case</span></a> and
+<a class="reference internal" href="sentinel_goldens.html#propose-and-accept-results"><span class="std std-ref">propose and accept results</span></a>. Source presence
+and registration show intended coverage; only a completed run shows execution on a particular
+backend, platform and configuration.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="sentinel_goldens.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Sentinel repository goldens</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-counts-as-coverage">What counts as coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#named-engine-coverage">Named engine coverage</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implemented-interaction-and-boundary-checks">Implemented interaction and boundary checks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#any-hit-or-a-triangle-limit-with-depth-and-depth-culling">Any-hit or a triangle limit with depth and depth culling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#point-cloud-isolation-from-mesh-clearance-and-depth-culling">Point-cloud isolation from mesh clearance and depth culling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-epsilon-and-the-positive-finite-broadphase-limit">Bounds epsilon and the positive finite broadphase limit</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-choices-at-coplanar-and-floating-point-boundaries">Kernel choices at coplanar and floating-point boundaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#engine-corpus-gaps-covered-by-the-combined-gate">Engine-corpus gaps covered by the combined gate</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#coverage-outside-sentinel">Coverage outside Sentinel</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backend-differences-and-inert-settings">Backend differences and inert settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#open-items-and-adding-coverage">Open items and adding coverage</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,930 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovclash Technical Guide &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=d27f7911"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fc986d73"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical_guide';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ovclash Architecture Overview" href="technical/architecture.html" />
+    <link rel="prev" title="ovclash Python Code Style" href="code_style_python.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovclash Technical Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovclash-technical-guide">
+<h1>ovclash Technical Guide<a class="headerlink" href="#ovclash-technical-guide" title="Link to this heading">#</a></h1>
+<p>The Technical Guide explains how <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> works inside. It covers how ovclash is built, how each
+backend runs the clash pipeline, where the code lives, and which rules keep the results correct and
+fast. ovclash is the standalone clash-detection product in this repository. It ships as a Python
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">wheel</span></a> and as a C/C++ <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>.</p>
+<p><a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, the runtime through which ovclash reads
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">USD</span></a>, is the product <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">backend</span></a> and
+the optimization target. The <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">OpenUSD backend</span></a> is an unpublished
+parity reference. With the default OPENUSD
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">matrix decomposition mode</span></a>, its consumer-visible results must match
+ovstage, except for the differences listed in <a class="reference internal" href="backends.html"><span class="std std-doc">Backends</span></a>.</p>
+<section id="who-should-read-it">
+<h2>Who should read it<a class="headerlink" href="#who-should-read-it" title="Link to this heading">#</a></h2>
+<p>Read this guide when you change ovclash itself: the C++ runtime, the
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">C ABIs</span></a> (C application binary interfaces), the Python bindings,
+the build and packaging scripts, the samples or the tests. It assumes that you can build ovclash
+from a source checkout, as <a class="reference internal" href="local_development.html"><span class="std std-doc">Local Development</span></a> describes.</p>
+<p>If you only use ovclash, start with the <a class="reference internal" href="consumer/developer_guide.html"><span class="std std-doc">Developer Guide</span></a>, the
+<a class="reference internal" href="api.html"><span class="std std-doc">C API reference</span></a> and the <a class="reference internal" href="python_api.html"><span class="std std-doc">Python API reference</span></a> instead.</p>
+<p>Read it together with:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="contributing.html"><span class="std std-doc">Contributing</span></a>: what a change contains, the validation it needs, and the
+license and documentation rules;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> in the <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> folder: the engineering constraints and the build, package and
+validation entry points;</p></li>
+<li><p>the <a class="reference internal" href="code_style_cpp.html"><span class="std std-doc">C++ code style</span></a> and the <a class="reference internal" href="code_style_python.html"><span class="std std-doc">Python code style</span></a>;</p></li>
+<li><p>the documentation index, <code class="docutils literal notranslate"><span class="pre">docs/README.md</span></code>: every page, and which pages ship in the SDK
+archive.</p></li>
+</ul>
+</section>
+<section id="sources-of-truth">
+<h2>Sources of truth<a class="headerlink" href="#sources-of-truth" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>When this guide and the code disagree, the code is right. The public headers and the Python
+docstrings state the contract.</p></li>
+<li><p>The guide keeps no API inventory. Doxygen, the C/C++ documentation generator, generates the
+<a class="reference internal" href="api.html"><span class="std std-doc">C API reference</span></a> from the headers. Autodoc, the docstring reader of the Sphinx
+documentation generator, generates the <a class="reference internal" href="python_api.html"><span class="std std-doc">Python API reference</span></a> from the docstrings.</p></li>
+<li><p>Every C entry point of the <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">canonical API</span></a> returns an
+<code class="docutils literal notranslate"><span class="pre">ovclash_result_t</span></code> status. The three string getters <code class="docutils literal notranslate"><span class="pre">ovclash_get_result_string</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_get_version_string</span></code> are the only exceptions.</p></li>
+</ul>
+</section>
+<section id="topic-pages">
+<h2>Topic pages<a class="headerlink" href="#topic-pages" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Page</p></th>
+<th class="head"><p>What it covers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/architecture.html"><span class="std std-doc">Architecture overview</span></a></p></td>
+<td><p>The API surfaces and features, the runtime mental model, the source tree, the Python package layering and native library loading, how to add functionality, and a glossary.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="technical/build_and_packaging.html"><span class="std std-doc">Build system and packaging</span></a></p></td>
+<td><p>Build-script rules, dependency staging and overrides, CMake targets, what each backend compiles, Visual Studio debugging, local ovstage source builds, the SDK install tree, the Python wheel, build provenance and packaging policy.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/runtime.html"><span class="std std-doc">Runtime architecture</span></a></p></td>
+<td><p>How the OpenUSD and ovstage backends implement the canonical C ABI: stage populations, transform reads, sample schedules, lifecycle locking and overlap report order.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="technical/suite_runtime.html"><span class="std std-doc">Suite runtime and fetch</span></a></p></td>
+<td><p>The <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">Suite</span></a> runtime wrapper and the fetch-and-save driver: batch limits, threading, failure handling, clash-state reconciliation and write performance.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/persistence.html"><span class="std std-doc">Persistence, export and legacy migration</span></a></p></td>
+<td><p>The SQLite and JSON directory stores, schema versions, native JSON and HTML export, and legacy <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> containers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="technical/samples.html"><span class="std std-doc">Sample internals</span></a></p></td>
+<td><p>The Suite, canonical and legacy samples: their structure, how the packages ship them and how <code class="docutils literal notranslate"><span class="pre">test_samples</span></code> checks them.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/rtx_sample_app.html"><span class="std std-doc">ovRTX clash sample app</span></a></p></td>
+<td><p>The developer viewer on <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">ovRTX</span></a>, NVIDIA’s RTX rendering runtime: launching, setup, version pins, validation, debugging and the implementation rules of its scene backends.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="technical/testing.html"><span class="std std-doc">Testing and validation internals</span></a></p></td>
+<td><p>What the native and Python tests cover, validation scheduling and sharding, the native Suite test build, and the <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">KPI</span></a> (performance benchmark) harness code and baseline collection.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/performance.html"><span class="std std-doc">Engine performance internals</span></a></p></td>
+<td><p>Hot-path rules for dynamic runs, the rebuild of the bounding volume hierarchy (<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">BVH</span></a>), how to measure dynamic-run cost, instanced geometry sharing, parallel <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">cooking</span></a> and <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">narrow phase</span></a>, narrow-phase reuse and duplicate contacts.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="technical/transforms.html"><span class="std std-doc">Transform evaluation internals</span></a></p></td>
+<td><p>Matrix decomposition parity, the numeric transform reference, raw transform classification, matrix windows and prefetch, and transform binding.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="technical/source_extraction.html"><span class="std std-doc">ovstage source extraction internals</span></a></p></td>
+<td><p>Instancing identity, static source extraction, Earliest-topology recovery, subcomponent kinds and source diagnostics.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="generated-outputs">
+<h2>Generated outputs<a class="headerlink" href="#generated-outputs" title="Link to this heading">#</a></h2>
+<p>Every generated, local-only output lives under <code class="docutils literal notranslate"><span class="pre">_build/</span></code>, which is never itself a CMake build tree.
+<a class="reference internal" href="local_development.html#backends-and-trees"><span class="std std-ref">Backends and trees</span></a> in Local Development describes the
+layout of the compile, install, distribution, validation and dependency trees.</p>
+</section>
+<section id="dependency-downloads">
+<h2>Dependency downloads<a class="headerlink" href="#dependency-downloads" title="Link to this heading">#</a></h2>
+<p>The build stages its dependencies from <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">Packman</span></a>, NVIDIA’s
+package fetcher, and the pinned ovstage wheel under <code class="docutils literal notranslate"><span class="pre">_build/deps/</span></code>. Unless an override names a wheel
+you already have, the build downloads the exact platform wheel, <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;OVSTAGE_VERSION&gt;</span></code>,
+anonymously from the configured package index (public PyPI by default) into the project-local
+<code class="docutils literal notranslate"><span class="pre">_build/deps/downloads/ovstage</span></code> cache. Every build checks the wheel against its committed SHA-256
+pin in <code class="docutils literal notranslate"><span class="pre">OVSTAGE_SHA256SUMS</span></code>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="technical/build_and_packaging.html#dependency-staging"><span class="std std-ref">Dependency staging</span></a> gives the order in
+which the build selects the ovstage wheel, the pin check and the checks of the include tree of
+the <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">ovx headers</span></a>.</p></li>
+<li><p><a class="reference internal" href="local_development.html#dependency-sources"><span class="std std-ref">Dependency sources</span></a> in Local Development lists what the
+first build downloads and the overrides a contributor sets.</p></li>
+</ul>
+</section>
+<section id="installed-packages">
+<h2>Installed packages<a class="headerlink" href="#installed-packages" title="Link to this heading">#</a></h2>
+<p>A build installs the SDK install tree into <code class="docutils literal notranslate"><span class="pre">_build/install/&lt;backend&gt;</span></code>, and packaging writes the SDK
+archive and the Python wheel to <code class="docutils literal notranslate"><span class="pre">_build/dist/&lt;backend&gt;</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package</p></th>
+<th class="head"><p>What sets it apart</p></th>
+<th class="head"><p>Details</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SDK install tree</p></td>
+<td><p>An install tree keeps the native test programs, and an ovstage install tree also the complete ovstage runtime closure, for native tests and diagnostics.</p></td>
+<td><p><a class="reference internal" href="technical/build_and_packaging.html#sdk-install-tree"><span class="std std-ref">SDK install tree</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>SDK archive</p></td>
+<td><p>No archive ships the native test programs or their symbols. The ovstage archive leaves out the ovstage loader, the runtime and their native closure. It pins <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;pin&gt;</span></code> in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> and describes that runtime in <code class="docutils literal notranslate"><span class="pre">ovclash-runtime-dependencies.json</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash-runtime-closure.json</span></code>.</p></td>
+<td><p><a class="reference internal" href="technical/build_and_packaging.html#sdk-install-tree"><span class="std std-ref">SDK install tree</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Python wheel</p></td>
+<td><p>The ovstage wheel depends on the same public <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> package at the pinned version.</p></td>
+<td><p><a class="reference internal" href="technical/build_and_packaging.html#python-wheel"><span class="std std-ref">Python wheel</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A consumer of the SDK archive installs <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> into the interpreter its tools use.
+<code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> selects that interpreter through <code class="docutils literal notranslate"><span class="pre">OVCLASH_PYTHON_EXECUTABLE</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code> names the package directory directly.
+<a class="reference internal" href="consumer/c_quickstart.html#cmake-variables"><span class="std std-ref">CMake variables</span></a> in the C/C++ Quickstart defines both
+variables, with their defaults and meanings.
+<a class="reference internal" href="consumer/c_quickstart.html#installing-the-ovstage-runtime"><span class="std std-ref">Installing the ovstage runtime</span></a> there
+gives the consumer steps.</p>
+</section>
+<section id="numbered-section-references">
+<h2>Numbered section references<a class="headerlink" href="#numbered-section-references" title="Link to this heading">#</a></h2>
+<p>A released <code class="docutils literal notranslate"><span class="pre">CHANGELOG.md</span></code> entry cites this guide by an old section number. This table maps that
+number to the page that now covers it.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Section number</p></th>
+<th class="head"><p>Page</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>14.1</p></td>
+<td><p><a class="reference internal" href="technical/runtime.html#overlap-report-ordering"><span class="std std-ref">Overlap report ordering</span></a> in Runtime architecture</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="code_style_python.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ovclash Python Code Style</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="technical/architecture.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ovclash Architecture Overview</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#who-should-read-it">Who should read it</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-of-truth">Sources of truth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#topic-pages">Topic pages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generated-outputs">Generated outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dependency-downloads">Dependency downloads</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installed-packages">Installed packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numbered-section-references">Numbered section references</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

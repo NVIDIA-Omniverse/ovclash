@@ -1,0 +1,1567 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>SQLite serializer &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/sqlite_serializer';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Directory serializer" href="directory_serializer.html" />
+    <link rel="prev" title="Persistence: Stores, Records and Clash States" href="persistence.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">SQLite serializer</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="sqlite-serializer">
+<h1>SQLite serializer<a class="headerlink" href="#sqlite-serializer" title="Link to this heading">#</a></h1>
+<p>The SQLite store, which the SQLite serializer (<code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code> in Python) reads and
+writes, is the default <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">store</span></a> of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>. It
+keeps every query, point-cloud setting, clash and frame of a
+store in one SQLite database file, by convention with the <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> extension. It also opens
+the <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">legacy container</span></a> of the clash detection extension
+of <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a>. Its schema follows the SQLite serializer of that extension: the
+same tables, schema versions per table and value encodings.</p>
+<p><a class="reference internal" href="persistence.html#choosing-a-store"><span class="std std-ref">Choosing a store</span></a> compares it with the
+<a class="reference internal" href="directory_serializer.html"><span class="std std-doc">directory store</span></a>. <a class="reference internal" href="persistence.html"><span class="std std-doc">Persistence</span></a> covers the data API
+that both share: records, transactions, fetch-and-save and clash states.</p>
+<section id="store-path">
+<h2>Store path<a class="headerlink" href="#store-path" title="Link to this heading">#</a></h2>
+<p>The path names one database file:</p>
+<ul class="simple">
+<li><p>Any file name works. The serializer adds no extension. <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>
+(<code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite.SERIALIZED_FILE_EXT</span></code>) is the convention.</p></li>
+<li><p>A relative path resolves against the current working directory.</p></li>
+<li><p>Paths are UTF-8 on every platform. A path with an embedded NUL character is rejected before the
+current store is touched.</p></li>
+<li><p>An existing directory at the path fails the open at once. With deferred creation on, the
+default, the error is <code class="docutils literal notranslate"><span class="pre">SQLite</span> <span class="pre">clash</span> <span class="pre">data</span> <span class="pre">path</span> <span class="pre">is</span> <span class="pre">a</span> <span class="pre">directory:</span> <span class="pre">&lt;path&gt;</span></code>. With it off, SQLite’s
+open error reports it: <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">open</span> <span class="pre">SQLite</span> <span class="pre">database</span> <span class="pre">'&lt;path&gt;':</span> <span class="pre">...</span></code>.</p></li>
+<li><p>A missing file is created at the first write, the default, or at open when deferred creation is
+off; see <a class="reference internal" href="persistence.html#deferred-creation-and-unnamed-stores"><span class="std std-ref">Deferred creation and unnamed stores</span></a>.
+The parent directory must exist.</p></li>
+<li><p>A path that ends in <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code>, in any letter case, must name an existing legacy
+container. A missing one fails the open (<code class="docutils literal notranslate"><span class="pre">Legacy</span> <span class="pre">.clashDetection</span> <span class="pre">file</span> <span class="pre">does</span> <span class="pre">not</span> <span class="pre">exist:</span> <span class="pre">&lt;path&gt;</span></code>),
+and a later write does not create it. A file with a valid legacy header opens as a container
+under any name; see <a class="reference internal" href="#legacy-containers">Legacy containers</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">open(&quot;&quot;)</span></code> opens an unnamed store: a private temporary database that SQLite deletes when the
+store closes, unless <code class="docutils literal notranslate"><span class="pre">save_as(path)</span></code> names it first.</p></li>
+</ul>
+<p>SQLite can keep sidecar files beside the database while it works: <code class="docutils literal notranslate"><span class="pre">&lt;file&gt;-journal</span></code>, and <code class="docutils literal notranslate"><span class="pre">&lt;file&gt;-wal</span></code>
+and <code class="docutils literal notranslate"><span class="pre">&lt;file&gt;-shm</span></code> for a database in WAL (write-ahead logging) mode. Keep them with the database. To
+copy a store that is open, use <code class="docutils literal notranslate"><span class="pre">save_as()</span></code>, which reads through SQLite and includes committed WAL
+rows and pending writes.</p>
+</section>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>This script creates <code class="docutils literal notranslate"><span class="pre">run_01.ovclashdb</span></code> in the current directory, or opens it when it exists:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashData</span><span class="p">,</span> <span class="n">ClashQuery</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">ClashData</span><span class="p">()</span>  <span class="c1"># creates and owns a ClashDataSerializerSqlite</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;run_01.ovclashdb&quot;</span><span class="p">)</span>
+    <span class="n">query</span> <span class="o">=</span> <span class="n">ClashQuery</span><span class="p">(</span><span class="n">query_name</span><span class="o">=</span><span class="s2">&quot;Pipe clearances&quot;</span><span class="p">,</span> <span class="n">object_a_path</span><span class="o">=</span><span class="s2">&quot;/World/Pipes&quot;</span><span class="p">,</span>
+                       <span class="n">object_b_path</span><span class="o">=</span><span class="s2">&quot;/World/Structure&quot;</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">insert_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">identifier</span><span class="p">,</span> <span class="n">stored</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">fetch_all_queries</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="n">stored</span><span class="o">.</span><span class="n">query_name</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output on a new store:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1 Pipe clearances
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashData()</span></code> creates the serializer, and <code class="docutils literal notranslate"><span class="pre">ClashData.destroy()</span></code> destroys it. To keep your own
+reference, create a <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code>, pass it to <code class="docutils literal notranslate"><span class="pre">ClashData(serializer)</span></code> and destroy
+it yourself.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">open()</span></code> raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the file cannot be opened. An incompatible schema is the
+exception: it leaves the store closed without raising; see
+<a class="reference internal" href="#schema-versions-and-forward-compatibility">Schema versions and forward compatibility</a>.</p></li>
+<li><p>Each write commits by default.</p></li>
+</ul>
+<p>To save runtime results, pass <code class="docutils literal notranslate"><span class="pre">data</span></code>, or the serializer itself, as <code class="docutils literal notranslate"><span class="pre">clash_data</span></code> to
+<code class="docutils literal notranslate"><span class="pre">ClashDetection.fetch_and_save_overlaps()</span></code> or <code class="docutils literal notranslate"><span class="pre">ClashDetection.run_async_fetch_and_save()</span></code>.
+<a class="reference internal" href="README.html#fetching-suite-runtime-results"><span class="std std-ref">Fetching Suite runtime results</span></a> describes both, and
+<a class="reference internal" href="persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a> gives the transaction rules.</p>
+</section>
+<section id="c-and-c">
+<h2>C and C++<a class="headerlink" href="#c-and-c" title="Link to this heading">#</a></h2>
+<p>Create the handle with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_create()</span></code>. Every <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_*</span></code> function, the
+cursors and the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> calls accept it. Check each returned
+<code class="docutils literal notranslate"><span class="pre">status</span></code> against <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_SUCCESS</span></code>. This function belongs in a C source file of your
+program; it opens the same store and prints its query count:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="nf">print_query_count</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_suite_data_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_data_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">data</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">path</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;run_01.ovclashdb&quot;</span><span class="p">;</span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">store</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">path</span><span class="p">,</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span>
+<span class="w">        </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0u</span><span class="p">;</span>
+<span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_data_open</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">store</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_data_get_query_count</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">);</span><span class="w"> </span><span class="cm">/* any data API call */</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%u queries</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">        </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">cleanup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_data_destroy</span><span class="p">(</span><span class="n">data</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cleanup</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">            </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>In C, an incompatible schema fails <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_open()</span></code>. The handle stays not open and
+keeps its compatibility and migration-possible flags for an explicit migration.</p></li>
+<li><p>To save runtime results, pass the handle as <code class="docutils literal notranslate"><span class="pre">data</span></code>, with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> serializer, to
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async()</span></code> or to the bounded
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin()</span></code>. The operation leases the store until you destroy
+it; see <a class="reference internal" href="persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a>.</p></li>
+<li><p>The data API comments in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite.h&gt;</span></code>, a header of the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>, hold the full contract.</p></li>
+</ul>
+</section>
+<section id="sample-command-line">
+<h2>Sample command line<a class="headerlink" href="#sample-command-line" title="Link to this heading">#</a></h2>
+<p>The Clash Processor, the C++ and Python programs in <code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api/</span></code> that
+<a class="reference internal" href="samples.html#the-clash-processor"><span class="std std-ref">The Clash Processor</span></a> introduces, runs one query from the
+command line and stores its results. These options select the stores and exports:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--clashdb</span> <span class="pre">FILE</span></code></p></td>
+<td><p>A file path; <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> is reserved for legacy containers</p></td>
+<td><p>None</p></td>
+<td><p>Writes a SQLite store.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--clashdir</span> <span class="pre">FOLDER</span></code></p></td>
+<td><p>A directory path</p></td>
+<td><p>None</p></td>
+<td><p>Writes a directory store, alone or together with <code class="docutils literal notranslate"><span class="pre">--clashdb</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--json</span> <span class="pre">PATH</span></code></p></td>
+<td><p>A file path</p></td>
+<td><p>None</p></td>
+<td><p>Exports a JSON report. Without <code class="docutils literal notranslate"><span class="pre">--clashdb</span></code> and <code class="docutils literal notranslate"><span class="pre">--clashdir</span></code>, it also writes a SQLite store beside it: <code class="docutils literal notranslate"><span class="pre">report.json</span></code> gives <code class="docutils literal notranslate"><span class="pre">report.ovclashdb</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--html</span> <span class="pre">PATH</span></code></p></td>
+<td><p>A file path</p></td>
+<td><p>None</p></td>
+<td><p>Exports an HTML report, with the same SQLite store rule as <code class="docutils literal notranslate"><span class="pre">--json</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--append</span></code></p></td>
+<td><p>None</p></td>
+<td><p>Off</p></td>
+<td><p>Appends to every requested store instead of replacing its records.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Before you begin: use the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">wheel</span></a> or the SDK archive, whose samples sit
+under the package root.
+On Linux, from the package root:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./samples/clash_suite_api/run_clash_suite_api_python.sh<span class="w"> </span>--<span class="w"> </span>--stage<span class="w"> </span>samples/data/time_sampled.usda<span class="w"> </span>--object-a<span class="w"> </span>/Root/Xform_Primitives/Cube<span class="w"> </span>--object-b<span class="w"> </span>/Root/Xform_Primitives/Plane<span class="w"> </span>--clashdb<span class="w"> </span>results.ovclashdb<span class="w"> </span>--json<span class="w"> </span>report.json
+</pre></div>
+</div>
+<p>On Windows, from the package root, run
+<code class="docutils literal notranslate"><span class="pre">samples\clash_suite_api\run_clash_suite_api_python.bat</span></code> with the same arguments. The run writes
+<code class="docutils literal notranslate"><span class="pre">results.ovclashdb</span></code> and <code class="docutils literal notranslate"><span class="pre">report.json</span></code> in the current directory. When the launcher first prepares
+its Python environment, it can install the pinned <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> runtime with
+pip; when that fails, see
+<a class="reference internal" href="troubleshooting.html#sample-python-setup-failed"><span class="std std-ref">Sample Python setup failed</span></a>.</p>
+<p>Name the file <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>; the processor reserves <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> for legacy containers. The
+Clash Processor guide, <code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api/clash_processor.md</span></code> in the package, covers
+combined SQLite and directory output and the other options. <a class="reference internal" href="samples.html"><span class="std std-doc">Samples</span></a> describes the
+launchers.</p>
+</section>
+<section id="tables">
+<h2>Tables<a class="headerlink" href="#tables" title="Link to this heading">#</a></h2>
+<p>A store has five tables:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Table</p></th>
+<th class="head"><p>Holds</p></th>
+<th class="head"><p>Linked by</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_query</span></code></p></td>
+<td><p>One row per <code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code></p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_info</span></code></p></td>
+<td><p>One row per <code class="docutils literal notranslate"><span class="pre">ClashInfo</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">query_id</span></code> names its query</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_frame_info</span></code></p></td>
+<td><p>One row per <code class="docutils literal notranslate"><span class="pre">ClashFrameInfo</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">clash_info_id</span></code> names its clash</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings</span></code></p></td>
+<td><p>One row per <code class="docutils literal notranslate"><span class="pre">PointCloudSettings</span></code></p></td>
+<td><p>–</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">version_info</span></code></p></td>
+<td><p>The schema version of each of the four record tables</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">table_name</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>Each record’s identifier is its <code class="docutils literal notranslate"><span class="pre">id</span></code> column, assigned by SQLite when the insert generates one.</p></li>
+<li><p>Deleting a query also deletes its clashes, and deleting a clash deletes its frames.</p></li>
+<li><p>Reads return clashes in <code class="docutils literal notranslate"><span class="pre">(overlap_id,</span> <span class="pre">id)</span></code> order and frames in <code class="docutils literal notranslate"><span class="pre">(timecode,</span> <span class="pre">id)</span></code> order.</p></li>
+</ul>
+<section id="columns">
+<h3>Columns<a class="headerlink" href="#columns" title="Link to this heading">#</a></h3>
+<p>Each column holds the field of the same name in the Python class, unless the table names
+another; <a class="reference internal" href="persistence.html#the-object-model"><span class="std std-ref">The object model</span></a> describes the fields. Every <code class="docutils literal notranslate"><span class="pre">id</span></code>
+column is an <code class="docutils literal notranslate"><span class="pre">INTEGER</span> <span class="pre">PRIMARY</span> <span class="pre">KEY</span> <span class="pre">AUTOINCREMENT</span></code>. SQLite does not enforce the length of a
+<code class="docutils literal notranslate"><span class="pre">VARCHAR</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">clash_query</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Declared type</p></th>
+<th class="head"><p>Constraint</p></th>
+<th class="head"><p>Holds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Primary key</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">query_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(1024)</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">query_name</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">object_a_path</span></code>, <code class="docutils literal notranslate"><span class="pre">object_b_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a> text of sets A and B</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_detect_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The settings as JSON text</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">creation_timestamp</span></code>, <code class="docutils literal notranslate"><span class="pre">last_modified_timestamp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The timestamps as text</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">last_modified_by</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(255)</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">last_modified_by</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">comment</span></code>, <code class="docutils literal notranslate"><span class="pre">roi_include_path</span></code>, <code class="docutils literal notranslate"><span class="pre">roi_exclude_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">clash_info</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Declared type</p></th>
+<th class="head"><p>Constraint</p></th>
+<th class="head"><p>Holds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Primary key</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">query_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>References <code class="docutils literal notranslate"><span class="pre">clash_query(id)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">query_id</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">overlap_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(40)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code></p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash hash</span></a> as text</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlap_type</span></code>, <code class="docutils literal notranslate"><span class="pre">num_records</span></code>, <code class="docutils literal notranslate"><span class="pre">overlap_elements</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, <code class="docutils literal notranslate"><span class="pre">priority</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">present</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER(1)</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">present</span></code>, 0 or 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">min_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">max_local_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">object_a_path</span></code>, <code class="docutils literal notranslate"><span class="pre">object_b_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(2048)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code></p></td>
+<td><p>The prim paths</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">object_a_mesh_crc</span></code>, <code class="docutils literal notranslate"><span class="pre">object_b_mesh_crc</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(40)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">NOT</span> <span class="pre">NULL</span></code></p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">mesh hashes</span></a> as text</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_timecode</span></code>, <code class="docutils literal notranslate"><span class="pre">end_timecode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, in seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">person_in_charge</span></code>, <code class="docutils literal notranslate"><span class="pre">last_modified_by</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(255)</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">creation_timestamp</span></code>, <code class="docutils literal notranslate"><span class="pre">last_modified_timestamp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TIMESTAMP</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The timestamps as text</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">comment</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">comment</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">penetration_depth_px</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_nx</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_py</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_ny</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_pz</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_nz</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The per-axis penetration depths</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">clash_frame_info</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Declared type</p></th>
+<th class="head"><p>Constraint</p></th>
+<th class="head"><p>Holds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Primary key</p></td>
+<td><p>The frame’s record identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_info_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>References <code class="docutils literal notranslate"><span class="pre">clash_info(id)</span></code></p></td>
+<td><p>The identifier of the owning clash</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timecode</span></code>, <code class="docutils literal notranslate"><span class="pre">min_distance</span></code>, <code class="docutils literal notranslate"><span class="pre">max_local_depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names; <code class="docutils literal notranslate"><span class="pre">timecode</span></code> is in seconds</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlap_elements</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">overlap_elements</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">usd_faces_0</span></code>, <code class="docutils literal notranslate"><span class="pre">usd_faces_1</span></code>, <code class="docutils literal notranslate"><span class="pre">usd_points_0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BLOB</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32</span></code> index buffers</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">collision_outline</span></code>, <code class="docutils literal notranslate"><span class="pre">usd_points_0_sizes</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BLOB</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float32</span></code> buffers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">object_0_matrix</span></code>, <code class="docutils literal notranslate"><span class="pre">object_1_matrix</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The matrices as JSON text; see <a class="reference internal" href="#values">Values</a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">penetration_depth_px</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_nx</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_py</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_ny</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_pz</span></code>, <code class="docutils literal notranslate"><span class="pre">penetration_depth_nz</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The per-axis penetration depths</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Declared type</p></th>
+<th class="head"><p>Constraint</p></th>
+<th class="head"><p>Holds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Primary key</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">identifier</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_prim_path</span></code>, <code class="docutils literal notranslate"><span class="pre">destination_path</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The fields of the same names</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">save_to_session_layer</span></code>, <code class="docutils literal notranslate"><span class="pre">skip_rendering</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER(1)</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The flags, 0 or 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_lod_level</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DEFAULT</span> <span class="pre">1000000</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_lod_level</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">version_info</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Declared type</p></th>
+<th class="head"><p>Constraint</p></th>
+<th class="head"><p>Holds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Primary key</p></td>
+<td><p>A row identifier</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">table_name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">VARCHAR(128)</span></code></p></td>
+<td><p>None</p></td>
+<td><p>The name of a record table</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>None</p></td>
+<td><p>That table’s schema version</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="values">
+<h3>Values<a class="headerlink" href="#values" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column type</p></th>
+<th class="head"><p>Columns</p></th>
+<th class="head"><p>Rules</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">INTEGER</span></code></p></td>
+<td><p>Identifiers, counts, <code class="docutils literal notranslate"><span class="pre">overlap_type</span></code>, <code class="docutils literal notranslate"><span class="pre">state</span></code>, <code class="docutils literal notranslate"><span class="pre">priority</span></code> and the boolean flags</p></td>
+<td><p>64-bit integers. Flags hold 0 or 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">REAL</span></code></p></td>
+<td><p>Distances, depths, tolerances, times and the <code class="docutils literal notranslate"><span class="pre">penetration_depth_*</span></code> values</p></td>
+<td><p>Binary64. NaN is rejected on write, infinities are stored, and a negative zero reads back as a positive zero.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code></p></td>
+<td><p>Paths, names, hashes, comments, timestamps, the query settings and the two frame matrices</p></td>
+<td><p>UTF-8</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BLOB</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">usd_faces_0</span></code>, <code class="docutils literal notranslate"><span class="pre">usd_faces_1</span></code>, <code class="docutils literal notranslate"><span class="pre">collision_outline</span></code>, <code class="docutils literal notranslate"><span class="pre">usd_points_0</span></code> and <code class="docutils literal notranslate"><span class="pre">usd_points_0_sizes</span></code></p></td>
+<td><p>The elements’ raw bytes, read back bit for bit</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><p><strong>NaN in a <code class="docutils literal notranslate"><span class="pre">REAL</span></code> column fails the write.</strong> The store does not write NULL and read it back as
+zero. The failure rolls back the handle’s whole pending transaction, as any write that fails
+after it began does (<a class="reference internal" href="persistence.html#crud"><span class="std std-ref">CRUD</span></a>). A directory store accepts NaN, so a record
+that holds one cannot be copied unchanged into a SQLite store.</p></li>
+<li><p><strong>Matrices are JSON text.</strong> <code class="docutils literal notranslate"><span class="pre">object_0_matrix</span></code> and <code class="docutils literal notranslate"><span class="pre">object_1_matrix</span></code> each hold one row-major
+4x4 local-to-world transform:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Part</p></th>
+<th class="head"><p>JSON type</p></th>
+<th class="head"><p>Rule</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Matrix</p></td>
+<td><p>Array of exactly 4 rows</p></td>
+<td><p>The rows, top to bottom.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Row</p></td>
+<td><p>Array of exactly 4 numbers</p></td>
+<td><p>Finite numbers, written with 17 significant digits in the classic <code class="docutils literal notranslate"><span class="pre">C</span></code> numeric locale, so they read back exactly.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</li>
+<li><p><strong>Query settings</strong> hold the JSON text of <code class="docutils literal notranslate"><span class="pre">ClashQuery.clash_detect_settings</span></code>.</p></li>
+<li><p><strong>Timestamps</strong> are local times in the text form <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span> <span class="pre">HH:MM:SS.ffffff</span></code>.</p></li>
+<li><p><strong>Oversized values are rejected.</strong> A text or BLOB value too large for SQLite’s 32-bit bind sizes
+fails the write instead of being truncated.</p></li>
+</ul>
+<p><a class="reference internal" href="persistence.html#numeric-fidelity"><span class="std std-ref">Numeric fidelity</span></a> compares these rules with the directory store.</p>
+</section>
+<section id="reads">
+<h3>Reads<a class="headerlink" href="#reads" title="Link to this heading">#</a></h3>
+<p>SQLite reads validate stored data strictly, and a malformed row fails the read instead of being
+skipped:</p>
+<ul class="simple">
+<li><p>A matrix must be an exact 4x4 JSON array of finite numbers.</p></li>
+<li><p>Each <code class="docutils literal notranslate"><span class="pre">BLOB</span></code> column must hold whole elements.</p></li>
+<li><p>Stored text with an embedded NUL character, or text that is not UTF-8, fails the read. The error
+names the column.</p></li>
+<li><p>In Python, a malformed row raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>, and an invalid stored timestamp raises
+<code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+</ul>
+<p>Read records sequentially through a cursor. An indexed getter can skip the preceding rows on every
+call:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_frame_by_overlap_at()</span></code> always skips them, so reading a long dynamic clash
+one index at a time is quadratic in its frame count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_query_at()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_point_cloud_settings_at()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_overlap_by_query_at()</span></code> seek past the previous row instead when you read
+consecutive indexes from index 1024 on, while no cursor is open on the handle and nothing has
+written to the database in between, through this handle or through another connection. Any
+other call skips the preceding rows.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_frames_by_overlap()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_overlaps_by_query()</span></code>
+open one forward-only cursor, and stepping it reads each row once. The Python read methods use
+these cursors.</p></li>
+</ul>
+</section>
+</section>
+<section id="schema-versions-and-forward-compatibility">
+<h2>Schema versions and forward compatibility<a class="headerlink" href="#schema-versions-and-forward-compatibility" title="Link to this heading">#</a></h2>
+<p>A SQLite store records each table’s schema version in its <code class="docutils literal notranslate"><span class="pre">version_info</span></code> table. Open compares
+them with the versions this build supports:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Table</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>Python constant</p></th>
+<th class="head"><p>Oldest version that migrates</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_query</span></code></p></td>
+<td><p>5</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashQuery.VERSION</span></code></p></td>
+<td><p>3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clash_info</span></code></p></td>
+<td><p>18</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashInfo.VERSION</span></code></p></td>
+<td><p>15</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">clash_frame_info</span></code></p></td>
+<td><p>7</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashFrameInfo.VERSION</span></code></p></td>
+<td><p>5</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">point_cloud_settings</span></code></p></td>
+<td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PointCloudSettings.VERSION</span></code></p></td>
+<td><p>A store without the table</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Check the versions and an open store from Python. Before you begin: run the dynamic case of
+<a class="reference internal" href="suite_workflows.html#step-3-rebuild-the-dynamic-case-in-python"><span class="std std-ref">Suite Workflows</span></a>, which writes
+<code class="docutils literal notranslate"><span class="pre">dynamic.ovclashdb</span></code> into its working directory. Then run this script from that directory, with the
+Python that has ovclash installed:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashData</span><span class="p">,</span> <span class="n">ClashFrameInfo</span><span class="p">,</span> <span class="n">ClashInfo</span><span class="p">,</span> <span class="n">ClashQuery</span><span class="p">,</span> <span class="n">PointCloudSettings</span>
+
+<span class="k">for</span> <span class="n">record</span> <span class="ow">in</span> <span class="p">(</span><span class="n">ClashQuery</span><span class="p">,</span> <span class="n">ClashInfo</span><span class="p">,</span> <span class="n">ClashFrameInfo</span><span class="p">,</span> <span class="n">PointCloudSettings</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.VERSION = </span><span class="si">{</span><span class="n">record</span><span class="o">.</span><span class="n">VERSION</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">ClashData</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;dynamic.ovclashdb&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;open=</span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">is_open</span><span class="p">()</span><span class="si">}</span><span class="s2"> compatible=</span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">data_structures_compatible</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ClashQuery.VERSION = 5
+ClashInfo.VERSION = 18
+ClashFrameInfo.VERSION = 7
+PointCloudSettings.VERSION = 2
+open=True compatible=True
+</pre></div>
+</div>
+<p>In C, read the versions with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_named_constant()</span></code> and the names
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_CLASH_QUERY_VERSION</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_CLASH_INFO_VERSION</span></code>,
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_CLASH_FRAME_INFO_VERSION</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_POINT_CLOUD_SETTINGS_VERSION</span></code>. They
+are <strong>not</strong> ovclash release numbers and do not follow the package version. Releases that keep the
+same schema versions read and write the same files.</p>
+<p>Compatibility is forward-only:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>File’s schema versions</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Same as this build</p></td>
+<td><p>Opens.</p></td>
+</tr>
+<tr class="row-odd"><td><p>None recorded (a new database)</p></td>
+<td><p>Opens and records the current versions.</p></td>
+</tr>
+<tr class="row-even"><td><p>Older, with a registered migration chain</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">open()</span></code> fails with “SQLite database tables are incompatible; migration to the latest version is possible”. Compatibility reports <strong>incompatible</strong> and migration-possible reports true. Migrate first.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Older, with no registered chain</p></td>
+<td><p>Incompatible: “SQLite database tables are incompatible and cannot be migrated to the latest version”. The API cannot recover it.</p></td>
+</tr>
+<tr class="row-even"><td><p>Newer than this build</p></td>
+<td><p>Always incompatible: a clean refusal, never a misread. There is no downgrade path.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>In Python, an incompatible database leaves <code class="docutils literal notranslate"><span class="pre">open()</span></code> closed without raising. It logs the reason as
+a warning through the <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> logger, and <code class="docutils literal notranslate"><span class="pre">last_error()</span></code> returns it; see
+<a class="reference internal" href="persistence.html#failures-that-do-not-raise"><span class="std std-ref">Failures that do not raise</span></a>. In C,
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_open()</span></code> fails.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Purpose</p></th>
+<th class="head"><p>Python</p></th>
+<th class="head"><p>C</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Is the open store’s schema current?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashData.data_structures_compatible</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_structures_compatible</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Could it be migrated?</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashData.data_structures_migration_to_latest_version_possible</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_migration_to_latest_possible</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Migrate it</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">migrate_data_structures_to_latest_version(path)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_migrate_to_latest</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>On a <code class="docutils literal notranslate"><span class="pre">ClashDataSerializerSqlite</span></code>, <code class="docutils literal notranslate"><span class="pre">data_structures_compatible()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">data_structures_migration_to_latest_version_possible()</span></code> are methods. On <code class="docutils literal notranslate"><span class="pre">ClashData</span></code> they are
+properties of the same names.</p>
+<section id="migration">
+<h3>Migration<a class="headerlink" href="#migration" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Migration works in place. The path names the store to migrate, not an output, and migration
+never creates a missing file.</p></li>
+<li><p>In C, an empty path migrates the handle’s current store. An unnamed store has no path, so an
+empty path fails with <code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">clash</span> <span class="pre">data</span> <span class="pre">file</span> <span class="pre">path</span> <span class="pre">supplied</span> <span class="pre">for</span> <span class="pre">migration</span></code> and leaves the store
+unchanged.</p></li>
+<li><p>In Python, an empty path uses the cached path. After <code class="docutils literal notranslate"><span class="pre">open()</span></code> of a <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code>
+container, that path names the container until a <code class="docutils literal notranslate"><span class="pre">save()</span></code> or <code class="docutils literal notranslate"><span class="pre">save_as()</span></code> succeeds, and
+migrating it extracts the container again and discards writes made to the earlier copy; see
+<a class="reference internal" href="legacy_container.html#the-container-format"><span class="std std-ref">Legacy Containers</span></a>.</p></li>
+<li><p>All tables migrate in one transaction, one version step at a time, so a failed step leaves the
+file unchanged. On success the migrated store is open.</p></li>
+<li><p>To put a migrated store somewhere new, migrate it and then call <code class="docutils literal notranslate"><span class="pre">save_as()</span></code>.</p></li>
+<li><p>Migration rejects a path that is missing, unreadable or not writable before it touches the
+current store. The handle keeps its path, open state and pending writes.</p></li>
+<li><p>Other migration failures, such as a corrupt or locked file, are found after the current store
+closes. The handle is then left not open.</p></li>
+<li><p>In Python, <code class="docutils literal notranslate"><span class="pre">migrate_data_structures_to_latest_version()</span></code> returns <code class="docutils literal notranslate"><span class="pre">False</span></code> instead of raising, and
+<code class="docutils literal notranslate"><span class="pre">last_error()</span></code> gives the reason.</p></li>
+<li><p>A legacy <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> container is only read. Its payload is extracted to a temporary
+database, and that copy is migrated, so a read-only container migrates too. See
+<a class="reference internal" href="legacy_container.html#the-container-format"><span class="std std-ref">Legacy Containers</span></a> for the rules that keep the copy’s
+writes.</p></li>
+</ul>
+</section>
+</section>
+<section id="legacy-containers">
+<h2>Legacy containers<a class="headerlink" href="#legacy-containers" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> file is a 16-byte header followed by an ordinary SQLite database, possibly
+with an older schema. The SQLite serializer reads and writes it through the same handle:</p>
+<ul class="simple">
+<li><p><strong>Open</strong> copies the payload to a private temporary <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> and opens that copy. The
+container itself is never changed by writes or commits.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">save_as(target)</span></code></strong> with a target that ends in <code class="docutils literal notranslate"><span class="pre">.clashDetection</span></code> exports a new container and
+keeps the current store. Any other target receives a plain <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> and becomes the current
+store.</p></li>
+<li><p><strong>Close and destroy</strong> delete the temporary copy.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">probe_legacy_clash_detection_file()</span></code> (C <code class="docutils literal notranslate"><span class="pre">ovclash_suite_probe_legacy_clash_detection_file()</span></code>)
+checks the header without opening the SQLite database.</p></li>
+</ul>
+<p><a class="reference internal" href="legacy_container.html"><span class="std std-doc">Legacy Containers</span></a> covers probing, migrating and moving the data to a plain
+<code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code>, and gives the container format.</p>
+</section>
+<section id="commits-and-ownership">
+<h2>Commits and ownership<a class="headerlink" href="#commits-and-ownership" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">commit</span></code> arguments and <code class="docutils literal notranslate"><span class="pre">commit()</span></code> work as <a class="reference internal" href="persistence.html#crud"><span class="std std-ref">CRUD</span></a> describes:</p>
+<ul class="simple">
+<li><p>The first pending write starts a SQLite <code class="docutils literal notranslate"><span class="pre">BEGIN</span> <span class="pre">IMMEDIATE</span></code> transaction. Pending writes are visible
+through the owning handle and reach other connections at commit.</p></li>
+<li><p>A write that fails after it began, for example on a NaN <code class="docutils literal notranslate"><span class="pre">REAL</span></code> value, rolls back every pending
+write.</p></li>
+<li><p>Closing or destroying the store first attempts to commit pending writes. A failed commit requests
+a rollback and keeps the handle for inspection or retry.</p></li>
+</ul>
+<p>Saving:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">save()</span></code> without a target commits. On a named store it then runs <code class="docutils literal notranslate"><span class="pre">VACUUM</span></code> when free pages exceed
+a tenth of the file, which can take a moment on a large store.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">save_as(path)</span></code> commits, then copies the database to <code class="docutils literal notranslate"><span class="pre">path</span></code> through the SQLite backup API,
+including committed WAL rows and pending writes. The handle adopts the copy only after the backup
+and the close of the source succeed; otherwise the source stays current. Saving to the current
+file, or to an existing hard link of it, keeps the current store.</p></li>
+<li><p>An unnamed store becomes a named store through <code class="docutils literal notranslate"><span class="pre">save_as(path)</span></code>.</p></li>
+</ul>
+<p>Several handles, in one process or in several, may open the same database file. SQLite’s file
+locking serializes their writes:</p>
+<ul class="simple">
+<li><p>A handle that needs a lock another connection holds waits up to 5 seconds, then fails as busy.
+Commit promptly when other handles share the file.</p></li>
+<li><p>Serialize all calls on one handle, reads included. Handles for different stores, or different
+handles on one store, can work concurrently.</p></li>
+<li><p>Writes and commits run on the thread that makes the call. For an asynchronous fetch, that is its
+background worker. SQLite frame encoding stays on that thread too.</p></li>
+</ul>
+</section>
+<section id="interrupted-commits">
+<h2>Interrupted commits<a class="headerlink" href="#interrupted-commits" title="Link to this heading">#</a></h2>
+<p>ovclash never changes a database’s journal mode, and it leaves SQLite’s synchronous setting at its
+default. SQLite’s own atomic commit therefore protects the file: when a process stops during a
+commit, SQLite rolls the incomplete transaction back the next time the database is opened. Keep
+the database’s <code class="docutils literal notranslate"><span class="pre">-journal</span></code> or <code class="docutils literal notranslate"><span class="pre">-wal</span></code> file beside it until then.</p>
+</section>
+<section id="system-sqlite-library">
+<h2>System SQLite library<a class="headerlink" href="#system-sqlite-library" title="Link to this heading">#</a></h2>
+<p>Neither the wheel nor the SDK archive ships a SQLite library. The serializer loads the system
+library at run time, once per process, when a SQLite store first needs a database connection:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Library</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Windows</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">winsqlite3.dll</span></code> from the System32 directory, which Windows provides. No other copy is searched for, so a <code class="docutils literal notranslate"><span class="pre">sqlite3.dll</span></code> on the DLL search path cannot substitute for it.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linux</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libsqlite3.so.0</span></code>, else <code class="docutils literal notranslate"><span class="pre">libsqlite3.so</span></code>, through the dynamic loader’s normal search.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p>If the library cannot be loaded, opening or writing a SQLite store fails with
+<code class="docutils literal notranslate"><span class="pre">winsqlite3.dll</span> <span class="pre">could</span> <span class="pre">not</span> <span class="pre">be</span> <span class="pre">loaded</span></code> on Windows, or with the dynamic loader’s message on Linux.
+A library that lacks a required function fails with <code class="docutils literal notranslate"><span class="pre">SQLite</span> <span class="pre">symbol</span> <span class="pre">was</span> <span class="pre">not</span> <span class="pre">found:</span> <span class="pre">&lt;name&gt;</span></code>.</p></li>
+<li><p>On Linux, install the distribution’s SQLite runtime library when <code class="docutils literal notranslate"><span class="pre">libsqlite3.so.0</span></code> is missing,
+for example <code class="docutils literal notranslate"><span class="pre">libsqlite3-0</span></code> on Debian and Ubuntu.</p></li>
+<li><p>On Windows, the operating system provides <code class="docutils literal notranslate"><span class="pre">winsqlite3.dll</span></code>, and ovclash loads no other copy.
+When it cannot be loaded, use a directory store, which needs no SQLite.</p></li>
+<li><p>A directory store does not need SQLite, and <code class="docutils literal notranslate"><span class="pre">probe_legacy_clash_detection_file()</span></code> works
+without it.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="persistence.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Persistence: Stores, Records and Clash States</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="directory_serializer.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Directory serializer</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#store-path">Store path</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#c-and-c">C and C++</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-command-line">Sample command line</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tables">Tables</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#columns">Columns</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#values">Values</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reads">Reads</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#schema-versions-and-forward-compatibility">Schema versions and forward compatibility</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#migration">Migration</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#legacy-containers">Legacy containers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#commits-and-ownership">Commits and ownership</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#interrupted-commits">Interrupted commits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#system-sqlite-library">System SQLite library</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1404 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Performance &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/performance';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Suite Workflows: Five End-to-End Clash Queries" href="suite_workflows.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Performance</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="performance">
+<h1>Performance<a class="headerlink" href="#performance" title="Link to this heading">#</a></h1>
+<p>This guide helps when a clash run takes too long or uses too much memory. It shows what to measure
+first and which settings to change. Each setting is named by its C setter on the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical API</span></a>, in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code>. <a class="reference internal" href="#setting-names">Setting names</a>
+maps those names to the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a> and Python layers, and
+<a class="reference internal" href="settings.html"><span class="std std-doc">Settings</span></a> lists every setting with its default, unit and effect.</p>
+<p>Two rules apply to every setting:</p>
+<ul class="simple">
+<li><p>Configure settings before <code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline()</span></code>, and keep them unchanged while its steps
+run. Changing a setting never alters results already computed.</p></li>
+<li><p>Some settings are read when the run selects or <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">cooks</span></a> meshes, such as
+<code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code> and <code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code>. A change takes effect on the next run.</p></li>
+</ul>
+<p>The threading settings also control report extraction and <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a>
+frame preparation after detection. To fetch with different threading, change them after detection
+and before fetch-and-save begins (<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async()</span></code>). The Suite runtime rejects settings changes until
+that operation is destroyed.</p>
+<section id="setting-names">
+<h2>Setting names<a class="headerlink" href="#setting-names" title="Link to this heading">#</a></h2>
+<p>A field of <code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t</span></code> is usually named after its canonical setter without the
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_</span></code> prefix, for example <code class="docutils literal notranslate"><span class="pre">any_hit</span></code> and <code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code>. The Suite Python <code class="docutils literal notranslate"><span class="pre">SettingId</span></code>
+usually adds <code class="docutils literal notranslate"><span class="pre">SETTING_</span></code> and uses upper case, for example <code class="docutils literal notranslate"><span class="pre">SETTING_ANY_HIT</span></code>.
+<a class="reference internal" href="settings.html#names-in-each-api"><span class="std std-ref">Names in each API</span></a> lists every name on each surface, including
+the exceptions, such as <code class="docutils literal notranslate"><span class="pre">SETTING_FILTER_TEST</span></code> for <a class="reference internal" href="#filtering-noise">subcomponent filtering</a> and
+the Suite’s offset
+depth-mode scale.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> Python <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> models only a subset: the threading controls, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>,
+<code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code>, the sample times and a few flags.
+<a class="reference internal" href="settings.html#ovclash-python"><span class="std std-ref">ovclash Python</span></a> gives the type and default of each of its fields.
+<code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_run_settings()</span></code> resets every setting it does not model to its
+<code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings()</span></code> default. Most other settings on this page therefore need the C or Suite
+API, and <code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit</span></code> exists only in canonical C.</p>
+</section>
+<section id="measure-first">
+<h2>Measure first<a class="headerlink" href="#measure-first" title="Link to this heading">#</a></h2>
+<p>Before you begin: the Python scripts in this section need the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package installed, as
+<a class="reference internal" href="python_quickstart.html"><span class="std std-doc">Python Quickstart</span></a> shows. Replace <code class="docutils literal notranslate"><span class="pre">scene.usda</span></code> with the path of your stage
+file, and run each script with that Python.</p>
+<p>Find the expensive phase before you tune. A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">static query</span></a> has 11
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">pipeline</span></a> steps, and their names are the phase list:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span> 0  Releasing previous data...
+ 1  Finding meshes...
+ 2  Computing initial mesh data...
+ 3  Finding shared meshes...
+ 4  Cooking meshes...
+ 5  Computing global mesh data...
+ 6  Building BVH...
+ 7  Running broad-phase...
+ 8  Purging duplicates...
+ 9  Running narrow-phase...
+10  Processing results...
+</pre></div>
+</div>
+<p>A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a>, one that samples the stage at several times, keeps steps 0
+to 4. It then runs <code class="docutils literal notranslate"><span class="pre">Static/dynamic</span> <span class="pre">classification...</span></code>, one <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">dynamic</span> <span class="pre">clash</span> <span class="pre">detection...</span></code> step
+per sample, and <code class="docutils literal notranslate"><span class="pre">Ending</span> <span class="pre">pipeline...</span></code>. That is 7 steps plus one per sample. Each sample step updates
+the poses and runs the bounding volume hierarchy (BVH) build, the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">broad phase</span></a> and the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">narrow phase</span></a> for that time.
+The BVH is a tree of nested bounding boxes over the meshes, and the broad phase queries it for
+candidate pairs. The cost therefore grows with the sample count; see
+<a class="reference internal" href="#dynamic-runs">Dynamic runs</a>.</p>
+<p>To time each step, run the steps yourself:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">create_pipeline</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span>
+        <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline_step</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">step_index</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">step_index</span><span class="si">:</span><span class="s2">3</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">name</span><span class="si">:</span><span class="s2">40</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">perf_counter</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">start</span><span class="si">:</span><span class="s2">8.3f</span><span class="si">}</span><span class="s2"> s&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The script prints one line per step: its index, its name from the phase list and its time in
+seconds. The step with the largest time is the one to tune.</p>
+<p>In C, call <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step()</span></code> for each step the same way. During an async run, poll
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data_async()</span></code> (Suite: <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_get_step_data()</span></code>). That poll
+is the only progress source that moves while work runs. Its step name can append the current
+operation, for example <code class="docutils literal notranslate"><span class="pre">Running</span> <span class="pre">narrow-phase...</span> <span class="pre">Testing</span> <span class="pre">mesh</span> <span class="pre">pairs</span></code>.
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data()</span></code> returns the static plan, not live progress.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_set_log(context,</span> <span class="pre">true)</span></code> makes the library print its own per-phase timing to stdout. There
+is no log callback or redirection, so capture the process’s stdout. <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span> <span class="pre">--log</span></code> moves
+these lines to stderr and keeps the JSON summary on stdout. The text is diagnostic output, not a
+stable format, so do not parse it. For phase timing of the stage reads and of each Suite fetch,
+see <a class="reference internal" href="troubleshooting.html#collecting-diagnostics-for-a-bug-report"><span class="std std-ref">Collecting diagnostics for a bug report</span></a>.</p>
+<p>Then check the size of the problem with the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">query statistics</span></a> of
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_query_stats()</span></code> or <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_query_stats()</span></code>. They report the selected
+meshes, the shared instances among them, the cooked meshes and the selected point clouds. In
+Python, <code class="docutils literal notranslate"><span class="pre">get_query_stats()</span></code> returns an <code class="docutils literal notranslate"><span class="pre">ovclash.QueryStats</span></code> of four <code class="docutils literal notranslate"><span class="pre">int</span></code> counters.
+<a class="reference internal" href="limitations.html#detect-dropped-meshes"><span class="std std-ref">Detect dropped meshes</span></a> gives the type and meaning of each
+field, and <a class="reference internal" href="developer_guide.html#reading-results"><span class="std std-ref">Reading results</span></a> the C form, <code class="docutils literal notranslate"><span class="pre">ovclash_stats_t</span></code>.
+Read them after the run:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">enable_log</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+    <span class="n">stats</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_query_stats</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">stats</span><span class="o">.</span><span class="n">nb_meshes</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_shared_meshes</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_cooked_meshes</span><span class="p">,</span> <span class="n">stats</span><span class="o">.</span><span class="n">nb_point_clouds</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The script prints the engine’s per-phase log lines and then the four counters on one line, in
+the order of the <code class="docutils literal notranslate"><span class="pre">print()</span></code> call:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nb_cooked_meshes</span></code> drives the cooking cost.</p></li>
+<li><p>A high <code class="docutils literal notranslate"><span class="pre">nb_shared_meshes</span></code> relative to <code class="docutils literal notranslate"><span class="pre">nb_meshes</span></code> is the cheap case: instanced geometry is cooked
+once and reused.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nb_cooked_meshes</span></code> counts successful cooks. A value below <code class="docutils literal notranslate"><span class="pre">nb_meshes</span> <span class="pre">-</span> <span class="pre">nb_shared_meshes</span></code> means
+meshes that failed to cook are missing from the results; see
+<a class="reference internal" href="limitations.html#detect-dropped-meshes"><span class="std std-ref">Detect dropped meshes</span></a>.</p></li>
+</ul>
+</section>
+<section id="scope-before-you-tune">
+<h2>Scope before you tune<a class="headerlink" href="#scope-before-you-tune" title="Link to this heading">#</a></h2>
+<p>Before you begin: your program builds against the SDK archive, as
+<a class="reference internal" href="c_quickstart.html#linking"><span class="std std-ref">C/C++ Quickstart</span></a> shows, and holds a context from
+<code class="docutils literal notranslate"><span class="pre">ovclash_create_context()</span></code> and an <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> that you filled, for example from
+<code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings()</span></code>.</p>
+<p>The largest lever is often not a setting: ask a smaller question. An explicit A/B
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a>, two search sets of prim paths such as “does this assembly hit
+that assembly”, removes meshes before cooking, the BVH build and the broad phase. Use
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths()</span></code>:</p>
+<ul class="simple">
+<li><p>With only the first array populated, the engine tests that set against itself.</p></li>
+<li><p>With both arrays populated, it tests the first set against the second.</p></li>
+<li><p>From the command line, pass <code class="docutils literal notranslate"><span class="pre">--scope-a</span></code> and <code class="docutils literal notranslate"><span class="pre">--scope-b</span></code> to <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span></code>.</p></li>
+</ul>
+<p>Order matters in C. <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_settings()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_set_full_scene()</span></code> all clear the scope paths. A scope set
+before them is lost. The run then selects the whole stage, or nothing when
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">full-scene traversal</span></a> is off. Set the scope last. This function belongs in
+a C source file of your program, in place of your own open, settings and scope calls:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+
+<span class="cm">/* Opens the stage, applies the settings, scopes set A (a, a_count paths) against set B</span>
+<span class="cm"> * (b, b_count paths) and creates the pipeline. Returns 0 on success. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">create_scoped_pipeline</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span>
+<span class="w">                                  </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">stage_path</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_settings_t</span><span class="o">*</span><span class="w"> </span><span class="n">settings</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_string_t</span><span class="o">*</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">a_count</span><span class="p">,</span>
+<span class="w">                                  </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_string_t</span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">                                  </span><span class="kt">size_t</span><span class="w"> </span><span class="n">b_count</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">step_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_open_stage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">stage_path</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="cm">/* clears the scope */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_set_settings</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="cm">/* clears the scope */</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_set_scope_paths</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">a_count</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">b_count</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ovclash_create_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">step_count</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>To confirm that the scope applied, read the query statistics after the run: <code class="docutils literal notranslate"><span class="pre">nbMeshes</span></code> counts
+the selected meshes, so a scoped run reports fewer than an unscoped run over the same stage.</p>
+<p>Python <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> and the Suite runtime cache the scope and apply it again just before they
+build the pipeline. They therefore accept settings and scope in either order. A successful stage
+open or attach of an <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> Stage still drops the cached scope.</p>
+<p>A non-empty scope clears full-scene traversal. In C and in <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code>, clearing the scope does
+not restore it. The Suite runtime restores it after an empty scope, a successful open or an
+ovstage attach, when the settings in effect enable <code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>. An empty Suite scope
+therefore selects the whole stage. <a class="reference internal" href="developer_guide.html#setting-a-scope"><span class="std std-ref">Setting a scope</span></a> has the
+full rules.</p>
+</section>
+<section id="threading">
+<h2>Threading<a class="headerlink" href="#threading" title="Link to this heading">#</a></h2>
+<p>Three settings select the scheduler and the worker budget: <code class="docutils literal notranslate"><span class="pre">ovclash_set_single_threaded</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code>. <a class="reference internal" href="settings.html#threading"><span class="std std-ref">Threading</span></a>
+gives their defaults.</p>
+<p>None of them changes which pairs overlap or what is reported about them, and the overlap order
+stays the same under every setting. The index order is still not part of the contract: key
+results on <code class="docutils literal notranslate"><span class="pre">name0</span></code>/<code class="docutils literal notranslate"><span class="pre">name1</span></code> or <code class="docutils literal notranslate"><span class="pre">clashHash</span></code>, never on the index.
+<a class="reference internal" href="threading_and_ownership.html#threading-controls-and-result-order"><span class="std std-ref">Threading controls and result order</span></a>
+lists the phases they cover and the ordering rules.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_single_threaded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Forces serial execution of every parallel phase. Also disables sampled-matrix prefetch and the helper thread that populates static transforms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>True selects the tasking of Carbonite, NVIDIA’s plugin and runtime framework, and its scheduler budget, and ignores <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code>. False selects bounded <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> workers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+<td><p>Read only by the <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> manager: at most <code class="docutils literal notranslate"><span class="pre">min(max(nb_tasks,</span> <span class="pre">1),</span> <span class="pre">hardware</span> <span class="pre">concurrency,</span> <span class="pre">available</span> <span class="pre">work)</span></code> workers. Clamped to 256.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_NEW_TASK_MANAGER</span></code> is part of <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_DEFAULT</span></code>, so <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code>
+has no effect until you turn the new task manager off.</p>
+<p>After detection, the same settings choose the workers for native report extraction. They also
+choose the workers for the frame preparation of a directory store or a
+<a class="reference internal" href="persistence.html#custom-stores"><span class="std std-ref">custom store</span></a>, a store that your own serializer implements, during
+fetch-and-save. <code class="docutils literal notranslate"><span class="pre">new_task_manager=false</span></code> selects <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> workers bounded by <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code>.
+Small work ranges run serially. These stay on the thread that drives the fetch: every callback
+of a custom store’s serializer except <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code>, SQLite frame encoding, and all writes.</p>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">RunSettings.single_threaded</span></code> defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code> in both packages, as on a fresh native
+context. Set it to <code class="docutils literal notranslate"><span class="pre">True</span></code>, or pass <code class="docutils literal notranslate"><span class="pre">--single-threaded</span></code> to <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">ovclash</span></code>, to force serial
+execution. To use a bounded <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> pool and keep the other settings, add this line to
+your script for a <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> named <code class="docutils literal notranslate"><span class="pre">runtime</span></code>, after <code class="docutils literal notranslate"><span class="pre">open_stage()</span></code> and before
+<code class="docutils literal notranslate"><span class="pre">create_pipeline()</span></code> or <code class="docutils literal notranslate"><span class="pre">run_pipeline()</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">get_run_settings</span><span class="p">(),</span> <span class="n">new_task_manager</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">nb_tasks</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With legacy multi-threading (<code class="docutils literal notranslate"><span class="pre">single_threaded</span></code> and <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code> both false),
+<code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_run_settings()</span></code> accepts <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> only in <code class="docutils literal notranslate"><span class="pre">1..255</span></code>. No setting pins execution to
+a CPU core.</p>
+</section>
+<section id="broad-phase-and-geometry-limits">
+<h2>Broad phase and geometry limits<a class="headerlink" href="#broad-phase-and-geometry-limits" title="Link to this heading">#</a></h2>
+<p>These settings control how much geometry work the run does and how much of the result it records.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect on cost</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, 1 to 15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
+<td><p>Triangles per leaf of the BVH34, the midphase tree that <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">PhysX</span></a> cooks for each mesh (<code class="docutils literal notranslate"><span class="pre">PxCookingParams::midphaseDesc.mBVH34Desc.numPrimsPerLeaf</span></code>), read at cooking time. Larger leaves cook faster and use less memory; smaller leaves query faster. PhysX needs at least 2, so a value of 1 is cooked as 15.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_quantized</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Cooks quantized BVH34 trees (<code class="docutils literal notranslate"><span class="pre">PxCookingParams::midphaseDesc.mBVH34Desc.quantized</span></code>), read at cooking time. They use less memory at some cost in accuracy and speed.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tight_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PxMeshGeometryFlag::eTIGHT_BOUNDS</span></code>. Tight bounds shrink the broad-phase candidate set for rotated meshes but cost more to compute. Turning them off gives cheaper bounds and a larger candidate set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_any_hit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Stops each mesh pair at its first colliding triangle pair.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, unlimited</p></td>
+<td><p>Caps the triangle pairs recorded per mesh pair. It truncates <code class="docutils literal notranslate"><span class="pre">nbElements</span></code> and the report buffers. It does not stop a pair from being reported.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code></p></td>
+<td><p>Cancels the run when the broad phase finds more candidate pairs than this. 0 is a real limit, not “unlimited”.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">any_hit</span></code> forces the per-pair triangle limit to 1 and overrides <code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code>. It cuts
+narrow-phase work when you need only a yes/no answer per pair. Overlaps are still reported. Their
+<code class="docutils literal notranslate"><span class="pre">nbElements</span></code> and their face and outline buffers then hold one representative hit, and derived
+values such as <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> come from that one triangle pair.</p>
+<p><code class="docutils literal notranslate"><span class="pre">broadphase_limit</span></code> guards against a combinatorial explosion:</p>
+<ul class="simple">
+<li><p>The run compares the candidate-pair count with the limit after the broad phase has collected
+every pair. The limit does not bound the pair array itself.</p></li>
+<li><p>When the count exceeds the limit, the run is cancelled before the duplicate purge, the
+<code class="docutils literal notranslate"><span class="pre">Purging</span> <span class="pre">duplicates...</span></code> step that filters the candidate pairs, and before the narrow phase.
+Results are not truncated.</p></li>
+<li><p>A static stepped run then fails at the next step. A sample step of a dynamic run fails itself.
+An async run fails in <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline()</span></code>.</p></li>
+<li><p>In a stepped run, later steps of that context keep failing, even in a new pipeline, until
+<code class="docutils literal notranslate"><span class="pre">ovclash_reset_context()</span></code> clears the cancellation.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_set_overlap_code</span></code> picks the triangle-triangle intersection kernel: 0 is the regular
+kernel, 1 a variant of Moller’s triangle-triangle test, 2 a separating-axis test (SAT) and 3 a
+SAT that uses SIMD vector instructions (SIMD SAT). The default is 3. The kernels differ in speed and
+can differ slightly in how they classify borderline hits. The value is not validated; anything
+outside 0-3 behaves like 0.</p>
+</section>
+<section id="epsilons-and-cutoffs">
+<h2>Epsilons and cutoffs<a class="headerlink" href="#epsilons-and-cutoffs" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Trade</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_pose_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+<td><p>Per-element tolerance for comparing world transforms. It decides which meshes count as shared instances with identical poses and which pairs count as duplicates. It also lets the immediate-mode depth queries skip work for equal matrices. A larger value makes more transforms compare equal.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>Inflates each mesh’s world bounds, as an additive offset and as the scale factor <code class="docutils literal notranslate"><span class="pre">1</span> <span class="pre">+</span> <span class="pre">epsilon</span></code>. A non-negative value can only add broad-phase candidate pairs; lowering it toward 0 shrinks the candidate set. Negative values are accepted and can shrink bounds.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PxCookingParams::meshAreaMinLimit</span></code>. Triangles smaller than this are discarded at cooking time and never appear in results. Raising it speeds up cooking and hides slivers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_contact_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, off</p></td>
+<td><p>Minimum penetration depth for an overlap to be reported. Active only when depth computation is on. It culls shallow overlaps and bounds the refinement search from below.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, unset</p></td>
+<td><p>Upper depth cutoff for the refined depth search. Applied only when <code class="docutils literal notranslate"><span class="pre">contact_epsilon</span> <span class="pre">&gt;=</span> <span class="pre">0</span></code> and the depth mode is above MINIMAL.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Clearance distance: mesh pairs closer than this count as clashing. It inflates the broad-phase query boxes and is passed to the PhysX mesh-mesh queries. A positive value costs more <strong>and</strong> reports near misses as overlaps. The point-vs-mesh narrow phase ignores it. Negative values are clamped to 0.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code> is often raised for modeling reasons and then blamed for a slow run. Every positive
+value grows the broad-phase candidate set, and the narrow phase then resolves more pairs. A
+positive tolerance also stops dynamic runs from skipping the broad-phase queries of static
+meshes.</p>
+</section>
+<section id="depth-computation-costs">
+<h2>Depth computation costs<a class="headerlink" href="#depth-computation-costs" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_set_compute_max_local_depth()</span></code> takes one of four <code class="docutils literal notranslate"><span class="pre">ovclash_max_local_depth_mode_t</span></code> values,
+in increasing cost:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Mode</p></th>
+<th class="head"><p>Cost</p></th>
+<th class="head"><p>What it computes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_DISABLED</span></code></p></td>
+<td><p>none</p></td>
+<td><p>No depth. <code class="docutils literal notranslate"><span class="pre">overlap_data.maxLocalDepth</span></code> stays at the <code class="docutils literal notranslate"><span class="pre">-1.0f</span></code> “not computed” sentinel for mesh-vs-mesh overlaps. This is the default on a fresh context.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_MINIMAL</span></code></p></td>
+<td><p>fast</p></td>
+<td><p>The original fast estimate.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_MEDIUM</span></code></p></td>
+<td><p>slower</p></td>
+<td><p>A refined estimate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_HIGH</span></code></p></td>
+<td><p>slowest</p></td>
+<td><p>MEDIUM plus 64 sampling directions.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Leave it DISABLED unless you use the depth. Turning it on also activates <code class="docutils literal notranslate"><span class="pre">contact_epsilon</span></code>-based
+culling, which the default <code class="docutils literal notranslate"><span class="pre">contact_epsilon</span></code> of -1 leaves off. With depth enabled and a positive
+<code class="docutils literal notranslate"><span class="pre">contact_epsilon</span></code>, each pair costs more. The run can still be cheaper downstream, because fewer
+overlaps survive.</p>
+<p>To get depth for a few overlaps, call <code class="docutils literal notranslate"><span class="pre">ovclash_compute_max_local_depth()</span></code> (Suite:
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_compute_overlap_max_local_depth()</span></code>) on those records after the run. Do not raise the
+mode for the whole query. The call refines according to the current mode and returns the cheap
+estimate when the mode is DISABLED.</p>
+<p>Depth is mesh-only. A point-vs-mesh overlap reports <code class="docutils literal notranslate"><span class="pre">0.0f</span></code> in every mode, which is not a measured
+zero-depth contact.</p>
+<blockquote>
+<div><p><strong>Note</strong>
+The Suite’s <code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t::max_local_depth_mode</span></code> is offset by one from
+<code class="docutils literal notranslate"><span class="pre">ovclash_max_local_depth_mode_t</span></code>: 0 is minimal, 1 medium and 2 high, gated by
+<code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code>. See <a class="reference internal" href="settings.html"><span class="std std-doc">Settings</span></a>.</p>
+</div></blockquote>
+</section>
+<section id="dynamic-runs">
+<h2>Dynamic runs<a class="headerlink" href="#dynamic-runs" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_set_times(context,</span> <span class="pre">startTime,</span> <span class="pre">endTime,</span> <span class="pre">timeCodesPerSecond)</span></code> sets the sampled range. When
+<code class="docutils literal notranslate"><span class="pre">startTime</span></code> and <code class="docutils literal notranslate"><span class="pre">endTime</span></code> differ, the run is a dynamic run, the run of a dynamic query.</p>
+<ul class="simple">
+<li><p><strong>The range is in seconds, not <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> time codes.</strong> <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> is
+the query’s sampling rate, not the stage’s. Read the stage’s own rate with
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_stage_timeline_data()</span></code>.</p></li>
+<li><p>Sampling starts at <code class="docutils literal notranslate"><span class="pre">startTime</span></code> and adds <code class="docutils literal notranslate"><span class="pre">1.0/timeCodesPerSecond</span></code> until the next time exceeds
+<code class="docutils literal notranslate"><span class="pre">endTime</span></code>. Floating-point rounding can drop an exact endpoint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">startTime</span> <span class="pre">==</span> <span class="pre">endTime</span></code> is a static query. <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span> <span class="pre">==</span> <span class="pre">0</span></code> or a descending range yields
+one sample.</p></li>
+<li><p>The sample schedule is fixed when the pipeline is created, so a later <code class="docutils literal notranslate"><span class="pre">ovclash_set_times()</span></code> call
+applies to the next pipeline.</p></li>
+<li><p>Times must be finite and the rate must not be negative. <code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline()</span></code> also rejects
+a range whose sample count does not fit the pipeline, and a rate so high that adding
+<code class="docutils literal notranslate"><span class="pre">1.0/timeCodesPerSecond</span></code> no longer advances the time; see
+<a class="reference internal" href="troubleshooting.html#pipeline-creation-rejects-the-sample-range"><span class="std std-ref">Pipeline creation rejects the sample range</span></a>.</p></li>
+</ul>
+<p>Every sample adds a pipeline step (see <a class="reference internal" href="#measure-first">Measure first</a>). Every sample in which a
+pair overlaps adds one record to that pair’s overlap (<code class="docutils literal notranslate"><span class="pre">nbRecords</span></code>). For long ranges, halving
+<code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> roughly halves the sample count and much of the cost.</p>
+<p>A sample can reuse the previous sample’s narrow-phase work:</p>
+<ul class="simple">
+<li><p>Both kinds of reuse require every setting and the floating-point controls to match bit for bit.</p></li>
+<li><p>The sample reuses the whole result, including an empty one, when the geometry, matrices and
+candidate pairs also match.</p></li>
+<li><p>Otherwise it reuses a single overlapping pair’s result when that pair’s meshes, scales and
+relative pose match.</p></li>
+<li><p>Reuse applies only to dynamic runs with point clouds, duplicate-only search and maximum local
+depth all disabled. Each sample still gets its own records.</p></li>
+<li><p>The reuse data has its own 8 MiB budget. When it does not fit, the sample does the normal
+collision work.</p></li>
+</ul>
+<p>Two flags keep the result set from growing with the sample count. Neither affects a static query:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_dynamic_overlaps()</span></code> (default disabled) drops pairs present in
+<em>every</em> sampled frame. These are permanently interpenetrating modeling artifacts rather than
+motion-induced clashes.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_static_overlaps()</span></code> (default <strong>enabled</strong>) drops pairs where both
+prims were classified static for the whole run. The results then show only motion-induced
+clashes.</p></li>
+</ul>
+<p>The static purge also saves work. Every sample’s broad phase skips static-static pairs.
+With point clouds off, the per-sample BVH rebuild can cover only the moving meshes. Only a
+conclusive static classification counts:</p>
+<ul class="simple">
+<li><p>A mesh whose authored transforms cannot be resolved counts as non-static, and its pairs are
+tested at every sample. <a class="reference internal" href="limitations.html#scene-limits"><span class="std std-ref">Scene limits</span></a> says how to avoid that.</p></li>
+<li><p>On a stage attached without a composition, every mesh also stays non-static unless the binding
+declares <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code>. A stage attached with a composition
+is classified from a private population, as a file-backed stage is
+(<a class="reference internal" href="ovstage_integration.html#engine-evaluated-time"><span class="std std-ref">Engine-evaluated time</span></a>).</p></li>
+</ul>
+<p>Duplicate-mesh search is disabled for dynamic runs. <code class="docutils literal notranslate"><span class="pre">ovclash_set_only_find_duplicates()</span></code> with an
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_times()</span></code> range whose start and end differ therefore yields nothing.</p>
+<p>ovclash keeps sampled transform matrices in a cache with a fixed 1 GiB budget:</p>
+<ul class="simple">
+<li><p>With authored-transform classification, it reads matrices in playback windows that hold at most
+32 frames in total.</p></li>
+<li><p>When the scheduler allows two workers, parallel playback splits them into a current and a
+prefetched window of at most 16 frames each. A stage attached with
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage()</span></code> without a composition gets no prefetch; one attached with a
+composition prefetches as a file-backed stage does.</p></li>
+<li><p>When classification is unresolved, the fallback caches the whole timeline only if its estimate
+fits the budget. The estimate is 128 bytes (one 4x4 double matrix) per selected mesh or point
+cloud per sample. Otherwise playback reads the matrices again.</p></li>
+<li><p>The budget covers only this cache, not process memory. Prefetch does not relax the rule that
+application calls on one context are serialized
+(<a class="reference internal" href="threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a>).</p></li>
+</ul>
+<p>To save that memory at the cost of speed, turn the cache, and with it prefetch, off for one
+<code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> context. Playback then reads one frame at a time:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">runtime</span><span class="o">.</span><span class="n">set_ovstage_dynamic_matrix_cache</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The cache is on for a new context. The call closes open reports and invalidates the pipeline, so
+make it before you build the pipeline. It changes neither the sample times nor the poses.</p>
+<section id="dynamic-runs-on-an-attached-stage">
+<h3>Dynamic runs on an attached stage<a class="headerlink" href="#dynamic-runs-on-an-attached-stage" title="Link to this heading">#</a></h3>
+<p>How a borrowed ovstage Stage evaluates time decides most of the cost of a dynamic run on it
+(<a class="reference internal" href="ovstage_integration.html#attaching-a-stage"><span class="std std-ref">ovstage Integration</span></a>):</p>
+<ul class="simple">
+<li><p><strong>Without a composition</strong>, the owner publishes every sample on its own Stage through
+<code class="docutils literal notranslate"><span class="pre">evaluate_time</span></code>, under the owner-operation gate. The samples cannot be prefetched, and unless
+the owner declares <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_CAP_AUTHORED_TRANSFORM_UPDATES</span></code> no pair is pruned as
+static. Every sample also republishes the owner’s Stage at a new time.</p></li>
+<li><p><strong>With a composition</strong>, ovclash samples private populations of the composition, as it samples a
+file-backed stage, with prefetch and static-pair pruning. The owner’s Stage is never evaluated
+or republished. Each private population pays for replaying the composition: the root opens and
+every layer merges, for the transform population and, when static pairs are purged, for the
+classification. A large root or many layers make the first finite-time read slower, and the
+private populations take memory as those of a file-backed run do.</p></li>
+</ul>
+<p>Compare the two modes on one machine with the same stage and the same sample range; see
+<a class="reference internal" href="#measure-first">Measure first</a>.</p>
+</section>
+</section>
+<section id="filtering-noise">
+<h2>Filtering noise<a class="headerlink" href="#filtering-noise" title="Link to this heading">#</a></h2>
+<p>Filtering is a performance lever as well as a correctness one. An overlap that is never produced
+costs nothing to store, persist or export.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_subcomponent_filtering</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Drops a broad-phase candidate pair when both meshes resolve to the same subcomponent root, the nearest ancestor prim with <code class="docutils literal notranslate"><span class="pre">kind</span> <span class="pre">=</span> <span class="pre">&quot;subcomponent&quot;</span></code>, so parts of one assembly do not clash with each other. Meshes outside any subcomponent all resolve to the same empty root, so their pairs are dropped too.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_ignore_redundant_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Drops pairs whose meshes and relative poses repeat a contact already recorded, typically instanced geometry laid out identically. It runs in the duplicate purge after the broad phase (the <code class="docutils literal notranslate"><span class="pre">Purging</span> <span class="pre">duplicates...</span></code> step of a static run), before the narrow phase.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_ignore_invisible_prims</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+<td><p>Excludes invisible prims during selection, so they never reach cooking or the broad phase.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_only_find_duplicates</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>Runs the duplicate search only and skips the BVH, broad-phase and narrow-phase steps. <code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count()</span></code> then reports 0, and only the duplicate getters return anything.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>On assembly-heavy stages, try <code class="docutils literal notranslate"><span class="pre">subcomponent_filtering</span></code> first: it removes pairs in the broad
+phase, before any triangle work. In a dynamic run that purges permanent static overlaps,
+redundant-overlap filtering also reduces a moving mesh’s contacts with identical static copies to
+one representative contact.</p>
+</section>
+<section id="persisting-many-overlaps">
+<h2>Persisting many overlaps<a class="headerlink" href="#persisting-many-overlaps" title="Link to this heading">#</a></h2>
+<p>A <a class="reference internal" href="sqlite_serializer.html"><span class="std std-doc">SQLite store</span></a>, an <code class="docutils literal notranslate"><span class="pre">.ovclashdb</span></code> file, keeps one <code class="docutils literal notranslate"><span class="pre">clash_frame_info</span></code> row per
+overlap record, that is, per sampled frame in which a pair overlaps. The row count is the sum of
+<code class="docutils literal notranslate"><span class="pre">nbRecords</span></code> across the result. Millions of rows for a long dynamic query are normal.</p>
+<p>Save completed runtime results with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async()</span></code>, or in Python
+with <code class="docutils literal notranslate"><span class="pre">ClashDetection.fetch_and_save_overlaps(...,</span> <span class="pre">async_mode=True)</span></code>:</p>
+<ul class="simple">
+<li><p>The operation preserves result order and commits once, at completion.</p></li>
+<li><p>The frame preparation of a directory store or a custom store can use the configured workers
+(see <a class="reference internal" href="#threading">Threading</a>). SQLite frame encoding and every storage write stay on its one
+background worker. A SQLite database has one writer at a time, so more workers do not
+parallelize insertion.</p></li>
+<li><p>Each fetch step (<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_next()</span></code>, or one iteration of the async
+worker) bounds its work, not its time: at most 1,024 frame reports, 1,024 overlaps and about
+8 MiB of report payload. One indivisible report can exceed the payload bound. Reconciliation of
+stored clashes scans at most 1,024 stored identifiers per step. Initialization enumerates every
+stored identifier and is not bounded.</p></li>
+<li><p>Finish and destroy the operation before you read or release the runtime or the data handle.</p></li>
+</ul>
+<p>With state updates enabled, which maintain the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash state</span></a> of each stored
+clash, a previously <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> clash also reads back its stored header and frames for comparison.
+State updates are <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> in C and <code class="docutils literal notranslate"><span class="pre">update_clash_states_after_detection</span></code> in Python, which
+is on by default. The Python serializer of a SQL-backed custom store should therefore implement
+<code class="docutils literal notranslate"><span class="pre">fetch_iter_saved_frames(identifier,</span> <span class="pre">first_frame_offset=0)</span></code> with a forward cursor. The
+compatibility default reads one frame per call, which an <code class="docutils literal notranslate"><span class="pre">OFFSET</span></code> query turns into a quadratic
+scan over a long history. See
+<a class="reference internal" href="README.html#fetching-suite-runtime-results"><span class="std std-ref">Fetching Suite runtime results</span></a> for the iterator
+contract, and <a class="reference internal" href="persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a> for the
+transaction rules.</p>
+<p>If you write records yourself, batch them instead of committing per row:</p>
+<ul class="simple">
+<li><p>Every <code class="docutils literal notranslate"><span class="pre">insert</span></code>, <code class="docutils literal notranslate"><span class="pre">update</span></code> and <code class="docutils literal notranslate"><span class="pre">remove</span></code> in the data API has a <code class="docutils literal notranslate"><span class="pre">_with_commit</span></code> variant. Pass
+<code class="docutils literal notranslate"><span class="pre">commit</span> <span class="pre">=</span> <span class="pre">0</span></code> (Python: <code class="docutils literal notranslate"><span class="pre">commit=False</span></code>) for the body of a bulk write, and commit once with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_commit()</span></code>.</p></li>
+<li><p>For frames, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_replace_frames_by_overlap_with_commit()</span></code> replaces a whole frame
+array in one call.</p></li>
+<li><p>A write that fails inside a batch can roll back the handle’s whole pending transaction,
+including earlier writes that returned success. Validate inputs first; see
+<a class="reference internal" href="persistence.html#crud"><span class="std std-ref">CRUD</span></a>.</p></li>
+</ul>
+<p>If the per-frame geometry is not needed downstream, the cheapest fix is not to produce it. <code class="docutils literal notranslate"><span class="pre">any_hit</span></code>
+or a <code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code> shrinks each row, and a lower <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code> reduces the number of
+rows.</p>
+</section>
+<section id="html-export">
+<h2>HTML export<a class="headerlink" href="#html-export" title="Link to this heading">#</a></h2>
+<p>Fetching and saving results and generating HTML are separate operations.
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_export_rows_html_text()</span></code>, which Python’s <code class="docutils literal notranslate"><span class="pre">export_to_html()</span></code> wraps, builds the
+document synchronously on the calling thread. It escapes the supplied rows and appends them in
+order into one owned text handle; the caller writes the file. Fetch-and-save batch limits do not
+speed it up. Peak export memory is the input rows plus the complete document, plus any binding or
+caller copies. See <a class="reference internal" href="export.html"><span class="std std-doc">Export</span></a> for the text-handle API.</p>
+</section>
+<section id="memory">
+<h2>Memory<a class="headerlink" href="#memory" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_release_memory(context)</span></code> frees the current query’s memory: source data, meshes, point
+clouds, results, dynamic state and the broad-phase BVH. An attached stage stays attached. A stage
+attached with a composition keeps it, but its private populations are freed, and the next
+finite-time read replays the composition. The context stays usable and can be reconfigured, so
+call it between queries in a long-lived process.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_reset_context()</span></code> (Python <code class="docutils literal notranslate"><span class="pre">ClashRuntime.reset()</span></code>, Suite <code class="docutils literal notranslate"><span class="pre">ovclash_suite_reset_runtime()</span></code>)
+drops query state: meshes, cooked data, the BVH, candidate pairs, results and statistics.
+Settings, scope, the opened stage and the built pipeline survive. It also drops the populated
+scene, which the next run repopulates from the stage file, and releases a stage attached with
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage()</span></code>. An attached stage has no file to repopulate from, so attach it
+again before the next run.</p>
+<p>Both calls invalidate borrowed result views, so release your reports first; see
+<a class="reference internal" href="threading_and_ownership.html#borrowed-memory"><span class="std std-ref">Borrowed memory</span></a>. Both are rejected while an async
+pipeline handle is active.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_is_out_of_memory(context,</span> <span class="pre">&amp;flag)</span></code> reports a recorded allocation failure of that context.
+The call that hit the failure returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> (for an async run,
+<code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline()</span></code>), and the last error ends in <code class="docutils literal notranslate"><span class="pre">Out</span> <span class="pre">of</span> <span class="pre">memory</span> <span class="pre">(std::bad_alloc)</span></code>. Some
+dependency allocation failures surface only as a status or error text and leave the flag unset, so
+check those too.</p>
+<p>A zero overlap count does not prove the scene is clash-free. After a cancelled run,
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count()</span></code> can return 0 with a success status. After the run:</p>
+<ul class="simple">
+<li><p>check every status, and <code class="docutils literal notranslate"><span class="pre">ovclash_is_out_of_memory()</span></code>;</p></li>
+<li><p>for an async run, check the <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline()</span></code> status, and read
+<code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled()</span></code> before finish clears the flag;</p></li>
+<li><p>compare the cooked-mesh count; see <a class="reference internal" href="#measure-first">Measure first</a>.</p></li>
+</ul>
+<p>To stop a run whose candidate-pair count explodes before the narrow phase processes it, set
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit()</span></code>; see
+<a class="reference internal" href="#broad-phase-and-geometry-limits">Broad phase and geometry limits</a>.</p>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="settings.html"><span class="std std-doc">Settings</span></a>: every setting with its default, unit and effect.</p></li>
+<li><p><a class="reference internal" href="threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a>: which phases the threading controls
+cover, and the ordering rules.</p></li>
+<li><p><a class="reference internal" href="persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a>: the fetch-and-save
+transaction contract.</p></li>
+<li><p><a class="reference internal" href="troubleshooting.html"><span class="std std-doc">Troubleshooting</span></a>: failures keyed by message, and the diagnostics to
+collect.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="suite_workflows.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Suite Workflows: Five End-to-End Clash Queries</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="troubleshooting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Troubleshooting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-names">Setting names</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#measure-first">Measure first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-before-you-tune">Scope before you tune</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threading">Threading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#broad-phase-and-geometry-limits">Broad phase and geometry limits</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#epsilons-and-cutoffs">Epsilons and cutoffs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-computation-costs">Depth computation costs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-runs">Dynamic runs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-runs-on-an-attached-stage">Dynamic runs on an attached stage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#filtering-noise">Filtering noise</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persisting-many-overlaps">Persisting many overlaps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#html-export">HTML export</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#memory">Memory</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

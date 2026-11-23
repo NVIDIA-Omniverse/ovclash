@@ -1,0 +1,1483 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>KPI workloads and metrics &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/kpi_overview';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Run KPI" href="kpi_running.html" />
+    <link rel="prev" title="KPI maintainer guide" href="kpi.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">KPI workloads and metrics</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kpi-workloads-and-metrics">
+<h1>KPI workloads and metrics<a class="headerlink" href="#kpi-workloads-and-metrics" title="Link to this heading">#</a></h1>
+<p>KPI measures nine frozen workloads on three generated fixture bundles. This page defines what
+each workload does, its frozen settings, the work it must produce, and what each recorded time
+and memory value covers. The <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">KPI glossary</span></a> defines workload, bundle, attempt,
+campaign, controller, budget and the other KPI terms used here. Consumer terms such as
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">backend, ovstage, OpenUSD, query, stage, duplicate and Suite API</span></a>
+keep their consumer meaning. The <a class="reference internal" href="kpi.html"><span class="std std-doc">KPI maintainer guide</span></a> gives the quick start and
+explains how a run works, and <a class="reference internal" href="kpi_running.html"><span class="std std-doc">Run KPI</span></a> explains how to run KPI.
+<a class="reference internal" href="reference_fixtures.html"><span class="std std-doc">Representative fixture stages</span></a> explains how the bundles are generated,
+and <a class="reference internal" href="kpi_contracts.html"><span class="std std-doc">KPI frozen contracts and maintenance</span></a> the contract files behind these
+tables.</p>
+<p>The three bundles are <code class="docutils literal notranslate"><span class="pre">body-representative</span></code>, <code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code> and
+<code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code>, a full-motion Body bundle that only the Dynamic depth workload
+uses. The workloads cover static and dynamic canonical reports (the overlap reports that the
+canonical API returns), fresh saves through the Suite API, Body maximum local depth in MEDIUM
+mode (<code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_MEDIUM</span></code>, the refined estimate of medium accuracy), Cockpit
+7.5 mm clearance and Body duplicates-only detection. Both backends, ovstage and OpenUSD, run the
+same stages, settings, scopes and sample grids on Windows x86-64, Linux x86-64 and Linux
+AArch64. Every launcher run measures the same nine workloads, and no renderer or GPU is needed.</p>
+<section id="the-nine-workloads">
+<h2>The nine workloads<a class="headerlink" href="#the-nine-workloads" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Workload ID</p></th>
+<th class="head"><p>Scope</p></th>
+<th class="head"><p>Schedule</p></th>
+<th class="head"><p>Consumer operation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-static</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>Time zero; 1 sample</p></td>
+<td><p>Create the runtime, open, detect, extract every report</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-dynamic</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>0–2 s at 32 samples/s; 65 samples</p></td>
+<td><p>Same, for every dynamic record</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-suite-save</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>Same 65 samples</p></td>
+<td><p>Detect, fetch all results, commit and explicitly save a fresh database</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-cockpit-representative-static</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>Time zero; 1 sample</p></td>
+<td><p>Create the runtime, open, detect, extract every report</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-cockpit-representative-dynamic</span></code></p></td>
+<td><p>Structure versus Module, Tool and Probes</p></td>
+<td><p>0–2 s at 32 samples/s; 65 samples</p></td>
+<td><p>Same, for every dynamic record</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-cockpit-representative-suite-save</span></code></p></td>
+<td><p>Same scoped selection</p></td>
+<td><p>Same 65 samples</p></td>
+<td><p>Detect, fetch all results, commit and explicitly save a fresh database</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-dynamic-depth</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>0–1.125 s at 8 samples/s; 10 samples</p></td>
+<td><p>Canonical reports with MEDIUM depth</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-cockpit-representative-static-clearance</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>Time zero; 1 sample</p></td>
+<td><p>Canonical reports with 7.5 mm clearance</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-duplicates-only</span></code></p></td>
+<td><p>Full scene</p></td>
+<td><p>Time zero; 1 sample</p></td>
+<td><p>Duplicate-only detection</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Cockpit selection A is <code class="docutils literal notranslate"><span class="pre">/World/Station/Cell/Structure</span></code>.
+Selection B contains <code class="docutils literal notranslate"><span class="pre">/World/Station/Cell/Mover/Module</span></code>, <code class="docutils literal notranslate"><span class="pre">/World/Station/Cell/Mover/Tool</span></code> and
+<code class="docutils literal notranslate"><span class="pre">/World/Station/Cell/Mover/Probes</span></code>. Every Body workload and every Cockpit static workload uses
+the full scene.</p>
+<p>Sampling includes both endpoints. A static workload runs 11
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">pipeline</span></a> steps. A dynamic or Suite-save workload runs its
+sample count plus 7: 72 for the 65-sample workloads and 17 for Dynamic depth. Samples without
+contacts are still required work. Detection is sampled, not continuous: a contact that occurs
+only between two samples is not guaranteed to be found.</p>
+<section id="query-settings">
+<h3>Query settings<a class="headerlink" href="#query-settings" title="Link to this heading">#</a></h3>
+<p>Each workload runs its query with these frozen settings. They are the consumer settings of
+the same names; <a class="reference internal" href="../consumer/settings.html"><span class="std std-doc">Settings</span></a> gives the type, range and default of each.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting group</p></th>
+<th class="head"><p>Frozen values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tasking</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks=4</span></code>, <code class="docutils literal notranslate"><span class="pre">new_task_manager=false</span></code>, <code class="docutils literal notranslate"><span class="pre">single_threaded=false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Selection</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims=true</span></code>, <code class="docutils literal notranslate"><span class="pre">subcomponent_filtering=false</span></code>, <code class="docutils literal notranslate"><span class="pre">enable_point_clouds=false</span></code>, <code class="docutils literal notranslate"><span class="pre">use_usdrt=false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Contact mode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coplanar=true</span></code>, <code class="docutils literal notranslate"><span class="pre">any_hit=false</span></code>, <code class="docutils literal notranslate"><span class="pre">quantized=false</span></code>, <code class="docutils literal notranslate"><span class="pre">overlap_code=3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bounds and geometry</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tight_bounds=true</span></code>, <code class="docutils literal notranslate"><span class="pre">tris_per_leaf=15</span></code>, <code class="docutils literal notranslate"><span class="pre">triangle_limit=0</span></code>; <code class="docutils literal notranslate"><span class="pre">tolerance=0</span></code> except Cockpit static clearance (<code class="docutils literal notranslate"><span class="pre">0.75</span></code> stage units, 7.5 mm at <code class="docutils literal notranslate"><span class="pre">metersPerUnit=0.01</span></code>)</p></td>
+</tr>
+<tr class="row-even"><td><p>Epsilons</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code> and <code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code> about <code class="docutils literal notranslate"><span class="pre">1e-6</span></code>, <code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code> about <code class="docutils literal notranslate"><span class="pre">0.01</span></code>; <code class="docutils literal notranslate"><span class="pre">contact_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code> and the Suite <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> are <code class="docutils literal notranslate"><span class="pre">-1</span></code> (off)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Depth and duplicates</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode=0</span></code> except Dynamic depth (<code class="docutils literal notranslate"><span class="pre">2</span></code>, MEDIUM); <code class="docutils literal notranslate"><span class="pre">only_find_duplicates=false</span></code> except duplicates-only</p></td>
+</tr>
+<tr class="row-even"><td><p>Results</p></td>
+<td><p>Report <code class="docutils literal notranslate"><span class="pre">flags=30</span></code>: the <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVERLAP_REPORT_FLAG_</span></code> bits <code class="docutils literal notranslate"><span class="pre">OUTLINE</span></code>, <code class="docutils literal notranslate"><span class="pre">FACES0</span></code>, <code class="docutils literal notranslate"><span class="pre">FACES1</span></code> and <code class="docutils literal notranslate"><span class="pre">POINTS0</span></code>; <code class="docutils literal notranslate"><span class="pre">purge_permanent_static_overlaps=true</span></code>, <code class="docutils literal notranslate"><span class="pre">purge_permanent_dynamic_overlaps=false</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_redundant_overlaps=false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Persistence</p></td>
+<td><p>Suite-save workloads: a new database for every attempt, closed in SQLite’s DELETE journal mode</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The <a class="reference internal" href="kpi_contracts.html#frozen-workloads-and-profiles"><span class="std std-ref">contract files</span></a> store the exact values,
+including the native float conversions and every Suite-specific setting; this table only
+summarizes them. Do not change tasking, scopes or sampling to make a measurement faster: a
+different interval, task manager, scope or sample rate defines different work.</p>
+</section>
+<section id="depth-clearance-and-duplicates-only-workloads">
+<h3>Depth, clearance and duplicates-only workloads<a class="headerlink" href="#depth-clearance-and-duplicates-only-workloads" title="Link to this heading">#</a></h3>
+<p>These three workloads each change one setting of a base workload. Static clearance and
+duplicates-only run on the bundle of their base static workload. Static clearance has its own
+reviewed expected work. Duplicates-only keeps the 353 Body static duplicates and expects no
+overlap pairs, records, elements or report bytes.</p>
+<p>Dynamic depth runs on the dedicated <code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code> bundle, which compresses the
+same Body motion into 1.125 seconds; see
+<a class="reference internal" href="reference_fixtures.html#geometry-and-motion"><span class="std std-ref">geometry and motion</span></a>. Its expected work binds every
+record’s maximum local depth to its pair, sample and element count. MEDIUM depth is computed
+inside the timed pipeline.</p>
+<p>The <a class="reference internal" href="kpi_contracts.html#nine-workload-contract"><span class="std std-ref">nine-workload contract</span></a> describes the extension
+and depth references, how the depth rows are captured and replayed, and what the references do
+not prove.</p>
+</section>
+</section>
+<section id="counts-and-saved-stage-sizes">
+<h2>Counts and saved stage sizes<a class="headerlink" href="#counts-and-saved-stage-sizes" title="Link to this heading">#</a></h2>
+<p>Each bundle’s stage counts come from the inventory metadata in its generated <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code>;
+they are not an independent geometric census.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Bundle</p></th>
+<th class="head text-right"><p>Visible / hidden meshes</p></th>
+<th class="head text-right"><p>Authored / expanded visible triangles</p></th>
+<th class="head text-right"><p>Instance roots</p></th>
+<th class="head text-right"><p>Layer files</p></th>
+<th class="head text-right"><p>All layer bytes</p></th>
+<th class="head text-right"><p><code class="docutils literal notranslate"><span class="pre">root.usda</span></code> bytes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">body-representative</span></code></p></td>
+<td class="text-right"><p>2,295 / 1,507</p></td>
+<td class="text-right"><p>1,197,415 / 4,695,804</p></td>
+<td class="text-right"><p>1,881</p></td>
+<td class="text-right"><p>102</p></td>
+<td class="text-right"><p>47,523,889</p></td>
+<td class="text-right"><p>1,124,789</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code></p></td>
+<td class="text-right"><p>2,295 / 1,507</p></td>
+<td class="text-right"><p>1,197,415 / 4,695,804</p></td>
+<td class="text-right"><p>1,881</p></td>
+<td class="text-right"><p>102</p></td>
+<td class="text-right"><p>47,513,313</p></td>
+<td class="text-right"><p>1,114,213</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code></p></td>
+<td class="text-right"><p>1,642 / 6,400</p></td>
+<td class="text-right"><p>1,421,750 / 1,565,522</p></td>
+<td class="text-right"><p>63</p></td>
+<td class="text-right"><p>2,200</p></td>
+<td class="text-right"><p>120,791,385</p></td>
+<td class="text-right"><p>196,883</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An authored definition can appear in many composed placements, so expanded triangles exceed
+authored ones. Instance roots are not native prototype-cache entries. Layer bytes sum the
+lengths of the manifest’s member files; they exclude <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code>, reports, databases and
+filesystem allocation.</p>
+<p>The x86-64 contract expects this work. Volume is the native report size for canonical-report
+workloads and the logical BLOB size for Suite saves.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Workload</p></th>
+<th class="head text-right"><p>Meshes</p></th>
+<th class="head text-right"><p>Pairs</p></th>
+<th class="head text-right"><p>Records</p></th>
+<th class="head text-right"><p>Duplicates</p></th>
+<th class="head text-right"><p>Elements</p></th>
+<th class="head text-right"><p>Volume (bytes)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Body static</p></td>
+<td class="text-right"><p>2,295</p></td>
+<td class="text-right"><p>5,159</p></td>
+<td class="text-right"><p>5,159</p></td>
+<td class="text-right"><p>353</p></td>
+<td class="text-right"><p>754,551</p></td>
+<td class="text-right"><p>9,770,288</p></td>
+</tr>
+<tr class="row-odd"><td><p>Body dynamic</p></td>
+<td class="text-right"><p>2,295</p></td>
+<td class="text-right"><p>4,303</p></td>
+<td class="text-right"><p>137,068</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>35,927,232</p></td>
+<td class="text-right"><p>240,292,792</p></td>
+</tr>
+<tr class="row-even"><td><p>Body Suite save</p></td>
+<td class="text-right"><p>2,295</p></td>
+<td class="text-right"><p>4,303</p></td>
+<td class="text-right"><p>137,068</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>35,927,232</p></td>
+<td class="text-right"><p>204,655,112</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cockpit static</p></td>
+<td class="text-right"><p>1,642</p></td>
+<td class="text-right"><p>3,027</p></td>
+<td class="text-right"><p>3,027</p></td>
+<td class="text-right"><p>10</p></td>
+<td class="text-right"><p>217,321</p></td>
+<td class="text-right"><p>6,883,872</p></td>
+</tr>
+<tr class="row-even"><td><p>Cockpit dynamic</p></td>
+<td class="text-right"><p>1,642</p></td>
+<td class="text-right"><p>115</p></td>
+<td class="text-right"><p>790</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>7,585</p></td>
+<td class="text-right"><p>401,008</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cockpit Suite save</p></td>
+<td class="text-right"><p>1,642</p></td>
+<td class="text-right"><p>115</p></td>
+<td class="text-right"><p>790</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>7,585</p></td>
+<td class="text-right"><p>195,608</p></td>
+</tr>
+<tr class="row-even"><td><p>Body dynamic depth</p></td>
+<td class="text-right"><p>2,295</p></td>
+<td class="text-right"><p>4,221</p></td>
+<td class="text-right"><p>21,959</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>5,572,042</p></td>
+<td class="text-right"><p>38,367,408</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cockpit static clearance</p></td>
+<td class="text-right"><p>1,642</p></td>
+<td class="text-right"><p>3,612</p></td>
+<td class="text-right"><p>3,612</p></td>
+<td class="text-right"><p>10</p></td>
+<td class="text-right"><p>50,343,522</p></td>
+<td class="text-right"><p>14,743,488</p></td>
+</tr>
+<tr class="row-even"><td><p>Body duplicates only</p></td>
+<td class="text-right"><p>2,295</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>353</p></td>
+<td class="text-right"><p>0</p></td>
+<td class="text-right"><p>0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The columns count the work of one workload; the <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">glossary</span></a> defines the run,
+attempt and campaign terms.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Column</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Meshes</p></td>
+<td><p>The native <code class="docutils literal notranslate"><span class="pre">nb_meshes</span></code> statistic</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pair</p></td>
+<td><p>One overlap group; duplicates are counted separately</p></td>
+</tr>
+<tr class="row-even"><td><p>Record</p></td>
+<td><p>One pair at one sampled time, so dynamic workloads have more records than pairs</p></td>
+</tr>
+<tr class="row-odd"><td><p>Element</p></td>
+<td><p>A record’s number of overlapping triangles or points (<code class="docutils literal notranslate"><span class="pre">nbElements</span></code> in the <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">C ABI</span></a>); not a face-array length or an outline-segment count</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>On Linux AArch64, three workloads expect different values, each pinned exactly by its own
+reviewed file:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Workload</p></th>
+<th class="head"><p>Linux AArch64 value</p></th>
+<th class="head"><p>File</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cockpit static</p></td>
+<td><p>Element counts of 8 records (each +1 or -1; total 217,321 unchanged); 6,883,868 report bytes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_arm_expectations.json</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Cockpit static clearance</p></td>
+<td><p>Element counts of 7 records, 50,343,528 elements in total; 14,743,080 report bytes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_arm_clearance_expectations.json</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Body dynamic depth</p></td>
+<td><p>38,367,432 report bytes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/representative_arm_depth_expectations.json</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Pair and sample identities, duplicates and settings stay the same, and the checks keep no
+tolerance. See
+<a class="reference internal" href="kpi_contracts.html#why-linux-aarch64-has-its-own-expectation-files"><span class="std std-ref">why Linux AArch64 has its own expectation files</span></a>.</p>
+<p>Dynamic depth also writes a packed depth stream, <code class="docutils literal notranslate"><span class="pre">benchmark-depth.bin</span></code>, of 439,180 bytes: one
+20-byte row for each of its 21,959 records. <a class="reference internal" href="kpi_contracts.html#depth-rows"><span class="std std-ref">Depth rows</span></a>
+gives the row format.</p>
+</section>
+<section id="timing-boundaries">
+<h2>Timing boundaries<a class="headerlink" href="#timing-boundaries" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code> runs from runtime creation through usable results: complete canonical
+report consumption, or a successful explicit Suite save. A Suite operation also includes fresh
+database creation and query insertion. Process launch, module import, stage generation,
+<a class="reference internal" href="kpi_cpu_admission.html"><span class="std std-doc">CPU admission</span></a> and teardown are outside this interval. The attempt’s
+<code class="docutils literal notranslate"><span class="pre">Total</span></code> in the console <a class="reference internal" href="kpi_evidence.html#workload-tables"><span class="std std-ref">workload tables</span></a> is the attempt’s wall
+time: it adds CPU placement and admission, process launch, module import, verification,
+retention and cleanup to the operation. Each attempt starts a fresh process and runtime after
+the input preflight, the content hash of the bundles at the start of the session, has warmed
+the filesystem cache, so it is not a cold-disk measurement. Suite workloads record this as the
+<code class="docutils literal notranslate"><span class="pre">local-disk-warm-cache-after-preflight</span></code> filesystem policy.</p>
+<p>Each attempt records these clocks in its <code class="docutils literal notranslate"><span class="pre">metrics</span></code> object. Every value is a number of seconds.
+“Canonical” marks the seven canonical-report workloads (operation <code class="docutils literal notranslate"><span class="pre">canonical-cold</span></code>), and “Suite”
+the two Suite saves (operation <code class="docutils literal notranslate"><span class="pre">suite-fresh-save</span></code>).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Boundary</p></th>
+<th class="head"><p>Inside <code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code>?</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">context_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Canonical</p></td>
+<td><p>Creating the canonical runtime</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">load_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Opening the stage</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline_step_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Sum of the Python <code class="docutils literal notranslate"><span class="pre">run_pipeline_step</span></code> calls, including binding overhead and every native pipeline phase</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline_loop_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>The enclosing pipeline loop, including the step calls</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">result_capture_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Canonical</p></td>
+<td><p>Canonical report extraction, release and metadata reduction in one traversal</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">extraction_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Canonical</p></td>
+<td><p>Fetching, copying and releasing canonical report buffers</p></td>
+<td><p>Yes; inside result capture</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">metadata_collection_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Canonical</p></td>
+<td><p>The rest of result capture: canonical metadata reduction and bookkeeping</p></td>
+<td><p>Yes; inside result capture</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">serialization_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Suite</p></td>
+<td><p>Suite fetch-and-save iteration, native commit and explicit save</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Suite</p></td>
+<td><p>The same interval as <code class="docutils literal notranslate"><span class="pre">serialization_seconds</span></code></p></td>
+<td><p>Yes; do not add the two</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">verification_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Child checks after result-ready; canonical-report workloads add the metadata time already counted in result capture</p></td>
+<td><p>Partly</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">retention_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Writing and hashing the child receipt (the child’s result record), the canonical cardinality files and, for Dynamic depth, the depth stream</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">readback_summary_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Suite</p></td>
+<td><p>The controller’s single metadata scan of the closed Suite database</p></td>
+<td><p>No; inside controller verification</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">controller_verification_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Controller contract and expected-work checks, excluding retention</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">controller_retention_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p>Hashing the Suite database, then writing and hashing its stored summary</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">total_verification_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Every workload</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">verification_seconds</span></code> plus <code class="docutils literal notranslate"><span class="pre">controller_verification_seconds</span></code></p></td>
+<td><p>Partly; not a disjoint total</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">input_admission.begin_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">input_admission.end_seconds</span></code></p></td>
+<td><p>number, seconds</p></td>
+<td><p>Once per campaign, in the controller’s <code class="docutils literal notranslate"><span class="pre">input_admission</span></code> record, not per attempt</p></td>
+<td><p>Full bundle-content checks at the start and end of the session</p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>These clocks overlap.</strong> Do not add child verification to operation time, and do not sum
+nested clocks to reconstruct total cost. Use the wall clock of the whole run or campaign for
+overall cost, including preparation, admission waits and retention. Generation timing is kept per
+bundle and in an aggregate receipt outside the measured workloads.</p>
+</section>
+<section id="metrics-and-measurement-boundaries">
+<h2>Metrics and measurement boundaries<a class="headerlink" href="#metrics-and-measurement-boundaries" title="Link to this heading">#</a></h2>
+<p>The <a class="reference internal" href="kpi_sampling.html#the-noise-gate"><span class="std std-ref">noise gate</span></a> and the budgets cover only the
+<strong>required metrics</strong> of each workload:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Required metrics</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Canonical report (<code class="docutils literal notranslate"><span class="pre">canonical-cold</span></code>): every workload except the Suite saves</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">load_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline_step_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">result_capture_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">resident_high_water_bytes</span></code>; on Windows also <code class="docutils literal notranslate"><span class="pre">private_high_water_bytes</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Suite save (<code class="docutils literal notranslate"><span class="pre">suite-fresh-save</span></code>)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">operation_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">load_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">pipeline_step_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">database_bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">resident_high_water_bytes</span></code>; on Windows also <code class="docutils literal notranslate"><span class="pre">private_high_water_bytes</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Seven canonical and two Suite workloads give 47 required cells per CPU model on Linux and 56 on
+Windows. Every other recorded value is descriptive and has no budget:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pipeline_samples_per_second</span></code> is the canonical dynamic sample count divided by
+<code class="docutils literal notranslate"><span class="pre">pipeline_step_seconds</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">logical_payload_bytes</span></code> is the sum of stored BLOB lengths from the controller’s metadata
+scan.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">serialization_seconds</span></code> records the same interval as <code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code>.</p></li>
+<li><p>The sampled and starting memory values are described in <a class="reference internal" href="#memory-scope">memory scope</a>.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">database_bytes</span></code> is the physical length of the closed SQLite file. It is a required metric with
+a budget in each platform’s packages, not an expected value, because it differs between
+platforms; see
+<a class="reference internal" href="kpi_contracts.html#expected-work-identity"><span class="std std-ref">expected-work identity</span></a>.</p>
+<p>The budget noise of <code class="docutils literal notranslate"><span class="pre">extraction_serialization_seconds</span></code> is at least 30% of its pooled median,
+because its time varies between runner hosts more than one collection job shows; see
+<a class="reference internal" href="kpi_sampling.html#budget-limits"><span class="std std-ref">budget limits</span></a>.</p>
+<section id="canonical-cold-operations">
+<h3>Canonical cold operations<a class="headerlink" href="#canonical-cold-operations" title="Link to this heading">#</a></h3>
+<p>The operation starts immediately before context creation. It includes stage opening, complete
+settings application and readback, scope, pipeline creation and execution, and every requested
+report buffer. Report mask 30 copies the matrices, the point-size scalar, faces, outlines and
+points in bounded chunks, and releases each borrowed report. The same traversal collects pair,
+sample and element metadata. The six base workloads have no payload hash oracle, raw binary
+replay capture or second report traversal. The Body dynamic-depth workload adds the
+post-result-ready metadata replay described in the
+<a class="reference internal" href="kpi_contracts.html#nine-workload-contract"><span class="std std-ref">nine-workload contract</span></a>.
+<code class="docutils literal notranslate"><span class="pre">report_bytes</span></code> counts the two matrices, the point-size scalar and the buffers at their native
+field sizes, excluding pointers and Python object overhead. Extraction neither keeps nor hashes
+the buffer contents.</p>
+<p>Canonical attempts also keep diagnostic buffer counts in <code class="docutils literal notranslate"><span class="pre">benchmark-report-cardinalities.bin</span></code>
+and a canonical pair-name mapping in <code class="docutils literal notranslate"><span class="pre">benchmark-report-cardinality-pairs.json</span></code>. Each packed
+33-byte row identifies its pair and sample, the face-buffer counts for both canonical object
+names, the outline-segment count, the point-index count, the element count and the point-owner
+side. These are counts from the same report lease; no geometry or buffer content is copied
+again. Collecting them belongs to metadata time inside the operation. Writing and hashing the
+files happens after result-ready and belongs to <code class="docutils literal notranslate"><span class="pre">retention_seconds</span></code>. The controller checks their
+bounded file lengths, hashes and binding to the compact summary without replaying single rows.</p>
+<p><code class="docutils literal notranslate"><span class="pre">benchmark-report-cardinalities.bin</span></code> (format <code class="docutils literal notranslate"><span class="pre">ovclash-kpi-report-cardinalities-v1</span></code>) holds one
+row per record, little-endian, with no header and no padding. Its length is exactly the record
+count times 33 bytes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Offset (bytes)</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Pair</p></td>
+<td><p>uint32</p></td>
+<td><p>0</p></td>
+<td><p>Index of the pair, its native overlap group, in the <code class="docutils literal notranslate"><span class="pre">pairs</span></code> list of the pair mapping</p></td>
+</tr>
+<tr class="row-odd"><td><p>Sample</p></td>
+<td><p>uint32</p></td>
+<td><p>4</p></td>
+<td><p>Index of the record’s sample in the workload’s sample grid</p></td>
+</tr>
+<tr class="row-even"><td><p>Faces 0</p></td>
+<td><p>uint32</p></td>
+<td><p>8</p></td>
+<td><p>Face-buffer count of the first canonical object name of the pair</p></td>
+</tr>
+<tr class="row-odd"><td><p>Faces 1</p></td>
+<td><p>uint32</p></td>
+<td><p>12</p></td>
+<td><p>Face-buffer count of the second canonical object name</p></td>
+</tr>
+<tr class="row-even"><td><p>Outline segments</p></td>
+<td><p>uint32</p></td>
+<td><p>16</p></td>
+<td><p>Outline-segment count</p></td>
+</tr>
+<tr class="row-odd"><td><p>Points</p></td>
+<td><p>uint32</p></td>
+<td><p>20</p></td>
+<td><p>Point-index count</p></td>
+</tr>
+<tr class="row-even"><td><p>Elements</p></td>
+<td><p>uint64</p></td>
+<td><p>24</p></td>
+<td><p>The record’s element count</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point owner</p></td>
+<td><p>uint8</p></td>
+<td><p>32</p></td>
+<td><p>The canonical side, <code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code>, that owns the points</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">benchmark-report-cardinality-pairs.json</span></code> is one compact ASCII JSON object with sorted keys. Every
+field is required, and no other field is allowed:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">schema_version</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Format version</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">format</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash-kpi-report-cardinality-pairs-v1</span></code></p></td>
+<td><p>Format name</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">summary_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>SHA-256 of the attempt’s retained compact summary</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sample_grid_sha256</span></code></p></td>
+<td><p>string</p></td>
+<td><p>Yes</p></td>
+<td><p>64 lowercase hexadecimal digits</p></td>
+<td><p>The sample grid identity of the summary</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pairs</span></code></p></td>
+<td><p>array of two-string arrays</p></td>
+<td><p>Yes</p></td>
+<td><p>One entry per pair, in native overlap-group order</p></td>
+<td><p>The two canonical prim paths of each pair; the rows’ Pair field indexes this list</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The files help locate a report-volume difference; the expected-work and exact volume checks
+still decide the verdict. They are bounded diagnostic evidence (32 MiB for the pair mapping,
+160 MiB in total), not a geometry oracle or a source of new expectations.</p>
+<p>The timer stops at result-ready, before statistics, the expected-work comparison, receipt
+writing and teardown. Context creation is included; process launch, module import and input
+preparation are outside. A fresh child gives a cold library state, while input preflight has
+already warmed the filesystem caches.</p>
+</section>
+<section id="dynamic-and-suite-operations">
+<h3>Dynamic and Suite operations<a class="headerlink" href="#dynamic-and-suite-operations" title="Link to this heading">#</a></h3>
+<p>Pipeline throughput excludes loading and report consumption. Step-name lookup and schedule
+validation are outside the step-call sum. A schedule cannot be inferred from report records
+alone, because some required samples have no clashes.</p>
+<p>The Suite operation starts before runtime, serializer and data-handle creation. It includes
+fresh database creation, query insertion, stage opening, settings and scope, the pipeline, a full
+<code class="docutils literal notranslate"><span class="pre">fetch_and_save_overlaps</span></code> iteration, iterator closure, native commit and a successful explicit
+<code class="docutils literal notranslate"><span class="pre">data.save()</span></code>. This is API-level save completion, not a power-loss durability guarantee.
+Serialization is already inside the operation.</p>
+<p>After result-ready, the child collects live metadata, closes the database and drains native
+owners. The controller then scans the closed database once. It compares every stored header and
+frame’s metadata with the live results and the frozen expectations, including the exact saved
+query settings and logical BLOB length. No geometry predicate or payload decoding runs. DELETE
+journal mode and the absence of the WAL (write-ahead log), SHM (shared-memory index) and journal
+sidecar files are required. The controller
+hashes the database and keeps <code class="docutils literal notranslate"><span class="pre">benchmark-stored-summary.json</span></code> for calibration export, which
+does not repeat that scan.</p>
+</section>
+<section id="memory-scope">
+<h3>Memory scope<a class="headerlink" href="#memory-scope" title="Link to this heading">#</a></h3>
+<p>Linux <code class="docutils literal notranslate"><span class="pre">VmHWM</span></code> and Windows <code class="docutils literal notranslate"><span class="pre">PeakWorkingSetSize</span></code> cover the operation child from process startup
+through result-ready, as <code class="docutils literal notranslate"><span class="pre">resident_high_water_bytes</span></code>. Windows also records <code class="docutils literal notranslate"><span class="pre">PeakPagefileUsage</span></code>
+as <code class="docutils literal notranslate"><span class="pre">private_high_water_bytes</span></code>. These counters include Python, runtime bootstrap, normal result
+capture and the in-process <a class="reference internal" href="kpi.html#glossary"><span class="std std-ref">observer</span></a>, even though operation latency starts
+later. They exclude
+the controller and post-result verification and are not process-tree aggregates. The public-API
+operation must not spawn descendants.</p>
+<p>Each memory value is an integer number of bytes in the attempt’s <code class="docutils literal notranslate"><span class="pre">metrics</span></code> object. A value that
+the observer could not take is left out of <code class="docutils literal notranslate"><span class="pre">metrics</span></code>, so only the required metrics must be
+present:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Console label</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">resident_high_water_bytes</span></code></p></td>
+<td><p>integer, bytes</p></td>
+<td><p>Yes, a required metric of every workload</p></td>
+<td><p>OS peak resident</p></td>
+<td><p>The largest resident usage the OS recorded since process startup (Linux <code class="docutils literal notranslate"><span class="pre">VmHWM</span></code>, Windows <code class="docutils literal notranslate"><span class="pre">PeakWorkingSetSize</span></code>), even if the memory was freed before result-ready</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">private_high_water_bytes</span></code></p></td>
+<td><p>integer, bytes</p></td>
+<td><p>On Windows, a required metric; never recorded on Linux</p></td>
+<td><p>OS peak private commit</p></td>
+<td><p>Windows only: the largest process-private committed memory (<code class="docutils literal notranslate"><span class="pre">PeakPagefileUsage</span></code>), backed by RAM or the page file; not a measure of resident RAM</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sampled_resident_peak_bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">sampled_private_peak_bytes</span></code></p></td>
+<td><p>integer, bytes</p></td>
+<td><p>No. Recorded only when the observer saw the result-ready boundary and took at least three samples; the private value only on Windows</p></td>
+<td><p>Sampled peak</p></td>
+<td><p>The largest periodic reading during observation; it can miss a short spike between readings</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">starting_resident_bytes</span></code>, <code class="docutils literal notranslate"><span class="pre">starting_private_bytes</span></code></p></td>
+<td><p>integer, bytes</p></td>
+<td><p>No; the private value only on Windows</p></td>
+<td><p>Starting</p></td>
+<td><p>The first reading</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>All of them describe absolute memory sizes, not growth; do not add or subtract them as separate
+allocations. Resident memory is RAM held by the process, including shared pages. This observer
+provides no private-memory counter on Linux.</p>
+<p>Memory freezes at the explicit result-ready boundary, before the remaining audit, receipt
+serialization and teardown. Canonical metadata collected inside the operation is included. A
+final process-exit peak cannot repair an absent boundary or a missing counter. Resident and
+private-commit values are distinct series; neither establishes minimum machine RAM or the
+capacity for an arbitrary scene.</p>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="kpi.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">KPI maintainer guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kpi_running.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Run KPI</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-nine-workloads">The nine workloads</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#query-settings">Query settings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#depth-clearance-and-duplicates-only-workloads">Depth, clearance and duplicates-only workloads</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#counts-and-saved-stage-sizes">Counts and saved stage sizes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#timing-boundaries">Timing boundaries</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metrics-and-measurement-boundaries">Metrics and measurement boundaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-cold-operations">Canonical cold operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-and-suite-operations">Dynamic and Suite operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#memory-scope">Memory scope</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

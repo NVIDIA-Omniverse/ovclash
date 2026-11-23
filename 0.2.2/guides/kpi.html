@@ -1,0 +1,1407 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>KPI maintainer guide &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'guides/kpi';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="KPI workloads and metrics" href="kpi_overview.html" />
+    <link rel="prev" title="Shared repository tooling" href="../shared_tooling.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">KPI maintainer guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="kpi-maintainer-guide">
+<h1>KPI maintainer guide<a class="headerlink" href="#kpi-maintainer-guide" title="Link to this heading">#</a></h1>
+<p>KPI measures how a validated ovclash Release build performs on nine frozen workloads. It records
+operation time, pipeline time (the time of the query’s <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">pipeline</span></a>
+steps), memory and saved-result size; <a class="reference internal" href="kpi_overview.html#timing-boundaries"><span class="std std-ref">KPI workloads and metrics</span></a>
+defines each. It compares these values with the approved budgets for the CPU model that ran them. It
+also checks that each workload did its frozen benchmark work. The <a class="reference internal" href="#glossary">glossary</a> defines
+workload, budget and the other KPI terms that these pages use.</p>
+<p>KPI does not test correctness. <a class="reference internal" href="sentinel.html"><span class="std std-doc">Sentinel</span></a> owns product correctness and runs as a
+separate, blocking gate. A KPI work check proves only that the expected pairs, samples,
+elements, duplicates and output volume were produced.</p>
+<p>KPI runs from the <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> directory of a source checkout or a complete
+<a class="reference internal" href="#glossary">source export</a>. It is not part of the installed
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> or wheel. It runs on Windows x86-64, Linux
+x86-64 and Linux AArch64. It measures either the ovstage product backend or the unpublished
+OpenUSD reference backend; the <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">consumer glossary</span></a> defines
+backend, ovstage and OpenUSD. Both backends run the same stages, settings and sample grids, and
+each backend has its own budgets. Git is optional: a source export uses the same content
+fingerprint as a checkout (see
+<a class="reference internal" href="../technical/build_and_packaging.html#build-provenance-and-controlled-comparisons"><span class="std std-ref">build provenance</span></a>).</p>
+<section id="pages-in-this-guide">
+<h2>Pages in this guide<a class="headerlink" href="#pages-in-this-guide" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Page</p></th>
+<th class="head"><p>What it covers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>This page</p></td>
+<td><p>Quick start, how check mode, baseline collection and offline budget recording work, the glossary, outputs and row caps</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kpi_overview.html"><span class="std std-doc">KPI workloads and metrics</span></a></p></td>
+<td><p>The nine workloads and their query settings, expected counts and saved stage sizes, timing boundaries, required metrics and memory scope</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kpi_running.html"><span class="std std-doc">Run KPI</span></a></p></td>
+<td><p>Launchers, automatic and explicit input preparation, source identity, every option and environment variable, startup console output, running KPI in another CI system, the controller without the launchers, observer overhead diagnostics and troubleshooting</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kpi_sampling.html"><span class="std std-doc">KPI sampling</span></a></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">smoke</span></code> and <code class="docutils literal notranslate"><span class="pre">release</span></code> profiles, adaptive smoke, adaptive Release sampling and the noise gate, budget limits with worked examples, workload restarts and sampling records</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kpi_cpu_admission.html"><span class="std std-doc">KPI CPU admission</span></a></p></td>
+<td><p>Admission policy and CPU domain, recorded contention, four-core placement, the shared CPU-wait allowance, recovery, deadlines, the cohort, strict admission, the Windows accounting model and judging ranges</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kpi_baselines.html"><span class="std std-doc">KPI baselines and budget packages</span></a></p></td>
+<td><p>Baseline rules, runner and storage labels, <code class="docutils literal notranslate"><span class="pre">collect-baseline</span></code> campaigns, selection and status, review and installation, offline budget recording, the package format, local package checks and catalog rules</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="kpi_evidence.html"><span class="std std-doc">KPI evidence, reports and verdicts</span></a></p></td>
+<td><p>Exit codes, console progress, the final summary, the public record, calibration evidence, and the private execution tree with its summary encoding</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="kpi_contracts.html"><span class="std std-doc">KPI frozen contracts and maintenance</span></a></p></td>
+<td><p>Contract files, preparation and expected-work identity, Linux AArch64 expectation files, pin refresh, supported workflows and validation receipts, measurement identity, tests and goldens, the source map and static-analysis annotations</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="reference_fixtures.html"><span class="std std-doc">Representative fixture stages</span></a></p></td>
+<td><p>Generating, inspecting and sealing the three fixture bundles</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="quick-start">
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+<p>Before you begin, the checkout must build a Release SDK archive; see
+<a class="reference internal" href="../local_development.html#building-ovclash-from-a-source-checkout"><span class="std std-ref">building ovclash from a source checkout</span></a>.
+A check or a collection also needs at least four usable physical cores; with fewer, a check
+exits 76 (see <a class="reference internal" href="kpi_evidence.html#exit-76-too-few-physical-cores"><span class="std std-ref">exit 76</span></a>) and a collection
+exits 3.</p>
+<p>Run every command from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>. Use <code class="docutils literal notranslate"><span class="pre">bash</span> <span class="pre">./run_kpi.sh</span></code> on Linux x86-64 and AArch64, and
+<code class="docutils literal notranslate"><span class="pre">run_kpi.bat</span></code> on Windows. In the Python commands of the KPI guides, <code class="docutils literal notranslate"><span class="pre">$PY</span></code> (<code class="docutils literal notranslate"><span class="pre">%PY%</span></code> in <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>)
+is the KPI input Python that the launchers use, the packaged CPython 3.12 of the
+<a class="reference internal" href="#glossary">portable input bundle</a>. For the ovstage inputs:</p>
+<p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PY</span><span class="o">=</span>_build/portable-inputs/ovstage/Release/python-runtime/bin/python3
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> <span class="s2">&quot;PY=_build\portable-inputs\ovstage\Release\python-runtime\python.exe&quot;</span>
+</pre></div>
+</div>
+<p>For OpenUSD, replace <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> with <code class="docutils literal notranslate"><span class="pre">openusd</span></code>. Preparation verifies the frozen bundle bytes
+only with this interpreter. <code class="docutils literal notranslate"><span class="pre">$PY</span></code> is not the Python test venv (<code class="docutils literal notranslate"><span class="pre">_build/deps/venv/python_tests</span></code>),
+which <a class="reference internal" href="kpi_contracts.html"><span class="std std-doc">KPI frozen contracts and maintenance</span></a> and the
+<a class="reference internal" href="../technical/testing.html#baseline-collection-tests"><span class="std std-ref">testing guide</span></a> call <code class="docutils literal notranslate"><span class="pre">$TEST_PY</span></code>. The path
+exists once <a class="reference internal" href="#prepare-release-inputs">1. Prepare Release inputs</a> has staged the bundle; then
+<code class="docutils literal notranslate"><span class="pre">&quot;$PY&quot;</span> <span class="pre">--version</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;%PY%&quot;</span> <span class="pre">--version</span></code> in <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>) prints <code class="docutils literal notranslate"><span class="pre">Python</span> <span class="pre">3.12.</span></code> and a patch number.</p>
+<p>The quick start sets or reads these variables:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PY</span></code> (<code class="docutils literal notranslate"><span class="pre">%PY%</span></code> in <code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>)</p></td>
+<td><p>The Python of the portable input bundle: <code class="docutils literal notranslate"><span class="pre">_build/portable-inputs/&lt;backend&gt;/Release/python-runtime/bin/python3</span></code> on Linux, <code class="docutils literal notranslate"><span class="pre">_build\portable-inputs\&lt;backend&gt;\Release\python-runtime\python.exe</span></code> on Windows</p></td>
+<td><p>Yes, for the <code class="docutils literal notranslate"><span class="pre">$PY</span></code> commands of the KPI guides</p></td>
+<td><p>None; set it in your shell</p></td>
+<td><p>Runs the <code class="docutils literal notranslate"><span class="pre">benchmarks.kpi</span></code> commands with the interpreter that the launchers use</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_REF_PROTECTED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Unset: the validation receipt records the ref protection as unknown (<code class="docutils literal notranslate"><span class="pre">null</span></code>), unless the CI provider reports it</p></td>
+<td><p>Recorded in the validation receipt. <code class="docutils literal notranslate"><span class="pre">false</span></code> marks the unprotected development ref that KPI preparation needs before it accepts a local ovstage signing skip</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="prepare-release-inputs">
+<h3>1. Prepare Release inputs<a class="headerlink" href="#prepare-release-inputs" title="Link to this heading">#</a></h3>
+<p>KPI measures only a validated Release build. Release validation packages the SDK archive and
+the wheel into <code class="docutils literal notranslate"><span class="pre">_build/dist/&lt;backend&gt;</span></code>. <code class="docutils literal notranslate"><span class="pre">--stage-inputs</span></code> then copies the validated installed SDK
+(the install tree, the content of the SDK archive), its Python runtime and the Sentinel helpers,
+Sentinel’s native helper executables, into
+<code class="docutils literal notranslate"><span class="pre">_build/portable-inputs/&lt;backend&gt;/Release</span></code>; it compiles nothing. See
+<a class="reference internal" href="kpi_running.html#prepare-inputs-explicitly"><span class="std std-ref">prepare inputs explicitly</span></a>.</p>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> <span class="s2">&quot;OVCLASH_CI_REF_PROTECTED=false&quot;</span>
+build_ovstage.bat --release --validate --stage-inputs
+<span class="k">set</span> <span class="s2">&quot;OVCLASH_CI_REF_PROTECTED=&quot;</span>
+</pre></div>
+</div>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>./build_ovstage.sh<span class="w"> </span>--release<span class="w"> </span>--validate<span class="w"> </span>--stage-inputs
+</pre></div>
+</div>
+<p>Local Windows validation usually skips Authenticode signing; see
+<a class="reference internal" href="../technical/build_and_packaging.html#code-signing"><span class="std std-ref">code signing</span></a>.
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_REF_PROTECTED=false</span></code> records the unprotected development ref in the validation
+receipt, which KPI preparation requires before it accepts that ovstage skip. An OpenUSD skip
+does not depend on the ref; see <a class="reference internal" href="kpi_contracts.html#supported-workflows"><span class="std std-ref">supported workflows</span></a>.</p>
+<p>The command exits 0 after it prints <code class="docutils literal notranslate"><span class="pre">Staged</span> <span class="pre">portable</span> <span class="pre">inputs:</span> <span class="pre">&lt;path&gt;</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;path&gt;</span></code> is the
+staged bundle. A nonzero exit means that the build, the validation or the staging failed, and a
+staging failure prints <code class="docutils literal notranslate"><span class="pre">Staging</span> <span class="pre">portable</span> <span class="pre">inputs</span> <span class="pre">failed</span> <span class="pre">(exit</span> <span class="pre">code</span> <span class="pre">&lt;n&gt;)</span></code>.
+<a class="reference internal" href="../local_development.html#validation-output"><span class="std std-ref">Validation output</span></a> shows which validation step
+failed, and <a class="reference internal" href="kpi_running.html#troubleshooting"><span class="std std-ref">troubleshooting</span></a> lists the KPI input errors.</p>
+<p>For OpenUSD, use <code class="docutils literal notranslate"><span class="pre">build_openusd</span></code> and pass <code class="docutils literal notranslate"><span class="pre">--backend</span> <span class="pre">openusd</span></code> to the launcher. This step is
+optional: when the default inputs are missing, invalid or not built from the checked-out
+source, the launcher runs a Release validation with <code class="docutils literal notranslate"><span class="pre">--stage-inputs</span></code> once before it measures.
+See <a class="reference internal" href="kpi_running.html#automatic-preparation"><span class="std std-ref">automatic preparation</span></a>. Explicit <code class="docutils literal notranslate"><span class="pre">--inputs</span></code> or
+<code class="docutils literal notranslate"><span class="pre">--dist</span></code> turn this off; see <a class="reference internal" href="kpi_running.html#caller-managed-inputs"><span class="std std-ref">caller-managed inputs</span></a>.</p>
+</section>
+<section id="run-a-check">
+<h3>2. Run a check<a class="headerlink" href="#run-a-check" title="Link to this heading">#</a></h3>
+<p>Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>run_kpi.bat --profile release --output _build/kpi-local-example
+</pre></div>
+</div>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>./run_kpi.sh<span class="w"> </span>--profile<span class="w"> </span>release<span class="w"> </span>--output<span class="w"> </span>_build/kpi-local-example
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">check</span></code> is the default. With the default inputs, the launcher’s startup check first
+prints <code class="docutils literal notranslate"><span class="pre">KPI</span> <span class="pre">startup:</span></code> lines, ending with
+<code class="docutils literal notranslate"><span class="pre">KPI</span> <span class="pre">startup:</span> <span class="pre">matching</span> <span class="pre">validated</span> <span class="pre">Release</span> <span class="pre">inputs</span> <span class="pre">are</span> <span class="pre">ready;</span> <span class="pre">reusing</span> <span class="pre">them.</span></code> when no preparation
+is needed. The driver then prints the settings it will use, grouped by where each value came
+from. For the Linux command of <a class="reference internal" href="#run-a-check">2. Run a check</a>, the block reads:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KPI settings by source:
+  Arguments:
+    Profile             --profile | release
+    Output              --output  | ovclash/_build/kpi-local-example
+  Launcher defaults:
+    Backend                       | ovstage
+    Platform                      | linux
+    Inputs                        | ovclash/_build/portable-inputs/ovstage/Release
+    Distribution                  | ovclash/_build/dist/ovstage
+  Defaults:
+    Mode                          | check
+    Public output                 | ovclash/_build/kpi-local-example/public
+    Calibration output            | ovclash/_build/kpi-local-example/calibration
+    Baselines                     | ovclash/benchmarks/kpi/baselines/ovstage/linux
+    Admission policy              | shared-runner-recorded-contention-v2
+    CPU domain                    | four-physical-cores-retry-v2
+    Runner class                  | local-review
+    Storage class                 | unclassified-local-disk
+  Fixed:
+    Configuration                 | Release
+    Workloads                     | all 9 representative workloads
+    Runs per workload             | 1 warm-up + 3 to 9 measured, until stable
+    CPU retries                   | 10 per run
+    Noise limits                  | Load 25%; all other metrics 15%
+    CPU wait allowance            | 180 seconds per campaign
+    Campaign deadline             | none; each operation keeps its own deadline
+KPI MODE: VALIDATION (--mode check)
+Platform: linux | Backend: ovstage | Profile: release
+Require compatible baseline coverage before fixture generation; then measure and compare.
+</pre></div>
+</div>
+<p><a class="reference internal" href="kpi_running.html#settings-block"><span class="std std-ref">Settings block</span></a> explains every row, and
+<a class="reference internal" href="kpi_running.html#mode-and-lookup-lines"><span class="std std-ref">mode and lookup lines</span></a> the lines that follow it.</p>
+</section>
+<section id="read-the-result">
+<h3>3. Read the result<a class="headerlink" href="#read-the-result" title="Link to this heading">#</a></h3>
+<p>After Release preparation, check mode looks for budgets that cover this backend, platform and
+CPU model; see <a class="reference internal" href="kpi_baselines.html#how-check-mode-matches-a-package"><span class="std std-ref">how check mode matches a package</span></a>.
+The catalogs under <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/baselines/</span></code> cover only the CPU models their packages were
+collected on, and a public source checkout ships them empty; <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/baselines/README.md</span></code>
+describes them. When no package covers this
+CPU model, runner class and storage class, the run stops before it generates the bundles, and
+prints lines like these (CPU model values and counts are illustrative):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Baseline lookup | Backend: ovstage | Platform: linux
+Baseline source: default | Catalog: ovclash/benchmarks/kpi/baselines/ovstage/linux
+CPU model: name=Example Core 42, vendor=GenuineIntel, family=6, model=42, stepping=1 | id 33405c7bf70eb576432b1ed27db64309e5d6e1941762af7b65b0d1b6dac9330a | architecture x86_64 | core class linux-topology-core-type 0 | SMT width 2
+Selected CPU model: none
+Baseline entries read: 2 packages / 94 metric limits | Required cells per CPU model: 47
+Baseline lookup: loaded limits are incompatible or incomplete for the observed CPU and workload contract
+Missing CPU-model workload/metric cells: 47
+  Missing: CPU model 33405c7bf70e | benchmark-body-representative-static / operation_seconds
+  Missing: CPU model 33405c7bf70e | benchmark-body-representative-static / load_seconds
+  ...
+  Missing: CPU model 33405c7bf70e | benchmark-body-representative-duplicates-only / resident_high_water_bytes
+KPI WARNING: exit 3 (insufficient evidence); no fixture generation and no measurements executed.
+</pre></div>
+</div>
+<p>Linux needs 47 covered cells per CPU model and Windows 56, because Windows adds the
+<code class="docutils literal notranslate"><span class="pre">private_high_water_bytes</span></code> metric. The run exits 3 (insufficient evidence), still writes the
+public record <code class="docutils literal notranslate"><span class="pre">public/measurements.json</span></code> and prints <a class="reference internal" href="kpi_evidence.html#the-final-summary"><span class="std std-ref">the final summary</span></a>
+from it. <a class="reference internal" href="kpi_running.html#mode-and-lookup-lines"><span class="std std-ref">Mode and lookup lines</span></a> lists every other
+lookup decision.</p>
+<p>With complete coverage, the run continues through the phases of <a class="reference internal" href="#check-mode">check mode</a>. A
+run that passes ends with
+<code class="docutils literal notranslate"><span class="pre">All</span> <span class="pre">KPI</span> <span class="pre">workloads</span> <span class="pre">passed</span> <span class="pre">and</span> <span class="pre">stay</span> <span class="pre">within</span> <span class="pre">their</span> <span class="pre">approved</span> <span class="pre">limits.</span> <span class="pre">Everything</span> <span class="pre">is</span> <span class="pre">awesome!</span></code>.
+<a class="reference internal" href="kpi_evidence.html#reports-and-verdicts"><span class="std std-ref">Reports and verdicts</span></a> lists every exit code.</p>
+</section>
+<section id="collect-a-baseline">
+<h3>4. Collect a baseline<a class="headerlink" href="#collect-a-baseline" title="Link to this heading">#</a></h3>
+<p>Before you begin: commit your changes, because a collection measures only a build of committed
+source and rejects any other. Use a machine that you can leave to the collection for the whole
+allowance, with at least four usable physical cores.
+<a class="reference internal" href="#prepare-release-inputs">Preparing the inputs</a> is optional here too: the launcher prepares
+missing or stale default inputs first.</p>
+<p>A collection ignores existing budgets and derives new ones from <code class="docutils literal notranslate"><span class="pre">--baseline-campaigns</span> <span class="pre">N</span></code> full
+Release campaigns per CPU model (default and minimum 3); see
+<a class="reference internal" href="#baseline-collection">baseline collection</a>.</p>
+<p>Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>run_kpi.bat --mode collect-baseline --baseline-campaigns 3 --backend ovstage --collection-seconds 13800 --output _build/kpi-baseline-01
+</pre></div>
+</div>
+<p>Linux x86-64 and AArch64:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>bash<span class="w"> </span>./run_kpi.sh<span class="w"> </span>--mode<span class="w"> </span>collect-baseline<span class="w"> </span>--baseline-campaigns<span class="w"> </span><span class="m">3</span><span class="w"> </span>--backend<span class="w"> </span>ovstage<span class="w"> </span>--collection-seconds<span class="w"> </span><span class="m">13800</span><span class="w"> </span>--output<span class="w"> </span>_build/kpi-baseline-01
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--collection-seconds</span></code> is the allowance for the whole collection; without it, the allowance is
+3,000 seconds. The progress log is <code class="docutils literal notranslate"><span class="pre">public/progress.log</span></code> and the result is <code class="docutils literal notranslate"><span class="pre">public/status.json</span></code>.
+On success, the command exits 0 and the console prints <code class="docutils literal notranslate"><span class="pre">Baseline</span> <span class="pre">written:</span> <span class="pre">&lt;path&gt;</span></code> for each
+generated package under <code class="docutils literal notranslate"><span class="pre">public/baseline/baselines/</span></code>. Any other exit code means that no
+baseline was published: the <code class="docutils literal notranslate"><span class="pre">reason</span></code> in <code class="docutils literal notranslate"><span class="pre">public/status.json</span></code> names the cause, and
+<a class="reference internal" href="kpi_baselines.html#collection-status-and-exit-codes"><span class="std std-ref">collection status and exit codes</span></a> explains
+each reason and what to do. See <a class="reference internal" href="kpi_baselines.html#collect-a-baseline"><span class="std std-ref">collect a baseline</span></a>.</p>
+<p>A local collection records the runner class <code class="docutils literal notranslate"><span class="pre">local-review</span></code> and the storage class
+<code class="docutils literal notranslate"><span class="pre">unclassified-local-disk</span></code>, so its packages cover only checks with the same labels; see
+<a class="reference internal" href="kpi_baselines.html#runner-and-storage-labels"><span class="std std-ref">runner and storage labels</span></a>.</p>
+</section>
+<section id="review-the-baseline">
+<h3>5. Review the baseline<a class="headerlink" href="#review-the-baseline" title="Link to this heading">#</a></h3>
+<p>Before you begin: the collection of <a class="reference internal" href="#collect-a-baseline">4. Collect a baseline</a> exited 0,
+and <code class="docutils literal notranslate"><span class="pre">$PY</span></code> is set as in the <a class="reference internal" href="#quick-start">quick start</a>. The commands of this step and of
+<a class="reference internal" href="#install-the-baseline">6. Install the baseline</a> use that collection’s
+<code class="docutils literal notranslate"><span class="pre">_build/kpi-baseline-01</span></code> output and its ovstage packages; for another output, backend or
+platform, replace <code class="docutils literal notranslate"><span class="pre">_build/kpi-baseline-01</span></code>, <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> and <code class="docutils literal notranslate"><span class="pre">linux</span></code> (or <code class="docutils literal notranslate"><span class="pre">windows</span></code>, <code class="docutils literal notranslate"><span class="pre">aarch64</span></code>) in
+both paths.</p>
+<p>Review the complete generated series. Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">$PY</span><span class="s2">&quot;</span><span class="w"> </span>-B<span class="w"> </span>-m<span class="w"> </span>benchmarks.kpi<span class="w"> </span>baseline-series<span class="w"> </span>review<span class="w"> </span>--input<span class="w"> </span>_build/kpi-baseline-01/public/baseline
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;</span><span class="nv">%PY%</span><span class="s2">&quot;</span> -B -m benchmarks.kpi baseline-series review --input _build\kpi-baseline-01\public\baseline
+</pre></div>
+</div>
+<p>A passing review prints the series’ review text, the same text as its <code class="docutils literal notranslate"><span class="pre">review.txt</span></code>, and exits
+0. A series that fails the replay prints
+<code class="docutils literal notranslate"><span class="pre">kpi</span> <span class="pre">baseline-series:</span> <span class="pre">retained</span> <span class="pre">evidence</span> <span class="pre">validation</span> <span class="pre">failed</span></code> and exits 4; do not install its
+packages.</p>
+</section>
+<section id="install-the-baseline">
+<h3>6. Install the baseline<a class="headerlink" href="#install-the-baseline" title="Link to this heading">#</a></h3>
+<p>Before you begin: the review of <a class="reference internal" href="#review-the-baseline">5. Review the baseline</a> exited 0.</p>
+<p>Copy the packages into the catalog. Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cp<span class="w"> </span>_build/kpi-baseline-01/public/baseline/baselines/ovstage/linux/*.kpi-budget.json<span class="w"> </span>benchmarks/kpi/baselines/ovstage/linux/
+</pre></div>
+</div>
+<p>Windows (<code class="docutils literal notranslate"><span class="pre">cmd.exe</span></code>):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">copy</span> _build\kpi-baseline-01\public\baseline\baselines\ovstage\windows\*.kpi-budget.json benchmarks\kpi\baselines\ovstage\windows\
+</pre></div>
+</div>
+<p>Remove any older package for the same CPU model, and commit the new packages in the same change.
+A check on the same machine then prints
+<code class="docutils literal notranslate"><span class="pre">Baseline</span> <span class="pre">lookup:</span> <span class="pre">coverage</span> <span class="pre">found;</span> <span class="pre">performance</span> <span class="pre">comparison</span> <span class="pre">is</span> <span class="pre">pending</span></code>.
+<a class="reference internal" href="kpi_baselines.html#review-and-install-a-generated-series"><span class="std std-ref">Review and install a generated series</span></a>
+gives the full procedure.</p>
+</section>
+</section>
+<section id="how-a-kpi-run-works">
+<h2>How a KPI run works<a class="headerlink" href="#how-a-kpi-run-works" title="Link to this heading">#</a></h2>
+<p>KPI has two modes, check (the default) and <code class="docutils literal notranslate"><span class="pre">collect-baseline</span></code>, and a manual, offline way to
+create budgets. Both modes measure the same nine workloads under one of two profiles. <code class="docutils literal notranslate"><span class="pre">smoke</span></code>,
+the default of the launchers and of <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span></code>, takes one observation per
+workload and can expand to three when compatible approved budgets apply. <code class="docutils literal notranslate"><span class="pre">release</span></code> takes one
+warm-up and then 3 to 9 measured runs until every required metric passes its noise limit.
+<a class="reference internal" href="kpi_sampling.html#profiles"><span class="std std-ref">Profiles</span></a> compares them.</p>
+<section id="check-mode">
+<h3>Check mode<a class="headerlink" href="#check-mode" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">run_kpi.bat</span></code>, <code class="docutils literal notranslate"><span class="pre">run_kpi.sh</span></code> and every CI check job run the same driver, <code class="docutils literal notranslate"><span class="pre">scripts/kpi_ci.py</span></code>
+(see <a class="reference internal" href="kpi_running.html#launchers"><span class="std std-ref">launchers</span></a>). In check mode it runs these phases:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>parse options                 invalid options: exit 4; the launcher&#39;s startup check or the
+                              driver rejects them
+print the settings block      console only
+resolve admission             invalid policy or domain: exit 4; then print the mode lines
+check output freshness        existing public or calibration output, or outputs that overlap
+                              the inputs or the private execution tree: exit 4
+preparation                   extract the wheel, bind the SDK, wheel, runtime and the one
+                              passing validation receipt of this build
+budget                        read the catalog or package, observe the CPU models, check
+                              coverage; no complete coverage: exit 3, no bundles, no workload;
+                              fewer than four usable physical cores: exit 76
+generation                    generate the three fixture bundles once and check their pins
+campaign                      measure the nine workloads; check the frozen work; compare
+                              every required metric with its budget
+calibration export            release profile only, after a clean campaign with benchmark
+                              verdict 0 or 3 in which every workload became stable
+cleanup and publication       remove the private execution tree after a verified drain;
+                              write public/measurements.json; print the final summary,
+                              unless --summary-mode deferred leaves it to a later step
+</pre></div>
+</div>
+<p><a class="reference internal" href="kpi_evidence.html#reports-and-verdicts"><span class="std std-ref">Reports and verdicts</span></a> gives every exit code, including
+<a class="reference internal" href="kpi_evidence.html#exit-76-too-few-physical-cores"><span class="std std-ref">exit 76</span></a>, and
+<a class="reference internal" href="kpi_evidence.html#console-progress"><span class="std std-ref">console progress</span></a> the lines each phase prints. The
+<a class="reference internal" href="kpi_cpu_admission.html"><span class="std std-doc">CPU admission</span></a> page describes how each attempt is placed and admitted,
+and <a class="reference internal" href="kpi_sampling.html"><span class="std std-doc">KPI sampling</span></a> how many runs each workload takes. The standalone
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span></code> has no coverage step; see
+<a class="reference internal" href="kpi_running.html#run-a-campaign"><span class="std std-ref">run a campaign</span></a>.</p>
+</section>
+<section id="baseline-collection">
+<h3>Baseline collection<a class="headerlink" href="#baseline-collection" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">--mode</span> <span class="pre">collect-baseline</span></code> hands the run to <code class="docutils literal notranslate"><span class="pre">scripts/kpi_collect.py</span></code>, which prepares the Release
+build and the bundles once and then runs full Release campaigns on the same machine until every
+observed and required CPU model has a qualifying set of N campaigns, or until a stop such as
+the end of the allowance. Only a complete collection writes <code class="docutils literal notranslate"><span class="pre">public/baseline/</span></code>;
+<a class="reference internal" href="kpi_baselines.html#how-a-collection-runs"><span class="std std-ref">how a collection runs</span></a> gives the phases, the selection
+and every stop condition.</p>
+</section>
+<section id="offline-budget-recording">
+<h3>Offline budget recording<a class="headerlink" href="#offline-budget-recording" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">budget</span> <span class="pre">create</span></code> is the manual alternative to a collection: it verifies calibration evidence
+that you collected yourself offline, prints one review table, asks for local approval and
+writes one sealed <code class="docutils literal notranslate"><span class="pre">.kpi-budget.json</span></code> package.
+<a class="reference internal" href="kpi_baselines.html#offline-budget-recording"><span class="std std-ref">Offline budget recording</span></a> gives the accepted
+inputs, the pooling rules, the collection plan and the approval answers.</p>
+</section>
+</section>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Link to this heading">#</a></h2>
+<p>The KPI pages use one name for each of these concepts. Consumer terms such as
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">backend, query, stage and Suite API</span></a> keep their consumer
+meaning.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Workload</p></td>
+<td><p>One of the nine frozen measured units, such as <code class="docutils literal notranslate"><span class="pre">benchmark-body-representative-static</span></code>. Each workload runs one <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">query</span></a> with frozen settings on one bundle. The KPI pages say “query” only for that query, never for the workload</p></td>
+</tr>
+<tr class="row-odd"><td><p>Base workload</p></td>
+<td><p>One of the six static, dynamic and Suite-save workloads of Body and Cockpit. The depth, clearance and duplicates-only workloads each change one setting of a base workload</p></td>
+</tr>
+<tr class="row-even"><td><p>Expected work</p></td>
+<td><p>The frozen work that a workload must produce: its pair, record, element and duplicate counts and hashes, its mesh statistics and its report or BLOB volume. Only the reviewed contract files supply it; see <a class="reference internal" href="kpi_contracts.html#expected-work-identity"><span class="std std-ref">expected-work identity</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Bundle</p></td>
+<td><p>One of the three generated fixture bundles, <code class="docutils literal notranslate"><span class="pre">body-representative</span></code>, <code class="docutils literal notranslate"><span class="pre">cockpit-representative</span></code> and <code class="docutils literal notranslate"><span class="pre">body-representative-depth</span></code>: a directory with one stage and its <code class="docutils literal notranslate"><span class="pre">bundle.json</span></code> manifest; see <a class="reference internal" href="reference_fixtures.html#bundle-manifest-and-seal"><span class="std std-ref">bundle manifest and seal</span></a>. <em>Fixture generation</em> is the phase that generates the bundles</p></td>
+</tr>
+<tr class="row-even"><td><p>Stage</p></td>
+<td><p>The USD stage of a bundle, its <code class="docutils literal notranslate"><span class="pre">root.usda</span></code> and layer files, which every workload on that bundle opens</p></td>
+</tr>
+<tr class="row-odd"><td><p>Portable input bundle</p></td>
+<td><p>The staged inputs that a run measures, <code class="docutils literal notranslate"><span class="pre">_build/portable-inputs/&lt;backend&gt;/Release</span></code>: the validated installed SDK (the content of the SDK archive), the product Python packages, the Python runtime and its OpenUSD dependency, plus the Sentinel helpers. The SDK archive and the wheel stay in <code class="docutils literal notranslate"><span class="pre">_build/dist/&lt;backend&gt;</span></code>; see <a class="reference internal" href="sentinel.html#portable-input-bundles"><span class="std std-ref">portable input bundles</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Validation receipt</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">validation_receipt.json</span></code>, which <code class="docutils literal notranslate"><span class="pre">--validate</span></code> writes in the compile tree: the validation plan, each step’s status and the digests of the installed libraries and packaged artifacts. Preparation accepts only a passing receipt of the same build; see <a class="reference internal" href="kpi_contracts.html#supported-workflows"><span class="std std-ref">supported workflows</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scripts/kpi_ci.py</span></code>, which the launchers and every CI check job run. It prepares the inputs, checks budget coverage, runs the controller and publishes the records</p></td>
+</tr>
+<tr class="row-even"><td><p>Collector</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">scripts/kpi_collect.py</span></code>, to which the driver hands a baseline collection</p></td>
+</tr>
+<tr class="row-odd"><td><p>Controller</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span> <span class="pre">run</span></code>, the process that runs one campaign. It places and admits each attempt, launches and drains its child, verifies the result and decides every verdict</p></td>
+</tr>
+<tr class="row-even"><td><p>Child</p></td>
+<td><p>The owned process of one attempt that runs the workload’s operation. A child that reports a pass cannot qualify a result by itself</p></td>
+</tr>
+<tr class="row-odd"><td><p>Observer</p></td>
+<td><p>The in-process sampler of the child. It reads OS memory and CPU counters during the operation, and its own cost is part of the measured process</p></td>
+</tr>
+<tr class="row-even"><td><p>Result-ready</p></td>
+<td><p>The boundary at which an operation’s results are usable. The operation timer and the memory high-water values stop there; see <a class="reference internal" href="kpi_overview.html#timing-boundaries"><span class="std std-ref">timing boundaries</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Campaign</p></td>
+<td><p>One controller run over all nine workloads, in one fresh private execution tree</p></td>
+</tr>
+<tr class="row-even"><td><p>Collection</p></td>
+<td><p>A baseline collection, a <code class="docutils literal notranslate"><span class="pre">collect-baseline</span></code> run: several campaigns plus selection and publication</p></td>
+</tr>
+<tr class="row-odd"><td><p>Profile</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">smoke</span></code> or <code class="docutils literal notranslate"><span class="pre">release</span></code>: how many observations each workload takes and whether a campaign can export calibration evidence; see <a class="reference internal" href="kpi_sampling.html#profiles"><span class="std std-ref">profiles</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Run</p></td>
+<td><p>One successful measurement slot of a workload. Release allows ten runs per series, including the warm-up; see <a class="reference internal" href="kpi_sampling.html#run-retry-and-attempt-limits"><span class="std std-ref">run, retry and attempt limits</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Attempt</p></td>
+<td><p>One recorded attempt of a workload. Most attempts launch one child. When CPU admission rejects an attempt, the run makes another attempt, a retry. A rejected four-core placement, a shared CPU-wait allowance stop and a cleanup-reserve stop are attempts that the controller records without launching a child. The console’s <code class="docutils literal notranslate"><span class="pre">Try</span></code> column numbers the attempts of a run</p></td>
+</tr>
+<tr class="row-even"><td><p>Warm-up</p></td>
+<td><p>The first successful run of a Release series. It is retained but excluded from medians, noise and budgets; see <a class="reference internal" href="kpi_sampling.html#warm-up"><span class="std std-ref">warm-up</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Series</p></td>
+<td><p>The runs of one workload in a campaign. A workload restart starts a new series with a new warm-up</p></td>
+</tr>
+<tr class="row-even"><td><p>Observation</p></td>
+<td><p>One qualified value of one metric from one attempt</p></td>
+</tr>
+<tr class="row-odd"><td><p>Required metric</p></td>
+<td><p>A metric that the noise gate and the budgets cover; see <a class="reference internal" href="kpi_overview.html#metrics-and-measurement-boundaries"><span class="std std-ref">required metrics</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Noise</p></td>
+<td><p>Stability noise <code class="docutils literal notranslate"><span class="pre">3</span> <span class="pre">*</span> <span class="pre">MAD</span> <span class="pre">/</span> <span class="pre">median</span></code>, where MAD is the median absolute deviation: the median distance of the values from their median</p></td>
+</tr>
+<tr class="row-odd"><td><p>Noise gate</p></td>
+<td><p>The check that the noise of every required metric stays within its noise limit, 25% for Load (<code class="docutils literal notranslate"><span class="pre">load_seconds</span></code>, the stage-opening time) and 15% for every other required metric, before a series counts as stable; see <a class="reference internal" href="kpi_sampling.html#the-noise-gate"><span class="std std-ref">the noise gate</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Budget</p></td>
+<td><p>The warning limit and the failure limit of one workload and required metric for one CPU model; see <a class="reference internal" href="kpi_sampling.html#budget-limits"><span class="std std-ref">budget limits</span></a>. The pages never call a budget “limits”; only console lines do</p></td>
+</tr>
+<tr class="row-odd"><td><p>Package</p></td>
+<td><p>One sealed <code class="docutils literal notranslate"><span class="pre">.kpi-budget.json</span></code> file with the budgets of one backend, platform and CPU model; see <a class="reference internal" href="kpi_baselines.html#budget-packages"><span class="std std-ref">budget packages</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Baseline</p></td>
+<td><p>The output of a complete collection: the generated series and packages under <code class="docutils literal notranslate"><span class="pre">public/baseline/</span></code>. Installing a baseline copies its packages into a catalog; see <a class="reference internal" href="kpi_baselines.html#review-and-install-a-generated-series"><span class="std std-ref">review and install a generated series</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Catalog</p></td>
+<td><p>The directory <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/baselines/&lt;backend&gt;/&lt;platform&gt;/</span></code> of installed packages</p></td>
+</tr>
+<tr class="row-even"><td><p>Runner class, storage class</p></td>
+<td><p>The closed-list labels of the machine and of its disk that every cohort records. A package covers only runs with the same pair; see <a class="reference internal" href="kpi_baselines.html#runner-and-storage-labels"><span class="std std-ref">runner and storage labels</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Admission policy, CPU domain</p></td>
+<td><p>The policy (<code class="docutils literal notranslate"><span class="pre">--admission-policy</span></code>) defines when CPUs count as quiet; the CPU domain (<code class="docutils literal notranslate"><span class="pre">--cpu-domain</span></code>) defines which CPUs an attempt runs on; see <a class="reference internal" href="kpi_cpu_admission.html#admission-policy-and-cpu-domain"><span class="std std-ref">admission policy and CPU domain</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Shared CPU-wait allowance</p></td>
+<td><p>The 180 seconds of extra CPU waiting that placement and child admission share in one four-core campaign; see <a class="reference internal" href="kpi_cpu_admission.html#shared-cpu-wait-allowance"><span class="std std-ref">shared CPU-wait allowance</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Campaign deadline</p></td>
+<td><p>The time by which the controller must end a campaign: <code class="docutils literal notranslate"><span class="pre">--job-seconds</span></code> of a direct run, or the time left of a collection. Check mode through the launchers has none; see <a class="reference internal" href="kpi_cpu_admission.html#deadlines"><span class="std std-ref">deadlines</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Cleanup reserve</p></td>
+<td><p>The last 300 seconds before the campaign deadline, in which no attempt starts. Console lines and reason codes call it the job reserve</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coverage cell</p></td>
+<td><p>One CPU model, workload and required metric. Check mode needs every cell of one observed CPU model covered</p></td>
+</tr>
+<tr class="row-even"><td><p>Inventory cell</p></td>
+<td><p>One requested workload repetition in a campaign’s <code class="docutils literal notranslate"><span class="pre">inventory.json</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>CPU model</p></td>
+<td><p>The observed processor identity, core class and SMT width of a four-core pool, keyed together with the CPU domain, platform and architecture</p></td>
+</tr>
+<tr class="row-even"><td><p>Core class</p></td>
+<td><p>The core type that the OS reports for a CPU, the Linux topology core type or the Windows efficiency class. It tells apart the core kinds of a hybrid CPU</p></td>
+</tr>
+<tr class="row-odd"><td><p>SMT width</p></td>
+<td><p>The number of logical CPUs per physical core under simultaneous multithreading (SMT); the other logical CPUs of a core are its SMT siblings</p></td>
+</tr>
+<tr class="row-even"><td><p>Model key</p></td>
+<td><p>A CPU model’s canonical key (<code class="docutils literal notranslate"><span class="pre">model_key</span></code>): schema version, CPU domain, platform, architecture, processor identity, core class and SMT width; see <a class="reference internal" href="kpi_baselines.html#required-cpu-models"><span class="std std-ref">required CPU models</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Model ID</p></td>
+<td><p>The SHA-256 of a model key. Generated packages use it as file name</p></td>
+</tr>
+<tr class="row-even"><td><p>Pool</p></td>
+<td><p>The physical cores of one processor identity, core class, package, NUMA (non-uniform memory access) node and SMT width; see <a class="reference internal" href="kpi_cpu_admission.html#placement"><span class="std std-ref">placement</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Selection ledger</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cpu-selection.json</span></code>, the campaign’s list of CPU placement receipts by path and SHA-256; see <a class="reference internal" href="kpi_evidence.html#cpu-selection-json-fields"><span class="std std-ref"><code class="docutils literal notranslate"><span class="pre">cpu-selection.json</span></code> fields</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Cohort</p></td>
+<td><p>Everything that must match for observations to pool or to use a package; <a class="reference internal" href="kpi_cpu_admission.html#cohort"><span class="std std-ref">cohort</span></a> lists its members</p></td>
+</tr>
+<tr class="row-odd"><td><p>Lane</p></td>
+<td><p>One platform and backend, such as <code class="docutils literal notranslate"><span class="pre">linux-ovstage</span></code> or <code class="docutils literal notranslate"><span class="pre">aarch64-openusd</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Calibration evidence</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">calibration.json</span></code>: the runtime-free, replayable observations of one complete Release campaign; see <a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">calibration evidence</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Public record</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">measurements.json</span></code>: the numeric diagnostic of a run. It cannot create a budget; see <a class="reference internal" href="kpi_evidence.html#public-record"><span class="std std-ref">public record</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Private execution tree</p></td>
+<td><p>The raw campaign files. They stay on the machine and are deleted after a verified drain; see <a class="reference internal" href="kpi_evidence.html#private-execution-tree"><span class="std std-ref">private execution tree</span></a>. The KPI pages use no other name for it</p></td>
+</tr>
+<tr class="row-odd"><td><p>Scorecard</p></td>
+<td><p>The workload-consistency summary in the private <code class="docutils literal notranslate"><span class="pre">summary.json</span></code>: for each workload, whether its required cells passed, failed or lack evidence, and the supported-workflow result</p></td>
+</tr>
+<tr class="row-even"><td><p>Verified drain</p></td>
+<td><p>The controller’s confirmation that every owned child process and writer of a campaign has exited. Only then does the driver remove the private execution tree, and only a campaign with a verified drain exports calibration evidence</p></td>
+</tr>
+<tr class="row-odd"><td><p>Source export</p></td>
+<td><p>A copy of the source tree without Git metadata, such as a public source release. It uses the same content fingerprint as a checkout</p></td>
+</tr>
+<tr class="row-even"><td><p>Golden</p></td>
+<td><p>A reviewed expected-output file that a KPI test compares byte for byte, such as <code class="docutils literal notranslate"><span class="pre">tests/python_tests/kpi_representative_prepare_golden.json</span></code>; see <a class="reference internal" href="kpi_contracts.html#tests-and-goldens"><span class="std std-ref">tests and goldens</span></a>. Sentinel’s goldens are a separate catalog</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="outputs">
+<h2>Outputs<a class="headerlink" href="#outputs" title="Link to this heading">#</a></h2>
+<p>A launcher run writes into one output container, <code class="docutils literal notranslate"><span class="pre">--output</span></code>. The defaults are <code class="docutils literal notranslate"><span class="pre">_build/kpi</span></code> for
+ovstage and <code class="docutils literal notranslate"><span class="pre">_build/kpi-openusd</span></code> for OpenUSD.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Format</p></th>
+<th class="head"><p>Present</p></th>
+<th class="head"><p>Content</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">public/measurements.json</span></code></p></td>
+<td><p>JSON; see <a class="reference internal" href="kpi_evidence.html#public-record"><span class="std std-ref">public record</span></a></p></td>
+<td><p>Check mode, from the moment the output checks pass. It starts as an incomplete context-only record and is replaced as the run progresses</p></td>
+<td><p>The public record in the <code class="docutils literal notranslate"><span class="pre">ovclash-kpi-public-measurements-v4</span></code> schema</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">calibration/calibration.json</span></code></p></td>
+<td><p>JSON; see <a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">calibration evidence</span></a></p></td>
+<td><p>Check mode with <code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">release</span></code>, only under the <a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">export conditions</span></a></p></td>
+<td><p>Calibration evidence of the campaign</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">public/progress.log</span></code></p></td>
+<td><p>UTF-8 text</p></td>
+<td><p>Collection mode, once the configuration step passed</p></td>
+<td><p>Progress of a collection; see <a class="reference internal" href="kpi_baselines.html#collection-progress-log"><span class="std std-ref">collection progress log</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">public/status.json</span></code></p></td>
+<td><p>JSON</p></td>
+<td><p>Collection mode, from the start of preparation</p></td>
+<td><p>Result of a collection; see <a class="reference internal" href="kpi_baselines.html#collection-status-and-exit-codes"><span class="std std-ref">collection status and exit codes</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">public/campaigns/&lt;NNNN&gt;/public/</span></code>, <code class="docutils literal notranslate"><span class="pre">public/campaigns/&lt;NNNN&gt;/calibration/</span></code></p></td>
+<td><p>Directories with <code class="docutils literal notranslate"><span class="pre">measurements.json</span></code> and <code class="docutils literal notranslate"><span class="pre">calibration.json</span></code></p></td>
+<td><p>Collection mode, per campaign; <code class="docutils literal notranslate"><span class="pre">calibration/</span></code> only for a campaign with exit 0 and a verified drain</p></td>
+<td><p>The public record of each collection campaign and its calibration evidence. That calibration stays even when the independent replay rejects the campaign</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">public/baseline/</span></code></p></td>
+<td><p>Directory</p></td>
+<td><p>Only after a complete collection</p></td>
+<td><p>The generated series and packages; see <a class="reference internal" href="kpi_baselines.html#collection-outputs"><span class="std std-ref">collection outputs</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">--public-output</span></code> and <code class="docutils literal notranslate"><span class="pre">--calibration-output</span></code> select other locations. The private execution
+tree lives below the output container on Linux and in the system temporary directory on
+Windows. It is removed after a verified drain and never exported; see
+<a class="reference internal" href="kpi_evidence.html#private-execution-tree"><span class="std std-ref">private execution tree</span></a>.</p>
+<p>The public record alone cannot establish a baseline. A <code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">release</span></code> check run also
+exports separate runtime-free calibration evidence, but only when compatible coverage permitted
+measurement, the campaign ended with benchmark verdict 0 or 3 after a verified drain, and every
+workload became stable; see <a class="reference internal" href="kpi_evidence.html#calibration-evidence"><span class="std std-ref">calibration evidence</span></a>. Pass
+that <code class="docutils literal notranslate"><span class="pre">calibration</span></code> directory, or the per-campaign <code class="docutils literal notranslate"><span class="pre">public/campaigns/&lt;NNNN&gt;/calibration</span></code>
+directories of a collection, to <code class="docutils literal notranslate"><span class="pre">budget</span> <span class="pre">create</span> <span class="pre">--artifacts</span></code>. Interrupted, failed or incomplete
+campaigns never export partial calibration.</p>
+<p>Output directories must be fresh. The public and calibration directories must not exist
+before a run, and existing records are never overwritten. A collection assembles
+<code class="docutils literal notranslate"><span class="pre">public/baseline/</span></code> in a hidden staging directory beside the public output. It holds an OS lock
+on that staging while it writes the series, releases the lock, and then publishes
+<code class="docutils literal notranslate"><span class="pre">public/baseline/</span></code> in one rename that never replaces an existing directory. A second run that
+names the same output stops without replacing its files. After a crash, you can retry the same
+destination while it is still absent.</p>
+<p>Hidden <code class="docutils literal notranslate"><span class="pre">.kpi-generated-*</span></code> and <code class="docutils literal notranslate"><span class="pre">..kpi-generated-*</span></code> entries can remain beside the public output.
+They are staging directories and the <code class="docutils literal notranslate"><span class="pre">..kpi-generated-*.controller.lock</span></code> file. An abrupt exit
+leaves them, and so does a staging directory or lock file that cannot be deleted. They can
+remain whatever <code class="docutils literal notranslate"><span class="pre">reason</span></code> the collection reports, and they do not mean that a process still owns
+the lock. Delete them by hand.</p>
+</section>
+<section id="row-caps">
+<h2>Row caps<a class="headerlink" href="#row-caps" title="Link to this heading">#</a></h2>
+<p>Readers bound row counts as limits against hostile input. These limits never end a legitimate
+collection:</p>
+<ul class="simple">
+<li><p>Every executed attempt contains at least one complete one-second CPU window. A
+13,800-second collection therefore holds at most 13,800 executed attempts.</p></li>
+<li><p>At most 27 never-started cells are added: three for a just-restarted series and three for
+each of eight later workloads.</p></li>
+<li><p>The restart limit also bounds a nine-workload campaign: 9 workloads x 11 series x 110
+attempts gives 10,890 executed attempts and 10,917 rows. A longer
+<code class="docutils literal notranslate"><span class="pre">--collection-seconds</span></code> cannot exceed the cap.</p></li>
+</ul>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Record</p></th>
+<th class="head"><p>Row limit</p></th>
+<th class="head"><p>Byte limit</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Public <code class="docutils literal notranslate"><span class="pre">measurements.json</span></code></p></td>
+<td><p>16,384 (2^14) rows each for inventory cells, attempts, comparisons and sampling rows</p></td>
+<td><p>2 MiB</p></td>
+</tr>
+<tr class="row-odd"><td><p>Console progress stream</p></td>
+<td><p>Series numbers in attempt IDs, and the retry counts and limits in <code class="docutils literal notranslate"><span class="pre">Recovery:</span></code>, <code class="docutils literal notranslate"><span class="pre">Campaign</span> <span class="pre">stopped:</span></code> and restart lines, up to 16,383. The retry number in an attempt ID and the <code class="docutils literal notranslate"><span class="pre">Try</span></code> column show at most four digits (up to 9,999). A larger number prints as <code class="docutils literal notranslate"><span class="pre">?</span></code></p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">calibration.json</span></code> (final series only)</p></td>
+<td><p>110 attempt rows per workload (990 for nine workloads) and 8,192 CPU placement receipts</p></td>
+<td><p>64 MiB</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../shared_tooling.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Shared repository tooling</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="kpi_overview.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">KPI workloads and metrics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pages-in-this-guide">Pages in this guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start">Quick start</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prepare-release-inputs">1. Prepare Release inputs</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-check">2. Run a check</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#read-the-result">3. Read the result</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#collect-a-baseline">4. Collect a baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#review-the-baseline">5. Review the baseline</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-the-baseline">6. Install the baseline</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-a-kpi-run-works">How a KPI run works</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-mode">Check mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#baseline-collection">Baseline collection</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#offline-budget-recording">Offline budget recording</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#glossary">Glossary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outputs">Outputs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#row-caps">Row caps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

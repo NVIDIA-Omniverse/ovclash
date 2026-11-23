@@ -1,0 +1,2113 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Settings &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/settings';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Threading and Ownership" href="threading_and_ownership.html" />
+    <link rel="prev" title="Developer Guide" href="developer_guide.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Settings</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="settings">
+<h1>Settings<a class="headerlink" href="#settings" title="Link to this heading">#</a></h1>
+<p>This page is the reference for every run setting: its name in each API, its default, its unit
+and its effect. <a class="reference internal" href="performance.html"><span class="std std-doc">Performance</span></a> says which settings to change when a run is slow
+or uses too much memory. The <a class="reference internal" href="developer_guide.html#settings"><span class="std std-ref">Developer Guide</span></a> says when a changed
+setting takes effect.</p>
+<p>The settings form one table, the engine table: the settings table of the clash engine, compatible
+with <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a>. Four surfaces set it, on the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical API</span></a> and on the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Surface</p></th>
+<th class="head"><p>Settings type</p></th>
+<th class="head"><p>Apply</p></th>
+<th class="head"><p>Read back</p></th>
+<th class="head"><p>Defaults</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Canonical C</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code>, or one setter per setting</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_settings</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_set_*</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash</span></code> Python</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RunSettings</span></code>, a subset</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_run_settings()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.get_run_settings()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RunSettings()</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Suite C</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_default_run_settings</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> Python</p></td>
+<td><p>A <code class="docutils literal notranslate"><span class="pre">dict</span></code> keyed by <code class="docutils literal notranslate"><span class="pre">SettingId</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashDetection.set_settings()</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The released packages use the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a>,
+and this page describes it. The unpublished reference build, which reads USD through
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> instead, differs for a few settings; the comments in
+<code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code> document each difference.</p>
+<section id="on-this-page">
+<h2>On this page<a class="headerlink" href="#on-this-page" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="#names-in-each-api">Names in each API</a></p></li>
+<li><p><a class="reference internal" href="#scope-and-selection">Scope and selection</a></p></li>
+<li><p><a class="reference internal" href="#detection">Detection</a></p></li>
+<li><p><a class="reference internal" href="#bounds-and-cooking">Bounds and cooking</a></p></li>
+<li><p><a class="reference internal" href="#penetration-depth">Penetration depth</a></p></li>
+<li><p><a class="reference internal" href="#time-sampling">Time sampling</a></p></li>
+<li><p><a class="reference internal" href="#threading">Threading</a></p></li>
+<li><p><a class="reference internal" href="#logging">Logging</a></p></li>
+<li><p><a class="reference internal" href="#settings-without-effect">Settings without effect</a></p></li>
+<li><p><a class="reference internal" href="#ovstage-context-settings">ovstage context settings</a></p></li>
+<li><p><a class="reference internal" href="#defaults-that-differ-between-surfaces">Defaults that differ between surfaces</a></p></li>
+<li><p><a class="reference internal" href="#canonical-c">Canonical C</a></p></li>
+<li><p><a class="reference internal" href="#ovclash-python">ovclash Python</a></p></li>
+<li><p><a class="reference internal" href="#suite-c">Suite C</a></p></li>
+<li><p><a class="reference internal" href="#ovclash-suite-python">ovclash_suite Python</a></p></li>
+<li><p><a class="reference internal" href="#persisted-query-settings">Persisted query settings</a></p></li>
+</ul>
+</section>
+<section id="names-in-each-api">
+<h2>Names in each API<a class="headerlink" href="#names-in-each-api" title="Link to this heading">#</a></h2>
+<p>Each row is one setting. A canonical flag is an <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_&lt;NAME&gt;</span></code> bit of
+<code class="docutils literal notranslate"><span class="pre">ovclash_settings_t::flags</span></code>; the table gives <code class="docutils literal notranslate"><span class="pre">&lt;NAME&gt;</span></code>. A Suite Python key is a <code class="docutils literal notranslate"><span class="pre">SettingId</span></code>
+member, its integer value or its name, such as <code class="docutils literal notranslate"><span class="pre">&quot;SETTING_TOLERANCE&quot;</span></code>. “None” means that the
+surface cannot set the setting; it keeps its default there.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Canonical setter</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">ovclash.RunSettings</span></code></p></th>
+<th class="head"><p>Suite C field</p></th>
+<th class="head"><p>Suite Python <code class="docutils literal notranslate"><span class="pre">SettingId</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_full_scene</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">FULL_SCENE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code></p></td>
+<td><p>None; <code class="docutils literal notranslate"><span class="pre">set_settings()</span></code> always enables it</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_ignore_invisible_prims</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">IGNORE_INVISIBLE_PRIMS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_IGNORE_INVISIBLE_PRIMS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_subcomponent_filtering</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">SUBCOMPONENT_FILTERING</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">subcomponent_filtering</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_FILTER_TEST</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">ENABLE_POINT_CLOUDS</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_ENABLE_POINT_CLOUDS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_point_size</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pointSize</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">point_size_override</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_POINT_SIZE_OVERRIDE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_only_find_duplicates</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">ONLY_FIND_DUPLICATES</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DUP_MESHES</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TOLERANCE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_coplanar</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">COPLANAR</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coplanar</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_COPLANAR</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_any_hit</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">ANY_HIT</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any_hit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_ANY_HIT</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">triangleLimit</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TRIANGLE_LIMIT</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_overlap_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">overlapCode</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">overlap_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_OVERLAP_CODE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_ignore_redundant_overlaps</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">IGNORE_REDUNDANT_OVERLAPS</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_redundant_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_IGNORE_REDUNDANT_OVERLAPS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">broadphaseLimit</span></code></p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_sort_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">sortMode</span></code></p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tight_bounds</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">TIGHT_BOUNDS</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tight_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TIGHT_BOUNDS</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">boundsEpsilon</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_BOUNDS_EPSILON</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_pose_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">poseEpsilon</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_POSE_EPSILON</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_quantized</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">QUANTIZED</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">quantized</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_QUANTIZED</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">trisPerLeaf</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TRIS_PER_LEAF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">areaEpsilon</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_AREA_EPSILON</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_compute_max_local_depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">maxLocalDepthMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code> with <code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_COMPUTE_MAX_LOCAL_DEPTH</span></code> with <code class="docutils literal notranslate"><span class="pre">SETTING_MAX_LOCAL_DEPTH_MODE</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_contact_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contactEpsilon</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code>, applied only while <code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code> is set</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DEPTH_EPSILON</span></code> with <code class="docutils literal notranslate"><span class="pre">SETTING_DISCARD_TOUCHING_CONTACTS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contactCutoff</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_CONTACT_CUTOFF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_times</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">startTime</span></code>, <code class="docutils literal notranslate"><span class="pre">endTime</span></code>, <code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">set_times</span></code>, <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">set_times</span></code></p></td>
+<td><p>Resolved from <code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC</span></code>, <code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_START_TIME</span></code>, <code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_END_TIME</span></code> and <code class="docutils literal notranslate"><span class="pre">SETTING_STATIC_TIME</span></code>; see <a class="reference internal" href="#time-sampling">Time sampling</a></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_static_overlaps</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">PURGE_PERMANENT_STATIC_OVERLAPS</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">purge_permanent_static_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_PURGE_PERMANENT_STATIC_OVERLAPS</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_purge_permanent_dynamic_overlaps</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">PURGE_PERMANENT_DYNAMIC_OVERLAPS</span></code></p></td>
+<td><p>None</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">purge_permanent_dynamic_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_PURGE_PERMANENT_OVERLAPS</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_single_threaded</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">SINGLE_THREADED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_SINGLE_THREADED</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_new_task_manager</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">NEW_TASK_MANAGER</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_NEW_TASK_MANAGER</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nbTasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_NB_TASKS</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_log</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">LOG</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_LOGGING</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds_experimental</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">ENABLE_POINT_CLOUDS_EXPERIMENTAL</span></code></p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_use_usdrt</span></code></p></td>
+<td><p>flag <code class="docutils literal notranslate"><span class="pre">USDRT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SETTING_USE_USDRT</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The sections from <a class="reference internal" href="#scope-and-selection">Scope and selection</a> to <a class="reference internal" href="#logging">Logging</a> give each
+setting’s default in the engine table, the table that <code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings</span></code> writes and that a new
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">context</span></a> holds. Each default also gives the setting’s kind: On and Off mark a
+flag, and a number marks a numeric value; the surface sections give the C and Python types.
+Distances are in <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">stage units</span></a>, so the stage’s <code class="docutils literal notranslate"><span class="pre">metersPerUnit</span></code> applies. Every
+floating-point value must be finite; a non-finite one is rejected, and the previous value stays.</p>
+</section>
+<section id="scope-and-selection">
+<h2>Scope and selection<a class="headerlink" href="#scope-and-selection" title="Link to this heading">#</a></h2>
+<p>Selection reads these settings when a run selects meshes, so a change applies from the next run.
+The point size is the exception: a change between the steps of a run applies from that run’s
+next sample.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Full scene</p></td>
+<td><p>On</p></td>
+<td><p>With no scope set, the run traverses the whole stage. With no scope and the flag off, nothing is selected. Setting it, on or off, clears any scope paths. A non-empty <code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths</span></code> clears it. See <a class="reference internal" href="developer_guide.html#setting-a-scope"><span class="std std-ref">Setting a scope</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ignore invisible prims</p></td>
+<td><p>On</p></td>
+<td><p>Invisible prims are excluded from mesh and point-cloud selection, so they never clash.</p></td>
+</tr>
+<tr class="row-even"><td><p>Subcomponent filtering</p></td>
+<td><p>Off</p></td>
+<td><p>Skips a pair whose two meshes resolve to the same subcomponent root, the nearest ancestor with <code class="docutils literal notranslate"><span class="pre">kind</span> <span class="pre">=</span> <span class="pre">&quot;subcomponent&quot;</span></code>. Meshes outside any subcomponent share the empty root, so the filter also drops every pair between them. A run keeps the value it selected meshes with.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Point clouds</p></td>
+<td><p>Off</p></td>
+<td><p>Adds <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">point-vs-mesh</span></a> queries for <code class="docutils literal notranslate"><span class="pre">UsdGeomPoints</span></code> prims. With the flag off, point clouds are not selected. The mesh-vs-mesh pass is unchanged; see <a class="reference internal" href="developer_guide.html#point-clouds-are-additive"><span class="std std-ref">Point clouds are additive</span></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Point size</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Point diameter (a width, not a radius) for point-cloud tests, in stage units, without the prim’s transform scale. A value above 0 applies to every point and is reported as <code class="docutils literal notranslate"><span class="pre">pointSize0</span></code>. A value of 0 or below falls back to a single authored width, then to per-point widths, then to an automatic size. A change between the steps of a run applies from the run’s next sample. It matters only while point clouds are on.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="detection">
+<h2>Detection<a class="headerlink" href="#detection" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tolerance</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Clearance distance in stage units: mesh pairs closer than this count as clashing, so a positive value reports near misses. <code class="docutils literal notranslate"><span class="pre">0.0</span></code> reports touching or interpenetrating geometry only. A negative value counts as 0. The point-vs-mesh <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">narrow phase</span></a> ignores it.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Coplanar</p></td>
+<td><p>On</p></td>
+<td><p>Keeps coplanar triangle pairs that touch exactly as overlaps. Off discards them.</p></td>
+</tr>
+<tr class="row-even"><td><p>Any hit</p></td>
+<td><p>Off</p></td>
+<td><p>Stops each mesh pair at its first colliding triangle. The pair is still reported, but <code class="docutils literal notranslate"><span class="pre">nbElements</span></code> and the face and outline buffers hold one representative hit, and derived values such as <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> come from that hit. It overrides the triangle limit with 1.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Triangle limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Caps the colliding triangle pairs recorded per mesh pair. <code class="docutils literal notranslate"><span class="pre">0</span></code> means unlimited. The cap truncates <code class="docutils literal notranslate"><span class="pre">nbElements</span></code> and the face and outline buffers; it does not stop a pair from being reported. Not validated.</p></td>
+</tr>
+<tr class="row-even"><td><p>Overlap code</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Selects the triangle-triangle intersection kernel: 1 a variant of Moller’s triangle-triangle test, 2 a separating-axis test (SAT), 3 a SAT that uses SIMD vector instructions (SIMD SAT). <code class="docutils literal notranslate"><span class="pre">0</span></code> and every other value select the regular kernel. The kernels differ in speed and can classify borderline hits differently. Not validated.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ignore redundant overlaps</p></td>
+<td><p>Off</p></td>
+<td><p>Drops a pair whose meshes and relative poses repeat a contact already recorded, typically instanced or shared geometry laid out identically.</p></td>
+</tr>
+<tr class="row-even"><td><p>Only find duplicates</p></td>
+<td><p>Off</p></td>
+<td><p>Runs the duplicate-mesh search only. Duplicates are prim pairs with identical mesh data and equal poses within the pose epsilon. The overlap count is then 0, and only the duplicate getters return results. A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> never searches for duplicates, so this flag with a time range finds nothing.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Broad-phase limit</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code></p></td>
+<td><p>Caps the candidate pairs of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">broad phase</span></a>. A run whose candidate count exceeds it is cancelled, not truncated; see <a class="reference internal" href="performance.html#broad-phase-and-geometry-limits"><span class="std std-ref">Broad phase and geometry limits</span></a>. <code class="docutils literal notranslate"><span class="pre">0</span></code> is a real limit. Canonical C only.</p></td>
+</tr>
+<tr class="row-even"><td><p>Sort mode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>On ovstage only <code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code> does something: it reports a triangle count of 0 for every duplicate pair. Not validated. Canonical C only.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>When the broad-phase limit cancels a run, the cancellation stays pending. A stepped static run
+reports success for the broad-phase step and then rejects the next step. A sampled frame step
+that exceeds the limit fails itself. An async run reports the stop from
+<code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code>, which clears it. Otherwise <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code> clears it.</p>
+</section>
+<section id="bounds-and-cooking">
+<h2>Bounds and cooking<a class="headerlink" href="#bounds-and-cooking" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Cooking</span></a> reads the cooking settings, so a change applies to meshes cooked
+by the next run. <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">PhysX</span></a> cooks each mesh into a midphase tree, the
+per-mesh bounding volume hierarchy that the narrow phase queries for triangles.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Tight bounds</p></td>
+<td><p>On</p></td>
+<td><p>Computes rotation-aware world bounds. They shrink the broad-phase candidate set for rotated meshes, at some extra cost.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Bounds epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>Inflates each mesh’s world bounds, as an additive offset in stage units and as a scale factor of 1 + epsilon. A value of 0 or above can only add candidate pairs; the narrow phase still decides. A negative value can shrink the bounds.</p></td>
+</tr>
+<tr class="row-even"><td><p>Pose epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+<td><p>Per-element tolerance for comparing two world transforms, in the units of the matrix components (stage units for translation). It decides when meshes share a pose and when a pair is a duplicate. A negative value never matches.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Quantized</p></td>
+<td><p>Off</p></td>
+<td><p>Cooks quantized midphase trees: less memory, at some cost in accuracy and speed.</p></td>
+</tr>
+<tr class="row-even"><td><p>Triangles per leaf</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
+<td><p>Triangles per leaf of the cooked midphase tree. Larger leaves cook faster and use less memory; smaller leaves query faster. Values outside 1 to 15 are rejected; 15 is also the maximum. A value of 1 is accepted and read back, but cooking falls back to 15.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Area epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+<td><p>Minimum triangle area kept during cooking, in squared stage units. Smaller triangles are discarded and never appear in results. <code class="docutils literal notranslate"><span class="pre">0</span></code> keeps every triangle.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="penetration-depth">
+<h2>Penetration depth<a class="headerlink" href="#penetration-depth" title="Link to this heading">#</a></h2>
+<p>Depth is mesh-only. A point-vs-mesh overlap reports a <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> in every mode.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Max local depth mode</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISABLED</span></code></p></td>
+<td><p>Computes the maximum local penetration depth of each overlap. <code class="docutils literal notranslate"><span class="pre">DISABLED</span></code> computes nothing, and a mesh-vs-mesh <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> stays <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>, “not computed”. <code class="docutils literal notranslate"><span class="pre">MINIMAL</span></code> is the fast estimate; <code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code> and <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> refine it at increasing cost, and <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> adds 64 sampling directions. A mode above <code class="docutils literal notranslate"><span class="pre">HIGH</span></code> is rejected.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Contact epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+<td><p>Minimum depth in stage units, used only while depth is computed. Overlaps with a smaller <code class="docutils literal notranslate"><span class="pre">maxLocalDepth</span></code> are dropped, and the value is the minimum-depth cutoff of the refinement. A negative value disables both.</p></td>
+</tr>
+<tr class="row-even"><td><p>Contact cutoff</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+<td><p>Maximum-depth cutoff of the refined search, in stage units. It applies only while the contact epsilon is 0 or above and the mode is above <code class="docutils literal notranslate"><span class="pre">MINIMAL</span></code>. A negative value leaves the cutoff unset.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The Suite C ABI and its Python package split the mode into an on/off gate and a mode on another
+scale:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Suite field</p></th>
+<th class="head"><p>Values</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code></p></td>
+<td><p>The gate. 0, the default, maps to <code class="docutils literal notranslate"><span class="pre">DISABLED</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p>Read only while the gate is on: 0 minimal, 1 medium (the default), 2 high. 3 is rejected.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The Suite scale is offset by one from <code class="docutils literal notranslate"><span class="pre">ovclash_max_local_depth_mode_t</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ovclash.MaxLocalDepthMode</span></code>, where 0 is <code class="docutils literal notranslate"><span class="pre">DISABLED</span></code> and 1, 2 and 3 are <code class="docutils literal notranslate"><span class="pre">MINIMAL</span></code>, <code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code> and
+<code class="docutils literal notranslate"><span class="pre">HIGH</span></code>. A canonical value passed in a Suite field therefore selects the next mode up.</p>
+<p>The Suite’s <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> becomes the contact epsilon only while <code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code> is
+set. Otherwise the contact epsilon stays <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>. Its Suite default is <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>.</p>
+<p><a class="reference internal" href="performance.html#depth-computation-costs"><span class="std std-ref">Depth computation costs</span></a> compares the modes.</p>
+</section>
+<section id="time-sampling">
+<h2>Time sampling<a class="headerlink" href="#time-sampling" title="Link to this heading">#</a></h2>
+<p>Query times are in seconds, not USD time codes; see
+<a class="reference internal" href="developer_guide.html#time-units"><span class="std std-ref">Time units</span></a>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Start time, end time</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code>, <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Equal times select a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">static query</span></a> with one sample at that time. Otherwise the run samples from the start time; <a class="reference internal" href="developer_guide.html#what-results-are-stable"><span class="std std-ref">What results are stable</span></a> gives the sample times.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Time codes per second</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>The query’s samples per second. It is not the stage’s time-code rate. <code class="docutils literal notranslate"><span class="pre">0</span></code> collapses a time range to one sample at the start time. A negative value is rejected.</p></td>
+</tr>
+<tr class="row-even"><td><p>Purge permanent static overlaps</p></td>
+<td><p>On</p></td>
+<td><p>In a dynamic run, drops pairs whose two meshes are both transform-static. A mesh counts as static only when its authored transforms prove it; a mesh with an unresolved initial transform value is treated as non-static. No effect on a static query.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Purge permanent dynamic overlaps</p></td>
+<td><p>Off</p></td>
+<td><p>In a dynamic run, drops overlaps present in every sampled frame, such as modelling artifacts. No effect on a static query.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline</span></code> reads the three times to plan the steps. The
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">pipeline</span></a> keeps that plan, so a later change of the times applies to the
+next pipeline.</p>
+<p>Each surface sets the times its own way:</p>
+<ul class="simple">
+<li><p><strong>Canonical C.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_set_times(context,</span> <span class="pre">start,</span> <span class="pre">end,</span> <span class="pre">rate)</span></code>, or the three struct fields.
+A descending range is accepted and takes one sample at the start time.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ovclash</span></code> Python.</strong> <code class="docutils literal notranslate"><span class="pre">RunSettings.set_times=True</span></code> applies <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code> and
+<code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>. With <code class="docutils literal notranslate"><span class="pre">set_times=False</span></code>, all three native times are 0.0, a static
+query at time 0. A descending range raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></li>
+<li><p><strong>Suite C.</strong> <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code> and <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code> select the samples.
+<code class="docutils literal notranslate"><span class="pre">set_times</span></code> only enables the <code class="docutils literal notranslate"><span class="pre">end_time</span> <span class="pre">&gt;=</span> <span class="pre">start_time</span></code> check. <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>, <code class="docutils literal notranslate"><span class="pre">static_time</span></code>,
+<code class="docutils literal notranslate"><span class="pre">dynamic_start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">dynamic_end_time</span></code> are persisted query metadata that the runtime does
+not read; resolve them into <code class="docutils literal notranslate"><span class="pre">start_time</span></code> and <code class="docutils literal notranslate"><span class="pre">end_time</span></code> yourself.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> Python.</strong> <code class="docutils literal notranslate"><span class="pre">ClashDetection.set_settings()</span></code> resolves the times from the open
+stage’s timeline:</p>
+<ul>
+<li><p>With <code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC</span></code> true, the run samples from <code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_START_TIME</span></code> to
+<code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_END_TIME</span></code>. A time of <code class="docutils literal notranslate"><span class="pre">0.0</span></code> takes the stage’s start or end instead.</p></li>
+<li><p>Otherwise the run is static at <code class="docutils literal notranslate"><span class="pre">SETTING_STATIC_TIME</span></code>, clamped to the stage’s time range.</p></li>
+<li><p>The sampling rate is the stage’s own time-codes-per-second rate. The optional
+<code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code> keyword sets another one; it must be positive.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SETTING_DUP_MESHES</span></code> makes the run static.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="threading">
+<h2>Threading<a class="headerlink" href="#threading" title="Link to this heading">#</a></h2>
+<p>No threading control changes which pairs overlap or what is reported about them. On ovstage
+they do not change the result order either. They also govern report extraction and
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> frame preparation after detection, so you can change them
+between detection and fetching.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Single threaded</p></td>
+<td><p>Off</p></td>
+<td><p>Runs every phase serially. It overrides both task managers.</p></td>
+</tr>
+<tr class="row-odd"><td><p>New task manager</p></td>
+<td><p>On</p></td>
+<td><p>Runs parallel phases on the tasking of Carbonite, NVIDIA’s plugin and runtime framework, with the scheduler’s worker budget, and ignores the task count. Off selects <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> workers bounded by the task count. When the scheduler cannot start, the phase fails with an error; no other scheduler is selected.</p></td>
+</tr>
+<tr class="row-even"><td><p>Task count</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+<td><p>Used only while both other controls are off. The workers are bounded by the task count (0 counts as 1), the hardware concurrency and the available work. The engine clamps the value to 256.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Validation of the task count differs per surface:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Surface</p></th>
+<th class="head"><p>Accepted task counts</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Canonical C</p></td>
+<td><p>Any value. The engine clamps it to 256, and <code class="docutils literal notranslate"><span class="pre">ovclash_get_settings</span></code> reads back the clamped value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.RunSettings</span></code></p></td>
+<td><p>1 to 255 while <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code> and <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code> are both false; otherwise any <code class="docutils literal notranslate"><span class="pre">uint32</span></code> value. A value outside that range raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Suite C and <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code></p></td>
+<td><p>0 to 1000000; larger values are rejected. The engine clamps the value to 256, but read-back returns the value you passed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="performance.html#threading"><span class="std std-ref">Threading</span></a> says when to change them, and
+<a class="reference internal" href="threading_and_ownership.html#threading-controls-and-result-order"><span class="std std-ref">Threading controls and result order</span></a>
+gives the ordering rules.</p>
+</section>
+<section id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Log</p></td>
+<td><p>Off</p></td>
+<td><p>Prints per-phase progress and timing lines to stdout. There is no callback and no way to redirect the output, and the text is not a stable format.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="troubleshooting.html#collecting-diagnostics-for-a-bug-report"><span class="std std-ref">Collecting diagnostics for a bug report</span></a>
+lists the other diagnostic switches.</p>
+</section>
+<section id="settings-without-effect">
+<h2>Settings without effect<a class="headerlink" href="#settings-without-effect" title="Link to this heading">#</a></h2>
+<p>These settings are accepted, stored and read back, and all except the experimental point-cloud
+flag are persisted with a query. Nothing in a standalone run acts on them, so they never change
+results:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Spellings</p></th>
+<th class="head"><p>Note</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_USDRT</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_set_use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">RunSettings.use_usdrt</span></code> in both packages, the Suite field <code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">SettingId.SETTING_USE_USDRT</span></code></p></td>
+<td><p>In Kit it selects the scene traversal of <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USDRT</span></a>, Kit’s runtime scene representation. It stays in the table because persisted query settings carry it.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Experimental point clouds</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_ENABLE_POINT_CLOUDS_EXPERIMENTAL</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_set_point_clouds_experimental</span></code></p></td>
+<td><p>ovstage never reads it.</p></td>
+</tr>
+<tr class="row-even"><td><p>Query metadata</p></td>
+<td><p>The Suite fields <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>, <code class="docutils literal notranslate"><span class="pre">static_time</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic_start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic_end_time</span></code></p></td>
+<td><p>The Suite C runtime does not read them; see <a class="reference internal" href="#time-sampling">Time sampling</a>. They are validated as finite and persisted.</p></td>
+</tr>
+<tr class="row-odd"><td><p>ROI include and exclude paths</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashQuery.roi_include_path</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashQuery.roi_exclude_path</span></code>; C: <code class="docutils literal notranslate"><span class="pre">ovclash_suite_query_set_roi_include_path</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_query_set_roi_exclude_path</span></code></p></td>
+<td><p>The region-of-interest <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ROI paths</span></a> of a query record, persisted and round-tripped. No query reads them, so two queries that differ only in them give identical results. Use an A/B <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a>, the two search sets of prim paths, instead.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="ovstage-context-settings">
+<h2>ovstage context settings<a class="headerlink" href="#ovstage-context-settings" title="Link to this heading">#</a></h2>
+<p>Two settings of an ovstage context sit outside the engine table:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>API</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Matrix decomposition</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_set_matrix_decomposition</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_ovstage_matrix_decomposition()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OPENUSD</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;openusd&quot;</span></code>)</p></td>
+<td><p>How mesh matrices are decomposed. <code class="docutils literal notranslate"><span class="pre">OVCLASH</span></code> (<code class="docutils literal notranslate"><span class="pre">&quot;ovclash&quot;</span></code>) reproduces earlier ovclash results and can change which pairs clash at zero tolerance. A changed mode clears results and discards the pipeline. The mode survives a context reset and a stage replacement. See <a class="reference internal" href="README.html#comparing-ovstage-matrix-decompositions"><span class="std std-ref">Comparing ovstage matrix decompositions</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dynamic matrix cache</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_ovstage_dynamic_matrix_cache()</span></code></p></td>
+<td><p>On</p></td>
+<td><p>Caches sampled transforms in bounded playback windows. Off reads one frame at a time and disables prefetch, the reading of the next playback window on a second worker. It does not change sample times or poses. See <a class="reference internal" href="performance.html#dynamic-runs"><span class="std std-ref">Dynamic runs</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Both raise <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> in Python on a backend without them. <a class="reference internal" href="ovstage_integration.html"><span class="std std-doc">Using ovclash with an ovstage
+Stage</span></a> covers the rest of the ovstage-only API.</p>
+</section>
+<section id="defaults-that-differ-between-surfaces">
+<h2>Defaults that differ between surfaces<a class="headerlink" href="#defaults-that-differ-between-surfaces" title="Link to this heading">#</a></h2>
+<p>All four surfaces start from the engine table, with these exceptions:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>Engine table</p></th>
+<th class="head"><p>Exception</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p>On</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.RunSettings()</span></code> holds <code class="docutils literal notranslate"><span class="pre">False</span></code>. It has no effect either way.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Time codes per second</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RunSettings()</span></code> holds <code class="docutils literal notranslate"><span class="pre">24.0</span></code> in both Python packages.</p></td>
+</tr>
+<tr class="row-even"><td><p>Depth</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DISABLED</span></code></p></td>
+<td><p>The Suite API holds the gate off with mode 1 (medium), which is the same state.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Pose and area epsilon, bounds epsilon</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6f</span></code>, <code class="docutils literal notranslate"><span class="pre">0.01f</span></code> (<code class="docutils literal notranslate"><span class="pre">float</span></code>)</p></td>
+<td><p>The Suite defaults hold the exact doubles <code class="docutils literal notranslate"><span class="pre">1e-6</span></code> and <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Depth epsilon</p></td>
+<td><p>No counterpart</p></td>
+<td><p>The Suite default is <code class="docutils literal notranslate"><span class="pre">-1.0</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Two read-backs differ from the defaults you might expect:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.get_run_settings()</span></code> on a new runtime reports the engine table, not
+<code class="docutils literal notranslate"><span class="pre">RunSettings()</span></code>: <code class="docutils literal notranslate"><span class="pre">use_usdrt=True</span></code> and <code class="docutils literal notranslate"><span class="pre">time_codes_per_second=0.0</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings</span></code> reports a zero-initialized struct until the first successful
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings</span></code>. The runtime uses the engine table until then.</p></li>
+</ul>
+</section>
+<section id="canonical-c">
+<h2>Canonical C<a class="headerlink" href="#canonical-c" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code> is a plain struct: a <code class="docutils literal notranslate"><span class="pre">flags</span></code> bitmask of
+<code class="docutils literal notranslate"><span class="pre">ovclash_settings_flag_t</span></code> values, the counts, limits and epsilons, <code class="docutils literal notranslate"><span class="pre">maxLocalDepthMode</span></code>, and the
+three times. Every field is required, so start from <code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings</span></code>, which writes the
+defaults:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>C type</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Setting</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">flags</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, a bitmask of <code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_*</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_DEFAULT</span></code></p></td>
+<td><p>Every on/off setting; <a class="reference internal" href="#names-in-each-api">Names in each API</a> gives each flag</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nbTasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+<td><p>Task count</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sortMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Sort mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlapCode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>Overlap code</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trisPerLeaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code>, in 1 to 15</p></td>
+<td><p>Triangles per leaf</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">triangleLimit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Triangle limit</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">broadphaseLimit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0xffffffff</span></code></p></td>
+<td><p>Broad-phase limit</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">poseEpsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">areaEpsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6f</span></code></p></td>
+<td><p>Pose epsilon, area epsilon</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">boundsEpsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01f</span></code></p></td>
+<td><p>Bounds epsilon</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">contactEpsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">contactCutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0f</span></code></p></td>
+<td><p>Contact epsilon, contact cutoff</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0f</span></code></p></td>
+<td><p>Tolerance</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pointSize</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0f</span></code></p></td>
+<td><p>Point size</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">maxLocalDepthMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_max_local_depth_mode_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_MAX_LOCAL_DEPTH_MODE_DISABLED</span></code></p></td>
+<td><p>Max local depth mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">startTime</span></code>, <code class="docutils literal notranslate"><span class="pre">endTime</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Start time, end time, in seconds</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Time codes per second</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Change fields and apply the whole struct. This function belongs in a C source file of your
+program; <code class="docutils literal notranslate"><span class="pre">ctx</span></code> is a context from <code class="docutils literal notranslate"><span class="pre">ovclash_create_context</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+
+<span class="cm">/* Applies the engine table with point clouds on and a 0.5 tolerance. Returns 0 on success. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">apply_settings</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_settings_t</span><span class="w"> </span><span class="n">settings</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_reset_settings</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings</span><span class="p">);</span><span class="w"> </span><span class="cm">/* the engine table */</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">flags</span><span class="w"> </span><span class="o">|=</span><span class="w"> </span><span class="n">OVCLASH_SETTINGS_FLAG_ENABLE_POINT_CLOUDS</span><span class="p">;</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">tolerance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5f</span><span class="p">;</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">nbTasks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_set_settings</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_get_last_error</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="n">ovclash_settings_t</span><span class="w"> </span><span class="n">live</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_get_settings</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">live</span><span class="p">);</span>
+<span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;nbTasks: %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">live</span><span class="p">.</span><span class="n">nbTasks</span><span class="p">);</span><span class="w"> </span><span class="cm">/* prints 256: the engine clamps nbTasks */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_DEFAULT</span></code> sets <code class="docutils literal notranslate"><span class="pre">COPLANAR</span></code>, <code class="docutils literal notranslate"><span class="pre">TIGHT_BOUNDS</span></code>, <code class="docutils literal notranslate"><span class="pre">FULL_SCENE</span></code>,
+<code class="docutils literal notranslate"><span class="pre">IGNORE_INVISIBLE_PRIMS</span></code>, <code class="docutils literal notranslate"><span class="pre">NEW_TASK_MANAGER</span></code>, <code class="docutils literal notranslate"><span class="pre">PURGE_PERMANENT_STATIC_OVERLAPS</span></code> and <code class="docutils literal notranslate"><span class="pre">USDRT</span></code>.
+Every other flag is off.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_context</span></code> seeds a new context from <code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings</span></code>, so the two agree
+field for field.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_settings</span></code> validates the whole struct first: finite floats, a non-negative
+<code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code>, <code class="docutils literal notranslate"><span class="pre">trisPerLeaf</span></code> in 1 to 15 and <code class="docutils literal notranslate"><span class="pre">maxLocalDepthMode</span></code> up to <code class="docutils literal notranslate"><span class="pre">HIGH</span></code>. On a
+violation it stores nothing. It also clears any scope paths, so set the scope afterwards.</p></li>
+<li><p>A setter changes one value without a whole-struct push. A rejected setter stores nothing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_settings</span></code> reads back the live settings, including per-setter changes.</p></li>
+</ul>
+</section>
+<section id="ovclash-python">
+<h2>ovclash Python<a class="headerlink" href="#ovclash-python" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash.RunSettings</span></code> is a dataclass over a subset of <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code>: the fields in the
+<a class="reference internal" href="#names-in-each-api">Names in each API</a> table. Every field is optional and takes its dataclass
+default:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code>, <code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code>, <code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, <code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code>, <code class="docutils literal notranslate"><span class="pre">set_times</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code>, <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">24.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash.MaxLocalDepthMode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">MaxLocalDepthMode.DISABLED</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">with_updates(**kwargs)</span></code> returns a copy with the named fields replaced. Run this script with the
+Python that has ovclash installed, and replace <code class="docutils literal notranslate"><span class="pre">scene.usda</span></code> with the path of your stage:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span><span class="p">,</span> <span class="n">RunSettings</span>
+
+<span class="n">runtime</span> <span class="o">=</span> <span class="n">ClashRuntime</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">RunSettings</span><span class="p">()</span><span class="o">.</span><span class="n">with_updates</span><span class="p">(</span><span class="n">enable_point_clouds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
+    <span class="c1"># Change one field and keep the others: pass the current settings as the base.</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">set_run_settings</span><span class="p">(</span><span class="n">runtime</span><span class="o">.</span><span class="n">get_run_settings</span><span class="p">(),</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.set_run_settings(settings=None,</span> <span class="pre">**kwargs)</span></code> applies <code class="docutils literal notranslate"><span class="pre">settings</span></code> with <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>
+replacing fields, and returns the effective settings:</p>
+<ul class="simple">
+<li><p>Every call resets the settings that <code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> does not model to the engine table.</p></li>
+<li><p>Without a base, it starts from <code class="docutils literal notranslate"><span class="pre">RunSettings()</span></code>, so fields you do not pass take their dataclass
+defaults. Pass <code class="docutils literal notranslate"><span class="pre">runtime.get_run_settings()</span></code> as the base to keep them.</p></li>
+<li><p>It raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> for a value out of range or not finite, before anything is applied. A
+rejected call leaves the previous settings in place.</p></li>
+<li><p>It closes open overlap reports and discards the pipeline. Completed results stay.</p></li>
+</ul>
+<p>The native context stores no <code class="docutils literal notranslate"><span class="pre">set_times</span></code> flag, so <code class="docutils literal notranslate"><span class="pre">get_run_settings()</span></code> reports
+<code class="docutils literal notranslate"><span class="pre">set_times=True</span></code> only when a native time is non-zero. After <code class="docutils literal notranslate"><span class="pre">set_times=False</span></code>, and on a new
+runtime, all three native times are 0.0. A time range enabled from that read-back keeps the
+0.0 rate and takes one sample, so pass <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code> as well.</p>
+</section>
+<section id="suite-c">
+<h2>Suite C<a class="headerlink" href="#suite-c" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t</span></code> in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite_types.h&gt;</span></code> is a flat struct of
+<code class="docutils literal notranslate"><span class="pre">uint32_t</span></code> flags and counts and <code class="docutils literal notranslate"><span class="pre">double</span></code> tolerances and times. A flag is 0 for false and non-zero
+for true. Every field is required, so start from <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_default_run_settings</span></code>, which
+fills it with these defaults:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fields</p></th>
+<th class="head"><p>C type</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>, <code class="docutils literal notranslate"><span class="pre">purge_permanent_dynamic_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_redundant_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code>, <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, <code class="docutils literal notranslate"><span class="pre">any_hit</span></code>, <code class="docutils literal notranslate"><span class="pre">quantized</span></code>, <code class="docutils literal notranslate"><span class="pre">subcomponent_filtering</span></code>, <code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code>, <code class="docutils literal notranslate"><span class="pre">set_times</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code> flag</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>, <code class="docutils literal notranslate"><span class="pre">purge_permanent_static_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code>, <code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code>, <code class="docutils literal notranslate"><span class="pre">coplanar</span></code>, <code class="docutils literal notranslate"><span class="pre">tight_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code> flag</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, 0 to 2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, 0 to 1000000</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>, 1 to 15</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlap_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dynamic_start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic_end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">static_time</span></code>, <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>, <code class="docutils literal notranslate"><span class="pre">point_size_override</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">double</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="#names-in-each-api">Names in each API</a> maps each field to its setting. This function belongs in
+a C source file of your program; <code class="docutils literal notranslate"><span class="pre">runtime</span></code> is a runtime from <code class="docutils literal notranslate"><span class="pre">ovclash_suite_create_runtime</span></code>:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+
+<span class="cm">/* Applies the Suite defaults with high-mode depth computation. Returns 0 on success. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">apply_suite_settings</span><span class="p">(</span><span class="n">ovclash_suite_runtime_t</span><span class="o">*</span><span class="w"> </span><span class="n">runtime</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_suite_run_settings_t</span><span class="w"> </span><span class="n">settings</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_get_default_run_settings</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings</span><span class="p">);</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">compute_max_local_depth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">settings</span><span class="p">.</span><span class="n">max_local_depth_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="cm">/* high, on the Suite scale */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_set_run_settings</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_get_last_error</span><span class="p">(</span><span class="n">runtime</span><span class="p">);</span>
+<span class="w">        </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings</span></code> rejects a struct with any out-of-range field, keeps the previous
+settings and names the field in the last-error text. With <code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span> <span class="pre">=</span> <span class="pre">16</span></code>, for example, it
+reads <code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span> <span class="pre">must</span> <span class="pre">be</span> <span class="pre">in</span> <span class="pre">[1,</span> <span class="pre">15]</span></code>. It rejects:</p>
+<ul class="simple">
+<li><p>a non-finite <code class="docutils literal notranslate"><span class="pre">double</span></code>;</p></li>
+<li><p>a value outside the <code class="docutils literal notranslate"><span class="pre">float</span></code> range in a field that the engine stores as <code class="docutils literal notranslate"><span class="pre">float</span></code>:
+<code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code>, <code class="docutils literal notranslate"><span class="pre">tolerance</span></code>,
+<code class="docutils literal notranslate"><span class="pre">point_size_override</span></code>, and <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> while <code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code> is set;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code> above 2, <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> above 1000000, <code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code> outside 1 to 15;</p></li>
+<li><p>a negative <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>;</p></li>
+<li><p>a non-zero <code class="docutils literal notranslate"><span class="pre">set_times</span></code> with <code class="docutils literal notranslate"><span class="pre">end_time</span></code> below <code class="docutils literal notranslate"><span class="pre">start_time</span></code>.</p></li>
+</ul>
+<p>The call also fails while an <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">async pipeline</span></a> or a fetch, a
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> operation that is not yet destroyed, is alive. A scope set
+with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_scope</span></code> survives it, in either call order. <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings</span></code>
+returns the last accepted struct, including the Suite-only fields that the engine does not store.</p>
+</section>
+<section id="ovclash-suite-python">
+<h2>ovclash_suite Python<a class="headerlink" href="#ovclash-suite-python" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code> is a <code class="docutils literal notranslate"><span class="pre">dict[SettingId,</span> <span class="pre">Any]</span></code> built at import from
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_default_run_settings</span></code>, so the Python defaults match the native ones.
+<code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code> starts from a copy, and <code class="docutils literal notranslate"><span class="pre">ClashDetection.get_default_setting_value(setting_id)</span></code>
+reads one entry.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ClashDetection.set_settings(settings,</span> <span class="pre">stage=None,</span> <span class="pre">*,</span> <span class="pre">time_codes_per_second=None)</span></code> takes a
+partial mapping:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span><span class="p">,</span> <span class="n">SettingId</span>
+
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">set_settings</span><span class="p">({</span><span class="n">SettingId</span><span class="o">.</span><span class="n">SETTING_TOLERANCE</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;SETTING_ENABLE_POINT_CLOUDS&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span> <span class="s2">&quot;scene.usda&quot;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>A key is a <code class="docutils literal notranslate"><span class="pre">SettingId</span></code> member, its integer value or its name. Other keys are ignored without
+an error.</p></li>
+<li><p>A missing key takes its <code class="docutils literal notranslate"><span class="pre">DEFAULT_SETTINGS</span></code> value, so each call sets the whole table.</p></li>
+<li><p>Full-scene traversal is always on.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">stage</span></code> names the stage file, or a stage object whose root layer names it. A different file is
+opened, which drops the scope.</p></li>
+<li><p>It raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> for a resolved value out of range or not finite, and <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when
+the native call rejects the settings or an async operation is alive.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite.RunSettings</span></code> is the complete Suite payload as a dataclass, and
+<code class="docutils literal notranslate"><span class="pre">default_run_settings()</span></code> returns the native defaults in that form. <code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code> does not take
+it; <a class="reference internal" href="#persisted-query-settings">Persisted query settings</a> does. Each field carries the
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_t</span></code> field of the same name, with the range that <a class="reference internal" href="#suite-c">Suite C</a>
+gives, and <a class="reference internal" href="#names-in-each-api">Names in each API</a> maps it to its setting. Every field is
+optional:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic</span></code>, <code class="docutils literal notranslate"><span class="pre">purge_permanent_dynamic_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_redundant_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code>, <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, <code class="docutils literal notranslate"><span class="pre">any_hit</span></code>, <code class="docutils literal notranslate"><span class="pre">quantized</span></code>, <code class="docutils literal notranslate"><span class="pre">subcomponent_filtering</span></code>, <code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code>, <code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code>, <code class="docutils literal notranslate"><span class="pre">set_times</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>The Suite C flags of the same names.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>, <code class="docutils literal notranslate"><span class="pre">purge_permanent_static_overlaps</span></code>, <code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code>, <code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code>, <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code>, <code class="docutils literal notranslate"><span class="pre">coplanar</span></code>, <code class="docutils literal notranslate"><span class="pre">tight_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>The Suite C flags of the same names.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code>; 0 to 2</p></td>
+<td><p>The depth mode on the Suite scale, read only while <code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code> is set.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code>; 0 to 1000000</p></td>
+<td><p>The task count.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code>; 1 to 15</p></td>
+<td><p>Triangles per leaf.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">overlap_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+<td><p>The intersection kernel.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code>, unlimited</p></td>
+<td><p>The triangle limit.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dynamic_start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">dynamic_end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">static_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>Persisted query metadata that the runtime does not read.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>The sampled range, in seconds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">24.0</span></code>; <code class="docutils literal notranslate"><span class="pre">default_run_settings()</span></code> returns <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>The query’s samples per second.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code>, <code class="docutils literal notranslate"><span class="pre">point_size_override</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+<td><p>The tolerance and the point size, in stage units.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+<td><p>The pose and area epsilons.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+<td><p>The bounds epsilon.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code>, <code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+<td><p>The depth epsilon and the contact cutoff.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">RunSettings.with_updates(**kwargs)</span></code> returns a copy with the named fields replaced.</p>
+</section>
+<section id="persisted-query-settings">
+<h2>Persisted query settings<a class="headerlink" href="#persisted-query-settings" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code> stores its settings as a JSON object whose keys are the <code class="docutils literal notranslate"><span class="pre">SettingId</span></code> names, such as
+<code class="docutils literal notranslate"><span class="pre">SETTING_TOLERANCE</span></code>. Generate that text instead of spelling the names by hand:</p>
+<ul class="simple">
+<li><p>C: <code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_settings_to_query_settings_json(settings,</span> <span class="pre">buffer,</span> <span class="pre">size,</span> <span class="pre">&amp;required)</span></code>.</p></li>
+<li><p>Python: <code class="docutils literal notranslate"><span class="pre">ovclash_suite.run_settings_to_query_settings_json(settings)</span></code>, or
+<code class="docutils literal notranslate"><span class="pre">run_settings_to_query_settings_dict(settings)</span></code> for the decoded <code class="docutils literal notranslate"><span class="pre">dict</span></code>.</p></li>
+</ul>
+<p>The JSON has one key per <code class="docutils literal notranslate"><span class="pre">SettingId</span></code> member, and the writer always writes every key. It does not
+carry <code class="docutils literal notranslate"><span class="pre">start_time</span></code>, <code class="docutils literal notranslate"><span class="pre">end_time</span></code>, <code class="docutils literal notranslate"><span class="pre">time_codes_per_second</span></code>, <code class="docutils literal notranslate"><span class="pre">set_times</span></code> or <code class="docutils literal notranslate"><span class="pre">enable_full_scene</span></code>. Each
+key carries one Suite C field, and the default is the value written for
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_default_run_settings</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>JSON type</p></th>
+<th class="head"><p>Suite C field</p></th>
+<th class="head"><p>Default</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_LOGGING</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_log</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_START_TIME</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic_start_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DYNAMIC_END_TIME</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">dynamic_end_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_PURGE_PERMANENT_OVERLAPS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">purge_permanent_dynamic_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_QUANTIZED</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">quantized</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_SINGLE_THREADED</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_NEW_TASK_MANAGER</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_FILTER_TEST</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">subcomponent_filtering</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TIGHT_BOUNDS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tight_bounds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_COPLANAR</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">coplanar</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_NB_TASKS</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">128</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_POSE_EPSILON</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pose_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_BOUNDS_EPSILON</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bounds_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.01</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_AREA_EPSILON</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">area_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1e-6</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TRIS_PER_LEAF</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tris_per_leaf</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">15</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TOLERANCE</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_ANY_HIT</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">any_hit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_OVERLAP_CODE</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">overlap_code</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">3</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DUP_MESHES</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_STATIC_TIME</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">static_time</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_COMPUTE_MAX_LOCAL_DEPTH</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">compute_max_local_depth</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DEPTH_EPSILON</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_DISCARD_TOUCHING_CONTACTS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">discard_touching_contacts</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_PURGE_PERMANENT_STATIC_OVERLAPS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">purge_permanent_static_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_USE_USDRT</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">use_usdrt</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_TRIANGLE_LIMIT</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">triangle_limit</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_IGNORE_REDUNDANT_OVERLAPS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_redundant_overlaps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_IGNORE_INVISIBLE_PRIMS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ignore_invisible_prims</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_CONTACT_CUTOFF</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">contact_cutoff</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-1.0</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_MAX_LOCAL_DEPTH_MODE</span></code></p></td>
+<td><p>integer</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">max_local_depth_mode</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_ENABLE_POINT_CLOUDS</span></code></p></td>
+<td><p>boolean</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">enable_point_clouds</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">false</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SETTING_POINT_SIZE_OVERRIDE</span></code></p></td>
+<td><p>number</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">point_size_override</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><a class="reference internal" href="#suite-c">Suite C</a> gives each field’s range. Numbers
+are written with 17 significant digits so that they round-trip exactly; the default epsilon
+<code class="docutils literal notranslate"><span class="pre">1e-6</span></code> is written as <code class="docutils literal notranslate"><span class="pre">9.9999999999999995e-07</span></code>. Negative zero is written as <code class="docutils literal notranslate"><span class="pre">-0.0</span></code>. The text does
+not depend on the caller’s locale or floating-point environment. A non-finite field fails the
+call.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="developer_guide.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Developer Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="threading_and_ownership.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Threading and Ownership</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#on-this-page">On this page</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#names-in-each-api">Names in each API</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#scope-and-selection">Scope and selection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detection">Detection</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bounds-and-cooking">Bounds and cooking</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#penetration-depth">Penetration depth</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-sampling">Time sampling</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threading">Threading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logging">Logging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#settings-without-effect">Settings without effect</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovstage-context-settings">ovstage context settings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#defaults-that-differ-between-surfaces">Defaults that differ between surfaces</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#canonical-c">Canonical C</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovclash-python">ovclash Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suite-c">Suite C</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ovclash-suite-python">ovclash_suite Python</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#persisted-query-settings">Persisted query settings</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

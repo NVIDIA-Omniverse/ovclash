@@ -1,0 +1,1403 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Asynchronous Pipelines &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/async_pipelines';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ovstage Integration" href="ovstage_integration.html" />
+    <link rel="prev" title="Threading and Ownership" href="threading_and_ownership.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Asynchronous Pipelines</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="asynchronous-pipelines">
+<h1>Asynchronous Pipelines<a class="headerlink" href="#asynchronous-pipelines" title="Link to this heading">#</a></h1>
+<p>ovclash, the clash detection library for <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> scenes, can run a
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">query</span></a> on a background worker. The calling thread stays free to draw a
+progress bar or service a UI event loop. The async surface is small, and it rests on one rule:</p>
+<p><strong>A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">context</span></a> runs at most one asynchronous operation at a time. Finish or
+drain that operation before you read results or reuse its context.</strong></p>
+<p>Both public layers have the same shape:</p>
+<ul class="simple">
+<li><p>the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical</span></a> <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">C ABI</span></a> in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code>,
+with its <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> Python binding;</p></li>
+<li><p>the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite</span></a> C ABI in <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite.h&gt;</span></code>, with its
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> Python binding.</p></li>
+</ul>
+<p>Each layer has one async call that the other lacks: only the canonical layer has
+<code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled</span></code>, and only the Suite layer has <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy</span></code>.
+<a class="reference internal" href="#the-asynchronous-pipeline">The asynchronous pipeline</a> lists both.</p>
+<p>The released packages use the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a> <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a>,
+and this page describes it. The unpublished <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> reference build
+differs in cancellation scope, progress values and status fidelity; the comments in
+<code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite.h&gt;</span></code> document each difference.
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists these headers.</p>
+<section id="the-synchronous-pipeline-first">
+<h2>The synchronous pipeline first<a class="headerlink" href="#the-synchronous-pipeline-first" title="Link to this heading">#</a></h2>
+<p>The async surface does not replace the pipeline model; it drives it. A query is a sequence of
+steps. You build that sequence before you run it, in either mode.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Canonical C</p></th>
+<th class="head"><p>Suite C</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline(context,</span> <span class="pre">uint32_t*</span> <span class="pre">out_step_count)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_create_pipeline(runtime,</span> <span class="pre">uint32_t*</span> <span class="pre">out_step_count)</span></code></p></td>
+<td><p>Builds the pipeline for the current settings, scope and times, and reports its step count.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data(context,</span> <span class="pre">ovclash_step_data_t*</span> <span class="pre">data,</span> <span class="pre">uint32_t</span> <span class="pre">index)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_pipeline_step_data(runtime,</span> <span class="pre">uint32_t</span> <span class="pre">step_index,</span> <span class="pre">ovclash_suite_step_data_t*</span> <span class="pre">out_step_data)</span></code></p></td>
+<td><p>Describes one planned step.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step(context,</span> <span class="pre">uint32_t</span> <span class="pre">index)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_pipeline_step(runtime,</span> <span class="pre">uint32_t</span> <span class="pre">step_index)</span></code></p></td>
+<td><p>Runs one step synchronously on the calling thread.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Step count.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline</span></code> derives the step count from <code class="docutils literal notranslate"><span class="pre">startTime</span></code>, <code class="docutils literal notranslate"><span class="pre">endTime</span></code> and
+<code class="docutils literal notranslate"><span class="pre">timeCodesPerSecond</span></code>, so set times, settings and <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">scope</span></a> first.</p>
+<ul class="simple">
+<li><p>A valid context always yields at least 7 steps.</p></li>
+<li><p>A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">static query</span></a> (start time equal to end time) has 11 steps.</p></li>
+<li><p>A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> has 7 steps plus one step per sampled time.</p></li>
+</ul>
+<p>The call does not check that a stage is open or a scope is set. Those failures surface later,
+from <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> or from the async run. <code class="docutils literal notranslate"><span class="pre">ovclash_suite_create_pipeline</span></code> also
+re-applies the scope set by <code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_scope</span></code>.</p>
+<p><strong>Step order.</strong> Steps carry state. Run them in ascending order, <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">..</span> <span class="pre">count-1</span></code>.</p>
+<ul class="simple">
+<li><p>Out-of-order execution is not diagnosed. Each step runs against whatever state exists.</p></li>
+<li><p>The final step reports success without doing the work when earlier steps have not
+completed.</p></li>
+<li><p>After the stage is replaced during a started pipeline, nonzero steps are rejected.
+Step 0, a new <code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline</span></code> or an async launch restarts the pipeline.</p></li>
+</ul>
+<p><strong>Step data.</strong> The step-data structs are value snapshots. They do not update as the run
+advances. The <code class="docutils literal notranslate"><span class="pre">PipelineStepData</span></code> of each Python package carries the same fields, in snake_case.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">ovclash_step_data_t</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_step_data_t</span></code></p></th>
+<th class="head"><p>Python <code class="docutils literal notranslate"><span class="pre">PipelineStepData</span></code></p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">name</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_string_t</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_string_t</span></code>; Python <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>A step name</p></td>
+<td><p>Step name. Canonical: a static, library-owned literal, valid for the process lifetime. Suite: borrowed from the runtime or async handle. Never free either.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">stepIndex</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">step_index</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">step_index</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>; Python <code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> to the step count minus 1</p></td>
+<td><p>Zero-based index of this step.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">nbSteps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_steps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">nb_steps</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>; Python <code class="docutils literal notranslate"><span class="pre">int</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>7 or more for a valid context</p></td>
+<td><p>Total number of steps.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">progress</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0]</span></code></p></td>
+<td><p>Fraction of the pipeline.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">stepProgress</span></code></p></td>
+<td><p>–</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">step_progress</span></code> (<code class="docutils literal notranslate"><span class="pre">ovclash</span></code> only)</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">float</span></code></p></td>
+<td><p>Canonical layer only</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0]</span></code></p></td>
+<td><p>Fraction within the step.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">finished</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">finished</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">finished</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code>; Suite C <code class="docutils literal notranslate"><span class="pre">uint32_t</span></code>; Python <code class="docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p>Yes</p></td>
+<td><p>True for the last step index; <code class="docutils literal notranslate"><span class="pre">ovclash_reset_step_data</span></code> also sets it</p></td>
+<td><p>True for the last step index, not for a completed run.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data</span></code> returns the <em>plan</em>: <code class="docutils literal notranslate"><span class="pre">progress</span> <span class="pre">=</span> <span class="pre">index</span> <span class="pre">/</span> <span class="pre">nbSteps</span></code>,
+<code class="docutils literal notranslate"><span class="pre">stepProgress</span> <span class="pre">=</span> <span class="pre">0</span></code> and <code class="docutils literal notranslate"><span class="pre">finished</span></code> on the last index. Use the async snapshot call for live values.
+<code class="docutils literal notranslate"><span class="pre">ovclash_reset_step_data</span></code> sets <code class="docutils literal notranslate"><span class="pre">finished</span></code> to <strong>true</strong>, so <code class="docutils literal notranslate"><span class="pre">finished</span></code> is never an
+initialized-or-not test.</p>
+</section>
+<section id="the-asynchronous-pipeline">
+<h2>The asynchronous pipeline<a class="headerlink" href="#the-asynchronous-pipeline" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Canonical C</p></th>
+<th class="head"><p>Suite C</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async(context,</span> <span class="pre">ovclash_async_t**</span> <span class="pre">out_async)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_run_pipeline_async(runtime,</span> <span class="pre">ovclash_suite_async_t**</span> <span class="pre">out_async)</span></code></p></td>
+<td><p>Starts the prepared pipeline on a background worker and returns the async handle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running(async,</span> <span class="pre">bool*</span> <span class="pre">out_running)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_is_running(async_handle,</span> <span class="pre">uint32_t*</span> <span class="pre">out_running)</span></code></p></td>
+<td><p>Polls whether the run is still active.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data_async(async,</span> <span class="pre">ovclash_step_data_t*</span> <span class="pre">data)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_get_step_data(async_handle,</span> <span class="pre">ovclash_suite_step_data_t*</span> <span class="pre">out_step_data)</span></code></p></td>
+<td><p>Snapshots the live step and progress.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline(async)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_finish(async_handle)</span></code></p></td>
+<td><p>Blocks until the worker stops.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline(async)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_cancel(async_handle)</span></code></p></td>
+<td><p>Requests cancellation. Canonical C returns immediately. Suite C also waits for the worker to stop and consumes the run; the handle stays until <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled(async,</span> <span class="pre">uint32_t*</span> <span class="pre">out_cancelled)</span></code></p></td>
+<td><p>–</p></td>
+<td><p>Reports whether cancellation was requested. Canonical layer only.</p></td>
+</tr>
+<tr class="row-even"><td><p>–</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy(async_handle)</span></code></p></td>
+<td><p>Frees the handle, finishing an unfinished run first. Suite layer only; accepts null.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The two layers differ in who frees the handle:</p>
+<ul class="simple">
+<li><p><strong>Canonical C.</strong> There is no <code class="docutils literal notranslate"><span class="pre">ovclash_async_destroy</span></code>. <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> destroys the
+handle. Call it exactly once per handle, also after a cancel. Cancel neither joins the worker
+nor frees anything.</p></li>
+<li><p><strong>Suite C.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_finish</span></code> or <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_cancel</span></code> consumes the run.
+After either, every other call on that handle returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_ERROR</span></code> until
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy</span></code> frees it. <code class="docutils literal notranslate"><span class="pre">ovclash_suite_destroy_runtime</span></code> does not cancel a live
+run. It blocks until the run completes, and the handle still needs
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy</span></code>.</p></li>
+<li><p><strong>Python.</strong> Both <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> classes pair these calls for you; see <a class="reference internal" href="#python">Python</a>.</p></li>
+</ul>
+<p><strong>Launch rules.</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async</span></code> rejects a second launch while a handle is live.</p></li>
+<li><p>A launch with a pipeline but no open stage succeeds, and <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> then
+reports the missing stage.</p></li>
+<li><p>The worker uses the launching thread’s floating-point controls as they were at launch:
+rounding, denormal handling and exception masks.</p></li>
+</ul>
+<p><strong>The live-handle guard.</strong> While a canonical handle is live, the owning context rejects almost
+every other entry point with “… is not allowed while an async pipeline handle is active”.
+The guard covers stage, settings and scope setters, pipeline creation and stepping, result,
+report, statistics and memory getters, and <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code>. These calls stay legal:</p>
+<ul class="simple">
+<li><p>the handle’s own calls: <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data_async</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code>;</p></li>
+<li><p>context-free calls, such as <code class="docutils literal notranslate"><span class="pre">ovclash_get_version_string</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_get_backend_info</span></code> and the
+<code class="docutils literal notranslate"><span class="pre">ovclash_reset_*</span></code> struct initializers;</p></li>
+<li><p>read-only getters that do not touch results: <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error</span></code> (which reads the
+rejection), <code class="docutils literal notranslate"><span class="pre">ovclash_get_settings</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_get_timeline_data</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_get_matrix_decomposition</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_report</span></code>;</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_context</span></code>, which reclaims the live handle and can therefore block: it joins
+the worker.</p></li>
+</ul>
+<p>Who lifts the guard:</p>
+<ul class="simple">
+<li><p>On the canonical C ABI, only <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> lifts it. Cancelling alone does not,
+although the rejection text ends with “finish or cancel the async pipeline first”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_cancel</span></code> and both Python <code class="docutils literal notranslate"><span class="pre">cancel()</span></code> methods wait for the worker and
+consume the run, so they lift the guard.</p></li>
+<li><p>The Suite C ABI and both Python packages apply the same guard to their own calls.</p></li>
+</ul>
+<p>Three behaviors matter before you write the loop:</p>
+<ul class="simple">
+<li><p><strong>Starting without a pipeline is not an error.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async</span></code> without
+<code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline</span></code> succeeds, and the worker does no work.</p></li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">is_running</span></code> converges; a single reading proves nothing.</strong> Poll until it reports false,
+then finish the handle before you read results. A small fixture can complete before the first
+poll. It also reports false as soon as cancellation is requested, before the worker
+has stopped.</p></li>
+<li><p><strong>Do not derive completion from <code class="docutils literal notranslate"><span class="pre">finished</span></code>.</strong> It means “this is the last step index”, so it
+becomes true when the final step <em>starts</em>.</p></li>
+</ul>
+<p><strong>Progress values.</strong> <code class="docutils literal notranslate"><span class="pre">progress</span></code> is refined within a step from counted work. Neither
+<code class="docutils literal notranslate"><span class="pre">progress</span></code> nor <code class="docutils literal notranslate"><span class="pre">stepProgress</span></code> is a time estimate.</p>
+<ul class="simple">
+<li><p>A poll returns a locked snapshot within <code class="docutils literal notranslate"><span class="pre">[0.0,</span> <span class="pre">1.0]</span></code>. An operation that cannot be counted
+keeps its label and fraction until it finishes. An async step name can append the current
+operation to the phase name, for example <code class="docutils literal notranslate"><span class="pre">Computing</span> <span class="pre">global</span> <span class="pre">mesh</span> <span class="pre">data...</span> <span class="pre">Reading</span> <span class="pre">transforms</span></code>.</p></li>
+<li><p>The Suite API forwards <code class="docutils literal notranslate"><span class="pre">progress</span></code> unclamped. Portable code clamps the value and treats a
+non-finite one as unknown, as the polling loop in
+<a class="reference internal" href="#ovclash-asyncpipeline"><code class="docutils literal notranslate"><span class="pre">ovclash.AsyncPipeline</span></code></a> does.</p></li>
+</ul>
+</section>
+<section id="step-timeline">
+<h2>Step timeline<a class="headerlink" href="#step-timeline" title="Link to this heading">#</a></h2>
+<p>One complete asynchronous run on the canonical C ABI, in order. Each step is one call, except
+the polling loop of step 8:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_context</span></code> creates the context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_open_stage</span></code> opens the stage.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_settings</span></code> applies the settings.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths</span></code> sets the scope.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_times</span></code> sets the time range.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline</span></code> builds the pipeline and reports its step count, 7 or more.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async</span></code> starts the run and returns the async handle. The context guard
+closes.</p></li>
+<li><p>Poll <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code> until it reports false.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> blocks until the worker stops, destroys the handle and opens the
+guard.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count</span></code> reads the overlap count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_data</span></code> reads the data of each overlap.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_overlap_report_ex</span></code> creates the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">overlap report</span></a> of each
+record that you inspect.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_query_stats</span></code> reads the query statistics.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_report</span></code> releases each report.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_context</span></code> releases the context.</p></li>
+</ol>
+<p>Inside the polling loop of step 8, <code class="docutils literal notranslate"><span class="pre">ovclash_get_pipeline_step_data_async</span></code> snapshots the step
+name, index and progress between polls, and <code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline</span></code> requests a stop when you
+want one.</p>
+<p>Set the scope after <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_set_settings</span></code>, because both clear it.
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_full_scene</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_ovstage_attach_stage</span></code> clear it too.</p>
+<p>Step 9 is required, cancelled or not, and it must come before the result getters of steps 10
+to 13:</p>
+<ul class="simple">
+<li><p>It is the only call that joins the worker and frees the handle while it keeps the context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_context</span></code> also reclaims a live handle, but it destroys the context with it.</p></li>
+<li><p>The result getters of steps 10 to 13 are exactly what the guard blocks.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> returns the outcome of the <em>run</em>, not of the finishing:</p>
+<ul class="simple">
+<li><p>It returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> when the worker reported failure.</p></li>
+<li><p>It returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> when cancellation was requested before finish, even if the
+worker had already completed.</p></li>
+<li><p>An uncancelled zero-work run succeeds.</p></li>
+<li><p>Either way a valid handle is joined and freed, and the context is reusable.</p></li>
+<li><p>A failed phase is reported as an error, and the context’s last error names the reason.</p></li>
+</ul>
+<p>Steps 6 to 9 in C, for a context whose stage, settings and scope are already set. The function
+belongs in a C source file of your program; the <a class="reference internal" href="c_quickstart.html"><span class="std std-doc">C quickstart</span></a> shows how to
+build one:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* Runs the pipeline of a configured context on the worker and prints each new step.</span>
+<span class="cm"> * Returns 1 for a successful, uncancelled run. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">run_async</span><span class="p">(</span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">step_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UINT32_MAX</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">cancelled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_async_t</span><span class="o">*</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_result_t</span><span class="w"> </span><span class="n">finished</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_create_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">step_count</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">||</span>
+<span class="w">        </span><span class="n">ovclash_run_pipeline_async</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">job</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_is_pipeline_running</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">running</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_step_data_t</span><span class="w"> </span><span class="n">step</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_get_pipeline_step_data_async</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">step</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">step</span><span class="p">.</span><span class="n">stepIndex</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last_step</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">last_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">stepIndex</span><span class="p">;</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[%u/%u] %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">stepIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">nbSteps</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">length</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="cm">/* A real loop sleeps or services its UI here. ovclash_cancel_pipeline(job) stops the run. */</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">ovclash_async_is_cancelled</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cancelled</span><span class="p">);</span><span class="w"> </span><span class="cm">/* read it before finish clears the flag */</span>
+<span class="w">    </span><span class="n">finished</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_finish_pipeline</span><span class="p">(</span><span class="n">job</span><span class="p">);</span><span class="w"> </span><span class="cm">/* exactly once, cancelled or not: joins and frees job */</span>
+<span class="w">    </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">finished</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">cancelled</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>On <code class="docutils literal notranslate"><span class="pre">time_sampled.usda</span></code>, the sample stage in <code class="docutils literal notranslate"><span class="pre">samples/data/</span></code> of the SDK archive and of the
+installed <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package, with the ovstage backend it prints the steps that the polls observed,
+for example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1/11] Releasing previous data... Clearing retained results
+[2/11] Finding meshes...
+[3/11] Computing initial mesh data...
+[6/11] Computing global mesh data... Reading transforms
+[11/11] Processing results...
+</pre></div>
+</div>
+<p>Which steps appear depends on timing: a step can start and end between two polls.</p>
+<p>The same loop on the Suite C ABI. Finish, or cancel, consumes the run. Destroy frees the handle
+in every case:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* Runs the pipeline of a configured Suite runtime on the worker and prints each new step.</span>
+<span class="cm"> * Returns 1 for a successful run. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">run_suite_async</span><span class="p">(</span><span class="n">ovclash_suite_runtime_t</span><span class="o">*</span><span class="w"> </span><span class="n">runtime</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">step_count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">last_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">UINT32_MAX</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_async_t</span><span class="o">*</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">finished</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_create_pipeline</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">step_count</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">||</span>
+<span class="w">        </span><span class="n">ovclash_suite_run_pipeline_async</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">job</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_async_is_running</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">running</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">running</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_suite_step_data_t</span><span class="w"> </span><span class="n">step</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_async_get_step_data</span><span class="p">(</span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">step</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">            </span><span class="n">step</span><span class="p">.</span><span class="n">step_index</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">last_step</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">last_step</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">step</span><span class="p">.</span><span class="n">step_index</span><span class="p">;</span><span class="w"> </span><span class="cm">/* step.name is borrowed from the handle: print it now */</span>
+<span class="w">            </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;[%u/%u] %.*s</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">step_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">unsigned</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">nb_steps</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">length</span><span class="p">,</span>
+<span class="w">                   </span><span class="n">step</span><span class="p">.</span><span class="n">name</span><span class="p">.</span><span class="n">ptr</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="cm">/* A real loop sleeps or services its UI here. ovclash_suite_async_cancel(job) stops the run. */</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">finished</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_async_finish</span><span class="p">(</span><span class="n">job</span><span class="p">);</span><span class="w"> </span><span class="cm">/* an error after a cancel: the run is consumed */</span>
+<span class="w">    </span><span class="n">ovclash_suite_async_destroy</span><span class="p">(</span><span class="n">job</span><span class="p">);</span><span class="w"> </span><span class="cm">/* required after finish or cancel */</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">finished</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="cancellation">
+<h2>Cancellation<a class="headerlink" href="#cancellation" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline</span></code> requests a stop and returns immediately. Call
+<code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> afterwards.</p>
+<ul class="simple">
+<li><p>Cancel may come from another thread while the run is active.</p></li>
+<li><p>It must not run concurrently with, or after, the finish of that handle. It cannot interrupt a
+finish that is already blocked.</p></li>
+<li><p>Finish clears the cancel flag.</p></li>
+</ul>
+<p>On the Suite layer, an async handle and its runtime form one serialization domain: no call on the
+handle, cancel included, may overlap a call on its runtime.</p>
+<p>The cancel flag belongs to the context. Cancelling one context does not affect another.</p>
+<p><strong>What a set flag does.</strong></p>
+<ul class="simple">
+<li><p>Later <code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step</span></code> calls on that context fail.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> or <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context</span></code> clears the flag.</p></li>
+<li><p>When the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">broad phase</span></a> finds more candidate pairs than the broad-phase
+limit (<code class="docutils literal notranslate"><span class="pre">ovclash_set_broadphase_limit</span></code>), the engine stops the run itself. That stop counts as
+cancellation, so finish then returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code>.</p></li>
+</ul>
+<p><strong>Reading the flag.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled</span></code> exists on the canonical layer only.</p>
+<ul class="simple">
+<li><p>It stays legal while the handle is live, and it accepts a null handle.</p></li>
+<li><p>It answers for the context, and reports 0 for a null handle.</p></li>
+<li><p>Read it before finish, which clears the flag and consumes the handle.</p></li>
+</ul>
+<p><strong>A zero count is not proof of a clash-free scene.</strong> A cancelled query can return zero overlaps
+with a success status from the count getter. Check the cancellation state, the finish status and
+<code class="docutils literal notranslate"><span class="pre">ovclash_is_out_of_memory</span></code>. Cancellation
+requested after completion changes the finish status but does not erase the results.</p>
+<p>In Python, <code class="docutils literal notranslate"><span class="pre">is_cancelled()</span></code> latches the request, so you can read it after the run is finished.
+The Python examples on this page open <code class="docutils literal notranslate"><span class="pre">time_sampled.usda</span></code> by a relative path, so run them from
+the directory that holds it: <code class="docutils literal notranslate"><span class="pre">samples/data/</span></code> of the installed <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package for the wheel
+(see <a class="reference internal" href="README.html#quick-start"><span class="std std-ref">Quick start</span></a>), or <code class="docutils literal notranslate"><span class="pre">samples/data/</span></code> of the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;time_sampled.usda&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">runtime</span><span class="o">.</span><span class="n">run_async</span><span class="p">()</span> <span class="k">as</span> <span class="n">pipeline</span><span class="p">:</span>
+        <span class="n">pipeline</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>  <span class="c1"># requests the stop, then finishes the run</span>
+        <span class="n">cancelled</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">is_cancelled</span><span class="p">()</span>  <span class="c1"># latched: stays True after the finish</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">cancelled</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cancelled run: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2"> overlaps is not a complete result&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="python">
+<h2>Python<a class="headerlink" href="#python" title="Link to this heading">#</a></h2>
+<p>Both Python packages expose an <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> class. They are different types. Import from one
+package and stay in it; see
+<a class="reference internal" href="choosing_an_api.html#same-names-different-types"><span class="std std-ref">Same names, different types</span></a>.</p>
+<section id="ovclash-asyncpipeline">
+<h3><code class="docutils literal notranslate"><span class="pre">ovclash.AsyncPipeline</span></code><a class="headerlink" href="#ovclash-asyncpipeline" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.run_async()</span></code> returns it.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">step_data()</span></code></p></td>
+<td><p>Live <code class="docutils literal notranslate"><span class="pre">PipelineStepData</span></code> snapshot, with the fields of the <a class="reference internal" href="#the-synchronous-pipeline-first">step-data table</a>. After <code class="docutils literal notranslate"><span class="pre">finish()</span></code>, <code class="docutils literal notranslate"><span class="pre">cancel()</span></code> or <code class="docutils literal notranslate"><span class="pre">close()</span></code>, and while another thread’s <code class="docutils literal notranslate"><span class="pre">finish()</span></code> waits, it returns the last step observed. It raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when no step was ever read. A successful finish settles that step to finished at full progress. A failed or cancelled run keeps the last step observed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_running()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code> from <code class="docutils literal notranslate"><span class="pre">ovclash_is_pipeline_running</span></code>. <code class="docutils literal notranslate"><span class="pre">False</span></code> once finished or cancelled.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_cancelled()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code>, latched in Python. It latches a <code class="docutils literal notranslate"><span class="pre">cancel()</span></code> request, or a native cancellation it read while the handle was live. It stays true after finish clears the native flag. Once the handle is released, it reports <code class="docutils literal notranslate"><span class="pre">False</span></code> for anything it did not latch, such as a broad-phase-limit stop. Read it before the handle is released, or call <code class="docutils literal notranslate"><span class="pre">finish()</span></code>, which raises for a cancelled run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">poll()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(running,</span> <span class="pre">step_data)</span></code> in one call.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">finish()</span></code></p></td>
+<td><p>Blocks until the worker stops and frees the native handle. Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the run failed or cancellation was requested before finish. Later calls, and a call after <code class="docutils literal notranslate"><span class="pre">cancel()</span></code>, return without raising.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cancel()</span></code></p></td>
+<td><p>Requests cancellation, then finishes the run, which lifts the runtime guard. Does not raise for the cancelled outcome. Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the native cancel request fails. No effect once finished.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">close()</span></code></p></td>
+<td><p>Finishes an unfinished run without raising for its outcome, so the native handle is not leaked. <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> and <code class="docutils literal notranslate"><span class="pre">__del__</span></code> call it.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashRuntime.run_async()</span></code> builds the pipeline if none exists.</p></li>
+<li><p>It first closes every open <code class="docutils literal notranslate"><span class="pre">OverlapReport</span></code>, because the worker rebuilds the arrays that their
+buffer views borrow.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> methods may be called from several threads. <code class="docutils literal notranslate"><span class="pre">cancel()</span></code> cannot interrupt a
+<code class="docutils literal notranslate"><span class="pre">finish()</span></code> already blocked on another thread. To cancel from a UI, poll and cancel on one
+thread, and call <code class="docutils literal notranslate"><span class="pre">finish()</span></code> there once the loop ends; see
+<a class="reference internal" href="threading_and_ownership.html#python-side-lifetimes"><span class="std std-ref">Threading and Ownership</span></a>.</p></li>
+</ul>
+<p>A polling loop, run from the stage’s directory as <a class="reference internal" href="#cancellation">Cancellation</a> describes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashRuntime</span>
+
+<span class="k">with</span> <span class="n">ClashRuntime</span><span class="p">()</span> <span class="k">as</span> <span class="n">runtime</span><span class="p">:</span>
+    <span class="n">runtime</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;time_sampled.usda&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">runtime</span><span class="o">.</span><span class="n">run_async</span><span class="p">()</span> <span class="k">as</span> <span class="n">pipeline</span><span class="p">:</span>  <span class="c1"># builds the pipeline when none exists</span>
+        <span class="n">percent</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="n">running</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">while</span> <span class="n">running</span><span class="p">:</span>
+            <span class="n">running</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span>  <span class="c1"># does not block</span>
+            <span class="k">if</span> <span class="n">math</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">progress</span><span class="p">):</span>  <span class="c1"># portable: treat a non-finite value as unknown</span>
+                <span class="n">percent</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">step</span><span class="o">.</span><span class="n">progress</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">step_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">nb_steps</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">percent</span><span class="si">:</span><span class="s2">.0f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">running</span><span class="p">:</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+        <span class="n">pipeline</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>  <span class="c1"># raises RuntimeError if the run failed or was cancelled</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overlaps:&quot;</span><span class="p">,</span> <span class="n">runtime</span><span class="o">.</span><span class="n">get_overlap_count</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>A run on the ovstage backend prints, for example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[1/11] Releasing previous data... Clearing retained results 0%
+[11/11] Processing results... Sorting reports 100%
+overlaps: 7
+</pre></div>
+</div>
+</section>
+<section id="ovclash-suite-asyncpipeline">
+<h3><code class="docutils literal notranslate"><span class="pre">ovclash_suite.AsyncPipeline</span></code><a class="headerlink" href="#ovclash-suite-asyncpipeline" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ClashDetection.run_async_pipeline()</span></code> returns it. <code class="docutils literal notranslate"><span class="pre">run_async</span></code> is an alias of that method.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Method</p></th>
+<th class="head"><p>Behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">step_data()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PipelineStepData</span></code> (<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">step_index</span></code>, <code class="docutils literal notranslate"><span class="pre">nb_steps</span></code>, <code class="docutils literal notranslate"><span class="pre">progress</span></code>, <code class="docutils literal notranslate"><span class="pre">finished</span></code>). A finished or cancelled pipeline reports a cleared, completed step instead of raising.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_running()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">bool</span></code>. A finished or cancelled pipeline reports <code class="docutils literal notranslate"><span class="pre">False</span></code> instead of raising.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">poll()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">(running,</span> <span class="pre">step_data)</span></code>. Both halves agree with <code class="docutils literal notranslate"><span class="pre">is_running()</span></code> and <code class="docutils literal notranslate"><span class="pre">step_data()</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">finish()</span></code></p></td>
+<td><p>Waits for the run, then destroys the native handle. Raises <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> when the run failed. No effect once finished or cancelled.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cancel()</span></code></p></td>
+<td><p>Requests cancellation, waits for the worker to stop and destroys the native handle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">close()</span></code></p></td>
+<td><p>Destroys the native handle, finishing an unfinished run first. <code class="docutils literal notranslate"><span class="pre">__exit__</span></code> and <code class="docutils literal notranslate"><span class="pre">__del__</span></code> call it.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li><p>The Suite class has no <code class="docutils literal notranslate"><span class="pre">is_cancelled()</span></code>, because <code class="docutils literal notranslate"><span class="pre">ovclash_async_is_cancelled</span></code> has no Suite
+counterpart.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code> also offers cookie-style helpers over the same object:
+<code class="docutils literal notranslate"><span class="pre">get_async_pipeline_step_data(cookie)</span></code>, <code class="docutils literal notranslate"><span class="pre">is_async_pipeline_running(cookie)</span></code>,
+<code class="docutils literal notranslate"><span class="pre">finish_async_pipeline(cookie)</span></code> and <code class="docutils literal notranslate"><span class="pre">cancel_async_pipeline(cookie)</span></code>. The last two finish or
+cancel, then close.</p></li>
+</ul>
+<p>The Suite loop, run from the stage’s directory as <a class="reference internal" href="#cancellation">Cancellation</a> describes:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashDetection</span>
+
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;time_sampled.usda&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">clash</span><span class="o">.</span><span class="n">run_async_pipeline</span><span class="p">()</span> <span class="k">as</span> <span class="n">pipeline</span><span class="p">:</span>  <span class="c1"># builds the pipeline when none exists</span>
+        <span class="k">while</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">is_running</span><span class="p">():</span>
+            <span class="n">step</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">step_data</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">step_index</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">nb_steps</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">step</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
+        <span class="n">pipeline</span><span class="o">.</span><span class="n">finish</span><span class="p">()</span>  <span class="c1"># raises RuntimeError if the run failed</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;overlaps:&quot;</span><span class="p">,</span> <span class="n">clash</span><span class="o">.</span><span class="n">get_nb_overlaps</span><span class="p">())</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>  <span class="c1"># ClashDetection is not a context manager</span>
+</pre></div>
+</div>
+</section>
+<section id="context-managers-and-cleanup">
+<h3>Context managers and cleanup<a class="headerlink" href="#context-managers-and-cleanup" title="Link to this heading">#</a></h3>
+<p>Both <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> classes are context managers, and that is the recommended form. Leaving the
+<code class="docutils literal notranslate"><span class="pre">with</span></code> block releases the handle, even if the loop raised. <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> is a context manager
+too; <code class="docutils literal notranslate"><span class="pre">ClashDetection</span></code> is not.</p>
+<ul class="simple">
+<li><p><strong>Exceptional exit.</strong> On an exceptional exit, including <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code>, both
+<code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code> classes and <code class="docutils literal notranslate"><span class="pre">ClashRuntime</span></code> request cancellation before they drain the active
+run.</p></li>
+<li><p><strong>Normal exit.</strong> A normal exit and an explicit <code class="docutils literal notranslate"><span class="pre">close()</span></code> or <code class="docutils literal notranslate"><span class="pre">destroy()</span></code> wait for completion.</p></li>
+<li><p><strong>Errors during cleanup.</strong> Cleanup still runs if cancellation fails. An exception raised in the
+block remains the primary error.</p></li>
+</ul>
+<p>An exception, including an interrupt, can hide whether the native finish (canonical) or destroy
+(Suite) ran. The wrapper then retires the handle, instead of reusing a pointer that may already
+be freed.</p>
+<ul class="simple">
+<li><p>That exception does not establish successful detection.</p></li>
+<li><p>If cleanup remains uncertain, destroy the owning runtime to drain any worker it still owns.</p></li>
+<li><p>On the canonical layer, <code class="docutils literal notranslate"><span class="pre">ovclash_release_context</span></code> also reclaims a live handle.</p></li>
+<li><p>On the Suite layer, runtime destruction does not free the async handle itself. A handle
+retired before <code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_destroy</span></code> ran stays allocated.</p></li>
+</ul>
+<p>See <a class="reference internal" href="threading_and_ownership.html#python-side-lifetimes"><span class="std std-ref">Threading and Ownership</span></a>.</p>
+</section>
+<section id="samples">
+<h3>Samples<a class="headerlink" href="#samples" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="samples.html"><span class="std std-doc">Samples</span></a> describes both samples and their launchers.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">clash_api</span></code> sample runs the canonical loop with <code class="docutils literal notranslate"><span class="pre">--async</span></code>, together with scoping, result
+reading and reports. <code class="docutils literal notranslate"><span class="pre">clash_api_python.py</span></code> uses <code class="docutils literal notranslate"><span class="pre">ovclash</span></code>, and <code class="docutils literal notranslate"><span class="pre">ClashApi.cpp</span></code> uses the
+canonical C ABI.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">clash_suite_api</span></code> sample runs the Suite pipeline asynchronously by default.
+<code class="docutils literal notranslate"><span class="pre">--async</span> <span class="pre">false</span></code> runs it on the calling thread.</p></li>
+<li><p>Both samples ship in <code class="docutils literal notranslate"><span class="pre">samples/</span></code> of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a>. Their Python
+versions also ship in <code class="docutils literal notranslate"><span class="pre">samples/</span></code> of the wheel’s <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package.</p></li>
+</ul>
+</section>
+</section>
+<section id="known-rough-edges">
+<h2>Known rough edges<a class="headerlink" href="#known-rough-edges" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><strong>No timeout.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_finish_pipeline</span></code> blocks until the worker stops, and nothing bounds
+it. A hung pipeline can only be abandoned with the process.</p></li>
+<li><p><strong>The outcome dies with the handle.</strong> Capture the finish status and the cancellation state
+when you get them. There is no way to ask afterwards: on the Suite layer, every later call on
+the consumed handle returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_ERROR</span></code>.</p></li>
+<li><p><strong>Error text is context-wide.</strong> The worker writes the same last-error slot. A mid-run
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error</span></code> is safe, but it returns a nondeterministic message. Read it after
+finish, and treat it as diagnostic text, not as a per-operation error channel; see
+<a class="reference internal" href="threading_and_ownership.html#error-text-lifetime"><span class="std std-ref">Threading and Ownership</span></a>.</p></li>
+</ul>
+</section>
+<section id="see-also">
+<h2>See also<a class="headerlink" href="#see-also" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="choosing_an_api.html"><span class="std std-doc">Choosing an API Layer</span></a> – picking the canonical or the Suite layer.</p></li>
+<li><p><a class="reference internal" href="threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a> – context ownership, error text
+and Python lifetimes.</p></li>
+<li><p><a class="reference internal" href="limitations.html#cancel-a-run-after-a-deadline"><span class="std std-ref">Limitations</span></a> – cancelling a run after a
+deadline.</p></li>
+<li><p><a class="reference internal" href="c_quickstart.html"><span class="std std-doc">C Quickstart</span></a> – linking, and the first synchronous query.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="threading_and_ownership.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Threading and Ownership</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="ovstage_integration.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ovstage Integration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-synchronous-pipeline-first">The synchronous pipeline first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-asynchronous-pipeline">The asynchronous pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-timeline">Step timeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cancellation">Cancellation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python">Python</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovclash-asyncpipeline"><code class="docutils literal notranslate"><span class="pre">ovclash.AsyncPipeline</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ovclash-suite-asyncpipeline"><code class="docutils literal notranslate"><span class="pre">ovclash_suite.AsyncPipeline</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#context-managers-and-cleanup">Context managers and cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#samples">Samples</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-rough-edges">Known rough edges</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#see-also">See also</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

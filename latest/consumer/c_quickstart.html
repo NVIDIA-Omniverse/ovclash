@@ -1,0 +1,1776 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>C/C++ Quickstart: Link, Build, First Query &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'consumer/c_quickstart';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Key Concepts and Glossary" href="concepts.html" />
+    <link rel="prev" title="Python Quickstart: Open a Stage and Find Overlaps" href="python_quickstart.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">C/C++ Quickstart: Link, Build, First Query</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="c-c-quickstart-link-build-first-query">
+<h1>C/C++ Quickstart: Link, Build, First Query<a class="headerlink" href="#c-c-quickstart-link-build-first-query" title="Link to this heading">#</a></h1>
+<p>ovclash, a clash detection library for <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">USD</span></a> scenes, is a C library first.
+The Python packages are bindings over the same <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">C ABI</span></a> (application binary
+interface). The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> ships the public headers and the link files,
+so a C or C++ consumer needs no source checkout. The Python-only wheel does not ship them, and it
+does not ship this page either.</p>
+<p>This page covers what ships, how to link, a first program and the rules that catch people out.
+It is not an API reference. The headers are the reference: every entry point in
+<code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash.h</span></code> has a doxygen comment for its arguments, ownership and threading, and
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists every header.
+<a class="reference internal" href="c_api_conventions.html"><span class="std std-doc">C ABI conventions</span></a> gives the rules that every entry point follows. The same
+reference is published as a browsable site, the
+<a class="reference external" href="https://nvidia-omniverse.github.io/ovclash/">ovclash documentation</a>.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>An extracted SDK archive. Each release has one archive per platform:
+<code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-windows-x86_64.zip</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-linux-x86_64.tar.gz</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ovclash-&lt;version&gt;-linux-aarch64.tar.gz</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;version&gt;</span></code> is the ovclash release version. A
+release attaches them, beside its wheels, to its page on the
+<a class="reference external" href="https://github.com/NVIDIA-Omniverse/ovclash/releases">ovclash GitHub releases</a>. No archive
+exists for other platforms; see
+<a class="reference internal" href="compatibility.html#platforms-and-package-names"><span class="std std-ref">Platforms and package names</span></a>. An archive unpacks
+to an <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> directory, written <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;</span></code> on this page. Paths without a placeholder are
+relative to it.</p></li>
+<li><p>Python 3.10 or newer with the SDK archive’s <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> installed. The SDK archive does
+not bundle <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, the runtime that ovclash reads USD through; see
+<a class="reference internal" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a>. <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;</span></code> is that
+interpreter’s package directory, which <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">show</span> <span class="pre">ovstage</span></code> prints as <code class="docutils literal notranslate"><span class="pre">Location</span></code>. The
+installed package directory, <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;/ovstage</span></code>, also holds the
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">ovx headers</span></a> that <code class="docutils literal notranslate"><span class="pre">ovclash.h</span></code> includes.</p></li>
+<li><p>A C or C++ compiler and CMake 3.16 or newer. The <a class="reference internal" href="#minimal-program">minimal program</a> is C11. The
+C++ samples use C++17.</p></li>
+<li><p>On Windows, the
+<a class="reference external" href="https://aka.ms/vs/17/release/vc_redist.x64.exe">Microsoft Visual C++ Redistributable (x64)</a>.
+ovclash does not bundle the MSVC runtime.</p></li>
+<li><p>On Linux, glibc 2.35 or newer and a <code class="docutils literal notranslate"><span class="pre">libstdc++</span></code> that provides <code class="docutils literal notranslate"><span class="pre">GLIBCXX_3.4.30</span></code>; see
+<a class="reference internal" href="compatibility.html#linux-glibc-baseline"><span class="std std-ref">Linux glibc baseline</span></a>.</p></li>
+<li><p>A USD stage. The SDK archive ships <code class="docutils literal notranslate"><span class="pre">samples/data/time_sampled.usda</span></code>. Its
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">prims</span></a> <code class="docutils literal notranslate"><span class="pre">/Root/Xform_Primitives/Cube</span></code> and <code class="docutils literal notranslate"><span class="pre">/Root/Xform_Primitives/Plane</span></code>
+overlap, and the <a class="reference internal" href="#minimal-program">minimal program</a> queries that pair.</p></li>
+</ul>
+</section>
+<section id="what-ships">
+<h2>What ships<a class="headerlink" href="#what-ships" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Contents</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash.h</span></code></p></td>
+<td><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">canonical</span></a> clash C ABI and its <code class="docutils literal notranslate"><span class="pre">OVCLASH_API</span></code> entry points. The primary surface.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash_ovstage.h</span></code></p></td>
+<td><p>Optional ovstage-only extensions: matrix decomposition selection, attaching a caller-owned ovstage stage and the owner-operation gate. <a class="reference internal" href="ovstage_integration.html"><span class="std std-doc">ovstage_integration.md</span></a> describes them.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash_export.h</span></code></p></td>
+<td><p>Defines <code class="docutils literal notranslate"><span class="pre">OVCLASH_API</span></code>. No other header defines it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovclash/version.h</span></code></p></td>
+<td><p>Generated <code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_MAJOR</span></code>, <code class="docutils literal notranslate"><span class="pre">_MINOR</span></code>, <code class="docutils literal notranslate"><span class="pre">_PATCH</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_VERSION_STRING</span></code>. Compare them with <code class="docutils literal notranslate"><span class="pre">ovclash_get_version()</span></code> to check the loaded library.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovclash_suite/*.h</span></code></p></td>
+<td><p>The C ABI of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Suite API</span></a>: the higher-level object model, SQLite or JSON directory persistence, and HTML and JSON export.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">include/ovx/dlpack/dlpack.h</span></code></p></td>
+<td><p><a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">DLPack</span></a>. <code class="docutils literal notranslate"><span class="pre">ovclash.h</span></code> includes it for the DLPack interop on <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">overlap reports</span></a>. It is the only ovx header that the SDK archive ships.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lib/cmake/ovclash/</span></code></p></td>
+<td><p>The exported CMake package config.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lib/pkgconfig/ovclash.pc</span></code>, <code class="docutils literal notranslate"><span class="pre">pkgconfig/ovclash.pc</span></code></p></td>
+<td><p>The pkg-config file, in the conventional location and at the package root.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bin/ovclash.dll</span></code>, <code class="docutils literal notranslate"><span class="pre">lib/ovclash.lib</span></code></p></td>
+<td><p>Windows: the runtime library and its import library.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lib/libovclash.so</span></code></p></td>
+<td><p>Linux: the runtime library.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code></p></td>
+<td><p>The exact <code class="docutils literal notranslate"><span class="pre">ovstage==&lt;version&gt;</span></code> requirement that the SDK archive needs to build and run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash-runtime-dependencies.json</span></code></p></td>
+<td><p>The same requirement, declared for tools.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash-runtime-closure.json</span></code></p></td>
+<td><p>The SHA-256 of each ovstage native file that the SDK archive excludes, as the pinned wheel installs it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dependency_audit.txt</span></code></p></td>
+<td><p>A note that names the separately installed ovstage runtime and its install command.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash-build-provenance.json</span></code></p></td>
+<td><p>The build’s identity: source revision, <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">backend</span></a>, ovclash version and pinned ovstage version.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">python/</span></code>, <code class="docutils literal notranslate"><span class="pre">samples/</span></code></p></td>
+<td><p>The Python packages, and the C++ and Python samples with the stage they open.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The runtime’s <code class="docutils literal notranslate"><span class="pre">config.toml</span></code> sits beside the runtime library. The SDK archive excludes ovstage and
+its native dependency closure; <a class="reference internal" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a>
+installs them. <a class="reference internal" href="overview.html#sdk-archive-layout"><span class="std std-ref">SDK archive layout</span></a> summarizes the archive, and
+the “What is in this archive” section of <code class="docutils literal notranslate"><span class="pre">README.md</span></code> at the SDK archive root lists every path.</p>
+</section>
+<section id="installing-the-ovstage-runtime">
+<h2>Installing the ovstage runtime<a class="headerlink" href="#installing-the-ovstage-runtime" title="Link to this heading">#</a></h2>
+<p>Before you begin, extract the SDK archive and pick the interpreter that you build and run with,
+as <a class="reference internal" href="#prerequisites">Prerequisites</a> describes. The SDK archive’s <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> pins the exact
+ovstage version that the SDK archive was built and validated against. That version is published
+on public PyPI. Install it with that interpreter (<code class="docutils literal notranslate"><span class="pre">python3</span></code> on most Linux systems):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>&lt;sdk&gt;/requirements.txt
+</pre></div>
+</div>
+<p>Check the result: <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pip</span> <span class="pre">show</span> <span class="pre">ovstage</span></code> prints <code class="docutils literal notranslate"><span class="pre">Version:</span></code> followed by the version that
+<code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> pins. When pip cannot find that version, check which package index pip reads.</p>
+<p>pip reads public PyPI unless you configure another index, for example with <code class="docutils literal notranslate"><span class="pre">--index-url</span></code> or
+<code class="docutils literal notranslate"><span class="pre">PIP_INDEX_URL</span></code>. The installed <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> of that interpreter is then the runtime that every
+consumer of the SDK archive selects:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> reads it at configure time, with Python 3.10 or newer. Name the
+interpreter with <code class="docutils literal notranslate"><span class="pre">-DOVCLASH_PYTHON_EXECUTABLE=&lt;absolute</span> <span class="pre">path</span> <span class="pre">to</span> <span class="pre">python&gt;</span></code> or the
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_PYTHON_EXECUTABLE</span></code> environment variable. The path must be absolute: a relative path
+or a bare name such as <code class="docutils literal notranslate"><span class="pre">python3.12</span></code> is refused.</p></li>
+<li><p>Without that variable, the config uses an absolute <code class="docutils literal notranslate"><span class="pre">Python3_EXECUTABLE</span></code> of Python 3.10 or
+newer, else the first <code class="docutils literal notranslate"><span class="pre">python3</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span></code> on the search path. An older <code class="docutils literal notranslate"><span class="pre">Python3_EXECUTABLE</span></code>
+is skipped, not an error.</p></li>
+<li><p>The config does not run <code class="docutils literal notranslate"><span class="pre">FindPython3</span></code>. It leaves no <code class="docutils literal notranslate"><span class="pre">Python3_*</span></code> cache entries and no
+<code class="docutils literal notranslate"><span class="pre">Python3::Interpreter</span></code> target behind for your own <code class="docutils literal notranslate"><span class="pre">find_package(Python3)</span></code>.</p></li>
+<li><p>The Python packages use the interpreter that imports them.</p></li>
+<li><p>The <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">sample launchers</span></a> and <code class="docutils literal notranslate"><span class="pre">samples/build_samples.sh</span></code> (<code class="docutils literal notranslate"><span class="pre">.bat</span></code> on
+Windows) start from the interpreter that <code class="docutils literal notranslate"><span class="pre">PYTHON</span></code> names, else <code class="docutils literal notranslate"><span class="pre">python3</span></code> (<code class="docutils literal notranslate"><span class="pre">python</span></code> on Windows).
+They use it when it has the pinned version, and otherwise install the pin into a per-user cached
+virtual environment that they use instead, leaving the base interpreter unchanged.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> and the Python packages require exactly the pinned version. Another
+version, or none, is an error that names the interpreter and the install command.
+<code class="docutils literal notranslate"><span class="pre">find_package</span></code> then reports ovclash as not found and gives that reason. A <code class="docutils literal notranslate"><span class="pre">REQUIRED</span></code> call stops
+the configure step, and an optional <code class="docutils literal notranslate"><span class="pre">find_package(ovclash</span> <span class="pre">QUIET)</span></code> continues without ovclash.
+<a class="reference internal" href="troubleshooting.html#the-installed-ovstage-does-not-match-the-sdk"><span class="std std-ref">Troubleshooting</span></a> lists the
+messages.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code> selects one specific installation instead:</p>
+<ul class="simple">
+<li><p>Set it to the absolute path of that installation’s <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> package directory. Its parent
+holds <code class="docutils literal notranslate"><span class="pre">ovstage-&lt;version&gt;.dist-info</span></code>.</p></li>
+<li><p>Set it in the environment or, for CMake, as a cache variable. The cache variable takes
+precedence.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~</span></code> is expanded and links are resolved.</p></li>
+<li><p>A relative value is refused. So is a directory whose installation is not exactly the pinned
+version.</p></li>
+<li><p>Unset it to return to the interpreter’s installed ovstage.</p></li>
+</ul>
+</section>
+<section id="linking">
+<h2>Linking<a class="headerlink" href="#linking" title="Link to this heading">#</a></h2>
+<p>Before you begin, install the ovstage runtime as
+<a class="reference internal" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a> describes. Use the exported
+CMake config. Its imported target is <code class="docutils literal notranslate"><span class="pre">ovclash::ovclash</span></code>. A complete <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code> for a
+program whose source is <code class="docutils literal notranslate"><span class="pre">main.c</span></code> in the same directory:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.16</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">C</span><span class="w"> </span><span class="s">CXX</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ovclash</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">main.c</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">ovclash::ovclash</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>From the directory that holds that <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>, configure with the SDK archive’s package
+config and the interpreter that has its <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cmake<span class="w"> </span>-S<span class="w"> </span>.<span class="w"> </span>-B<span class="w"> </span>build<span class="w"> </span><span class="s2">&quot;-Dovclash_DIR=&lt;sdk&gt;/lib/cmake/ovclash&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span><span class="s2">&quot;-DOVCLASH_PYTHON_EXECUTABLE=&lt;absolute path to python&gt;&quot;</span>
+cmake<span class="w"> </span>--build<span class="w"> </span>build<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+<p>Both commands exit with status 0, and the build writes <code class="docutils literal notranslate"><span class="pre">my_app</span></code> under <code class="docutils literal notranslate"><span class="pre">build</span></code>
+(<code class="docutils literal notranslate"><span class="pre">build\Release\my_app.exe</span></code> with a Visual Studio generator). When <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> fails,
+its message names the cause; <a class="reference internal" href="troubleshooting.html#configuring-with-cmake"><span class="std std-ref">Configuring with CMake</span></a>
+lists the messages and their fixes.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ovclash::ovclash</span></code> target sets what the compiler and the linker need:</p>
+<ul class="simple">
+<li><p>It defines <code class="docutils literal notranslate"><span class="pre">OVCLASH_STANDALONE</span></code>. Without it, <code class="docutils literal notranslate"><span class="pre">ovclash.h</span></code> omits the standalone entry points:
+file-backed stage access such as <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code>, path scopes such as
+<code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error()</span></code>, settings readback, the version
+queries and the DLPack interop. <a class="reference internal" href="c_api_conventions.html"><span class="std std-doc">C ABI conventions</span></a> describes the macro.</p></li>
+<li><p>It adds the ovx include directory.</p></li>
+<li><p>On Linux, it adds <code class="docutils literal notranslate"><span class="pre">-rpath-link</span></code> directories for the runtime’s indirect dependencies, and it
+links the ovstage loader; see <a class="reference internal" href="#running-the-program">Running the program</a>.</p></li>
+</ul>
+<p><strong><code class="docutils literal notranslate"><span class="pre">&lt;ovclash/ovclash.h&gt;</span></code> needs <code class="docutils literal notranslate"><span class="pre">ovx/string_types.h</span></code> (or the legacy <code class="docutils literal notranslate"><span class="pre">ovx/types.h</span></code>), which ovclash
+does not ship.</strong> The header comes from the <code class="docutils literal notranslate"><span class="pre">include/</span></code> directory of the ovstage package, so the
+SDK archive needs no <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVX_INCLUDE_DIR</span></code>. The exported config looks for the header in this
+order:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVX_INCLUDE_DIR</span></code>, as a CMake variable, else in the environment. A directory without
+the header is a fatal error.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">find_path</span></code> search, hinted by the <code class="docutils literal notranslate"><span class="pre">include/</span></code> directory of the ovstage package that the SDK
+archive selected, then by <code class="docutils literal notranslate"><span class="pre">&lt;OVCLASH_OVSTAGE_ROOT&gt;/include</span></code> when the <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code>
+environment variable is set.</p></li>
+<li><p>Otherwise <code class="docutils literal notranslate"><span class="pre">find_package(ovclash</span> <span class="pre">CONFIG</span> <span class="pre">REQUIRED)</span></code> fails and names the header and the remedy.
+Set <code class="docutils literal notranslate"><span class="pre">OVCLASH_ALLOW_MISSING_OVX=ON</span></code> only if you supply the header through compiler flags that
+CMake cannot see. The config then prints a status line and adds no ovx include directory.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code> only hints at headers; it never selects the runtime.</p>
+<section id="cmake-variables">
+<h3>CMake variables<a class="headerlink" href="#cmake-variables" title="Link to this heading">#</a></h3>
+<p>These are the variables that you set when you configure against the SDK archive:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>Yes, unless <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> holds <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;</span></code></p></td>
+<td><p>unset</p></td>
+<td><p>The directory that holds <code class="docutils literal notranslate"><span class="pre">ovclashConfig.cmake</span></code>, normally <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/lib/cmake/ovclash</span></code>. Adding <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;</span></code> to <code class="docutils literal notranslate"><span class="pre">CMAKE_PREFIX_PATH</span></code> works too.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_PYTHON_EXECUTABLE</span></code></p></td>
+<td><p>Absolute file path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Python3_EXECUTABLE</span></code>, else <code class="docutils literal notranslate"><span class="pre">python3</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span></code> on the search path</p></td>
+<td><p>The absolute path of the Python 3.10 or newer interpreter whose installed <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> the config uses. Also read from the environment. A relative value, or an interpreter that does not qualify, makes the package not found.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code></p></td>
+<td><p>Absolute directory path</p></td>
+<td><p>No</p></td>
+<td><p>unset</p></td>
+<td><p>The absolute path of the installed <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> package directory to use instead of the interpreter’s. Also read from the environment; the cache variable wins. A relative value, or a package other than the pinned version, makes the package not found with an error that names the variable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVX_INCLUDE_DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p>discovered</p></td>
+<td><p>The directory that holds <code class="docutils literal notranslate"><span class="pre">ovx/string_types.h</span></code> or <code class="docutils literal notranslate"><span class="pre">ovx/types.h</span></code>. Also read from the environment. A directory without either header is a fatal error.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_ALLOW_MISSING_OVX</span></code></p></td>
+<td><p>Boolean: <code class="docutils literal notranslate"><span class="pre">ON</span></code> or <code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OFF</span></code></p></td>
+<td><p>Accept the package when the ovx header cannot be found, for a header that arrives through compiler flags.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_LIBRARY_DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p>the <code class="docutils literal notranslate"><span class="pre">lib/</span></code> and <code class="docutils literal notranslate"><span class="pre">bin/</span></code> directories beside <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVX_INCLUDE_DIR</span></code></p></td>
+<td><p>Linux only. One more directory of ovstage shared libraries for the <code class="docutils literal notranslate"><span class="pre">-rpath-link</span></code> options.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CMAKE_BUILD_TYPE</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code> or <code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></td>
+<td><p>No</p></td>
+<td><p>generator-dependent</p></td>
+<td><p>The build configuration of a single-config generator. Multi-config generators take <code class="docutils literal notranslate"><span class="pre">--config</span></code> on the build command instead.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_ROOT</span></code> is not a cache variable. The config reads it from the environment as a
+<code class="docutils literal notranslate"><span class="pre">find_path</span></code> hint only.</p>
+<p>After <code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code>, <code class="docutils literal notranslate"><span class="pre">OVCLASH_RUNTIME_DIRS</span></code> lists the runtime directories of the SDK
+archive and of the selected ovstage package.</p>
+</section>
+<section id="without-cmake">
+<h3>Without CMake<a class="headerlink" href="#without-cmake" title="Link to this heading">#</a></h3>
+<p>Before you begin, install the ovstage runtime as
+<a class="reference internal" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a> describes. Then pass both
+include directories and <code class="docutils literal notranslate"><span class="pre">OVCLASH_STANDALONE</span></code> yourself. From the directory that holds your
+source file <code class="docutils literal notranslate"><span class="pre">app.c</span></code>, on Windows with the MSVC compiler:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>cl /c /DOVCLASH_STANDALONE /I<span class="p">&lt;</span>sdk<span class="p">&gt;</span>\include /I<span class="p">&lt;</span>site-packages<span class="p">&gt;</span>\ovstage\include app.c
+</pre></div>
+</div>
+<p>On Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cc<span class="w"> </span>-c<span class="w"> </span>-DOVCLASH_STANDALONE<span class="w"> </span>-I&lt;sdk&gt;/include<span class="w"> </span>-I&lt;site-packages&gt;/ovstage/include<span class="w"> </span>app.c
+</pre></div>
+</div>
+<p>The compile exits with status 0 and writes <code class="docutils literal notranslate"><span class="pre">app.obj</span></code> (Windows) or <code class="docutils literal notranslate"><span class="pre">app.o</span></code> (Linux). When it stops
+at <code class="docutils literal notranslate"><span class="pre">#error</span> <span class="pre">&quot;ovclash</span> <span class="pre">requires</span> <span class="pre">ovx/string_types.h</span> <span class="pre">or</span> <span class="pre">ovx/types.h&quot;</span></code>, the ovstage include directory
+is wrong; check <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;</span></code>.</p>
+<p>On Windows, link against <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;\lib\ovclash.lib</span></code>. On Linux, link through CMake or
+<a class="reference internal" href="#pkg-config-on-linux">pkg-config</a>, because the program must also record the ovstage loader.</p>
+</section>
+<section id="running-the-program">
+<h3>Running the program<a class="headerlink" href="#running-the-program" title="Link to this heading">#</a></h3>
+<p>On Linux, the exported config makes the executable record the ovstage loader,
+<code class="docutils literal notranslate"><span class="pre">libovstage-dynamic.so</span></code>, from <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;/ovstage/bin</span></code>, outside the SDK archive. The dynamic
+linker then reuses that loaded loader for <code class="docutils literal notranslate"><span class="pre">libovclash.so</span></code>. CMake gives the build-tree executable run
+paths to <code class="docutils literal notranslate"><span class="pre">&lt;sdk&gt;/lib</span></code> and to <code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;/ovstage/bin</span></code>. A program built through
+<code class="docutils literal notranslate"><span class="pre">find_package(ovclash)</span></code> therefore starts from its build tree without <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>.</p>
+<ul class="simple">
+<li><p>The run paths name this machine’s directories. If you move the SDK archive or the Python
+environment, build again.</p></li>
+<li><p>An installed copy follows your own install run path, as for any imported library: set
+<code class="docutils literal notranslate"><span class="pre">INSTALL_RPATH</span></code> on the target, or <code class="docutils literal notranslate"><span class="pre">CMAKE_INSTALL_RPATH_USE_LINK_PATH=ON</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">libovclash.so</span></code> records its backend libraries as <code class="docutils literal notranslate"><span class="pre">DT_NEEDED</span></code> entries, and the linker needs
+search directories for them. The config adds a <code class="docutils literal notranslate"><span class="pre">-Wl,-rpath-link</span></code> option for each of these
+directories that exists: the SDK archive’s <code class="docutils literal notranslate"><span class="pre">bin/</span></code> and <code class="docutils literal notranslate"><span class="pre">lib/</span></code>, the selected ovstage package’s
+runtime directories, and <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_LIBRARY_DIR</span></code> when it is set.</p></li>
+</ul>
+<p>Windows has no run path. In the Command Prompt that starts the program, put the SDK archive’s
+<code class="docutils literal notranslate"><span class="pre">bin\</span></code> and the installed package’s <code class="docutils literal notranslate"><span class="pre">bin\</span></code> and <code class="docutils literal notranslate"><span class="pre">bin\plugins\</span></code> on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">set</span> <span class="s2">&quot;PATH=&lt;sdk&gt;\bin;&lt;site-packages&gt;\ovstage\bin;&lt;site-packages&gt;\ovstage\bin\plugins;</span><span class="nv">%PATH%</span><span class="s2">&quot;</span>
+</pre></div>
+</div>
+<p>Leave the installed package as pip laid it out: ovstage finds its <code class="docutils literal notranslate"><span class="pre">plugins\</span></code> tree relative to
+the directory its DLL loads from. With these directories on <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, the program reaches <code class="docutils literal notranslate"><span class="pre">main</span></code>.
+Without them it exits with code <code class="docutils literal notranslate"><span class="pre">0xc0000135</span></code> before <code class="docutils literal notranslate"><span class="pre">main</span></code> runs, and a Linux program that cannot
+find its libraries exits with <code class="docutils literal notranslate"><span class="pre">127</span></code>; see
+<a class="reference internal" href="troubleshooting.html#exit-code-0xc0000135-or-127-before-the-program-starts"><span class="std std-ref">Exit code 0xc0000135 or 127 before the program starts</span></a>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_RUNTIME_DIRS</span></code> holds the same directories, for example for a test’s <code class="docutils literal notranslate"><span class="pre">ENVIRONMENT</span></code>
+property. A CTest test can prepend them to its <code class="docutils literal notranslate"><span class="pre">PATH</span></code>. Add these lines to the <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>
+of <a class="reference internal" href="#linking">Linking</a>, after its <code class="docutils literal notranslate"><span class="pre">add_executable(my_app</span> <span class="pre">main.c)</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">enable_testing</span><span class="p">()</span>
+<span class="nb">add_test</span><span class="p">(</span><span class="s">NAME</span><span class="w"> </span><span class="s">my_app</span><span class="w"> </span><span class="s">COMMAND</span><span class="w"> </span><span class="s">my_app</span><span class="p">)</span>
+<span class="nb">if</span><span class="p">(</span><span class="s">WIN32</span><span class="p">)</span>
+<span class="w">    </span><span class="c"># Escape the &#39;;&#39; separators so the whole PATH value stays one ENVIRONMENT entry.</span>
+<span class="w">    </span><span class="nb">string</span><span class="p">(</span><span class="s">REPLACE</span><span class="w"> </span><span class="s2">&quot;;&quot;</span><span class="w"> </span><span class="s2">&quot;\\;&quot;</span><span class="w"> </span><span class="s">_my_app_path</span><span class="w"> </span><span class="s2">&quot;${OVCLASH_RUNTIME_DIRS};$ENV{PATH}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nb">set_tests_properties</span><span class="p">(</span><span class="s">my_app</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">ENVIRONMENT</span><span class="w"> </span><span class="s2">&quot;PATH=${_my_app_path}&quot;</span><span class="p">)</span>
+<span class="nb">endif</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="pkg-config-on-linux">
+<h3>pkg-config on Linux<a class="headerlink" href="#pkg-config-on-linux" title="Link to this heading">#</a></h3>
+<p>The Linux SDK archive’s <code class="docutils literal notranslate"><span class="pre">ovclash.pc</span></code> derives the ovx include directory, the ovstage loader and
+the run paths from its <code class="docutils literal notranslate"><span class="pre">ovstage_root</span></code> variable. Define that variable as the installed ovstage
+package directory. From the directory that holds your source file <code class="docutils literal notranslate"><span class="pre">app.c</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">PKG_CONFIG_PATH</span><span class="o">=</span>&lt;sdk&gt;/lib/pkgconfig
+<span class="nv">ovstage_dir</span><span class="o">=</span><span class="s2">&quot;</span><span class="k">$(</span>python3<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;import importlib.metadata as m; print(m.distribution(&quot;ovstage&quot;).locate_file(&quot;ovstage&quot;))&#39;</span><span class="k">)</span><span class="s2">&quot;</span>
+cc<span class="w"> </span>app.c<span class="w"> </span>-o<span class="w"> </span>app<span class="w"> </span><span class="k">$(</span>pkg-config<span class="w"> </span>--define-variable<span class="o">=</span><span class="nv">ovstage_root</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$ovstage_dir</span><span class="s2">&quot;</span><span class="w"> </span>--cflags<span class="w"> </span>--libs<span class="w"> </span>ovclash<span class="k">)</span>
+</pre></div>
+</div>
+<p>The command writes the executable <code class="docutils literal notranslate"><span class="pre">app</span></code>, and the program then starts without <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>,
+as with CMake. What <code class="docutils literal notranslate"><span class="pre">ovclash.pc</span></code> defines and emits:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovstage_root</span></code></p></td>
+<td><p>Variable, a directory path</p></td>
+<td><p>Yes, through <code class="docutils literal notranslate"><span class="pre">--define-variable</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">/OVCLASH_SET_ovstage_root</span></code>, a placeholder</p></td>
+<td><p>The installed <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> package directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovx_includedir</span></code></p></td>
+<td><p>Variable, a directory path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">${ovstage_root}/include</span></code></p></td>
+<td><p>The directory of the ovx headers.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Cflags</span></code></p></td>
+<td><p>Compiler flags</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-DOVCLASH_STANDALONE</span> <span class="pre">-I${includedir}</span> <span class="pre">-I${ovx_includedir}</span></code></p></td>
+<td><p>The define and both include directories.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Libs</span></code></p></td>
+<td><p>Linker flags</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">-L${libdir}</span> <span class="pre">-lovclash</span></code>, then the loader and run-path flags</p></td>
+<td><p>The ovstage loader from <code class="docutils literal notranslate"><span class="pre">${ovstage_root}/bin</span></code>, run paths to <code class="docutils literal notranslate"><span class="pre">${libdir}</span></code> and <code class="docutils literal notranslate"><span class="pre">${ovstage_root}/bin</span></code>, and the <code class="docutils literal notranslate"><span class="pre">-Wl,-rpath-link</span></code> options that the linker needs for the loader’s own dependencies.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Limitations:</p>
+<ul class="simple">
+<li><p>Without <code class="docutils literal notranslate"><span class="pre">ovstage_root</span></code>, the flags name the placeholder <code class="docutils literal notranslate"><span class="pre">/OVCLASH_SET_ovstage_root</span></code>, for example
+<code class="docutils literal notranslate"><span class="pre">-I/OVCLASH_SET_ovstage_root/include</span></code>. The compile then stops at
+<code class="docutils literal notranslate"><span class="pre">#error</span> <span class="pre">&quot;ovclash</span> <span class="pre">requires</span> <span class="pre">ovx/string_types.h</span> <span class="pre">or</span> <span class="pre">ovx/types.h&quot;</span></code>.</p></li>
+<li><p>pkg-config output cannot carry a path that contains spaces. Build through CMake when the SDK
+archive or the ovstage package lives in such a directory.</p></li>
+<li><p>On Windows, use the CMake package. Its <code class="docutils literal notranslate"><span class="pre">.pc</span></code> files name no ovstage directory.</p></li>
+</ul>
+</section>
+</section>
+<section id="minimal-program">
+<h2>Minimal program<a class="headerlink" href="#minimal-program" title="Link to this heading">#</a></h2>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash/ovclash.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string.h&gt;</span>
+
+<span class="cm">/* Paths and messages cross the ABI as ovclash_string_t, not const char*. */</span>
+<span class="k">static</span><span class="w"> </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="nf">str</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">;</span>
+<span class="w">    </span><span class="n">out</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strlen</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">report_failure</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="o">*</span><span class="w"> </span><span class="n">operation</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;%s failed&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">operation</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_get_last_error</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">fputs</span><span class="p">(</span><span class="s">&quot;: &quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="p">);</span>
+<span class="w">            </span><span class="n">fwrite</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">fputc</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_context_t</span><span class="o">*</span><span class="w"> </span><span class="n">ctx</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_settings_t</span><span class="w"> </span><span class="n">settings</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">a</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="s">&quot;/Root/Xform_Primitives/Cube&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="n">ovclash_string_t</span><span class="w"> </span><span class="n">b</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="s">&quot;/Root/Xform_Primitives/Plane&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">steps</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">exit_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_create_context</span><span class="p">(</span><span class="o">&amp;</span><span class="n">ctx</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;create_context&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* A new context already holds these defaults. Change fields before applying them. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_reset_settings</span><span class="p">(</span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* Context-free helpers do not record a context error message. */</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;reset_settings&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_set_settings</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">settings</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;set_settings&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* The path is relative to the working directory. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_open_stage</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">(</span><span class="s">&quot;time_sampled.usda&quot;</span><span class="p">)).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;open_stage&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* Applying settings and opening a stage both clear the scope, so set it last. */</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_set_scope_paths</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;set_scope_paths&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_create_pipeline</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">steps</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;create_pipeline&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">steps</span><span class="p">;</span><span class="w"> </span><span class="o">++</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_run_pipeline_step</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;run_pipeline_step&quot;</span><span class="p">);</span>
+<span class="w">            </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_get_overlap_count</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">count</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;get_overlap_count&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="k">goto</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">exit_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="nl">cleanup</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ctx</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">ovclash_release_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="cm">/* The context is no longer available after release. */</span>
+<span class="w">        </span><span class="n">report_failure</span><span class="p">(</span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;release_context&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">exit_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">exit_code</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;overlaps: %u</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">count</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">exit_code</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The program follows the canonical lifecycle:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_context()</span></code> creates a <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">context</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_reset_settings()</span></code> fills a settings struct with the defaults.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_settings()</span></code> applies the settings struct.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code> opens a local USD file.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths()</span></code> sets the two <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">search sets</span></a> of the scope. It
+comes after the settings and the stage, because both clear the scope.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_create_pipeline()</span></code> returns the step count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_step()</span></code> runs each step in order.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_count()</span></code> reads the result.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_release_context()</span></code> releases the context on every path.</p></li>
+</ol>
+<p>The release validation extracts this program from this page and compiles it against the packaged
+headers. It then runs the program against stubs that check its error handling and cleanup.</p>
+<section id="building-and-running-it">
+<h3>Building and running it<a class="headerlink" href="#building-and-running-it" title="Link to this heading">#</a></h3>
+<p>Save the program as <code class="docutils literal notranslate"><span class="pre">first_query.c</span></code> beside this <code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">cmake_minimum_required</span><span class="p">(</span><span class="s">VERSION</span><span class="w"> </span><span class="s">3.16</span><span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span><span class="s">first_query</span><span class="w"> </span><span class="s">C</span><span class="p">)</span>
+
+<span class="nb">find_package</span><span class="p">(</span><span class="s">ovclash</span><span class="w"> </span><span class="s">CONFIG</span><span class="w"> </span><span class="s">REQUIRED</span><span class="p">)</span>
+<span class="nb">add_executable</span><span class="p">(</span><span class="s">first_query</span><span class="w"> </span><span class="s">first_query.c</span><span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span><span class="s">first_query</span><span class="w"> </span><span class="s">PRIVATE</span><span class="w"> </span><span class="s">ovclash::ovclash</span><span class="p">)</span>
+<span class="nb">set_target_properties</span><span class="p">(</span><span class="s">first_query</span><span class="w"> </span><span class="s">PROPERTIES</span><span class="w"> </span><span class="s">C_STANDARD</span><span class="w"> </span><span class="s">11</span><span class="w"> </span><span class="s">C_STANDARD_REQUIRED</span><span class="w"> </span><span class="s">YES</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Configure and build it as in <a class="reference internal" href="#linking">Linking</a>. <code class="docutils literal notranslate"><span class="pre">&lt;build&gt;</span></code> on this page is the build directory
+that you passed to <code class="docutils literal notranslate"><span class="pre">cmake</span> <span class="pre">-B</span></code>. The native library does not set its
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">OpenUSD</span></a> plugin path the way the Python packages do, so set up the
+environment before you run it:</p>
+<ul class="simple">
+<li><p>Set <code class="docutils literal notranslate"><span class="pre">OV_PXR_PLUGINPATH_2511</span></code> to the installed package’s OpenUSD plugin directory,
+<code class="docutils literal notranslate"><span class="pre">&lt;site-packages&gt;/ovstage/bin/plugins/usd</span></code>. Without it, the process aborts inside
+<code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code> with <code class="docutils literal notranslate"><span class="pre">ovstage:</span> <span class="pre">fatal</span> <span class="pre">USD</span> <span class="pre">error:</span> <span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">find</span> <span class="pre">the</span> <span class="pre">plugInfo.json</span> <span class="pre">file</span> <span class="pre">...</span></code>, and no status or last-error text is returned.</p></li>
+<li><p>On Windows, put the directories that <a class="reference internal" href="#running-the-program">Running the program</a> names on
+<code class="docutils literal notranslate"><span class="pre">PATH</span></code>. On Linux, a program linked through CMake or pkg-config needs no <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code>.</p></li>
+</ul>
+<p>Then run it from <code class="docutils literal notranslate"><span class="pre">samples/data/</span></code>, or change the stage path in the program. On Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>&lt;sdk&gt;/samples/data
+<span class="nb">export</span><span class="w"> </span><span class="nv">OV_PXR_PLUGINPATH_2511</span><span class="o">=</span>&lt;site-packages&gt;/ovstage/bin/plugins/usd
+&lt;build&gt;/first_query
+</pre></div>
+</div>
+<p>On Windows, where <code class="docutils literal notranslate"><span class="pre">&lt;build&gt;\Release</span></code> holds the executable of a Visual Studio build:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="k">cd</span> /d <span class="p">&lt;</span>sdk<span class="p">&gt;</span>\samples\data
+<span class="k">set</span> <span class="s2">&quot;OV_PXR_PLUGINPATH_2511=&lt;site-packages&gt;\ovstage\bin\plugins\usd&quot;</span>
+<span class="k">set</span> <span class="s2">&quot;PATH=&lt;sdk&gt;\bin;&lt;site-packages&gt;\ovstage\bin;&lt;site-packages&gt;\ovstage\bin\plugins;</span><span class="nv">%PATH%</span><span class="s2">&quot;</span>
+<span class="p">&lt;</span>build<span class="p">&gt;</span>\Release\first_query.exe
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>overlaps: 1
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">run_*_cpp</span></code> launchers under <code class="docutils literal notranslate"><span class="pre">samples/</span></code> set up the same environment for the samples. They
+also set <code class="docutils literal notranslate"><span class="pre">PXR_PLUGINPATH_NAME</span></code> to the same directory, which your program does not need: the
+OpenUSD inside ovstage is namespaced and reads <code class="docutils literal notranslate"><span class="pre">OV_PXR_PLUGINPATH_2511</span></code>.
+Keep its plugin directory out of <code class="docutils literal notranslate"><span class="pre">PXR_PLUGINPATH_NAME</span></code> when an unnamespaced OpenUSD, such as
+<code class="docutils literal notranslate"><span class="pre">usd-core</span></code>, shares the process; <a class="reference internal" href="README.html#usd-coexistence"><span class="std std-ref">USD coexistence</span></a> explains why.</p>
+<p><code class="docutils literal notranslate"><span class="pre">samples/clash_api/ClashApi.cpp</span></code> is the full version of this program; <a class="reference internal" href="samples.html"><span class="std std-doc">Samples</span></a>
+describes it. It adds overlap reports, duplicate search, point clouds and the asynchronous
+pipeline.</p>
+<p>A pipeline step returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_ERROR</span></code> when its phase fails, and
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error()</span></code> holds the reason. A successful run can still skip meshes that it could
+not <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">cook</span></a>; see <strong>Error text is per context</strong> in
+<a class="reference internal" href="#rules-that-bite-first">Rules that bite first</a>. The comments in <code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash.h</span></code>
+document each entry point’s backend differences;
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists that header.</p>
+</section>
+</section>
+<section id="rules-that-bite-first">
+<h2>Rules that bite first<a class="headerlink" href="#rules-that-bite-first" title="Link to this heading">#</a></h2>
+<p><a class="reference internal" href="c_api_conventions.html"><span class="std std-doc">C ABI conventions</span></a> gives the full rules for results, error text and
+strings. These are the ones that catch people out first.</p>
+<p><strong>Results are structs, not enums.</strong> Every canonical entry point returns <code class="docutils literal notranslate"><span class="pre">ovclash_result_t</span></code>, a
+struct with one <code class="docutils literal notranslate"><span class="pre">status</span></code> field. The only exceptions are three string getters:
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_result_string()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_get_version_string()</span></code>.
+The <a class="reference internal" href="#minimal-program">minimal program</a> tests every result, and
+<a class="reference internal" href="c_api_conventions.html#status-results"><span class="std std-ref">Status results</span></a> lists the fields and values. For a result
+<code class="docutils literal notranslate"><span class="pre">r</span></code>:</p>
+<ul class="simple">
+<li><p>Test success with <code class="docutils literal notranslate"><span class="pre">r.status</span> <span class="pre">==</span> <span class="pre">OVCLASH_STATUS_SUCCESS</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_SUCCESS</span></code> is 0, so <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(r.status)</span></code> tests for failure.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">(!r)</span></code> does not compile, because <code class="docutils literal notranslate"><span class="pre">r</span></code> is a struct.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_result_t</span></code> has the same shape, but it is a <strong>distinct type</strong> with its own
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_*</span></code> enum. Do not mix them.</p></li>
+</ul>
+<p><strong>Error text is per context.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_get_last_error(ctx)</span></code> returns the most recent message
+recorded on that context. Usually it is the last failure.</p>
+<ul class="simple">
+<li><p>A successful run that dropped meshes it could not cook also records a notice there. The
+durable signal is <code class="docutils literal notranslate"><span class="pre">nbCookedMeshes</span></code> below <code class="docutils literal notranslate"><span class="pre">nbMeshes</span></code> minus <code class="docutils literal notranslate"><span class="pre">nbSharedMeshes</span></code> in
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_query_stats()</span></code>.</p></li>
+<li><p>Successful calls do not always clear the text, and later calls can replace it. Read it right
+after the failure.</p></li>
+<li><p>Context-free calls, such as the <code class="docutils literal notranslate"><span class="pre">ovclash_reset_*</span></code> helpers, record nothing.</p></li>
+</ul>
+<p><strong>Order the setup calls.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_set_settings()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_open_stage()</span></code> clear the scope
+paths, so call <code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths()</span></code> after them.</p>
+<ul class="simple">
+<li><p>A non-empty <code class="docutils literal notranslate"><span class="pre">ovclash_set_scope_paths()</span></code> call also turns off
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_FULL_SCENE</span></code>. Clearing the scope does not turn it back on.</p></li>
+<li><p>With neither a scope nor that flag, a run selects nothing.</p></li>
+<li><p>Restore <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">full-scene traversal</span></a> with <code class="docutils literal notranslate"><span class="pre">ovclash_set_full_scene(ctx,</span> <span class="pre">true)</span></code>.</p></li>
+</ul>
+<p><strong>Dynamic queries skip static pairs.</strong> A <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">dynamic query</span></a> is one whose start
+and end times differ. The default settings enable
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_SETTINGS_FLAG_PURGE_PERMANENT_STATIC_OVERLAPS</span></code>. A dynamic query then drops overlaps
+between two meshes whose transforms are not animated. To keep them, clear that flag in
+the settings that you apply. <a class="reference internal" href="settings.html#canonical-c"><span class="std std-ref">Canonical C</span></a> describes the
+<code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> fields, and <a class="reference internal" href="settings.html"><span class="std std-doc">Settings</span></a> lists every setting.</p>
+<p><strong>Overlap reports must be released.</strong> A report hands out borrowed views into runtime-owned
+storage. Call <code class="docutils literal notranslate"><span class="pre">ovclash_release_overlap_report()</span></code> before any of these: the next pipeline step or
+run, <code class="docutils literal notranslate"><span class="pre">ovclash_release_memory()</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash_reset_context()</span></code> or <code class="docutils literal notranslate"><span class="pre">ovclash_release_context()</span></code>. A
+sampled step can replace the arrays behind the views within the same run.</p>
+<p><strong>Releasing a context can block.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_release_context()</span></code> waits until an outstanding
+asynchronous pipeline finishes and its worker is joined. To stop it early, call
+<code class="docutils literal notranslate"><span class="pre">ovclash_cancel_pipeline()</span></code> on its handle first.</p>
+<p><strong>Overlap index order is not part of the contract.</strong> Two runs can report the same overlaps in a
+different order. Identify an overlap by <code class="docutils literal notranslate"><span class="pre">name0</span></code> and <code class="docutils literal notranslate"><span class="pre">name1</span></code>, or by <code class="docutils literal notranslate"><span class="pre">clashHash</span></code>, from
+<code class="docutils literal notranslate"><span class="pre">ovclash_get_overlap_data()</span></code>. Never identify it by its index; see
+<a class="reference internal" href="developer_guide.html#overlap-index-order-is-not-contractual"><span class="std std-ref">Overlap index order is not contractual</span></a>.</p>
+<p><strong><code class="docutils literal notranslate"><span class="pre">ovclash_string_t</span></code> is a borrowed view.</strong> It is the producer-owned <code class="docutils literal notranslate"><span class="pre">ovx_string_t</span></code> under another
+name: <code class="docutils literal notranslate"><span class="pre">{</span> <span class="pre">const</span> <span class="pre">char*</span> <span class="pre">ptr;</span> <span class="pre">size_t</span> <span class="pre">length;</span> <span class="pre">}</span></code>. String arguments, such as stage and prim paths, use
+it. <a class="reference internal" href="c_api_conventions.html#strings"><span class="std std-ref">Strings</span></a> lists its fields.</p>
+<ul class="simple">
+<li><p>The library reads <code class="docutils literal notranslate"><span class="pre">length</span></code> bytes and does not need a terminating NUL.</p></li>
+<li><p>A view that the library returns points into library-owned storage. Use its <code class="docutils literal notranslate"><span class="pre">length</span></code>, as the
+<code class="docutils literal notranslate"><span class="pre">fwrite</span></code> call in <code class="docutils literal notranslate"><span class="pre">report_failure()</span></code> of the <a class="reference internal" href="#minimal-program">minimal program</a> does, and copy
+the bytes to keep them.</p></li>
+</ul>
+</section>
+<section id="suite-c-abi">
+<h2>Suite C ABI<a class="headerlink" href="#suite-c-abi" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">include/ovclash_suite/</span></code> is the C counterpart of the <code class="docutils literal notranslate"><span class="pre">ovclash_suite</span></code> Python package: the legacy
+clash object model of the <a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">Kit</span></a> extension (queries,
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">clash records</span></a> and their frames), SQLite or JSON directory persistence,
+and HTML and JSON export. It wraps the canonical C ABI rather than
+replacing it. Both are compiled into the same shared library, so there
+is no separate Suite library to link.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api/ClashSuiteApi.cpp</span></code> is the worked example.
+<a class="reference internal" href="samples.html"><span class="std std-doc">Samples</span></a> describes the sample and its <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, which walks the surface end to
+end, and <a class="reference internal" href="suite_workflows.html"><span class="std std-doc">suite_workflows.md</span></a> explains its five queries.</p></li>
+<li><p>The full ownership, threading and transaction contracts are the doxygen comments in
+<code class="docutils literal notranslate"><span class="pre">include/ovclash_suite/ovclash_suite.h</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_serializer.h</span></code>;
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists the Suite headers.</p></li>
+</ul>
+<p>This section covers what to get right first.</p>
+<p>Create a SQLite handle with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_create()</span></code>, or a JSON directory handle with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_create_directory()</span></code>. Open it with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_open()</span></code>.
+<a class="reference internal" href="persistence.html"><span class="std std-doc">Persistence</span></a> helps you choose between them, and
+<a class="reference internal" href="sqlite_serializer.html"><span class="std std-doc">sqlite_serializer.md</span></a> and <a class="reference internal" href="directory_serializer.html"><span class="std std-doc">directory_serializer.md</span></a>
+cover each store’s path and recovery contract.</p>
+<p>To save a completed runtime query, call <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async()</span></code> with that
+<a class="reference internal" href="concepts.html#glossary"><span class="std std-ref">data handle</span></a> and a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> serializer. This function belongs in a source file of your program. Its
+<code class="docutils literal notranslate"><span class="pre">query_id</span></code> is the identifier of the stored query, and <code class="docutils literal notranslate"><span class="pre">tolerance</span></code> and <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> are that
+query’s settings:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+
+<span class="cm">/* Saves the completed run of runtime into the open store data. Returns 1 on success. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">save_results</span><span class="p">(</span><span class="n">ovclash_suite_runtime_t</span><span class="o">*</span><span class="w"> </span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="n">ovclash_suite_data_t</span><span class="o">*</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">query_id</span><span class="p">,</span>
+<span class="w">                        </span><span class="kt">double</span><span class="w"> </span><span class="n">tolerance</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">depth_epsilon</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">include_duplicates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="cm">/* The owning query&#39;s setting, not the runtime&#39;s mode. */</span>
+<span class="w">    </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">resolve_stale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">      </span><span class="cm">/* Update clash states, as Custom serializers describes. */</span>
+<span class="w">    </span><span class="n">ovclash_suite_fetch_async_t</span><span class="o">*</span><span class="w"> </span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">finished</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">cleanup</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_runtime_fetch_and_save_async</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">query_id</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">,</span><span class="w"> </span><span class="n">depth_epsilon</span><span class="p">,</span>
+<span class="w">                                                   </span><span class="n">include_duplicates</span><span class="p">,</span><span class="w"> </span><span class="n">resolve_stale</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fetch</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="cm">/* finish waits; a UI polls the progress snapshots before calling it. */</span>
+<span class="w">    </span><span class="n">finished</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_fetch_async_finish</span><span class="p">(</span><span class="n">fetch</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">finished</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">ovclash_suite_string_t</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mi">0</span><span class="p">};</span>
+<span class="w">        </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">diagnostic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_fetch_async_get_last_error</span><span class="p">(</span><span class="n">fetch</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">error</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">diagnostic</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">)</span>
+<span class="w">            </span><span class="n">fwrite</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="n">ptr</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">cleanup</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_fetch_async_destroy_owned</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fetch</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">finished</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">cleanup</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The function returns 1 when the fetch finished successfully and its handle was released.</p>
+<ul>
+<li><p><strong>Finish detection first.</strong> Finish an asynchronous detection run with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_async_finish()</span></code>, and destroy its handle, before you launch the fetch.</p></li>
+<li><p><strong>The owners stay leased until the fetch is destroyed</strong>, even after completion, failure or
+cancellation. Until then, the runtime and the built-in store reject conflicting reads, writes,
+commits and lifecycle calls. On every path, destroy the fetch before you release either owner.</p></li>
+<li><p><strong>Progress is not commit.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_get_step_data()</span></code> reports
+whole-operation progress in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>. <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_get_counts()</span></code> reports the
+written and total counts. Only a successful commit reaches <code class="docutils literal notranslate"><span class="pre">1.0</span></code>. Written equal to total does
+not prove a commit.</p></li>
+<li><p><strong>Cancel and poll safely.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_cancel()</span></code> requests cancellation and waits
+for cleanup. Cancellation can race completion; a commit that already happened stays. The
+snapshot getters may overlap one finish or cancel call. Serialize finish and cancel with each
+other, and let no call overlap destruction.</p></li>
+<li><p><strong>Destroy exactly once.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_destroy_owned()</span></code> sets the pointer to <code class="docutils literal notranslate"><span class="pre">NULL</span></code>
+once it has consumed the handle, even when cleanup reported an error. A rejected call or a
+failed wait leaves the pointer set, so you can retry.</p></li>
+<li><p><strong>Preparation threading follows the run settings.</strong></p>
+<ul class="simple">
+<li><p>Nonzero <code class="docutils literal notranslate"><span class="pre">single_threaded</span></code> keeps frame preparation serial.</p></li>
+<li><p>Otherwise, a nonzero <code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code> uses the workers of Carbonite, the task framework
+that ovstage ships, and zero uses native threads bounded by <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code>.</p></li>
+<li><p>Directory and custom-serializer frame preparation can use those workers. SQLite frame
+encoding and every storage write stay on the single background fetch worker.</p></li>
+<li><p>The bounded synchronous API (<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin</span></code>, <code class="docutils literal notranslate"><span class="pre">_next</span></code> and
+<code class="docutils literal notranslate"><span class="pre">_destroy</span></code>) runs every callback except <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> on the calling thread instead.</p></li>
+</ul>
+</li>
+<li><p><strong>Change fetch threading before launch.</strong> To fetch with other threading than detection used,
+start from the current settings. Once settings were applied, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings()</span></code>
+returns them. Before any settings are applied, that getter returns a zero-initialized struct,
+which the setter rejects, so read <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_default_run_settings()</span></code> instead. Then:</p>
+<ol class="arabic simple">
+<li><p>Read the current settings with the getter that applies.</p></li>
+<li><p>Change only the threading fields.</p></li>
+<li><p>Apply them with <code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings()</span></code>.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings()</span></code> returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_SUCCESS</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings()</span></code> then reports the new threading fields. Completed results are
+kept, so detection does not rerun. The setter rejects changes while a
+fetch is alive.</p>
+</li>
+<li><p><strong>Each fetch step bounds its work, not its time.</strong> Each
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_next()</span></code> call handles at most 1,024 frame reports,
+1,024 overlaps and about 8 MiB of report payload. Each internal step of the asynchronous
+fetch has the same bounds. One indivisible report can exceed the payload bound.
+Reconciliation scans at most 1,024 stored identifiers per step. Initialization enumerates
+every stored identifier and is not bounded.</p></li>
+<li><p><strong>Read stored overlaps through cursors.</strong> <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_get_overlaps_by_query()</span></code> returns
+an owned forward-only cursor. Copy each view from <code class="docutils literal notranslate"><span class="pre">ovclash_suite_overlap_cursor_next()</span></code> before
+you advance. Destroy the cursor before its data handle: a live cursor blocks store lifecycle
+changes and the launch of an asynchronous fetch into that store. The other getters reuse one
+scratch record per kind. Copy their strings and arrays before the next getter of the same kind
+or any change to the store.</p></li>
+</ul>
+<section id="fetch-failures-and-pending-writes">
+<h3>Fetch failures and pending writes<a class="headerlink" href="#fetch-failures-and-pending-writes" title="Link to this heading">#</a></h3>
+<p>Fetch-and-save is <strong>not all-or-nothing for every failure</strong>.
+<a class="reference internal" href="persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a> gives the transaction outcome
+of each failure. The outcomes are the same in serial and parallel modes, for the asynchronous and
+the bounded synchronous fetch, and for the Python <code class="docutils literal notranslate"><span class="pre">ClashDetection.fetch_and_save_overlaps()</span></code>
+wrapper. In C:</p>
+<ul class="simple">
+<li><p>A failed operation cannot resume. Read its error with
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_get_last_error()</span></code>, then destroy it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_close()</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_data_destroy()</span></code> are the data-handle calls that
+attempt the commit of the remaining pending writes.</p></li>
+<li><p>To publish a staging destination only after complete success, wait until
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_finish()</span></code> reports success.</p></li>
+</ul>
+</section>
+<section id="custom-serializers">
+<h3>Custom serializers<a class="headerlink" href="#custom-serializers" title="Link to this heading">#</a></h3>
+<p>For a custom store, fill an <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_serializer_t</span></code> callback table and pass it to the
+same function with a <code class="docutils literal notranslate"><span class="pre">NULL</span></code> data handle.
+<a class="reference internal" href="persistence.html#custom-stores"><span class="std std-ref">Custom stores</span></a> lists each member of the table with its C type,
+whether it is required and what it does. Exactly one of <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">serializer</span></code> must be
+non-<code class="docutils literal notranslate"><span class="pre">NULL</span></code>. The table is copied, but <code class="docutils literal notranslate"><span class="pre">serializer.user_data</span></code> and the destination behind it must
+outlive the fetch. The store must enforce its own lifetime guards. The <code class="docutils literal notranslate"><span class="pre">save_results()</span></code> function
+of <a class="reference internal" href="#suite-c-abi">Suite C ABI</a> becomes, for a custom store:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite.h&gt;</span>
+
+<span class="cm">/* Saves the completed run of runtime through a custom store&#39;s callbacks. Returns 1 on success. */</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nf">save_to_custom_store</span><span class="p">(</span><span class="n">ovclash_suite_runtime_t</span><span class="o">*</span><span class="w"> </span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">ovclash_suite_fetch_serializer_t</span><span class="o">*</span><span class="w"> </span><span class="n">serializer</span><span class="p">,</span>
+<span class="w">                                </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">query_id</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">tolerance</span><span class="p">,</span><span class="w"> </span><span class="kt">double</span><span class="w"> </span><span class="n">depth_epsilon</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">ovclash_suite_fetch_async_t</span><span class="o">*</span><span class="w"> </span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">ovclash_suite_result_t</span><span class="w"> </span><span class="n">finished</span><span class="p">;</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ovclash_suite_runtime_fetch_and_save_async</span><span class="p">(</span><span class="n">runtime</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">serializer</span><span class="p">,</span><span class="w"> </span><span class="n">query_id</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="p">,</span><span class="w"> </span><span class="n">depth_epsilon</span><span class="p">,</span>
+<span class="w">                                                   </span><span class="mi">1</span><span class="w"> </span><span class="cm">/* include_duplicates */</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="cm">/* resolve_stale */</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">fetch</span><span class="p">)</span>
+<span class="w">            </span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">finished</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ovclash_suite_fetch_async_finish</span><span class="p">(</span><span class="n">fetch</span><span class="p">);</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ovclash_suite_fetch_async_destroy_owned</span><span class="p">(</span><span class="o">&amp;</span><span class="n">fetch</span><span class="p">).</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">           </span><span class="n">finished</span><span class="p">.</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">OVCLASH_SUITE_STATUS_SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Acknowledge success explicitly.</strong> Callbacks return <code class="docutils literal notranslate"><span class="pre">void</span></code> and receive a trailing
+<code class="docutils literal notranslate"><span class="pre">uint32_t*</span> <span class="pre">out_success</span></code>, which the engine sets to 0. Write exactly 1 only after all work and
+outputs succeeded. No exception may cross the C ABI.</p></li>
+<li><p><strong>Threads.</strong> With the asynchronous API, every callback except <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> runs on the
+background fetch worker, and storage writes follow the runtime’s result order. The optional
+<code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> may run concurrently on preparation workers. It must touch only immutable
+state and its own output, never a storage connection or the serializer’s diagnostics. Its
+partner <code class="docutils literal notranslate"><span class="pre">release_frame</span></code> runs on the fetch worker. It releases every non-null prepared output
+exactly once, even one from a failed preparation.</p></li>
+<li><p><strong>Transactions.</strong> Implement BEGIN, COMMIT, ROLLBACK and the BEGIN_OVERLAP / END_OVERLAP /
+ABORT_OVERLAP savepoints with the semantics that <a class="reference internal" href="persistence.html#custom-stores"><span class="std std-ref">Custom stores</span></a>
+gives. The serializer header, <code class="docutils literal notranslate"><span class="pre">&lt;ovclash_suite/ovclash_suite_serializer.h&gt;</span></code>, documents each
+action; <a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists it. The engine
+requests a full ROLLBACK at most once per operation, and it cannot recover if your rollback
+fails.</p></li>
+<li><p><strong>Inputs are borrowed</strong> for the duration of the callback; copy what you keep. There is one
+exception: <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> may keep a copied frame view’s geometry arrays until its
+<code class="docutils literal notranslate"><span class="pre">release_frame</span></code>, but never the view pointer. Strings that you return must be valid UTF-8.</p></li>
+</ul>
+<p><strong>Clash states.</strong> Fetching keeps existing identifiers and review annotations. With
+<code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> nonzero, it updates the stored clash states as
+<a class="reference internal" href="persistence.html#clash-states"><span class="std std-ref">Clash states</span></a> describes, including when an <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> clash keeps
+its approval. With <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> zero, it keeps the stored states. Absent clashes are marked
+absent either way.</p>
+<p>Built-in data handles supply the stored-result reader that the approval comparison needs. To keep
+unchanged approvals in a custom store, pass an <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_saved_data_reader_t</span></code> to
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async_with_reader()</span></code>, or to its synchronous counterpart
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin_with_reader()</span></code>.
+<a class="reference internal" href="persistence.html#the-approval-comparison"><span class="std std-ref">The approval comparison</span></a> lists each member of the reader
+with its C type and whether it is required. In short:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">read_overlap</span></code> returns the saved header and frame count for the identifier that
+<code class="docutils literal notranslate"><span class="pre">find_overlap</span></code> returned.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">read_frame</span></code> returns the frame at a zero-based persisted index.</p></li>
+<li><p>The optional <code class="docutils literal notranslate"><span class="pre">close</span></code> releases a reader-owned cursor. It must be idempotent when no cursor is
+open.</p></li>
+</ul>
+<p>With <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> nonzero and no reader, re-detected <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> clashes become <code class="docutils literal notranslate"><span class="pre">ACTIVE</span></code>,
+because unchanged contents cannot be proven. <code class="docutils literal notranslate"><span class="pre">include/ovclash_suite/ovclash_suite_serializer.h</span></code>
+documents the lifetimes of callback outputs, and
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a> lists it.</p>
+</section>
+</section>
+<section id="building-the-c-samples">
+<h2>Building the C++ samples<a class="headerlink" href="#building-the-c-samples" title="Link to this heading">#</a></h2>
+<p>Before you begin, meet the <a class="reference internal" href="#prerequisites">Prerequisites</a>; the script installs the ovstage pin
+itself when its interpreter lacks it. <code class="docutils literal notranslate"><span class="pre">samples/build_samples.sh</span></code> (<code class="docutils literal notranslate"><span class="pre">samples\build_samples.bat</span></code> on
+Windows) configures and builds every first-level sample directory that contains a
+<code class="docutils literal notranslate"><span class="pre">CMakeLists.txt</span></code>. It builds against this SDK archive by default, and it is the quickest check that
+your toolchain works. The script finds its own location, so you can run it from any directory.</p>
+<p>On Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>&lt;sdk&gt;/samples/build_samples.sh<span class="w"> </span>--config<span class="w"> </span>Release
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span>sdk<span class="p">&gt;</span>\samples\build_samples.bat --config Release
+</pre></div>
+</div>
+<p>A successful build ends with <code class="docutils literal notranslate"><span class="pre">Built</span> <span class="pre">&lt;count&gt;</span> <span class="pre">sample(s).</span></code>, where <code class="docutils literal notranslate"><span class="pre">&lt;count&gt;</span></code> is the number of sample
+directories built, and the script exits with status 0. When it fails, the error names the cause;
+<a class="reference internal" href="troubleshooting.html#building-and-running-the-shipped-samples"><span class="std std-ref">Building and running the shipped samples</span></a>
+lists the messages.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Option</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Meaning</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">Release|Debug</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code> or <code class="docutils literal notranslate"><span class="pre">Debug</span></code></p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Release</span></code>; on Linux, the <code class="docutils literal notranslate"><span class="pre">BUILD_TYPE</span></code> environment variable when it is set</p></td>
+<td><p>Build configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--install-root</span> <span class="pre">DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_INSTALL_ROOT</span></code>, else the SDK archive that holds the script</p></td>
+<td><p>The ovclash SDK archive root to build against.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--build-root</span> <span class="pre">DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SAMPLE_BUILD_ROOT</span></code>, else that variable’s platform default</p></td>
+<td><p>Parent of the per-sample build trees. A relative <code class="docutils literal notranslate"><span class="pre">DIR</span></code> is anchored to the SDK archive root, not to the current directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--sample</span> <span class="pre">NAME</span></code></p></td>
+<td><p>Sample directory name, such as <code class="docutils literal notranslate"><span class="pre">clash_api</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Every sample directory</p></td>
+<td><p>Build only the named sample directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--clean</span></code></p></td>
+<td><p>Flag</p></td>
+<td><p>No</p></td>
+<td><p>Off</p></td>
+<td><p>Delete each selected sample’s build tree before building.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--help</span></code>, <code class="docutils literal notranslate"><span class="pre">-h</span></code></p></td>
+<td><p>Flag</p></td>
+<td><p>No</p></td>
+<td><p>Off</p></td>
+<td><p>Print usage.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--version</span></code></p></td>
+<td><p>Flag</p></td>
+<td><p>No</p></td>
+<td><p>Off</p></td>
+<td><p>Print the ovclash version. Use it as the only argument.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Any other option fails with <code class="docutils literal notranslate"><span class="pre">Unknown</span> <span class="pre">option:</span></code> before any work starts.</p>
+<p>The script also reads these environment variables:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Variable</p></th>
+<th class="head"><p>Values</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Effect</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_INSTALL_ROOT</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p>Unset: the SDK archive that holds the script</p></td>
+<td><p>Default for <code class="docutils literal notranslate"><span class="pre">--install-root</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SAMPLE_BUILD_ROOT</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p>Windows SDK archive: <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%/ovclash/samples/&lt;SDK-path</span> <span class="pre">hash&gt;</span></code>; Linux: a directory inside the SDK archive root</p></td>
+<td><p>Default for <code class="docutils literal notranslate"><span class="pre">--build-root</span></code>. On Windows, <code class="docutils literal notranslate"><span class="pre">%TEMP%</span></code> replaces <code class="docutils literal notranslate"><span class="pre">%LOCALAPPDATA%</span></code> when <code class="docutils literal notranslate"><span class="pre">LOCALAPPDATA</span></code> is unset, and <code class="docutils literal notranslate"><span class="pre">&lt;SDK-path</span> <span class="pre">hash&gt;</span></code> is 16 hexadecimal digits derived from the SDK archive’s path, to keep compiler paths short. When that cache cannot be selected, the script warns and builds inside the SDK archive root; see <a class="reference internal" href="troubleshooting.html#sdk-sample-build-cache-cannot-be-selected"><span class="std std-ref">Troubleshooting</span></a>. Each sample gets its own child directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PYTHON</span></code></p></td>
+<td><p>Interpreter name or path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">python3</span></code> on Linux, <code class="docutils literal notranslate"><span class="pre">python</span></code> on Windows</p></td>
+<td><p>Base interpreter for the runtime selection.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code></p></td>
+<td><p>Absolute directory path</p></td>
+<td><p>No</p></td>
+<td><p>Unset</p></td>
+<td><p>Another ovstage installation, as in <a class="reference internal" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_OVX_INCLUDE_DIR</span></code></p></td>
+<td><p>Directory path</p></td>
+<td><p>No</p></td>
+<td><p>Unset: this SDK archive’s config finds the headers in the installed <code class="docutils literal notranslate"><span class="pre">ovstage</span></code> package</p></td>
+<td><p>The ovstage include directory.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CMAKE</span></code></p></td>
+<td><p>Executable name or path</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cmake</span></code> on the search path</p></td>
+<td><p>The CMake executable.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>How the script selects the runtime:</p>
+<ul class="simple">
+<li><p>It uses <code class="docutils literal notranslate"><span class="pre">PYTHON</span></code> when that interpreter has a complete installation of the SDK archive’s exact
+ovstage pin. Otherwise it installs the pin with pip into a per-user cached virtual environment
+and uses that environment, leaving the base interpreter’s packages unchanged. The first setup
+needs pip access to the pinned wheel. <a class="reference internal" href="samples.html"><span class="std std-doc">samples.md</span></a> describes that cache.</p></li>
+<li><p>It passes the selected interpreter to CMake as <code class="docutils literal notranslate"><span class="pre">OVCLASH_PYTHON_EXECUTABLE</span></code>. The C++ launchers
+run <code class="docutils literal notranslate"><span class="pre">samples/sdk_runtime.py</span></code> with the same interpreter to put the ovstage runtime on the
+loader path. <code class="docutils literal notranslate"><span class="pre">OVCLASH_OVSTAGE_PACKAGE_DIR</span></code> overrides the selection for both.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PYTHON</span></code> may be a bare name, looked up the way the shell finds a command, or a path. The
+script makes it absolute but keeps a virtual environment’s interpreter link. An interpreter
+that cannot be found stops the build before configuring.</p></li>
+</ul>
+<p>The script configures a sample tree from scratch, as <code class="docutils literal notranslate"><span class="pre">--clean</span></code> would, when its <code class="docutils literal notranslate"><span class="pre">CMakeCache.txt</span></code>
+records a different <code class="docutils literal notranslate"><span class="pre">ovclash_DIR</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_PYTHON_EXECUTABLE</span></code>. <code class="docutils literal notranslate"><span class="pre">build_samples.bat</span></code> also starts
+from scratch when the packaged toolchain’s generator or compilers changed. After configuring,
+both scripts store the SDK archive’s <code class="docutils literal notranslate"><span class="pre">ovclash-build-provenance.json</span></code> in each sample tree as
+<code class="docutils literal notranslate"><span class="pre">.ovclash-sdk-identity</span></code>. When that copy is missing or differs, they start from scratch, so an SDK
+archive replaced at the same path cannot keep the previous SDK archive’s binaries. They print
+<code class="docutils literal notranslate"><span class="pre">SDK</span> <span class="pre">build</span> <span class="pre">identity</span> <span class="pre">of</span> <span class="pre">&quot;&lt;dir&gt;&quot;</span> <span class="pre">differs</span> <span class="pre">from</span> <span class="pre">this</span> <span class="pre">build;</span> <span class="pre">configuring</span> <span class="pre">it</span> <span class="pre">from</span> <span class="pre">scratch.</span></code> (the <code class="docutils literal notranslate"><span class="pre">.sh</span></code>
+prints <code class="docutils literal notranslate"><span class="pre">&lt;dir&gt;</span></code> without quotes).</p>
+<blockquote>
+<div><p><strong>Note</strong></p>
+<p>Set <code class="docutils literal notranslate"><span class="pre">OVCLASH_SAMPLE_BUILD_ROOT</span></code> to choose a writable location when the default is unsuitable,
+for example when the SDK archive sits in a read-only directory. The script refuses a build root
+that could hold other data;
+<a class="reference internal" href="troubleshooting.html#unsafe-sample-build-root"><span class="std std-ref">Unsafe sample build root</span></a> lists the rules.</p>
+</div></blockquote>
+<p>Each sample directory also has <code class="docutils literal notranslate"><span class="pre">run_&lt;sample&gt;_cpp.sh</span></code> (<code class="docutils literal notranslate"><span class="pre">.bat</span></code> on Windows). It builds its sample
+first and then runs the example queries in the runtime environment that
+<a class="reference internal" href="#building-and-running-it">Building and running it</a> describes.
+<a class="reference internal" href="samples.html#samples-map"><span class="std std-ref">Samples map</span></a> describes each sample’s <code class="docutils literal notranslate"><span class="pre">README.md</span></code>, which lists the options
+of its launchers. The <code class="docutils literal notranslate"><span class="pre">clash_api</span></code> and <code class="docutils literal notranslate"><span class="pre">legacy_clash_detection</span></code> READMEs also list the options of
+their programs. <a class="reference internal" href="samples.html#the-clash-processor"><span class="std std-ref">The Clash Processor</span></a> introduces the Clash
+Processor guide, <code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api/clash_processor.md</span></code>, which lists those of the
+<code class="docutils literal notranslate"><span class="pre">clash_suite_api</span></code> program.</p>
+</section>
+<section id="next-steps">
+<h2>Next steps<a class="headerlink" href="#next-steps" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="async_pipelines.html"><span class="std std-doc">Asynchronous Pipelines</span></a> covers the asynchronous pipeline
+(<code class="docutils literal notranslate"><span class="pre">ovclash_run_pipeline_async()</span></code>). <code class="docutils literal notranslate"><span class="pre">include/ovclash/ovclash.h</span></code> documents every lifetime rule, on
+the entry points themselves; see
+<a class="reference internal" href="overview.html#references-in-the-package"><span class="std std-ref">References in the package</span></a>.</p></li>
+<li><p><a class="reference internal" href="c_api_conventions.html"><span class="std std-doc">C ABI conventions</span></a> and
+<a class="reference internal" href="threading_and_ownership.html"><span class="std std-doc">threading_and_ownership.md</span></a> give the rules for results, strings,
+ownership and threads.</p></li>
+<li><p><a class="reference internal" href="samples.html"><span class="std std-doc">samples.md</span></a> describes <code class="docutils literal notranslate"><span class="pre">samples/clash_api/</span></code>, <code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api/</span></code> and
+<code class="docutils literal notranslate"><span class="pre">samples/legacy_clash_detection/</span></code>, their launchers and READMEs.</p></li>
+<li><p><a class="reference internal" href="persistence.html"><span class="std std-doc">persistence.md</span></a> covers storing results, and <a class="reference internal" href="export.html"><span class="std std-doc">export.md</span></a> the
+reports.</p></li>
+<li><p><a class="reference internal" href="README.html"><span class="std std-doc">README.md</span></a> covers the Python packages, and <a class="reference internal" href="overview.html"><span class="std std-doc">overview.md</span></a> helps you pick
+an API surface.</p></li>
+<li><p><a class="reference internal" href="SECURITY.html"><span class="std std-doc">SECURITY.md</span></a> lists what to keep under your control when you deploy ovclash.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="python_quickstart.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Python Quickstart: Open a Stage and Find Overlaps</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="concepts.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Key Concepts and Glossary</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-ships">What ships</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-ovstage-runtime">Installing the ovstage runtime</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linking">Linking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmake-variables">CMake variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#without-cmake">Without CMake</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-program">Running the program</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pkg-config-on-linux">pkg-config on Linux</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#minimal-program">Minimal program</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#building-and-running-it">Building and running it</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rules-that-bite-first">Rules that bite first</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suite-c-abi">Suite C ABI</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-failures-and-pending-writes">Fetch failures and pending writes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#custom-serializers">Custom serializers</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-the-c-samples">Building the C++ samples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#next-steps">Next steps</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

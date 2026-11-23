@@ -1,0 +1,1345 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Shared repository tooling &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=d27f7911"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fc986d73"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'shared_tooling';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="KPI maintainer guide" href="guides/kpi.html" />
+    <link rel="prev" title="ovstage Source Extraction Internals" href="technical/source_extraction.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Shared repository tooling</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="shared-repository-tooling">
+<h1>Shared repository tooling<a class="headerlink" href="#shared-repository-tooling" title="Link to this heading">#</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash/tooling/</span></code> is a small package for the source checkout. The
+<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">KPI</span></a> performance benchmarks, the
+<a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">Sentinel</span></a> correctness campaign, the validation task runner
+<code class="docutils literal notranslate"><span class="pre">scripts/run_parallel.py</span></code>, the Python tests and the CMake build scripts share it. The
+<a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">SDK archive</span></a> and the <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">wheel</span></a> do not
+contain it. The scripts of the
+source-only viewer sample on <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">ovRTX</span></a>, NVIDIA’s RTX rendering
+runtime, use <code class="docutils literal notranslate"><span class="pre">version.py</span></code> too. They run from the project root, where Python puts the script
+directory on <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>, so they need no extra step, and they build their version label from
+<code class="docutils literal notranslate"><span class="pre">read_version()</span></code>.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Provides</p></th>
+<th class="head"><p>Used by</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">process_tree.py</span></code></p></td>
+<td><p><a class="reference internal" href="#process-supervision">Process supervision</a></p></td>
+<td><p>KPI, Sentinel, <code class="docutils literal notranslate"><span class="pre">scripts/run_parallel.py</span></code>, Python tests</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">git.py</span></code></p></td>
+<td><p><a class="reference internal" href="#git-policy">Git policy</a></p></td>
+<td><p>KPI source identity, Sentinel fixture check</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ci_context.py</span></code>, <code class="docutils literal notranslate"><span class="pre">ci_context.cmake</span></code>, <code class="docutils literal notranslate"><span class="pre">ci_providers/</span></code></p></td>
+<td><p><a class="reference internal" href="#ci-context">CI context</a> for Python and CMake</p></td>
+<td><p>KPI, Sentinel, CMake scripts</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version.py</span></code></p></td>
+<td><p><a class="reference internal" href="#version-identity">Version identity</a></p></td>
+<td><p>KPI, Sentinel, the ovRTX viewer scripts</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">console.py</span></code></p></td>
+<td><p><a class="reference internal" href="#human-console-formatting">Human console formatting</a></p></td>
+<td><p>Sentinel</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rules for the whole package:</p>
+<ul class="simple">
+<li><p>The Python modules use only the standard library.</p></li>
+<li><p>The CMake configure step and the build scripts need this directory too.
+<code class="docutils literal notranslate"><span class="pre">scripts/crossplatform_helpers.cmake</span></code> and <code class="docutils literal notranslate"><span class="pre">scripts/validation_receipt.cmake</span></code> include
+<code class="docutils literal notranslate"><span class="pre">ci_context.cmake</span></code>.</p></li>
+<li><p>Every Python file under <code class="docutils literal notranslate"><span class="pre">tooling/</span></code> is part of the KPI measurement identity
+(<code class="docutils literal notranslate"><span class="pre">measurement_digest()</span></code> in <code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/execution.py</span></code>). Editing any of them starts a new
+measurement source. KPI does not pool campaigns from before and after the edit; see
+<a class="reference internal" href="guides/kpi.html"><span class="std std-doc">KPI</span></a>.</p></li>
+</ul>
+<section id="imports">
+<h2>Imports<a class="headerlink" href="#imports" title="Link to this heading">#</a></h2>
+<p>Import <code class="docutils literal notranslate"><span class="pre">tooling</span></code> as a top-level package, with the ovclash project root on <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>:</p>
+<ul class="simple">
+<li><p>Each script entry point under <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> derives the project root from its own file and puts
+it on <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> before it imports <code class="docutils literal notranslate"><span class="pre">tooling</span></code>. The script then works from any working
+directory, without <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> and under isolated Python (<code class="docutils literal notranslate"><span class="pre">-I</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.kpi</span></code> adds no path. It imports <code class="docutils literal notranslate"><span class="pre">tooling</span></code> from the working directory, so
+run it from the project root.</p></li>
+</ul>
+<p>A new entry point under <code class="docutils literal notranslate"><span class="pre">scripts/</span></code> follows the same pattern:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="n">PROJECT</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">()</span><span class="o">.</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">PROJECT</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">PROJECT</span><span class="p">))</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling.process_tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessCancelled</span><span class="p">,</span> <span class="n">ProcessCleanupError</span><span class="p">,</span> <span class="n">run_process</span>
+</pre></div>
+</div>
+<p>Always use the canonical module name, such as <code class="docutils literal notranslate"><span class="pre">tooling.process_tree</span></code>. A module loaded a second
+time under another name defines its own exception classes. <code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">ProcessCleanupError</span></code> then
+misses the errors of the other copy.</p>
+</section>
+<section id="process-supervision">
+<h2>Process supervision<a class="headerlink" href="#process-supervision" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">process_tree.run_process()</span></code> runs one noninteractive command and owns its whole process tree:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>run_process(argv, *, timeout=None, check=False, capture_output=False, cancel=None, **kwargs)
+</pre></div>
+</div>
+<p>It returns a <code class="docutils literal notranslate"><span class="pre">subprocess.CompletedProcess</span></code> only after every owned descendant has exited.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling.process_tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_process</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">run_process</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;print(&#39;hello&#39;)&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">stdout</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">run_process</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;import time; time.sleep(30)&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">TimeoutExpired</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;timed out&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>0 hello
+timed out
+</pre></div>
+</div>
+<section id="arguments">
+<h3>Arguments<a class="headerlink" href="#arguments" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Argument</p></th>
+<th class="head"><p>Rule</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">argv</span></code></p></td>
+<td><p>A nonempty argv sequence. A string, bytes or an empty sequence raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code> for no deadline, or a positive, finite <code class="docutils literal notranslate"><span class="pre">int</span></code> or <code class="docutils literal notranslate"><span class="pre">float</span></code>. Anything else raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>. The deadline covers the command and the exit of its whole tree, so a command that exits while a descendant keeps running still times out.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">check</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> raises <code class="docutils literal notranslate"><span class="pre">subprocess.CalledProcessError</span></code> for a nonzero exit, after the tree has drained.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capture_output</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> captures both streams. Combining it with <code class="docutils literal notranslate"><span class="pre">stdout</span></code> or <code class="docutils literal notranslate"><span class="pre">stderr</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cancel</span></code></p></td>
+<td><p>An optional <code class="docutils literal notranslate"><span class="pre">threading.Event</span></code>; see <a class="reference internal" href="#cancellation">Cancellation</a>. An object without <code class="docutils literal notranslate"><span class="pre">is_set()</span></code> raises <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Accepted keywords</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">env</span></code>, <code class="docutils literal notranslate"><span class="pre">cwd</span></code>, <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, <code class="docutils literal notranslate"><span class="pre">stderr</span></code>, <code class="docutils literal notranslate"><span class="pre">text</span></code>, <code class="docutils literal notranslate"><span class="pre">encoding</span></code>, <code class="docutils literal notranslate"><span class="pre">errors</span></code>, <code class="docutils literal notranslate"><span class="pre">bufsize</span></code>, <code class="docutils literal notranslate"><span class="pre">universal_newlines</span></code>, <code class="docutils literal notranslate"><span class="pre">pass_fds</span></code>, and <code class="docutils literal notranslate"><span class="pre">shell=False</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p>Rejected keywords</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">shell=True</span></code>, <code class="docutils literal notranslate"><span class="pre">stdin</span></code>, <code class="docutils literal notranslate"><span class="pre">input</span></code>, <code class="docutils literal notranslate"><span class="pre">start_new_session</span></code>, <code class="docutils literal notranslate"><span class="pre">creationflags</span></code> and any keyword that the Accepted keywords row does not name raise <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The caller supplies the deadline, environment, working directory and output streams.
+<code class="docutils literal notranslate"><span class="pre">run_process</span></code> passes the environment through unchanged. The command’s standard input is always
+the null device. Concurrent calls own independent trees, deadlines and cleanup.</p>
+</section>
+<section id="how-each-platform-owns-the-tree">
+<h3>How each platform owns the tree<a class="headerlink" href="#how-each-platform-owns-the-tree" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Platform</p></th>
+<th class="head"><p>Mechanism</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Windows</p></td>
+<td><p>A launcher joins a Job Object before it starts the command, so even an immediate grandchild is in the job. Closing the job kills its remaining members, also when the calling process dies.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Linux</p></td>
+<td><p>A dedicated subreaper process starts in a new session. It owns and reaps every descendant, including those in nested sessions, and drains its tree when the calling process dies. Signal handling and reaping stay in that process; the caller’s signal handlers do not change.</p></td>
+</tr>
+<tr class="row-even"><td><p>Other POSIX hosts</p></td>
+<td><p>The command starts in a new process group. Descendants must stay in that group.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>On Windows and Linux the supervisor runs <code class="docutils literal notranslate"><span class="pre">process_tree.py</span></code> itself under isolated Python (<code class="docutils literal notranslate"><span class="pre">-I</span></code>).
+Keep that file, including its private launcher entry points, runnable on its own with only the
+standard library.</p>
+</section>
+<section id="linux-shared-memory-cleanup">
+<h3>Linux shared-memory cleanup<a class="headerlink" href="#linux-shared-memory-cleanup" title="Link to this heading">#</a></h3>
+<p>The runtime of <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">ovstage</span></a>, the package through which ovclash reads
+USD, can leave two names of <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">Carbonite</span></a>,
+NVIDIA’s plugin and runtime framework, in <code class="docutils literal notranslate"><span class="pre">/dev/shm</span></code> behind, even after a normal exit:
+<code class="docutils literal notranslate"><span class="pre">carb-RStringInternals-&lt;PID&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">sem.carb-RStringInternals-&lt;PID&gt;</span></code>. The Linux supervisor cleans
+them up for each exited child:</p>
+<ol class="arabic simple">
+<li><p>It holds the exited child’s PID with <code class="docutils literal notranslate"><span class="pre">waitid(...,</span> <span class="pre">WNOWAIT)</span></code>.</p></li>
+<li><p>It removes the two names when its effective user owns them.</p></li>
+<li><p>Only then does it reap the child.</p></li>
+</ol>
+<p>It never scans <code class="docutils literal notranslate"><span class="pre">/dev/shm</span></code> and never removes a name of a live or unrelated process. When a removal
+fails, the supervisor kills the rest of the tree, still cleans up and reaps every remaining
+child, and then <code class="docutils literal notranslate"><span class="pre">run_process</span></code> raises <code class="docutils literal notranslate"><span class="pre">ProcessCleanupError</span></code>. The error’s <code class="docutils literal notranslate"><span class="pre">returncode</span></code> attribute
+holds the command’s exit status. A child that an intermediate process reaps itself is outside
+this cleanup, so nested launchers call <code class="docutils literal notranslate"><span class="pre">run_process</span></code> too.</p>
+</section>
+<section id="timeouts-interruptions-and-cleanup">
+<h3>Timeouts, interruptions and cleanup<a class="headerlink" href="#timeouts-interruptions-and-cleanup" title="Link to this heading">#</a></h3>
+<p>On a timeout or an interruption, <code class="docutils literal notranslate"><span class="pre">run_process</span></code> terminates the owned tree, waits for it to drain
+and re-raises the original exception. A <code class="docutils literal notranslate"><span class="pre">subprocess.TimeoutExpired</span></code> then carries the command and
+the output collected up to the end of the drain.</p>
+<p>The drain has its own deadline, <code class="docutils literal notranslate"><span class="pre">CLEANUP_TIMEOUT_SECONDS</span></code> (30 s), which starts after the
+failure. A call that times out, is interrupted or is cancelled can therefore take up to
+<code class="docutils literal notranslate"><span class="pre">timeout</span></code> plus 30 s. Size outer deadlines for that.</p>
+<p>If the drain cannot be confirmed, <code class="docutils literal notranslate"><span class="pre">run_process</span></code> raises <code class="docutils literal notranslate"><span class="pre">ProcessCleanupError</span></code>, a subclass of
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code>. The caller then cannot accept output that may still change. A confirmed drain
+says nothing about whether the output is correct; each caller validates its own results.</p>
+</section>
+<section id="cancellation">
+<h3>Cancellation<a class="headerlink" href="#cancellation" title="Link to this heading">#</a></h3>
+<p>Python delivers Ctrl+C only to the main thread. To stop a call that runs on a worker thread,
+pass a <code class="docutils literal notranslate"><span class="pre">threading.Event</span></code> as <code class="docutils literal notranslate"><span class="pre">cancel</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling.process_tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessCancelled</span><span class="p">,</span> <span class="n">run_process</span>
+
+<span class="n">stop</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Event</span><span class="p">()</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">worker</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">run_process</span><span class="p">([</span><span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="p">,</span> <span class="s2">&quot;-c&quot;</span><span class="p">,</span> <span class="s2">&quot;import time; time.sleep(60)&quot;</span><span class="p">],</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">cancel</span><span class="o">=</span><span class="n">stop</span><span class="p">)</span>
+    <span class="k">except</span> <span class="n">ProcessCancelled</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;cancelled&quot;</span><span class="p">)</span>
+
+
+<span class="n">thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">worker</span><span class="p">)</span>
+<span class="n">thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">stop</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># for example, from the main thread&#39;s Ctrl+C handler</span>
+<span class="n">thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The call checks the event at least every <code class="docutils literal notranslate"><span class="pre">CANCEL_POLL_SECONDS</span></code> (0.1 s) while it waits.</p></li>
+<li><p>Once the event is set, the call drains the tree as for an interruption and raises
+<code class="docutils literal notranslate"><span class="pre">ProcessCancelled</span></code>.</p></li>
+<li><p>An event that is already set starts no process. On Linux, a cancellation, timeout or
+interruption before the supervisor confirms ownership also starts no command.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ProcessCancelled</span></code> derives from <code class="docutils literal notranslate"><span class="pre">BaseException</span></code>, like <code class="docutils literal notranslate"><span class="pre">KeyboardInterrupt</span></code>. An
+<code class="docutils literal notranslate"><span class="pre">except</span> <span class="pre">Exception</span></code> handler therefore does not absorb a requested stop.</p></li>
+<li><p>The deadline still raises <code class="docutils literal notranslate"><span class="pre">subprocess.TimeoutExpired</span></code>, not <code class="docutils literal notranslate"><span class="pre">ProcessCancelled</span></code>.</p></li>
+</ul>
+</section>
+<section id="tests">
+<h3>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h3>
+<p>After you change <code class="docutils literal notranslate"><span class="pre">process_tree.py</span></code>, run both of its test modules in <code class="docutils literal notranslate"><span class="pre">tests/python_tests/</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">test_process_tree.py</span></code> covers the readiness helpers, the cancellable waits and real writer
+trees through timeouts, interrupts and cancellation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">test_process_tree_owners.py</span></code> covers the platform ownership backends: Linux IPC cleanup and
+ownership receipts, Windows Job draining and Windows cleanup errors.</p></li>
+</ul>
+<p>Before you begin: a run of the Python tests, such as <code class="docutils literal notranslate"><span class="pre">--validate</span></code> or the <code class="docutils literal notranslate"><span class="pre">test_python_runtime</span></code>
+target, has created the test interpreter in <code class="docutils literal notranslate"><span class="pre">_build/deps/venv/python_tests</span></code>;
+<a class="reference internal" href="local_development.html#test-and-validate"><span class="std std-ref">Test and validate</span></a> describes those runs.</p>
+<p>From <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, on Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>_build/deps/venv/python_tests/bin/python<span class="w"> </span>-m<span class="w"> </span>unittest<span class="w"> </span>discover<span class="w"> </span>-s<span class="w"> </span>tests/python_tests<span class="w"> </span>-t<span class="w"> </span>tests/python_tests<span class="w"> </span>-p<span class="w"> </span><span class="s2">&quot;test_process_tree*.py&quot;</span>
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>_build\deps\venv\python_tests\Scripts\python.exe -m unittest discover -s tests/python_tests -t tests/python_tests -p <span class="s2">&quot;test_process_tree*.py&quot;</span>
+</pre></div>
+</div>
+<p>The run passes when unittest ends with an <code class="docutils literal notranslate"><span class="pre">OK</span></code> line and the command exits with code 0.</p>
+<p>Both modules belong to the Sentinel checker group. <code class="docutils literal notranslate"><span class="pre">--validate</span></code> does not run that group unless
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_VALIDATE_EXTRA_TARGETS</span></code> names <code class="docutils literal notranslate"><span class="pre">test_sentinel_checkers</span></code>. Run the group with Sentinel’s
+<code class="docutils literal notranslate"><span class="pre">check-tests</span></code> command or the <code class="docutils literal notranslate"><span class="pre">test_sentinel_checkers</span></code> target, as
+<a class="reference internal" href="guides/sentinel.html#checker-tests"><span class="std std-ref">Checker tests</span></a> describes. Sentinel’s own supervision tests are
+in <code class="docutils literal notranslate"><span class="pre">test_sentinel_serialization_process_tree.py</span></code>.</p>
+</section>
+</section>
+<section id="git-policy">
+<h2>Git policy<a class="headerlink" href="#git-policy" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">git.py</span></code> keeps Git noninteractive. <code class="docutils literal notranslate"><span class="pre">run_process</span></code> applies no Git policy, so each caller applies it
+explicitly:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">git_environment(env=None)</span></code> returns a copy of <code class="docutils literal notranslate"><span class="pre">env</span></code> (default <code class="docutils literal notranslate"><span class="pre">os.environ</span></code>) with
+<code class="docutils literal notranslate"><span class="pre">GIT_TERMINAL_PROMPT=0</span></code> and <code class="docutils literal notranslate"><span class="pre">GCM_INTERACTIVE=never</span></code>. Neither Git nor Git Credential Manager
+can then prompt. <code class="docutils literal notranslate"><span class="pre">env</span></code> itself is not modified.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GIT_TIMEOUT_SECONDS</span></code> (120) is the deadline for each Git command.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tooling.git</span><span class="w"> </span><span class="kn">import</span> <span class="n">GIT_TIMEOUT_SECONDS</span><span class="p">,</span> <span class="n">git_environment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling.process_tree</span><span class="w"> </span><span class="kn">import</span> <span class="n">run_process</span>
+
+<span class="n">head</span> <span class="o">=</span> <span class="n">run_process</span><span class="p">(</span>
+    <span class="p">[</span><span class="s2">&quot;git&quot;</span><span class="p">,</span> <span class="s2">&quot;rev-parse&quot;</span><span class="p">,</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">],</span>
+    <span class="n">env</span><span class="o">=</span><span class="n">git_environment</span><span class="p">(),</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="n">GIT_TIMEOUT_SECONDS</span><span class="p">,</span>
+    <span class="n">capture_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">text</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>The callers are KPI’s source identity (<code class="docutils literal notranslate"><span class="pre">scripts/kpi_startup.py</span></code>) and Sentinel’s optional
+fixture-membership check (<code class="docutils literal notranslate"><span class="pre">scripts/sentinel_ci.py</span></code>).</p>
+<p>The Sentinel check trusts only the selected source root, through a private Git configuration:</p>
+<ul class="simple">
+<li><p>It writes a <code class="docutils literal notranslate"><span class="pre">safe.directory</span></code> entry for that root, with forward slashes, into a temporary
+<code class="docutils literal notranslate"><span class="pre">.gitconfig</span></code>.</p></li>
+<li><p>It sets <code class="docutils literal notranslate"><span class="pre">GIT_CONFIG_GLOBAL</span></code> to that file, <code class="docutils literal notranslate"><span class="pre">HOME</span></code> to its private directory and
+<code class="docutils literal notranslate"><span class="pre">XDG_CONFIG_HOME</span></code> inside that directory. Git versions that ignore a command-line
+<code class="docutils literal notranslate"><span class="pre">safe.directory</span></code>, or that predate <code class="docutils literal notranslate"><span class="pre">GIT_CONFIG_GLOBAL</span></code>, therefore read the same entry.</p></li>
+<li><p>It drops inherited <code class="docutils literal notranslate"><span class="pre">GIT_*</span></code> variables and sets <code class="docutils literal notranslate"><span class="pre">GIT_CONFIG_NOSYSTEM=1</span></code>, so the system Git
+configuration does not apply.</p></li>
+</ul>
+<p>It never changes the user’s Git configuration.</p>
+</section>
+<section id="ci-context">
+<h2>CI context<a class="headerlink" href="#ci-context" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ci_context.current(env=None)</span></code> reads <code class="docutils literal notranslate"><span class="pre">env</span></code> (default <code class="docutils literal notranslate"><span class="pre">os.environ</span></code>) and returns a dict of private
+execution state. It holds no endpoint or credential. Do not serialize it: public evidence admits
+only separately validated IDs.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ci_context</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;CI_JOB_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;4242&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CI_PIPELINE_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;77&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CI_COMMIT_SHA&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;CI_COMMIT_SHA&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;source-revision&gt;&quot;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_context</span><span class="o">.</span><span class="n">current</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">ci_context</span><span class="o">.</span><span class="n">current</span><span class="p">({</span><span class="s2">&quot;OVCLASH_CI_PROVIDER&quot;</span><span class="p">:</span> <span class="s2">&quot;jenkins&quot;</span><span class="p">,</span> <span class="s2">&quot;OVCLASH_CI_JOB_ID&quot;</span><span class="p">:</span> <span class="s2">&quot;15&quot;</span><span class="p">}))</span>
+</pre></div>
+</div>
+<p>The first call reads the revision from <code class="docutils literal notranslate"><span class="pre">CI_COMMIT_SHA</span></code>. When it is unset, the example uses
+<code class="docutils literal notranslate"><span class="pre">&lt;source-revision&gt;</span></code> as a placeholder, which the first line of this output shows.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>{&#39;is_ci&#39;: True, &#39;source_revision&#39;: &#39;&lt;source-revision&gt;&#39;, &#39;job_id&#39;: 4242, &#39;pipeline_id&#39;: 77, &#39;project_id&#39;: None, &#39;job_timeout&#39;: &#39;&#39;, &#39;job_started_at&#39;: &#39;&#39;}
+{&#39;is_ci&#39;: True, &#39;source_revision&#39;: None, &#39;job_id&#39;: 15, &#39;pipeline_id&#39;: None, &#39;project_id&#39;: None, &#39;job_timeout&#39;: &#39;&#39;, &#39;job_started_at&#39;: &#39;&#39;}
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">current()</span></code> builds the context in two steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Declared or detected.</strong> Setting <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_JOB_ID</span></code> (even to an empty value) or
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_PROVIDER</span></code> declares a provider-neutral CI job. <code class="docutils literal notranslate"><span class="pre">is_ci</span></code> is then true, and provider
+detection is skipped. A set <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_PROVIDER</span></code> must be 1 to 63 lowercase letters, digits
+and hyphens that start with a letter; otherwise <code class="docutils literal notranslate"><span class="pre">current()</span></code> raises <code class="docutils literal notranslate"><span class="pre">ValueError</span></code>. Without a
+declaration, the GitLab adapter in <code class="docutils literal notranslate"><span class="pre">ci_providers/</span></code> reads the <code class="docutils literal notranslate"><span class="pre">CI_*</span></code> variables. Only a
+nonblank <code class="docutils literal notranslate"><span class="pre">CI_JOB_ID</span></code> marks a CI job.</p></li>
+<li><p><strong>Overrides.</strong> A set <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_&lt;FIELD&gt;</span></code> variable then replaces that one field.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Override</p></th>
+<th class="head"><p>GitLab source</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">is_ci</span></code></p></td>
+<td><p>Not overridable</p></td>
+<td><p>Nonblank <code class="docutils literal notranslate"><span class="pre">CI_JOB_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code> or <code class="docutils literal notranslate"><span class="pre">False</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source_revision</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_SOURCE_REVISION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_COMMIT_SHA</span></code></p></td>
+<td><p>String, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">job_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_JOB_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_JOB_ID</span></code></p></td>
+<td><p>Positive integer, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pipeline_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_PIPELINE_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_PIPELINE_ID</span></code></p></td>
+<td><p>Positive integer, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">project_id</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_PROJECT_ID</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_PROJECT_ID</span></code></p></td>
+<td><p>Positive integer, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">job_timeout</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_JOB_TIMEOUT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_JOB_TIMEOUT</span></code></p></td>
+<td><p>Seconds as a string, or <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">job_started_at</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_JOB_STARTED_AT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_JOB_STARTED_AT</span></code></p></td>
+<td><p>ISO 8601 time with a UTC offset, or <code class="docutils literal notranslate"><span class="pre">&quot;&quot;</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>An ID becomes <code class="docutils literal notranslate"><span class="pre">None</span></code> unless it is 1 to 20 ASCII digits with a positive value; surrounding
+whitespace is ignored. The string fields pass through unvalidated, and their consumers validate
+them. <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_kpi_ci_context.py</span></code> covers the Python side.</p>
+<section id="cmake">
+<h3>CMake<a class="headerlink" href="#cmake" title="Link to this heading">#</a></h3>
+<p>CMake scripts call <code class="docutils literal notranslate"><span class="pre">ovclash_ci_value(&lt;NAME&gt;</span> <span class="pre">&lt;out&gt;)</span></code> from <code class="docutils literal notranslate"><span class="pre">ci_context.cmake</span></code>. A script in
+<code class="docutils literal notranslate"><span class="pre">ovclash/scripts/</span></code>, such as <code class="docutils literal notranslate"><span class="pre">scripts/validation_receipt.cmake</span></code>, includes it relative to its own
+directory:</p>
+<div class="highlight-cmake notranslate"><div class="highlight"><pre><span></span><span class="nb">include</span><span class="p">(</span><span class="s2">&quot;${CMAKE_CURRENT_LIST_DIR}/../tooling/ci_context.cmake&quot;</span><span class="p">)</span>
+<span class="nb">ovclash_ci_value</span><span class="p">(</span><span class="s">REF_NAME</span><span class="w"> </span><span class="s">branch</span><span class="p">)</span>
+<span class="nb">ovclash_ci_value</span><span class="p">(</span><span class="s">REF_PROTECTED</span><span class="w"> </span><span class="s">protected</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The value comes from the first rule that applies:</p>
+<ol class="arabic simple">
+<li><p>A defined <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_&lt;NAME&gt;</span></code> environment variable.</p></li>
+<li><p>An empty value, when <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_PROVIDER</span></code> or <code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_JOB_ID</span></code> declares the context.</p></li>
+<li><p>The GitLab variable, read through <code class="docutils literal notranslate"><span class="pre">ci_providers/provider.cmake</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ci_providers/gitlab.cmake</span></code>. An unset variable yields an empty value.</p></li>
+</ol>
+<p>CMake does not check the provider name. Every value is a CMake string, and none is required:
+an unset source yields an empty value. The local version is the PEP 440 local version label (the
+<code class="docutils literal notranslate"><span class="pre">+&lt;label&gt;</span></code> suffix of the Python version-string standard).</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Override</p></th>
+<th class="head"><p>GitLab source</p></th>
+<th class="head"><p>Use</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SOURCE_REVISION</span></code></p></td>
+<td><p>String</p></td>
+<td><p>No</p></td>
+<td><p>A commit ID, or empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_SOURCE_REVISION</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_COMMIT_SHA</span></code></p></td>
+<td><p>Commit of the PEP 440 local version</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">REF_NAME</span></code></p></td>
+<td><p>String</p></td>
+<td><p>No</p></td>
+<td><p>A branch name, or empty</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_REF_NAME</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_COMMIT_REF_NAME</span></code></p></td>
+<td><p>Branch of the PEP 440 local version</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">REF_PROTECTED</span></code></p></td>
+<td><p>String</p></td>
+<td><p>No</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>; empty or any other value records <code class="docutils literal notranslate"><span class="pre">null</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">OVCLASH_CI_REF_PROTECTED</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">CI_COMMIT_REF_PROTECTED</span></code></p></td>
+<td><p>Signing policy of the <a class="reference internal" href="guides/kpi.html#glossary"><span class="std std-ref">validation receipt</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">scripts/crossplatform_helpers.cmake</span></code> reads <code class="docutils literal notranslate"><span class="pre">REF_NAME</span></code> and <code class="docutils literal notranslate"><span class="pre">SOURCE_REVISION</span></code> before it
+consults Git. It builds the PEP 440 local version of the wheel and the SDK archive from them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scripts/validation_receipt.cmake</span></code> records <code class="docutils literal notranslate"><span class="pre">REF_PROTECTED</span></code> as the receipt’s
+<code class="docutils literal notranslate"><span class="pre">signing_policy.protected_ref</span></code>: <code class="docutils literal notranslate"><span class="pre">true</span></code>, <code class="docutils literal notranslate"><span class="pre">false</span></code>, or <code class="docutils literal notranslate"><span class="pre">null</span></code> for any other value.</p></li>
+<li><p>Python has no ref-name or ref-protection field.</p></li>
+<li><p>Keep the <code class="docutils literal notranslate"><span class="pre">SOURCE_REVISION</span></code> mapping in <code class="docutils literal notranslate"><span class="pre">gitlab.cmake</span></code> in step with <code class="docutils literal notranslate"><span class="pre">gitlab.py</span></code>.</p></li>
+</ul>
+<p><a class="reference internal" href="guides/kpi_running.html#run-kpi-in-another-ci-system"><span class="std std-ref">Run KPI in another CI system</span></a> describes how
+KPI uses this context.</p>
+</section>
+</section>
+<section id="version-identity">
+<h2>Version identity<a class="headerlink" href="#version-identity" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">version.py</span></code> reads <code class="docutils literal notranslate"><span class="pre">ovclash/VERSION</span></code> once, at import, without importing the <code class="docutils literal notranslate"><span class="pre">ovclash</span></code> package.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Returns or does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">read_version()</span></code></p></td>
+<td><p>The version string, for example <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version_label()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash</span> <span class="pre">&lt;version&gt;</span></code>, the text that <code class="docutils literal notranslate"><span class="pre">--version</span></code> prints.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">add_version_argument(parser)</span></code></p></td>
+<td><p>Adds <code class="docutils literal notranslate"><span class="pre">--version</span></code> to an <code class="docutils literal notranslate"><span class="pre">argparse</span></code> parser and puts the label at the start of its description.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">is_version_request(arguments,</span> <span class="pre">commands=())</span></code></p></td>
+<td><p>Whether the arguments are exactly <code class="docutils literal notranslate"><span class="pre">--version</span></code>, or a listed subcommand path, such as <code class="docutils literal notranslate"><span class="pre">&quot;budget</span> <span class="pre">create&quot;</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">--version</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>KPI and Sentinel commands call <code class="docutils literal notranslate"><span class="pre">is_version_request()</span></code> before their other imports. <code class="docutils literal notranslate"><span class="pre">--version</span></code>
+then prints the label without loading the rest of the command:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">tooling.version</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_version_argument</span><span class="p">,</span> <span class="n">is_version_request</span><span class="p">,</span> <span class="n">version_label</span>
+
+<span class="k">if</span> <span class="n">is_version_request</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">commands</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;budget create&quot;</span><span class="p">,)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">version_label</span><span class="p">())</span>
+    <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>  <span class="c1"># the command&#39;s other imports follow the early exit</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Example command.&quot;</span><span class="p">)</span>
+<span class="n">add_version_argument</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ python example.py budget create --version
+ovclash &lt;version&gt;
+</pre></div>
+</div>
+</section>
+<section id="human-console-formatting">
+<h2>Human console formatting<a class="headerlink" href="#human-console-formatting" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">console.py</span></code> renders Sentinel’s human console output: run and checker status lines, help
+headings and the success footer. <code class="docutils literal notranslate"><span class="pre">tests/sentinel/timing.py</span></code>, <code class="docutils literal notranslate"><span class="pre">scripts/sentinel_ci.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">scripts/run_sentinel.py</span></code> call it. <a class="reference internal" href="guides/sentinel.html#console-output"><span class="std std-ref">Console output</span></a> in the
+Sentinel guide describes the line formats.</p>
+<p>Color is used only when all of these hold:</p>
+<ul class="simple">
+<li><p>The selected output stream is a terminal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NO_COLOR</span></code> is unset or empty, and <code class="docutils literal notranslate"><span class="pre">TERM</span></code> is not <code class="docutils literal notranslate"><span class="pre">dumb</span></code>.</p></li>
+<li><p>On Windows, virtual terminal (VT) processing, the console mode that interprets ANSI escape
+sequences, can be enabled on that console. <code class="docutils literal notranslate"><span class="pre">console.py</span></code> enables it and keeps
+the console’s other mode flags.</p></li>
+</ul>
+<p>Otherwise the output is plain, and <code class="docutils literal notranslate"><span class="pre">render_status()</span></code> strips any ANSI sequences the text already
+carries:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">tooling</span><span class="w"> </span><span class="kn">import</span> <span class="n">console</span>
+
+<span class="n">line</span> <span class="o">=</span> <span class="s2">&quot;[ 3/12]  25% PASS   1.250s  test_native_engine&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">console</span><span class="o">.</span><span class="n">render_status</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">True</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">console</span><span class="o">.</span><span class="n">render_status</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[92mPASS</span><span class="se">\x1b</span><span class="s2">[39m done&quot;</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&#39;[ 3/12]  25% \x1b[92mPASS\x1b[39m   1.250s  \x1b[38;2;183;143;255mtest_native_engine\x1b[39m&#39;
+&#39;PASS done&#39;
+</pre></div>
+</div>
+<p>Only the foreground color changes:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Text</p></th>
+<th class="head"><p>Color</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>The label of a check line or timing row, and the <code class="docutils literal notranslate"><span class="pre">==</span> <span class="pre">&lt;label&gt;</span></code> part of a phase line</p></td>
+<td><p>Violet <code class="docutils literal notranslate"><span class="pre">#B78FFF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Whole heading lines, such as <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">run</span> <span class="pre">started</span> <span class="pre">...</span></code>, the opening <code class="docutils literal notranslate"><span class="pre">Results:</span> <span class="pre">...</span></code> line, <code class="docutils literal notranslate"><span class="pre">Plan:</span> <span class="pre">...</span></code>, the <code class="docutils literal notranslate"><span class="pre">SUMMARY</span></code> and <code class="docutils literal notranslate"><span class="pre">TOTAL</span></code> lines of a timing table, <code class="docutils literal notranslate"><span class="pre">Sentinel</span> <span class="pre">summary</span></code> and <code class="docutils literal notranslate"><span class="pre">Checker</span> <span class="pre">summary</span></code></p></td>
+<td><p>Violet <code class="docutils literal notranslate"><span class="pre">#B78FFF</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Section headings of the <code class="docutils literal notranslate"><span class="pre">test_sentinel</span></code> help</p></td>
+<td><p>Violet <code class="docutils literal notranslate"><span class="pre">#B78FFF</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">OK</span></code>, <code class="docutils literal notranslate"><span class="pre">PASS</span></code>, <code class="docutils literal notranslate"><span class="pre">PASSED</span></code> outside heading lines</p></td>
+<td><p>Bright green</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">FAIL</span></code>, <code class="docutils literal notranslate"><span class="pre">FAILED</span></code>, <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> outside heading lines, and the word <code class="docutils literal notranslate"><span class="pre">failed</span></code> in a final failure line</p></td>
+<td><p>Bright red</p></td>
+</tr>
+<tr class="row-odd"><td><p>The complete success footer, including its heart</p></td>
+<td><p>Bright green (ANSI 92), matching KPI success messages</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A heading line is one that its caller prints as a heading, or one that starts with a prefix in
+<code class="docutils literal notranslate"><span class="pre">_HEADINGS</span></code>. Everything else stays plain:</p>
+<ul class="simple">
+<li><p>the counter, percentage, duration and run time of check lines, timing rows and phase lines;</p></li>
+<li><p>the words <code class="docutils literal notranslate"><span class="pre">START</span></code>, <code class="docutils literal notranslate"><span class="pre">NOT_RUN</span></code>, <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> and <code class="docutils literal notranslate"><span class="pre">WARN</span></code>;</p></li>
+<li><p>lowercase words, such as <code class="docutils literal notranslate"><span class="pre">failed</span></code> in <code class="docutils literal notranslate"><span class="pre">0</span> <span class="pre">failed</span></code>.</p></li>
+</ul>
+<p>Progress records, timing evidence and JSON are never styled. Styling plays no part in any verdict
+or timing measurement.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">CHECK</span></code>, <code class="docutils literal notranslate"><span class="pre">ROW</span></code> and <code class="docutils literal notranslate"><span class="pre">PHASE</span></code> patterns in <code class="docutils literal notranslate"><span class="pre">console.py</span></code> mirror <code class="docutils literal notranslate"><span class="pre">CHECK_PATTERN</span></code>, <code class="docutils literal notranslate"><span class="pre">ROW_PATTERN</span></code> and
+<code class="docutils literal notranslate"><span class="pre">PHASE_PATTERN</span></code> in <code class="docutils literal notranslate"><span class="pre">tests/sentinel/timing.py</span></code>. <code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_sentinel_console.py</span></code>
+keeps them in agreement, so change both together.</p>
+<p>KPI does not use this module. It styles its console output with
+<code class="docutils literal notranslate"><span class="pre">benchmarks/kpi/console_style.py</span></code>, which uses the same violet, bright green and bright red. A
+change to <code class="docutils literal notranslate"><span class="pre">console.py</span></code> therefore does not change KPI’s console output. Like any <code class="docutils literal notranslate"><span class="pre">tooling/</span></code> edit,
+it still starts a new KPI measurement source.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="technical/source_extraction.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ovstage Source Extraction Internals</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="guides/kpi.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">KPI maintainer guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#imports">Imports</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#process-supervision">Process supervision</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#arguments">Arguments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-each-platform-owns-the-tree">How each platform owns the tree</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linux-shared-memory-cleanup">Linux shared-memory cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#timeouts-interruptions-and-cleanup">Timeouts, interruptions and cleanup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cancellation">Cancellation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#git-policy">Git policy</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ci-context">CI context</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cmake">CMake</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-identity">Version identity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#human-console-formatting">Human console formatting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1905 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Suite Runtime and Fetch &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="../_static/modal-table.js"></script>
+    <script src="../_static/documentation_options.js?v=d27f7911"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=fc986d73"></script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/suite_runtime';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="../_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="../_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Persistence, Export and Legacy Migration" href="persistence.html" />
+    <link rel="prev" title="Runtime Architecture" href="runtime.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="../_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code_style_python.html">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">Suite Runtime and Fetch</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="suite-runtime-and-fetch">
+<h1>Suite Runtime and Fetch<a class="headerlink" href="#suite-runtime-and-fetch" title="Link to this heading">#</a></h1>
+<p>This page of the <a class="reference internal" href="../technical_guide.html"><span class="std std-doc">Technical Guide</span></a> explains how the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Suite</span></a> runtime wrapper and the
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">fetch-and-save</span></a> engine work inside. Read it before you change
+<code class="docutils literal notranslate"><span class="pre">source/suite/SuiteRuntime.cpp</span></code>, <code class="docutils literal notranslate"><span class="pre">source/suite/SuiteFetch.cpp</span></code>, a store’s bulk writer or the
+Python serializer bridge. <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">Concepts</span></a> defines the consumer
+vocabulary, such as <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">overlap</span></a>,
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">frame</span></a> and <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">custom store</span></a>; the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Architecture glossary</span></a> defines the implementation terms.</p>
+<p>On this page a custom store is a destination that the caller implements, and its serializer is
+the callback interface that implements it: the C table <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_serializer_t</span></code> or a
+Python <code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code>.</p>
+<p>The caller contracts live on other pages. This page links to them and does not repeat them:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Topic</p></th>
+<th class="head"><p>Canonical page</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>What the Suite ABI adds, report flags, single-overlap save</p></td>
+<td><p><a class="reference internal" href="../consumer/developer_guide.html#suite-runtime-wrapper"><span class="std std-ref">Developer Guide: Suite runtime wrapper</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Runtime and store leases, synchronous and asynchronous fetch rules</p></td>
+<td><p><a class="reference internal" href="../consumer/threading_and_ownership.html#suite-fetch-and-cursor-lifetime"><span class="std std-ref">Threading and Ownership</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Which failure keeps or rolls back pending writes</p></td>
+<td><p><a class="reference internal" href="../consumer/persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a>; the C call sequence is in <a class="reference internal" href="../consumer/c_quickstart.html#fetch-failures-and-pending-writes"><span class="std std-ref">Fetch failures and pending writes</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Per-step work limits, async progress and cancellation</p></td>
+<td><p><a class="reference internal" href="../consumer/c_quickstart.html#suite-c-abi"><span class="std std-ref">C quickstart: Suite C ABI</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Clash-state reconciliation</p></td>
+<td><p><a class="reference internal" href="../consumer/persistence.html#clash-states"><span class="std std-ref">Clash states</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>The saved-data reader of a custom C store</p></td>
+<td><p><a class="reference internal" href="../consumer/c_quickstart.html#custom-serializers"><span class="std std-ref">C quickstart: Custom serializers</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Custom stores and their transaction contract</p></td>
+<td><p><a class="reference internal" href="../consumer/persistence.html#custom-stores"><span class="std std-ref">Custom stores</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Threading settings that select preparation workers</p></td>
+<td><p><a class="reference internal" href="../consumer/performance.html#threading"><span class="std std-ref">Performance: Threading</span></a></p></td>
+</tr>
+<tr class="row-even"><td><p>Bulk-writer interface of the stores</p></td>
+<td><p><a class="reference internal" href="persistence.html#bulk-writers-and-cursors"><span class="std std-ref">Persistence internals</span></a></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="source-map">
+<h2>Source map<a class="headerlink" href="#source-map" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Path</p></th>
+<th class="head"><p>Role</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source/suite/SuiteRuntime.cpp</span></code></p></td>
+<td><p>The Suite runtime wrapper and the report capture that fetch uses</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source/suite/SuiteFetch.cpp</span></code></p></td>
+<td><p>The fetch engine (<code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_and_save_t</span></code>), the async operation (<code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_t</span></code>) and <code class="docutils literal notranslate"><span class="pre">suiteSaveRuntimeOverlap()</span></code>, which implements <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_save_overlap_to_data</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source/OverlapReport.h</span></code></p></td>
+<td><p>The private report bridge: <code class="docutils literal notranslate"><span class="pre">OverlapReportResult</span></code>, <code class="docutils literal notranslate"><span class="pre">runOverlapReportExtraction()</span></code>, and the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage</span></a> <code class="docutils literal notranslate"><span class="pre">freezeOverlapReport()</span></code> and <code class="docutils literal notranslate"><span class="pre">prepareOverlapReports()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source/OvstageClashBackendReports.cpp</span></code></p></td>
+<td><p>The ovstage preparation plan for frozen reports</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source/StandaloneReportExtraction.h</span></code></p></td>
+<td><p>Batching and slot compaction for OpenUSD report extraction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source/ParallelFor.h</span></code></p></td>
+<td><p>The worker launcher used for preparation and extraction</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">source/suite/serializers/sqlite/SuiteSqliteWrite.cpp</span></code>, <code class="docutils literal notranslate"><span class="pre">SuiteSqliteQuery.cpp</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SuiteSqliteBulkWriter</span></code>, the SQLite fetch writer</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">source/suite/serializers/directory/SuiteDirectoryStore.cpp</span></code></p></td>
+<td><p>The directory fetch writer and its <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> hook</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_data_contract.py</span></code></p></td>
+<td><p>The <code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code> fetch hooks and the ctypes bridge <code class="docutils literal notranslate"><span class="pre">_NativeFetchSerializerAdapter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_data_native.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">_NativeClashDataSerializer</span></code>, which drives the native fetch into the built-in stores</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_data.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashData</span></code>, which forwards a fetch to its serializer, and the async fetch launch shared by every store</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_runtime.py</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ClashDetection.fetch_and_save_overlaps()</span></code>, <code class="docutils literal notranslate"><span class="pre">ClashDetection.run_async_fetch_and_save()</span></code> and <code class="docutils literal notranslate"><span class="pre">AsyncFetchAndSave</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="suite-runtime-wrapper">
+<h2>Suite runtime wrapper<a class="headerlink" href="#suite-runtime-wrapper" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SuiteRuntime.cpp</span></code> bridges the Suite ABI to the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">canonical ABI</span></a>, which
+the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovstage</span></a> and <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">OpenUSD</span></a> backends
+implement:</p>
+<ul class="simple">
+<li><p>It converts Suite settings to <code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code>.</p></li>
+<li><p>It calls the canonical <code class="docutils literal notranslate"><span class="pre">ovclash_*</span></code> functions on the runtime’s <code class="docutils literal notranslate"><span class="pre">ovclash_context_t</span></code>.</p></li>
+<li><p>It converts runtime records to Suite views and model records.</p></li>
+</ul>
+<p><strong>Report flags.</strong> Fetch capture requests <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_OVERLAP_REPORT_POINTS0</span></code> for a
+point-vs-mesh pair and <code class="docutils literal notranslate"><span class="pre">FACES0</span> <span class="pre">|</span> <span class="pre">FACES1</span> <span class="pre">|</span> <span class="pre">OUTLINE</span></code> for every other pair. The code tests the
+pair type with <code class="docutils literal notranslate"><span class="pre">==</span></code> against the point-cloud value, so an undefined type gets the mesh flags. Both
+backends ignore flags that do not apply to the pair type.</p>
+<p><strong>Report ownership.</strong> The two backends hand reports to the Suite differently:</p>
+<ul class="simple">
+<li><p>OpenUSD: the <code class="docutils literal notranslate"><span class="pre">ovclash_suite_overlap_report_t</span></code> takes ownership of the buffers that the engine
+allocated in <code class="docutils literal notranslate"><span class="pre">createOverlapReportEx()</span></code>. Their capacity can exceed the public view, so fetch
+never holds two OpenUSD reports at once.</p></li>
+<li><p>ovstage: fetch freezes the report first (see
+<a class="reference internal" href="#full-detail-report-capture-and-sqlite-bulk-writes">Full-detail report capture</a>). The public
+report path borrows the context’s buffers and does not extend their lifetime; see
+<a class="reference internal" href="../consumer/threading_and_ownership.html#borrowed-memory"><span class="std std-ref">Borrowed memory</span></a>.</p></li>
+</ul>
+<p><strong>Unavailable reports.</strong> <code class="docutils literal notranslate"><span class="pre">runOverlapReportExtraction()</span></code> returns one of three results:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">OverlapReportResult</span></code></p></th>
+<th class="head"><p>Cause</p></th>
+<th class="head"><p>What fetch does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Success</span></code></p></td>
+<td><p>The report was built.</p></td>
+<td><p>Captures the frame.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Unavailable</span></code></p></td>
+<td><p>The engine returned no report. Only OpenUSD does this, for a pair whose prim stopped resolving.</p></td>
+<td><p>The Suite returns <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_UNAVAILABLE</span></code>. Fetch skips the frame and continues.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Error</span></code></p></td>
+<td><p>Cancellation, native out-of-memory, an invalid record or another failure.</p></td>
+<td><p>Fetch fails.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">runOverlapReportExtraction()</span></code> checks cancellation and the native out-of-memory state before and
+after extraction. The engine can report success after a geometry allocation failed and leave that
+channel empty. The second check turns such an incomplete report into <code class="docutils literal notranslate"><span class="pre">Error</span></code>.</p>
+<p>When fetch skips frames, it prints one line to stderr, and the stored <code class="docutils literal notranslate"><span class="pre">num_records</span></code> counts only the
+saved frames:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Overlap 3: persisted 239 of 241 records; missing reports were skipped.
+</pre></div>
+</div>
+<p>If every record of an overlap is unavailable, the fetch fails with “Runtime overlap did not produce
+clash info; all records failed to report”. Python <code class="docutils literal notranslate"><span class="pre">process_overlap()</span></code> makes the same distinction
+between an unavailable report and an error.</p>
+</section>
+<section id="the-fetch-engine">
+<h2>The fetch engine<a class="headerlink" href="#the-fetch-engine" title="Link to this heading">#</a></h2>
+<p>Three operations share one engine in <code class="docutils literal notranslate"><span class="pre">SuiteFetch.cpp</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>Driven by</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_and_save_t</span></code></p></td>
+<td><p>The caller: <code class="docutils literal notranslate"><span class="pre">begin</span></code>, then <code class="docutils literal notranslate"><span class="pre">next</span></code> until complete, then <code class="docutils literal notranslate"><span class="pre">destroy</span></code></p></td>
+<td><p>The bounded synchronous form.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_t</span></code></p></td>
+<td><p>One <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> owned by the operation</p></td>
+<td><p>Runs <code class="docutils literal notranslate"><span class="pre">begin</span></code>, every <code class="docutils literal notranslate"><span class="pre">next</span></code> and <code class="docutils literal notranslate"><span class="pre">destroy</span></code> of the same engine on that worker.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">suiteSaveRuntimeOverlap()</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_save_overlap_to_data</span></code></p></td>
+<td><p>Saves one overlap. No approval comparison and no reconciliation. Commits only when asked.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="begin">
+<h3>Begin<a class="headerlink" href="#begin" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">begin</span></code> does the unbounded setup work:</p>
+<ol class="arabic simple">
+<li><p>It validates the arguments:</p>
+<ul class="simple">
+<li><p>Exactly one of <code class="docutils literal notranslate"><span class="pre">data</span></code> and <code class="docutils literal notranslate"><span class="pre">serializer</span></code> is non-null.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tolerance</span></code> and <code class="docutils literal notranslate"><span class="pre">depth_epsilon</span></code> are finite, and no async detection or other fetch is live.</p></li>
+<li><p>A custom table sets every storage and transaction callback. <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> and
+<code class="docutils literal notranslate"><span class="pre">release_frame</span></code> are both set or both null.</p></li>
+<li><p>A saved-data reader comes with the <code class="docutils literal notranslate"><span class="pre">serializer</span></code> table of a custom store and sets both read
+callbacks.</p></li>
+</ul>
+</li>
+<li><p>It takes the runtime and destination leases.</p></li>
+<li><p>It creates the bulk writer: <code class="docutils literal notranslate"><span class="pre">createBulkWriter()</span></code> for a built-in store, or a
+<code class="docutils literal notranslate"><span class="pre">SuiteCallbackBulkWriter</span></code> around a custom table.</p></li>
+<li><p>It snapshots the runtime’s threading settings with <code class="docutils literal notranslate"><span class="pre">suitePreparationSettings()</span></code>. Before the
+first successful <code class="docutils literal notranslate"><span class="pre">ovclash_suite_set_run_settings</span></code>, these are the context’s own engine defaults,
+which detection also used, not the zero struct that <code class="docutils literal notranslate"><span class="pre">ovclash_suite_get_run_settings</span></code> returns.</p></li>
+<li><p>It counts the overlaps and, when <code class="docutils literal notranslate"><span class="pre">include_duplicates</span></code> is set, the duplicates.</p></li>
+<li><p>It calls <code class="docutils literal notranslate"><span class="pre">visit_existing</span></code> once and stores every existing identifier of the query.</p></li>
+</ol>
+<p><code class="docutils literal notranslate"><span class="pre">include_duplicates</span></code> is independent of the runtime’s <code class="docutils literal notranslate"><span class="pre">only_find_duplicates</span></code> setting. Python passes
+the query’s <code class="docutils literal notranslate"><span class="pre">SETTING_DUP_MESHES</span></code>.</p>
+</section>
+<section id="one-next-call">
+<h3>One <code class="docutils literal notranslate"><span class="pre">next</span></code> call<a class="headerlink" href="#one-next-call" title="Link to this heading">#</a></h3>
+<p>A <code class="docutils literal notranslate"><span class="pre">next</span></code> call visits result groups in order: normal overlaps first, then duplicates. It captures
+frames into a batch and flushes the batch when it is full. These are the serializer callbacks for
+the groups of one batch, in order:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>find_overlap(query, hash)        approval check; only with resolve_stale and a saved-data reader
+read_overlap, read_frame         approval comparison of an APPROVED clash (custom reader only;
+                                 built-in stores read directly)
+prepare_frame                    optional; on preparation workers, once per captured frame
+transaction(BEGIN)               idempotent; opens the destination&#39;s pending transaction
+transaction(BEGIN_OVERLAP)       only for a history that is still being captured
+find_overlap                     before a group&#39;s first write, unless the approval check looked it up
+write_overlap, clear_frames      once per group, before its first frame
+append_frame                     every captured frame, in result order
+find_overlap, write_overlap      the final header of a streamed history
+transaction(END_OVERLAP)         releases the streamed history&#39;s savepoint
+release_frame                    every prepared frame, on the driving thread
+</pre></div>
+</div>
+<p>Reconciliation starts in the call that writes the last group and continues on later calls:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>transaction(BEGIN)
+mark_absent(id, resolve_stale)   stored IDs the fetch did not write; 1,024 IDs scanned per call
+transaction(COMMIT)              after the last ID, unless cancellation was requested
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">BEGIN</span></code> runs before <code class="docutils literal notranslate"><span class="pre">COMMIT</span></code> even for an empty result. A successful completion therefore also
+commits writes that were pending on the destination before <code class="docutils literal notranslate"><span class="pre">begin</span></code>.</p>
+</section>
+<section id="fetch-batch-sizing">
+<h3>Fetch batch sizing<a class="headerlink" href="#fetch-batch-sizing" title="Link to this heading">#</a></h3>
+<p>These constants in <code class="docutils literal notranslate"><span class="pre">source/suite/SuiteFetch.cpp</span></code> bound each <code class="docutils literal notranslate"><span class="pre">next</span></code> call:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Constant</p></th>
+<th class="head"><p>Value</p></th>
+<th class="head"><p>What it bounds</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kFetchOverlapBatch</span></code></p></td>
+<td><p>1,024</p></td>
+<td><p>Result groups visited per call</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kFetchFrameBatch</span></code></p></td>
+<td><p>1,024</p></td>
+<td><p>Runtime frame reports attempted per call, across approval comparison and capture; also the retained batch size</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kFetchPayloadBatch</span></code></p></td>
+<td><p>8 MiB</p></td>
+<td><p>Report geometry payload per call and per retained batch</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">kFetchReconciliationBatch</span></code></p></td>
+<td><p>1,024</p></td>
+<td><p>Stored identifiers scanned per reconciliation call</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">kApprovalComparisonChunk</span></code></p></td>
+<td><p>64</p></td>
+<td><p>Frames frozen and prepared together for one approval comparison (ovstage only)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>How the limits apply:</p>
+<ul class="simple">
+<li><p>A missing report counts toward the frame limit. Each duplicate counts as one frame.</p></li>
+<li><p>The call stops after the report that reaches or crosses 8 MiB. That last report is indivisible
+and may overshoot.</p></li>
+<li><p>An oversized report sits alone in its retained batch, not necessarily alone in the call.</p></li>
+<li><p>OpenUSD measures a report’s payload as its face, point and outline element counts times 4 bytes.
+ovstage uses the bound that <code class="docutils literal notranslate"><span class="pre">freezeOverlapReport()</span></code> computes, which includes both matrices.</p></li>
+<li><p>The limits bound work units, not elapsed time or process memory. Prepared data, metadata and
+internal report capacity are outside the payload count.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">begin</span></code> enumerates every existing identifier and is outside these bounds.</p></li>
+</ul>
+<p>The 1,024-group limit matters for many single-frame overlaps. Fewer <code class="docutils literal notranslate"><span class="pre">next</span></code> calls mean fewer
+preparation dispatches. That helps the std-thread path most, because it starts new threads for each
+dispatch, while <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Carbonite</span></a> reuses its pool. Larger limits trade progress
+and cancellation granularity for less scheduling overhead. They do not change cancellation or
+transaction semantics.</p>
+<p>More workers are not automatically faster. For small reports, serial or Carbonite preparation
+often beats many std threads, and SQLite insertion always has one writer. Measure preparation and
+insertion separately on the target system before you change a limit or the
+<a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">scheduler</span></a> policy.
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">benchmarks.fetch_batch</span></code> (<code class="docutils literal notranslate"><span class="pre">benchmarks/fetch_batch/</span></code>) compares native builds on the
+same completed detection results; <code class="docutils literal notranslate"><span class="pre">benchmarks/fetch_batch/README.md</span></code> lists its options.
+HTML export does not use fetch batching; see
+<a class="reference internal" href="../consumer/performance.html#html-export"><span class="std std-ref">HTML export</span></a>.</p>
+</section>
+<section id="streamed-histories">
+<h3>Streamed histories<a class="headerlink" href="#streamed-histories" title="Link to this heading">#</a></h3>
+<p>A group whose capture finishes before its first frame is written needs one header write and no
+savepoint. Otherwise its history streams:</p>
+<ul class="simple">
+<li><p>On OpenUSD every multi-frame history streams, because fetch flushes the batch before it
+acquires each report.</p></li>
+<li><p>On ovstage a history streams when it does not fit in the current batch or call.</p></li>
+</ul>
+<p>A streamed history is written in these steps:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">BEGIN_OVERLAP</span></code> opens a savepoint.</p></li>
+<li><p>A first header write returns the stable identifier.</p></li>
+<li><p>Each batch appends its frames under that identifier.</p></li>
+<li><p>The final step looks the header up again, refreshes the editable fields, and writes the final
+aggregate header.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">END_OVERLAP</span></code> releases the savepoint.</p></li>
+</ol>
+<p>The refresh keeps annotations that a custom store assigns on insertion. The final step also runs
+when missing trailing reports leave the last batch empty. A serializer failure during the final
+lookup or header write requests a full rollback.</p>
+<p><strong>Preserved fields.</strong> When a stored <a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">clash record</span></a> exists,
+<code class="docutils literal notranslate"><span class="pre">preserveEditableOverlapFields()</span></code> keeps 12 fields: the identifier, priority, person in charge,
+creation timestamp, comment, state and the six penetration-depth annotations. The fetch moves the
+strings out of the looked-up record instead of copying them. Fresh runtime results supply every
+other header field. The state is then updated as
+<a class="reference internal" href="#clash-state-reconciliation-on-refetch">Clash-state reconciliation on refetch</a> describes.</p>
+<p>The first frame of a group builds the group metadata, its paths and hash strings, through
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_create_clash_info()</span></code> or the deferred ovstage variant
+<code class="docutils literal notranslate"><span class="pre">suiteCreateClashInfoDeferred()</span></code>. Later frames use <code class="docutils literal notranslate"><span class="pre">suiteCaptureRuntimeFrame()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">suiteCaptureRuntimeFrameDeferred()</span></code>, which skip that work. The user name is read once per
+operation, not per frame.</p>
+</section>
+<section id="progress-and-counts">
+<h3>Progress and counts<a class="headerlink" href="#progress-and-counts" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_get_counts()</span></code> reads <code class="docutils literal notranslate"><span class="pre">written</span></code> and <code class="docutils literal notranslate"><span class="pre">total</span></code> without doing any
+work. <code class="docutils literal notranslate"><span class="pre">written</span></code> counts only fully written groups, so <code class="docutils literal notranslate"><span class="pre">written</span> <span class="pre">==</span> <span class="pre">total</span></code> can come before
+reconciliation and commit.</p>
+<p>The fractional progress of <code class="docutils literal notranslate"><span class="pre">next</span></code> is <code class="docutils literal notranslate"><span class="pre">done</span> <span class="pre">/</span> <span class="pre">(total</span> <span class="pre">+</span> <span class="pre">1)</span></code>, capped below 1.0 until commit:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">done</span></code> adds the finished groups, the fraction of the active group’s frames, and the fraction of
+identifiers reconciled.</p></li>
+<li><p>While an <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> group is being compared, comparison counts for the first half of that group
+and capture for the second half.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">+</span> <span class="pre">1</span></code> reserves room for reconciliation. Only a successful commit returns exactly 1.0.</p></li>
+</ul>
+<p>The async operation publishes these values under a mutex after each step.
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_get_step_data()</span></code> reports one of these step names:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p><code class="docutils literal notranslate"><span class="pre">step_index</span></code></p></th>
+<th class="head"><p>Name</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Initializing</span> <span class="pre">fetch</span> <span class="pre">and</span> <span class="pre">save</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>1</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Fetching</span> <span class="pre">and</span> <span class="pre">saving</span> <span class="pre">overlaps</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>2</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Reconciling</span> <span class="pre">and</span> <span class="pre">committing</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>any, while a cancel request is running</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Cancelling</span> <span class="pre">fetch</span> <span class="pre">and</span> <span class="pre">save</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>This example fetches one run three times into a SQLite store. Run it from the <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code> directory
+of a source checkout, with <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> and <code class="docutils literal notranslate"><span class="pre">OVCLASH_LIB</span></code> set as
+<a class="reference internal" href="../local_development.html#running-the-module-from-a-source-checkout"><span class="std std-ref">Running the module from a source checkout</span></a>
+shows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Fetch one run three times and show counts, progress and state reconciliation.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">closing</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ovclash_suite</span><span class="w"> </span><span class="kn">import</span> <span class="n">ClashData</span><span class="p">,</span> <span class="n">ClashDetection</span><span class="p">,</span> <span class="n">ClashQuery</span><span class="p">,</span> <span class="n">ClashState</span><span class="p">,</span> <span class="n">SettingId</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">clash</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run one fetch-and-save and print its (written, total) counts and progress values.&quot;&quot;&quot;</span>
+    <span class="n">counts</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">fetch</span> <span class="o">=</span> <span class="n">clash</span><span class="o">.</span><span class="n">fetch_and_save_overlaps</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">progress_callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">w</span><span class="p">,</span> <span class="n">t</span><span class="p">:</span> <span class="n">counts</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w</span><span class="p">,</span> <span class="n">t</span><span class="p">)))</span>
+    <span class="k">with</span> <span class="n">closing</span><span class="p">(</span><span class="n">fetch</span><span class="p">)</span> <span class="k">as</span> <span class="n">steps</span><span class="p">:</span>
+        <span class="n">progress</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">steps</span><span class="p">)</span>
+    <span class="n">states</span> <span class="o">=</span> <span class="p">[</span><span class="n">info</span><span class="o">.</span><span class="n">state</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">find_all_overlaps_by_query_id</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">()]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;counts=</span><span class="si">{</span><span class="n">counts</span><span class="si">}</span><span class="s2"> progress=</span><span class="si">{</span><span class="n">progress</span><span class="si">}</span><span class="s2"> states=</span><span class="si">{</span><span class="n">states</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<span class="n">query</span> <span class="o">=</span> <span class="n">ClashQuery</span><span class="p">(</span>
+    <span class="n">query_name</span><span class="o">=</span><span class="s2">&quot;Cube vs Plane&quot;</span><span class="p">,</span>
+    <span class="n">object_a_path</span><span class="o">=</span><span class="s2">&quot;/Root/Xform_Primitives/Cube&quot;</span><span class="p">,</span>
+    <span class="n">object_b_path</span><span class="o">=</span><span class="s2">&quot;/Root/Xform_Primitives/Plane&quot;</span><span class="p">,</span>
+    <span class="n">clash_detect_settings</span><span class="o">=</span><span class="p">{</span><span class="n">SettingId</span><span class="o">.</span><span class="n">SETTING_TOLERANCE</span><span class="o">.</span><span class="n">name</span><span class="p">:</span> <span class="mf">0.0</span><span class="p">},</span>
+<span class="p">)</span>
+<span class="n">clash</span> <span class="o">=</span> <span class="n">ClashDetection</span><span class="p">()</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">ClashData</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;refetch.ovclashdb&quot;</span><span class="p">))</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">insert_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">open_stage</span><span class="p">(</span><span class="s2">&quot;tests/data/time_sampled.usda&quot;</span><span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">set_settings</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">clash_detect_settings</span><span class="p">)</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">set_scope_paths</span><span class="p">([</span><span class="n">query</span><span class="o">.</span><span class="n">object_a_path</span><span class="p">],</span> <span class="p">[</span><span class="n">query</span><span class="o">.</span><span class="n">object_b_path</span><span class="p">])</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">run_pipeline</span><span class="p">()</span>
+
+    <span class="n">save</span><span class="p">(</span><span class="n">clash</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>  <span class="c1"># first detection: NEW</span>
+    <span class="n">save</span><span class="p">(</span><span class="n">clash</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>  <span class="c1"># re-detected: ACTIVE</span>
+    <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">find_all_overlaps_by_query_id</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="n">info</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">ClashState</span><span class="o">.</span><span class="n">APPROVED</span>
+        <span class="n">data</span><span class="o">.</span><span class="n">update_overlap</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">update_also_frame_info</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">save</span><span class="p">(</span><span class="n">clash</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>  <span class="c1"># unchanged contents: stays APPROVED</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+    <span class="n">clash</span><span class="o">.</span><span class="n">destroy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Output, the same on both backends:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>counts=[(0, 1), (1, 1)] progress=[1.0] states=[&#39;NEW&#39;]
+counts=[(0, 1), (1, 1)] progress=[1.0] states=[&#39;ACTIVE&#39;]
+counts=[(0, 1), (1, 1)] progress=[1.0] states=[&#39;APPROVED&#39;]
+</pre></div>
+</div>
+<p>In the default synchronous mode the progress callback runs once after <code class="docutils literal notranslate"><span class="pre">begin</span></code> and once after each
+<code class="docutils literal notranslate"><span class="pre">next</span></code> call. Here one <code class="docutils literal notranslate"><span class="pre">next</span></code> call writes the only group, reconciles and commits.</p>
+</section>
+<section id="failure-handling">
+<h3>Failure handling<a class="headerlink" href="#failure-handling" title="Link to this heading">#</a></h3>
+<p>The public outcome of each failure is in
+<a class="reference internal" href="../consumer/persistence.html#saving-detection-results"><span class="std std-ref">Saving detection results</span></a>.
+The engine implements it with two helpers:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Helper</p></th>
+<th class="head"><p>Called for</p></th>
+<th class="head"><p>What it does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">writeFailure()</span></code></p></td>
+<td><p>A serializer callback failure after <code class="docutils literal notranslate"><span class="pre">begin</span></code>: storage writes, lookups, saved-data reads, reader <code class="docutils literal notranslate"><span class="pre">close</span></code>, transactions, a failed <code class="docutils literal notranslate"><span class="pre">release_frame</span></code></p></td>
+<td><p>Requests <code class="docutils literal notranslate"><span class="pre">ROLLBACK</span></code> once per operation, even if that callback fails or throws.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">protectIncompleteOverlap()</span></code></p></td>
+<td><p>Every <code class="docutils literal notranslate"><span class="pre">next</span></code> call and <code class="docutils literal notranslate"><span class="pre">suiteSaveRuntimeOverlap()</span></code>: native extraction, preparation, scheduling and exceptions</p></td>
+<td><p>Requests <code class="docutils literal notranslate"><span class="pre">ABORT_OVERLAP</span></code> for an open streamed history. If that fails, or a release failed, it falls back to <code class="docutils literal notranslate"><span class="pre">writeFailure()</span></code>. Completed groups stay pending.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Further rules:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">next</span></code> marks the operation failed before it starts work and clears the mark only on success. A
+failed operation cannot resume, even when an exception escaped.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">driving</span></code> flag rejects <code class="docutils literal notranslate"><span class="pre">next</span></code>, <code class="docutils literal notranslate"><span class="pre">get_counts</span></code> and <code class="docutils literal notranslate"><span class="pre">destroy</span></code> from inside a running callback. The
+async operation rejects <code class="docutils literal notranslate"><span class="pre">finish</span></code>, <code class="docutils literal notranslate"><span class="pre">cancel</span></code> and <code class="docutils literal notranslate"><span class="pre">destroy</span></code> from its own callbacks the same way.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">destroy</span></code> closes the saved-data reader and aborts an open streamed history. It never commits. If
+closing the reader fails, it retries the close once, still aborts the history, and keeps the
+first error.</p></li>
+<li><p>Preparation workers cannot update the serializer’s error state. A failed preparation therefore
+reports “Serializer failed to prepare a frame” instead of asking <code class="docutils literal notranslate"><span class="pre">last_error</span></code>, which could return
+an unrelated earlier storage error.</p></li>
+<li><p>Cleanup keeps the primary diagnostic. <code class="docutils literal notranslate"><span class="pre">PreserveSuiteLastError</span></code> saves the thread’s error text,
+and <code class="docutils literal notranslate"><span class="pre">FetchDiagnosticSuppression</span></code> stops cleanup from querying the same serializer’s <code class="docutils literal notranslate"><span class="pre">last_error</span></code>.</p></li>
+<li><p>The serializer of a custom store must implement the transaction callbacks. The engine cannot
+repair a failed custom rollback.</p></li>
+</ul>
+<p>Allocation failure does not hide errors or leak reports:</p>
+<ul class="simple">
+<li><p>The C ABI guards borrow their operation names, so cleanup does not allocate.</p></li>
+<li><p>A captured report is owned before hashes are formatted or paths are copied. An allocation failure
+then releases the native report.</p></li>
+<li><p>SQLite savepoint and full rollback keep existing errors by swapping ownership
+(<code class="docutils literal notranslate"><span class="pre">PreserveRollbackErrors</span></code>), so copying an error cannot block a rollback. SQLite error-message
+buffers are owned before diagnostic formatting can throw.</p></li>
+</ul>
+</section>
+<section id="clash-state-reconciliation-on-refetch">
+<h3>Clash-state reconciliation on refetch<a class="headerlink" href="#clash-state-reconciliation-on-refetch" title="Link to this heading">#</a></h3>
+<p><a class="reference internal" href="../consumer/persistence.html#clash-states"><span class="std std-ref">Clash states</span></a> owns the rules. In short: with
+<code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> nonzero, the clash record of a re-detected overlap becomes <code class="docutils literal notranslate"><span class="pre">ACTIVE</span></code>, an <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code>
+clash record with exactly unchanged detected contents stays <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code>, and a clash record whose
+overlap is absent becomes <code class="docutils literal notranslate"><span class="pre">RESOLVED</span></code>. The clash record of a new overlap starts <code class="docutils literal notranslate"><span class="pre">NEW</span></code>.</p>
+<p>The comparison runs only with <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> and a saved-data reader. Built-in stores and the
+Python bridge always supply one. A plain C custom store without a reader cannot prove
+unchanged contents, so the clash records of its re-detected overlaps become <code class="docutils literal notranslate"><span class="pre">ACTIVE</span></code>.</p>
+<p>How one stored <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> group is compared:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">prepareApprovalComparison()</span></code> looks the hash up with <code class="docutils literal notranslate"><span class="pre">find_overlap</span></code>. Only an <code class="docutils literal notranslate"><span class="pre">APPROVED</span></code> match
+continues.</p></li>
+<li><p>It reads the saved header and drops its review strings at once. Replacement takes the
+annotations from the separately owned initial lookup instead. A different query, hash, frame
+count or record count ends the comparison as changed.</p></li>
+<li><p>The first runtime report’s header metadata is compared. A difference ends the comparison
+without reading any saved frame.</p></li>
+<li><p>Frames are compared in order:</p>
+<ul class="simple">
+<li><p>OpenUSD captures one report at a time and compares it.</p></li>
+<li><p>ovstage freezes and prepares chunks of up to 64 frames, then compares them in order. When one
+chunk covers the whole history, capture reuses those prepared reports. A longer history is
+prepared again during capture: a bounded second preparation instead of retained memory.</p></li>
+<li><p>A single-frame group in a built-in store skips the comparison pass. <code class="docutils literal notranslate"><span class="pre">flush()</span></code> compares it
+after the batch has prepared the frame and before the batch is written.</p></li>
+<li><p>A custom saved-data reader always uses the comparison pass. Its calls for one overlap, from
+<code class="docutils literal notranslate"><span class="pre">read_overlap</span></code> to <code class="docutils literal notranslate"><span class="pre">close</span></code>, never interleave with another overlap’s calls.</p></li>
+</ul>
+</li>
+<li><p>The aggregate header must also match.</p></li>
+</ol>
+<p>Comparison and capture share the per-call frame and payload limits, so a long approved history
+yields between calls. A cancelled ovstage chunk is drained, discarded unprepared and never counts
+as a change.</p>
+<p><strong>Exact equality.</strong> <code class="docutils literal notranslate"><span class="pre">equalDetectedValue()</span></code> compares bit patterns instead of running floating-point
+comparisons:</p>
+<ul class="simple">
+<li><p>A NaN never matches. Positive and negative zero match.</p></li>
+<li><p>Subnormals stay distinct from zero, even when the driving thread flushes denormals.</p></li>
+<li><p>Arrays of 256 or more values compare with <code class="docutils literal notranslate"><span class="pre">std::equal</span></code> inside
+<code class="docutils literal notranslate"><span class="pre">ScopedSerializationFloatingPointEnvironment</span></code>, which installs the default floating-point
+environment.</p></li>
+<li><p>Minimum distance and maximum local depth aggregate through <code class="docutils literal notranslate"><span class="pre">lessDetectedDouble()</span></code> with the same
+bit rules.</p></li>
+</ul>
+<p>Values compare at Suite ABI precision: binary64 for scalar metrics, times and matrices, binary32
+for outlines and point sizes. Python keeps that precision in both directions:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_numeric.py</span></code> copies binary32 buffers from their source words while
+the borrowed buffer is valid. It repairs subnormals that ctypes promotion can flush. Long arrays
+locate candidates with byte-plane masks, so only actual subnormal words reach Python code.</p></li>
+<li><p>The saved-data reader converts stored values with <code class="docutils literal notranslate"><span class="pre">preserve_numeric=True</span></code>.</p></li>
+<li><p>The Python <code class="docutils literal notranslate"><span class="pre">process_overlap()</span></code> path compares its own snapshots with the same rules. It reads
+typed buffers, including the <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">Gf</span></a> types <code class="docutils literal notranslate"><span class="pre">Gf.Matrix4f</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Gf.Matrix4d</span></code>, directly.</p></li>
+</ul>
+<p><strong>Reading saved frames.</strong> Both reader callbacks use the identifier from the initial lookup, not the
+row identifier in the returned header:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Destination</p></th>
+<th class="head"><p>How saved frames are read</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>SQLite, one frame</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">readFirstSavedFrame()</span></code>, one prepared statement kept for the whole fetch</p></td>
+</tr>
+<tr class="row-odd"><td><p>SQLite, several frames</p></td>
+<td><p>One forward cursor per history, kept across <code class="docutils literal notranslate"><span class="pre">next</span></code> calls</p></td>
+</tr>
+<tr class="row-even"><td><p>Directory</p></td>
+<td><p>The store’s forward frame cursor</p></td>
+</tr>
+<tr class="row-odd"><td><p>Custom C or C++</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">read_frame</span></code> of the <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_saved_data_reader_t</span></code> passed to <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin_with_reader</span></code> or <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async_with_reader</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Python custom store</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">fetch_iter_saved_frames(identifier,</span> <span class="pre">first_frame_offset=0)</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The default <code class="docutils literal notranslate"><span class="pre">fetch_iter_saved_frames()</span></code> issues one ranged CRUD read per frame. A SQL store turns
+that into a quadratic scan over a long history, so SQL-backed stores should override it with a
+forward cursor. The bridge holds one iterator and one frame. It closes the iterator before every
+write, transaction and abandonment, and reopens at the next offset after an intervening write.</p>
+<p><strong>Existing identifiers.</strong> <code class="docutils literal notranslate"><span class="pre">ExistingOverlapIdentifiers</span></code> holds the identifiers from <code class="docutils literal notranslate"><span class="pre">begin</span></code> as a
+sorted, deduplicated <code class="docutils literal notranslate"><span class="pre">int64_t</span></code> vector with one presence byte per identifier:</p>
+<ul class="simple">
+<li><p>Lookups use binary search. Reconciliation scans in ascending order without building a second
+list.</p></li>
+<li><p>No identifier value is reserved as a sentinel.</p></li>
+<li><p>Repeated visits are idempotent. Identifiers created during the fetch need not be in the
+snapshot.</p></li>
+</ul>
+<p>Do not replace the vector with a node-based hash set, which allocates once per identifier.</p>
+<p><strong>Legacy duplicate rows.</strong> A legacy store can hold several rows with the same query and
+<a class="reference internal" href="../consumer/concepts.html#glossary"><span class="std std-ref">clash hash</span></a>. The SQLite lookup then selects the highest row
+identifier (<code class="docutils literal notranslate"><span class="pre">ORDER</span> <span class="pre">BY</span> <span class="pre">id</span> <span class="pre">DESC</span> <span class="pre">LIMIT</span> <span class="pre">1</span></code>). That is the row the Python dictionary reader exposes,
+because it reads in ascending order and later rows replace earlier ones. The other rows are
+reconciled as absent and keep their history. Cursors still order ascending, and no unique-index migration is needed.</p>
+</section>
+</section>
+<section id="threading">
+<h2>Threading<a class="headerlink" href="#threading" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Work</p></th>
+<th class="head"><p>Thread</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Runtime access, report capture and report release</p></td>
+<td><p>Driving thread</p></td>
+</tr>
+<tr class="row-odd"><td><p>SQLite encoding, statements and writes</p></td>
+<td><p>Driving thread</p></td>
+</tr>
+<tr class="row-even"><td><p>Every storage, transaction and reader callback, and <code class="docutils literal notranslate"><span class="pre">release_frame</span></code></p></td>
+<td><p>Driving thread</p></td>
+</tr>
+<tr class="row-odd"><td><p>Directory and custom-C <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code></p></td>
+<td><p>Preparation workers</p></td>
+</tr>
+<tr class="row-even"><td><p>ovstage face and outline preparation of frozen reports</p></td>
+<td><p>Preparation workers</p></td>
+</tr>
+<tr class="row-odd"><td><p>OpenUSD report extraction inside the engine</p></td>
+<td><p>Extraction workers</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The driving thread is the caller for the synchronous form and the operation’s worker for the async
+form. Every dispatch drains its workers before it returns or rethrows. Prepared values are released
+before their borrowed report buffers, and SQLite bindings are reset and cleared before those
+buffers can disappear.</p>
+<p><strong>Worker count.</strong> <code class="docutils literal notranslate"><span class="pre">parallelWorkerCount()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/ParallelFor.h</span></code> selects the workers from the
+snapshot settings:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">single_threaded</span></code>, or fewer than two items: no workers; the caller runs the loop.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">new_task_manager</span></code>: Carbonite’s worker budget and reusable pool.</p></li>
+<li><p>otherwise: <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> workers, at most <code class="docutils literal notranslate"><span class="pre">min(max(nb_tasks,</span> <span class="pre">1),</span> <span class="pre">hardware</span> <span class="pre">concurrency,</span> <span class="pre">items)</span></code>,
+with <code class="docutils literal notranslate"><span class="pre">nb_tasks</span></code> capped at 256 for fetch preparation.</p></li>
+</ul>
+<p>The SQLite writer’s batch reports <code class="docutils literal notranslate"><span class="pre">serial()</span></code> as true, so SQLite preparation never dispatches
+workers. Encoding two matrices and borrowing geometry does not pay for a dispatch. The Python
+bridge registers no <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code>, so Python custom stores always prepare on the driving
+thread.</p>
+<p><strong>The std-thread launcher.</strong> <code class="docutils literal notranslate"><span class="pre">parallelFor()</span></code> hands out indices from one shared counter, and the
+caller takes part as a worker. It stops creating threads once every index is claimed, or once
+cancellation or a failure is seen, and it joins every thread it started. Each worker inherits the
+caller’s rounding and denormal modes. The first exception is rethrown on the caller after all
+workers have joined.</p>
+<p><strong>OpenUSD extraction.</strong> <code class="docutils literal notranslate"><span class="pre">forEachReportBatch()</span></code> runs a report with fewer than 1,024 source pairs
+serially. With std threads it starts at most one worker per 4,096 source pairs, because thread
+start-up otherwise dominates small extractions. Workers fill predetermined slots with a validity
+byte each. <code class="docutils literal notranslate"><span class="pre">compactReportSlots()</span></code> compacts them in source order after the workers join.</p>
+<p><strong>The async worker.</strong> The operation’s <code class="docutils literal notranslate"><span class="pre">std::thread</span></code> runs initialization, every step and writer
+destruction, so SQLite transactions and ordered callbacks stay on one writer:</p>
+<ul class="simple">
+<li><p>The worker inherits the floating-point control state of the launching thread.</p></li>
+<li><p>Callers see only atomic reservation flags (<code class="docutils literal notranslate"><span class="pre">asyncFetchActive</span></code>). A worker-only thread-local permit
+authorizes the worker’s own reads of the leased runtime and store.</p></li>
+<li><p>The terminal diagnostic is stored in a <code class="docutils literal notranslate"><span class="pre">SuiteSavedError</span></code>, which falls back to a static message
+when copying fails. <code class="docutils literal notranslate"><span class="pre">finish</span></code> republishes it on the caller’s thread.</p></li>
+<li><p>The Python bridge uses <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_async_destroy_owned()</span></code>, which nulls the caller’s
+pointer once the handle is consumed. Python can then tell an interruption before native
+destruction from one after it.</p></li>
+<li><p>Python keeps progress, modification and timing notifications on the polling thread. It rethrows
+a custom callback’s exception only after the worker has joined.</p></li>
+</ul>
+<p><strong>Concurrent stores.</strong> Independent data handles may open at the same time. The process-wide SQLite
+API table is published through <code class="docutils literal notranslate"><span class="pre">std::call_once</span></code> after every required symbol has loaded.</p>
+<p><strong>Fetch containers.</strong> Each structure is chosen for its ownership and access pattern:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Structure</p></th>
+<th class="head"><p>Reason for its representation</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Contiguous captured-frame batch</p></td>
+<td><p>Pre-reserved capacity bounds growth; each worker writes only its own preparation slot.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Individually owned overlap groups</p></td>
+<td><p>Addresses stay stable when the pointer vector grows, and a call allocates only the groups it captures.</p></td>
+</tr>
+<tr class="row-even"><td><p>Prepared frame</p></td>
+<td><p>SQLite reuses fixed matrix-encoding slots on the driving thread. Directory workers own independent JSON text buffers. Reports stay live until ordered insertion and prepared-frame release finish.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Outline slots plus validity bytes</p></td>
+<td><p>Disjoint output slots need no append lock; byte flags avoid packed-bit writes racing within one word. Ordered compaction runs after the join.</p></td>
+</tr>
+<tr class="row-even"><td><p>Cached SQLite statements</p></td>
+<td><p>One driving thread owns statement reuse and borrowed bindings, so workers need no connection lock.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Keep overlap groups individually owned. A contiguous, pre-reserved group vector slows large
+borrowed-report batches and reserves capacity for groups that a payload-limited call never
+captures. Destroy the captured-frame batch before the owned groups.</p>
+</section>
+<section id="serializers">
+<h2>Serializers<a class="headerlink" href="#serializers" title="Link to this heading">#</a></h2>
+<section id="callback-acknowledgements">
+<h3>Callback acknowledgements<a class="headerlink" href="#callback-acknowledgements" title="Link to this heading">#</a></h3>
+<p><a class="reference download internal" download="" href="../_downloads/d4ad221a57254b3fcde0b71868bee18e/ovclash_suite_serializer.h"><span class="xref download myst">ovclash_suite_serializer.h</span></a> declares both
+callback tables, <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_serializer_t</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_saved_data_reader_t</span></code>,
+and documents every member: whether it is required, its thread and its contract.
+<a class="reference internal" href="../consumer/c_quickstart.html#custom-serializers"><span class="std std-ref">C quickstart: Custom serializers</span></a> shows how a
+caller fills them. The Python hooks of a custom store, the <code class="docutils literal notranslate"><span class="pre">fetch_*</span></code> methods of
+<code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code>, are documented in the
+<a class="reference internal" href="../python_api.html"><span class="std std-doc">Python API reference</span></a>.</p>
+<p>Every callback in <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_serializer_t</span></code> and <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_saved_data_reader_t</span></code>
+returns <code class="docutils literal notranslate"><span class="pre">void</span></code> and receives an <code class="docutils literal notranslate"><span class="pre">out_success</span></code> that the engine sets to 0. The engine accepts only the
+value 1. That rejects a missing write, any other value, and a Python exception raised before the
+bridge’s <code class="docutils literal notranslate"><span class="pre">try</span></code> block. The check cannot undo side effects that a failing callback already
+published.</p>
+<p>This callback for a SQLite-backed custom store writes 1 only after every step succeeded. It
+belongs in the C source file of that store, which links SQLite; set it as the <code class="docutils literal notranslate"><span class="pre">clear_frames</span></code>
+member of the store’s <code class="docutils literal notranslate"><span class="pre">ovclash_suite_fetch_serializer_t</span></code>, whose <code class="docutils literal notranslate"><span class="pre">user_data</span></code> here is the store’s
+<code class="docutils literal notranslate"><span class="pre">sqlite3*</span></code> connection:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ovclash_suite/ovclash_suite_serializer.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sqlite3.h&gt;</span>
+
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">clear_frames</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span><span class="w"> </span><span class="n">user_data</span><span class="p">,</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">identifier</span><span class="p">,</span><span class="w"> </span><span class="kt">uint32_t</span><span class="o">*</span><span class="w"> </span><span class="n">out_success</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">sqlite3</span><span class="o">*</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">sqlite3</span><span class="o">*</span><span class="p">)</span><span class="n">user_data</span><span class="p">;</span>
+<span class="w">    </span><span class="n">sqlite3_stmt</span><span class="o">*</span><span class="w"> </span><span class="n">statement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sqlite3_prepare_v2</span><span class="p">(</span><span class="n">db</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;DELETE FROM frames WHERE overlap_id = ?;&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">statement</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">SQLITE_OK</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">        </span><span class="n">sqlite3_bind_int64</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">identifier</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">SQLITE_OK</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">sqlite3_step</span><span class="p">(</span><span class="n">statement</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">SQLITE_DONE</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="o">*</span><span class="n">out_success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1u</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="n">sqlite3_finalize</span><span class="p">(</span><span class="n">statement</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The serializer has header lookup and write, frame clear and append, existing-identifier
+enumeration, absent marking, and the transaction and savepoint operations. The optional
+<code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> and <code class="docutils literal notranslate"><span class="pre">release_frame</span></code> hooks let a native serializer encode frames on workers. A
+preparation hook must not touch a connection or shared mutable state. It may return an allocated
+output even on failure; the engine releases it after all workers join. Release order is
+unspecified.</p>
+</section>
+<section id="sqlite-bulk-writer">
+<h3>SQLite bulk writer<a class="headerlink" href="#sqlite-bulk-writer" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">SuiteSqliteBulkWriter</span></code> is the built-in SQLite fetch writer. The fetch driver itself issues no SQL.
+The writer reuses the SQL and the binding code of the ordinary data writes on the same connection.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Operation</p></th>
+<th class="head"><p>SQL or behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">BEGIN</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">BEGIN</span> <span class="pre">IMMEDIATE;</span></code> if no transaction is open, then <code class="docutils literal notranslate"><span class="pre">tuneWriteCache()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">COMMIT</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">COMMIT;</span></code>. On failure it rolls back, so a later commit cannot publish a failed write.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ROLLBACK</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ROLLBACK;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">BEGIN_OVERLAP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SAVEPOINT</span> <span class="pre">ovclash_fetch_overlap;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">END_OVERLAP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">RELEASE</span> <span class="pre">SAVEPOINT</span> <span class="pre">ovclash_fetch_overlap;</span></code>. On failure it rolls back the whole transaction itself, which also protects direct callers.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ABORT_OVERLAP</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ROLLBACK</span> <span class="pre">TO</span> <span class="pre">SAVEPOINT</span> <span class="pre">ovclash_fetch_overlap;</span></code> then <code class="docutils literal notranslate"><span class="pre">RELEASE</span> <span class="pre">SAVEPOINT</span> <span class="pre">ovclash_fetch_overlap;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">find_overlap</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">findEditableOverlap()</span></code>: reads only the identifier, state, priority, person in charge, creation timestamp, comment and six penetration depths, from the highest matching row</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">clear_frames</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">FROM</span> <span class="pre">clash_frame_info</span> <span class="pre">WHERE</span> <span class="pre">clash_info_id=?;</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mark_absent</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">UPDATE</span> <span class="pre">clash_info</span> <span class="pre">SET</span> <span class="pre">present=0</span> <span class="pre">...</span></code>, plus <code class="docutils literal notranslate"><span class="pre">state=RESOLVED</span></code> with <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Rules for the writer:</p>
+<ul class="simple">
+<li><p>Statements are prepared once and cached for the whole operation. The fetch lease outlives them,
+so they are finalized before the store can be reopened or closed.</p></li>
+<li><p>The writer validates and binds the borrowed overlap view directly. UTF-8, null-pointer and SQLite
+length checks still run at the callback boundary, and bindings clear before return.</p></li>
+<li><p>Header identifier <code class="docutils literal notranslate"><span class="pre">-1</span></code> means “insert”. An imported row whose key is <code class="docutils literal notranslate"><span class="pre">-1</span></code> is updated instead, but
+only when the preceding lookup found that exact query and clash hash.</p></li>
+<li><p>Frames are prepared into reusable <code class="docutils literal notranslate"><span class="pre">SuitePreparedFrame</span></code> slots, reserved on the driving thread.
+Slots do not grow or get reused until preparation and the ordered writes finish.</p></li>
+<li><p>Always run the prepared <code class="docutils literal notranslate"><span class="pre">DELETE</span> <span class="pre">FROM</span> <span class="pre">clash_frame_info</span></code> statement, even for a header that is known
+to be fresh. DELETE triggers and stale cached statements report their errors when that statement
+is prepared.</p></li>
+</ul>
+<p>Store lifecycle entry points reject live fetches and cursors before they touch the connection. The
+close helper commits first and keeps the handle on commit or close failure. It then finalizes the
+store’s statements and closes with checked <code class="docutils literal notranslate"><span class="pre">sqlite3_close_v2</span></code>, which completes when any remaining
+internal statement is finalized.</p>
+<p>The SQLite CRUD mutations (frame insertion, history replacement, overlap insertion, explicit-ID
+replacement and update) roll back before an exception propagates. A later commit or close
+therefore cannot publish a partial history or a failed header. Each mutation also clears an
+unrelated earlier handle error first, so that error cannot mask the new diagnostic.</p>
+</section>
+<section id="directory-writer">
+<h3>Directory writer<a class="headerlink" href="#directory-writer" title="Link to this heading">#</a></h3>
+<p>The directory writer supplies <code class="docutils literal notranslate"><span class="pre">prepare_frame</span></code> and <code class="docutils literal notranslate"><span class="pre">release_frame</span></code>:</p>
+<ul class="simple">
+<li><p>Each worker formats one borrowed frame view directly into owned JSON text
+(<code class="docutils literal notranslate"><span class="pre">prepareDirectoryFrame()</span></code>). It copies no geometry and builds no numeric JSON tree.</p></li>
+<li><p>The text is two segments around the frame’s identifier. The driving thread assigns the
+persistent identifier and writes the segments without joining them into another full-frame
+buffer. The result matches the ordinary record writer byte for byte.</p></li>
+<li><p>Preparation never touches directory state, the filesystem or diagnostics.</p></li>
+</ul>
+</section>
+<section id="python-serializer-bridge">
+<h3>Python serializer bridge<a class="headerlink" href="#python-serializer-bridge" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">_NativeFetchSerializerAdapter</span></code> exposes a Python <code class="docutils literal notranslate"><span class="pre">AbstractClashDataSerializer</span></code> as a C callback
+table and a saved-data reader. Native code still makes every scheduling, comparison and
+reconciliation decision.</p>
+<ul class="simple">
+<li><p><strong>Entry points.</strong> The synchronous path calls <code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_begin_with_reader()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">next</span></code> on the calling thread. <code class="docutils literal notranslate"><span class="pre">async_mode=True</span></code> launches
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async_with_reader()</span></code> when <code class="docutils literal notranslate"><span class="pre">resolve_stale</span></code> is set, and
+<code class="docutils literal notranslate"><span class="pre">ovclash_suite_runtime_fetch_and_save_async()</span></code> otherwise.</p></li>
+<li><p><strong>Transaction check.</strong> Fetching raises <code class="docutils literal notranslate"><span class="pre">NotImplementedError</span></code> before any work when
+<code class="docutils literal notranslate"><span class="pre">fetch_transaction</span></code> is still the base method. The check inspects the bound attribute, so a CRUD
+store can attach a working method or callable to an instance.</p></li>
+<li><p><strong>Callback guard.</strong> Each callback sets the acknowledgement only after the Python method returns.
+The first exception is kept. An exception from a <code class="docutils literal notranslate"><span class="pre">ROLLBACK</span></code>, <code class="docutils literal notranslate"><span class="pre">ABORT_OVERLAP</span></code>, reader <code class="docutils literal notranslate"><span class="pre">close</span></code> or
+<code class="docutils literal notranslate"><span class="pre">last_error</span></code> callback is a cleanup failure and does not replace the primary error.</p></li>
+<li><p><strong>Identifiers.</strong> Every returned or visited identifier must implement the integer index protocol,
+fit signed int64 and differ from the unsaved sentinel <code class="docutils literal notranslate"><span class="pre">-1</span></code>. Other negative values, including
+<code class="docutils literal notranslate"><span class="pre">INT64_MIN</span></code>, stay valid. The C contract reserves no identifier.</p></li>
+<li><p><strong>Header cache.</strong> When both <code class="docutils literal notranslate"><span class="pre">fetch_find_overlap</span></code> and <code class="docutils literal notranslate"><span class="pre">fetch_write_overlap</span></code> are the base methods,
+the adapter loads one header snapshot per operation and looks hashes up in a dictionary. M
+existing headers and N results then cost O(M + N). A written key keeps its identifier in a small
+slotted marker. A later lookup of that key reads one header through
+<code class="docutils literal notranslate"><span class="pre">find_all_overlaps_by_overlap_id()</span></code>, so store normalization stays visible. A mismatched
+identifier, query or hash reloads the snapshot. The cache is cleared when the operation stops.</p></li>
+<li><p><strong>Overrides keep live behavior.</strong> An overridden lookup or write hook disables the cache. An
+overridden <code class="docutils literal notranslate"><span class="pre">fetch_visit_existing</span></code> still controls reconciliation. Indexed overrides avoid loading
+the full query when a store holds many unrelated results.</p></li>
+<li><p><strong>CRUD errors must raise.</strong> The default hooks cannot treat a return value such as 0 as failure,
+because 0 can be a valid identifier or a deleted-frame count.</p></li>
+<li><p><strong>Cleanup scope.</strong> Python fetch entry points create the native operation inside their cleanup
+scope. An interruption that arrives as <code class="docutils literal notranslate"><span class="pre">begin</span></code> returns still destroys the handle, and a cleanup
+error does not replace the interruption.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">omni.physxclashdetectioncore</span></code> compatibility modules re-export these same Suite classes.</p>
+</section>
+</section>
+<section id="numeric-text-and-identifiers">
+<h2>Numeric text and identifiers<a class="headerlink" href="#numeric-text-and-identifiers" title="Link to this heading">#</a></h2>
+<p>Native numeric text does not depend on the caller’s locale or floating-point environment:</p>
+<ul class="simple">
+<li><p>Frame preparation rejects NaN and infinite matrix entries before insertion, because the reader
+accepts only finite values.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matrixToJsonBuffer()</span></code> writes each matrix with <code class="docutils literal notranslate"><span class="pre">std::to_chars</span></code> at 17 significant digits into a
+fixed buffer, with no allocation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">matrixFromText()</span></code> parses with <code class="docutils literal notranslate"><span class="pre">_strtod_l</span></code> on Windows or <code class="docutils literal notranslate"><span class="pre">strtod_l</span></code> on Linux and an immutable C
+numeric locale. It never changes a process or thread locale.</p></li>
+<li><p>Each conversion runs inside <code class="docutils literal notranslate"><span class="pre">ScopedSerializationFloatingPointEnvironment</span></code>. It installs the
+default floating-point environment and restores the caller’s complete environment, including
+exception flags, on every exit. Directed rounding, flush-to-zero and denormals-are-zero cannot
+change persisted or decoded values.</p></li>
+<li><p>Model JSON and run-settings JSON share that protection. Negative zero is written as <code class="docutils literal notranslate"><span class="pre">-0.0</span></code>,
+because the integer token <code class="docutils literal notranslate"><span class="pre">-0</span></code> decodes as positive zero in Python. On Windows the formatter uses
+the classic-locale CRT conversion that MSVC streams use, which keeps the last digit identical to
+the MSVC Debug runtime. Elsewhere it uses <code class="docutils literal notranslate"><span class="pre">std::to_chars</span></code>.</p></li>
+<li><p>Model JSON uses direct string appends under one floating-point guard per model record; a clash
+record and all of its frames share one guard. Integers use locale-independent <code class="docutils literal notranslate"><span class="pre">std::to_chars</span></code>;
+matrices use bounded buffers, and numeric array text needs no JSON escape pass. Allocation
+failures propagate instead of silently truncating a number or document. The run-settings stream
+keeps the classic locale and stream exceptions.</p></li>
+<li><p>Each serialized model record, and each clash record with all of its frames, caches formatted
+finite numbers by their exact bit pattern. Repeated matrix and outline values reuse that text.
+Non-finite values never enter the cache, so a warm cache cannot bypass the formatter’s rejection.
+Native tests compare the output byte for byte with the former stream implementation, including
+edge values and randomized records.</p></li>
+<li><p>Persistent 128-bit hashes are lowercase hexadecimal from bounded <code class="docutils literal notranslate"><span class="pre">std::to_chars</span></code>.</p></li>
+</ul>
+<p>This covers native conversions only. Python’s own JSON and ctypes conversions can depend on a
+floating-point environment that embedding code changed. Use Python’s normal round-to-nearest
+environment with gradual underflow for exact dictionary round trips.
+<a class="reference internal" href="../consumer/persistence.html#numeric-fidelity"><span class="std std-ref">Numeric fidelity</span></a> states the user-visible rules.</p>
+<p>Signed identifiers:</p>
+<ul class="simple">
+<li><p>The built-in SQLite writer keeps imported signed primary keys on refetch, including <code class="docutils literal notranslate"><span class="pre">INT64_MIN</span></code>.
+Incremental fetch-and-save and single-overlap save both keep the existing identifier and
+annotations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ClashQuery</span></code> validates its identifier before it builds a native view. An out-of-range value raises
+<code class="docutils literal notranslate"><span class="pre">OverflowError</span></code>, so <code class="docutils literal notranslate"><span class="pre">2**64</span> <span class="pre">+</span> <span class="pre">42</span></code> cannot alias query 42. <code class="docutils literal notranslate"><span class="pre">ClashQuery.deserialize_from_dict()</span></code>
+returns <code class="docutils literal notranslate"><span class="pre">None</span></code> for an invalid identifier.</p></li>
+<li><p>Both Python readers saturate positive offsets and limits at <code class="docutils literal notranslate"><span class="pre">INT64_MAX</span></code> before ctypes, so <code class="docutils literal notranslate"><span class="pre">2**63</span></code>
+cannot wrap to a negative offset. The <code class="docutils literal notranslate"><span class="pre">-1</span></code> all-rows, zero-limit and negative-offset conventions
+are unchanged.</p></li>
+<li><p>The <a class="reference internal" href="architecture.html#glossary"><span class="std std-ref">ovRTX</span></a> clash sample app loads a lazy frame history by the stored
+signed identifier, including zero, negative values and an imported <code class="docutils literal notranslate"><span class="pre">-1</span></code>.</p></li>
+</ul>
+</section>
+<section id="result-order-and-determinism">
+<h2>Result order and determinism<a class="headerlink" href="#result-order-and-determinism" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Workers fill predetermined slots, and the writer consumes them in source order.</p></li>
+<li><p>Database clash-record cursors order by clash hash and row identifier. Frame cursors order by
+time and row identifier. Indexes serve header lookup, existing-identifier enumeration and both
+cursors without a temporary sort.</p></li>
+<li><p>Identical inputs give identical result content and order. SQLite file bytes can still differ:
+timestamps, user metadata, fresh row identifiers, page layout and transaction history are not
+part of the contract. JSON and HTML exports with identical ordered columns, result values and
+export metadata are byte-identical.</p></li>
+</ul>
+<p><strong>Duplicate orientation on OpenUSD.</strong> The standalone engine applies the mesh-pair ordering
+callback to duplicate pairs in both narrow-phase overloads. Scope enumeration or worker completion
+order therefore cannot swap <code class="docutils literal notranslate"><span class="pre">name0</span></code> and <code class="docutils literal notranslate"><span class="pre">name1</span></code> and change the ordered <code class="docutils literal notranslate"><span class="pre">clashHash</span></code>. This does not
+force object 0 into scope A; the scopes select membership.</p>
+<p>The ordering uses the platform’s <code class="docutils literal notranslate"><span class="pre">SdfPath::operator&lt;</span></code>. With the pinned OpenUSD dependency, non-ASCII
+names can sort differently on x86-64 and AArch64. For example, the fixture
+<code class="docutils literal notranslate"><span class="pre">tests/data/mesh_mesh_unicode.usda</span></code> orders <code class="docutils literal notranslate"><span class="pre">Ḁ</span></code> before <code class="docutils literal notranslate"><span class="pre">Café</span></code> on x86-64 and <code class="docutils literal notranslate"><span class="pre">Café</span></code> before <code class="docutils literal notranslate"><span class="pre">Ḁ</span></code> on
+AArch64. The raw orientation and its ordered <code class="docutils literal notranslate"><span class="pre">clashHash</span></code> are stable within one platform and
+runtime, but they are not cross-platform identities for such paths.</p>
+<p>Reading a database keeps every stored duplicate hash as stored, including one that records the
+reversed orientation of a pair. A refetch then reports the canonical hash as a new result, and the
+normal new-result and stale-result rules reconcile the two. Loading never rewrites stored
+identities.</p>
+</section>
+<section id="fetch-and-persistence-performance">
+<h2>Fetch and persistence performance<a class="headerlink" href="#fetch-and-persistence-performance" title="Link to this heading">#</a></h2>
+<p>These rules keep the persist phase and full-detail report capture fast. Rerun the matching
+correctness and performance checks before you change one.</p>
+<section id="persisting-overlaps">
+<h3>Persisting overlaps<a class="headerlink" href="#persisting-overlaps" title="Link to this heading">#</a></h3>
+<p>Saving a whole-timeline result can write millions of <code class="docutils literal notranslate"><span class="pre">clash_frame_info</span></code> rows. The persist phase is
+bound by per-row formatting and allocation, not by SQLite:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SuitePreparedFrame::prepare()</span></code> formats both matrices of a frame with <code class="docutils literal notranslate"><span class="pre">matrixToJsonBuffer()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">bindBorrowedText()</span></code> in <code class="docutils literal notranslate"><span class="pre">SuiteSqliteWrite.cpp</span></code> binds that text without an SQLite copy.</p></li>
+<li><p>Do not reintroduce a <code class="docutils literal notranslate"><span class="pre">std::ostringstream</span></code> or <code class="docutils literal notranslate"><span class="pre">std::string</span></code> per formatted value on this path.</p></li>
+<li><p>Do not page through stored results with repeated <code class="docutils literal notranslate"><span class="pre">LIMIT</span> <span class="pre">1</span> <span class="pre">OFFSET</span></code> queries. The cost grows
+quadratically with the result count.</p></li>
+</ul>
+<p>Database settings do not address that cost. Leave <code class="docutils literal notranslate"><span class="pre">synchronous</span></code>, <code class="docutils literal notranslate"><span class="pre">journal_mode</span></code> and the redundant
+<code class="docutils literal notranslate"><span class="pre">idx_clash_info_id</span></code> index as they are; that index is a strict prefix of
+<code class="docutils literal notranslate"><span class="pre">idx_clash_frame_info_overlap_order</span></code>. All writes share one transaction, because <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code> is
+idempotent and the fetch commits once. SQLite permits one writer, so the insert loop cannot be
+parallelized.</p>
+</section>
+<section id="full-detail-report-capture-and-sqlite-bulk-writes">
+<h3>Full-detail report capture and SQLite bulk writes<a class="headerlink" href="#full-detail-report-capture-and-sqlite-bulk-writes" title="Link to this heading">#</a></h3>
+<p>In full-detail persistence, report capture (faces and outlines) and the SQLite apply dominate the
+fetch. The final commit and <code class="docutils literal notranslate"><span class="pre">save_as</span></code> are negligible, so weakening durability saves little.
+Outlines are the largest stored payload. Requested details are never reduced to save time.</p>
+<p>The ovstage capture path freezes reports and prepares them on workers:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">freezeOverlapReport()</span></code> freezes an immutable report snapshot on the driving thread. The frozen
+input holds one reference to each cooked mesh and to the triangulated face-remap arrays, not to
+authored geometry. Outline floating-point controls are resolved at this point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">prepareOverlapReports()</span></code> plans one faces job per distinct uncached hit-stream payload and one
+outline job per uncached report. All slots reach their final size before workers start, and
+each slot has exactly one writer.</p></li>
+<li><p>A job with at least 16,384 hits is split into contiguous ranges of 8,192 hits, collected in
+parallel and merged in a second parallel pass. This keeps every worker busy when a batch holds
+only a few large reports.</p></li>
+<li><p>Nothing reaches the output until both passes succeed. A worker failure or cancellation leaves
+caller outputs untouched.</p></li>
+</ol>
+<p>Serialization-only detail belongs to <code class="docutils literal notranslate"><span class="pre">PreparedOverlapReport</span></code> and never enters the context’s public
+lazy report caches, so existing public borrowed views stay valid. Allocation failure, cancellation,
+scheduler budgets and floating-point controls keep their contracts. Workers drain before rollback,
+buffer release or owner destruction.</p>
+<p>The SQLite bulk writer raises a smaller connection page cache to 64 MiB
+(<code class="docutils literal notranslate"><span class="pre">PRAGMA</span> <span class="pre">main.cache_size=-65536</span></code>) after <code class="docutils literal notranslate"><span class="pre">BEGIN</span></code> and keeps larger settings. Journal and synchronous
+settings are untouched (<code class="docutils literal notranslate"><span class="pre">SuiteSqliteBulkWriter::tuneWriteCache()</span></code>). A small cache multiplies cache
+misses and page writes during the bulk apply. The writer’s destructor restores the previous value,
+so a finished incremental fetch keeps the larger cache until it is destroyed. Restoration is best
+effort: if SQLite rejects the PRAGMA, the primary diagnostic survives and the caller can restore
+the setting.</p>
+</section>
+<section id="fetch-timing-diagnostics">
+<h3>Fetch timing diagnostics<a class="headerlink" href="#fetch-timing-diagnostics" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">OVCLASH_SOURCE_PERF=1</span></code> makes every fetch operation print one aggregate line to stderr when it is
+destroyed, on either backend. <a class="reference internal" href="source_extraction.html#source-diagnostics"><span class="std std-ref">Source diagnostics</span></a> lists
+the other markers that the same variable enables. Save the example from
+<a class="reference internal" href="#progress-and-counts">Progress and counts</a> as <code class="docutils literal notranslate"><span class="pre">refetch_states.py</span></code> and run it with the variable
+set, from the same directory and with the same environment as that example.</p>
+<p>Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">OVCLASH_SOURCE_PERF</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>python<span class="w"> </span>refetch_states.py
+</pre></div>
+</div>
+<p>Windows (PowerShell):</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$env:OVCLASH_SOURCE_PERF</span> <span class="p">=</span> <span class="s2">&quot;1&quot;</span>
+<span class="n">python</span> <span class="n">refetch_states</span><span class="p">.</span><span class="n">py</span>
+<span class="nb">Remove-Item</span> <span class="n">Env</span><span class="p">:</span><span class="n">OVCLASH_SOURCE_PERF</span>
+</pre></div>
+</div>
+<p>Each of its three fetches prints one line. The first one looks like this, with <code class="docutils literal notranslate"><span class="pre">&lt;seconds&gt;</span></code> in
+place of each measured time:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[fetch-perf] query_id=1 complete=1 wall_s=&lt;seconds&gt; capture_s=&lt;seconds&gt; lookup_s=&lt;seconds&gt; prepare_s=&lt;seconds&gt; apply_s=&lt;seconds&gt; release_s=&lt;seconds&gt; commit_s=&lt;seconds&gt; capture_calls=1 acquired_reports=1 appended_frames=1 batches=1 commit_calls=1
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">FetchPerfCounters::publish()</span></code> in <code class="docutils literal notranslate"><span class="pre">source/suite/SuiteFetch.cpp</span></code> prints every field on every line,
+in this order:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">query_id</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>A signed 64-bit query identifier</p></td>
+<td><p>The query of the fetch</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">complete</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">0</span></code> or <code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>1 when the operation committed</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">wall_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Time from operation construction to destruction</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capture_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Report capture and ovstage report preparation</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">lookup_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Approval lookups and saved-data reads</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">prepare_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Frame preparation, serial or on workers</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">apply_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Ordered header and frame writes</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">release_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>Report and prepared-frame release</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">commit_s</span></code></p></td>
+<td><p>number</p></td>
+<td><p>Yes</p></td>
+<td><p>Seconds, with six decimals</p></td>
+<td><p>The final <code class="docutils literal notranslate"><span class="pre">COMMIT</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">capture_calls</span></code>, <code class="docutils literal notranslate"><span class="pre">acquired_reports</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>Unsigned 64-bit counts</p></td>
+<td><p>Capture attempts and reports actually acquired</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">appended_frames</span></code>, <code class="docutils literal notranslate"><span class="pre">batches</span></code>, <code class="docutils literal notranslate"><span class="pre">commit_calls</span></code></p></td>
+<td><p>integer</p></td>
+<td><p>Yes</p></td>
+<td><p>Unsigned 64-bit counts</p></td>
+<td><p>Frames written, flushed batches and commits</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="regression-coverage">
+<h2>Regression coverage<a class="headerlink" href="#regression-coverage" title="Link to this heading">#</a></h2>
+<p>The native tests are built by <code class="docutils literal notranslate"><span class="pre">tests/native/CMakeLists.txt</span></code> and run with the native suite; see
+<a class="reference internal" href="testing.html"><span class="std std-doc">Testing internals</span></a>. Several compile the Suite sources into uninstalled executables
+with fake canonical-engine reports and executable-local allocators, so a test can inject an
+allocation failure at each site.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Target</p></th>
+<th class="head"><p>Covers</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_fetch_borrowed.test</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.suite_fetch_owned.test</span></code></p></td>
+<td><p>Failure, approval, async, built-in and custom fetch paths, built with ovstage-style borrowed and OpenUSD-style owned reports</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_batching_borrowed.test</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.suite_batching_owned.test</span></code></p></td>
+<td><p>Every stored field across group, frame-count and payload batch boundaries</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_report_failure_borrowed.test</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.suite_report_failure_owned.test</span></code></p></td>
+<td><p>Report-only failures stay fatal while overlap metadata is readable</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_writer.test</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">SuiteSqliteBulkWriter</span></code>: numeric text, recovery and statement reuse</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_guard.test</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.suite_report_lifetime.test</span></code></p></td>
+<td><p>C ABI guards and report ownership under allocation failure</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.suite_store_lifetime.test</span></code>, <code class="docutils literal notranslate"><span class="pre">ovclash.suite_serializer_interface.test</span></code></p></td>
+<td><p>Store lifecycle guards and fetch through the serializer interface</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ovclash.parallel_for.test</span></code></p></td>
+<td><p>Both schedulers of <code class="docutils literal notranslate"><span class="pre">parallelFor()</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Python tests in <code class="docutils literal notranslate"><span class="pre">tests/python_tests/</span></code> cover concurrent cold opens, custom stores, the callback
+guard, compatibility imports, pagination boundaries and async operations, for example the
+<code class="docutils literal notranslate"><span class="pre">test_custom_fetch_*.py</span></code> modules, <code class="docutils literal notranslate"><span class="pre">test_async_fetch_operation.py</span></code> and
+<code class="docutils literal notranslate"><span class="pre">test_native_fetch_operation.py</span></code>.
+The viewer tests also cover cancellation before the first and before a later
+native fetch call.</p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="runtime.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Runtime Architecture</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="persistence.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Persistence, Export and Legacy Migration</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#source-map">Source map</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#suite-runtime-wrapper">Suite runtime wrapper</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-fetch-engine">The fetch engine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#begin">Begin</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#one-next-call">One <code class="docutils literal notranslate"><span class="pre">next</span></code> call</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-batch-sizing">Fetch batch sizing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streamed-histories">Streamed histories</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#progress-and-counts">Progress and counts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#failure-handling">Failure handling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clash-state-reconciliation-on-refetch">Clash-state reconciliation on refetch</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#threading">Threading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#serializers">Serializers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#callback-acknowledgements">Callback acknowledgements</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sqlite-bulk-writer">SQLite bulk writer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#directory-writer">Directory writer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-serializer-bridge">Python serializer bridge</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numeric-text-and-identifiers">Numeric text and identifiers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#result-order-and-determinism">Result order and determinism</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-and-persistence-performance">Fetch and persistence performance</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#persisting-overlaps">Persisting overlaps</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#full-detail-report-capture-and-sqlite-bulk-writes">Full-detail report capture and SQLite bulk writes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fetch-timing-diagnostics">Fetch timing diagnostics</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-coverage">Regression coverage</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="../_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>

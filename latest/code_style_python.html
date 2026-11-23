@@ -1,0 +1,1297 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ovclash Python Code Style &#8212; ovclash SDK</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=7f76b32a3354e82990f2" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/nvidia-sphinx-theme.css?v=933278ad" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=767de534" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/api.css?v=6f210184" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="_static/scripts/fontawesome.js?digest=7f76b32a3354e82990f2"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2" />
+
+
+
+    <script rel="preload" src="_static/modal-table.js"></script>
+    <script src="_static/documentation_options.js?v=d27f7911"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=fc986d73"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code_style_python';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.17.0';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = '../versions1.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.2.2';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            true;
+        </script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <script src="_static/version-patch.js?v=3e13fdd2"></script>
+
+    <link rel="icon" href="_static/favicon.png"/>
+
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="ovclash Technical Guide" href="technical_guide.html" />
+    <link rel="prev" title="ovclash C/C++ Code Style" href="code_style_cpp.html" />
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+    <meta name="docbuild:last-update" content="Nov 23, 2026"/>
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
+
+
+  </head>
+
+  <body data-default-mode="">
+
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="index_public.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/nvidia-logo-horiz-rgb-blk-for-screen.svg" class="logo__image only-light" alt="ovclash SDK - Home"/>
+    <img src="_static/nvidia-logo-horiz-rgb-wht-for-screen.svg" class="logo__image only-dark pst-js-only" alt="ovclash SDK - Home"/>
+  
+  
+    <p class="title logo__title">ovclash SDK</p>
+  
+</a>
+
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/NVIDIA-Omniverse/ovclash" title="github" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">github</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://twitter.com/nvidiaomniverse" title="twitter" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitter fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitter</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.youtube.com/channel/UCSKUoczbGAcMld7HjpCR8OA" title="youtube" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-youtube fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">youtube</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.instagram.com/nvidiaomniverse" title="instagram" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-instagram fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">instagram</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.nvidia.com/en-us/omniverse/" title="www" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-solid fa-globe fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">www</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.linkedin.com/showcase/nvidia-omniverse" title="linkedin" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-linkedin fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">linkedin</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://www.twitch.tv/nvidiaomniverse" title="twitch" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-twitch fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">twitch</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+
+
+<nav class="bd-docs-nav bd-links"
+     aria-label="Table of Contents">
+  <p class="bd-links__title" role="heading" aria-level="1">Table of Contents</p>
+  <div class="bd-toc-item navbar-nav"><p aria-level="2" class="caption" role="heading"><span class="caption-text">Get Started</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/overview.html">ovclash Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/README.html">ovclash Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/python_quickstart.html">Python Quickstart: Open a Stage and Find Overlaps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_quickstart.html">C/C++ Quickstart: Link, Build, First Query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/concepts.html">Key Concepts and Glossary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/choosing_an_api.html">Choosing an API Layer</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using ovclash</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/developer_guide.html">Developer Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/settings.html">Settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/threading_and_ownership.html">Threading and Ownership</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/async_pipelines.html">Asynchronous Pipelines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/ovstage_integration.html">ovstage Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/kit_compatibility.html">Kit Compatibility</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/samples.html">Samples</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Persistence and Export</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/persistence.html">Persistence: Stores, Records and Clash States</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/sqlite_serializer.html">SQLite serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/directory_serializer.html">Directory serializer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/legacy_container.html">Legacy Containers: Reading .clashDetection Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/export.html">Export: JSON and HTML Reports</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/suite_workflows.html">Suite Workflows: Five End-to-End Clash Queries</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Guides</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/performance.html">Performance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/limitations.html">Limitations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/compatibility.html">System Requirements and Compatibility</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">C/C++ Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/c_api_conventions.html">C API Conventions</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="python_api.html">Python API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">C API Reference</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Release Notes and Security</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="consumer/CHANGELOG.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="consumer/SECURITY.html">Security</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Building and Contributing</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="local_development.html">Local Development</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="backends.html">Backends</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code_style_cpp.html">ovclash C/C++ Code Style</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">ovclash Python Code Style</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Developer Internals</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="technical_guide.html">ovclash Technical Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/architecture.html">ovclash Architecture Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/build_and_packaging.html">Build System and Packaging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/runtime.html">Runtime Architecture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/suite_runtime.html">Suite Runtime and Fetch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/persistence.html">Persistence, Export and Legacy Migration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/samples.html">Sample Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/rtx_sample_app.html">ovRTX Clash Sample App</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/testing.html">Testing and Validation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/performance.html">Engine Performance Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/transforms.html">Transform Evaluation Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical/source_extraction.html">ovstage Source Extraction Internals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shared_tooling.html">Shared repository tooling</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Testing and KPIs</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi.html">KPI maintainer guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_overview.html">KPI workloads and metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_running.html">Run KPI</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_sampling.html">KPI sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_cpu_admission.html">KPI CPU admission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_baselines.html">KPI baselines and budget packages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_evidence.html">KPI evidence, reports and verdicts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/kpi_contracts.html">KPI frozen contracts and maintenance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/reference_fixtures.html">Representative fixture stages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel.html">Sentinel correctness validation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_reference.html">Sentinel reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_goldens.html">Sentinel repository goldens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guides/sentinel_coverage_audit.html">Sentinel settings coverage audit</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="index_public.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ovclash Python Code Style</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="ovclash-python-code-style">
+<h1>ovclash Python Code Style<a class="headerlink" href="#ovclash-python-code-style" title="Link to this heading">#</a></h1>
+<p>This guide applies to every project-owned Python file under <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>: the packages under
+<code class="docutils literal notranslate"><span class="pre">python/</span></code>, the scripts, tests, benchmarks and samples, the top-level launchers, and the code under
+<code class="docutils literal notranslate"><span class="pre">tooling/</span></code> and <code class="docutils literal notranslate"><span class="pre">tools/</span></code>. Vendored code (<code class="docutils literal notranslate"><span class="pre">tools/packman/</span></code>, <code class="docutils literal notranslate"><span class="pre">tools/repoman/</span></code>) keeps its upstream
+conventions. A generated file follows its generator; change the generator instead.</p>
+<p>The baseline is <a class="reference external" href="https://peps.python.org/pep-0008/">PEP 8</a> for code and
+<a class="reference external" href="https://peps.python.org/pep-0257/">PEP 257</a> for docstrings. The rules of this guide supplement both
+and adapt the applicable rules of the <a class="reference internal" href="code_style_cpp.html"><span class="std std-doc">C/C++ code style</span></a>. Two limits replace the
+PEP 8 defaults of 79 and 72 columns. Both count indentation:</p>
+<ul class="simple">
+<li><p>120 columns for code, including code examples in docstrings;</p></li>
+<li><p>100 columns for comment and docstring prose.</p></li>
+</ul>
+<p>Rule strength:</p>
+<ul class="simple">
+<li><p>MUST marks a requirement for every project-owned Python file, not only for new or changed code.</p></li>
+<li><p>SHOULD marks a preference that can yield to a local reason. MAY marks an allowed alternative.</p></li>
+</ul>
+<p>Where this guide is silent, follow the PEPs, then the surrounding code. Keep external API names and
+serialized field names where compatibility requires them (<a class="reference internal" href="#names">section 2.2</a>).</p>
+<section id="files-licensing-and-organization">
+<h2>1. Files, licensing and organization<a class="headerlink" href="#files-licensing-and-organization" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Files MUST use UTF-8 and LF line endings; <code class="docutils literal notranslate"><span class="pre">.gitattributes</span></code> sets <code class="docutils literal notranslate"><span class="pre">eol=lf</span></code> for <code class="docutils literal notranslate"><span class="pre">*.py</span></code>. Omit the
+encoding declaration.</p></li>
+<li><p>A new original file MUST carry the SPDX pair (the two machine-readable license lines of the
+Software Package Data Exchange standard) that the example of
+<a class="reference internal" href="#files-licensing-and-organization">section 1</a> shows, with its creation year. Preserve existing
+licenses, attribution and inherited years when you edit, move or derive a file.</p></li>
+<li><p>A file starts with the shebang (executable scripts only), then the license notice, a blank line
+and the module docstring.</p></li>
+<li><p>A module MUST stay within 100,000 bytes. Split a larger module logically, by responsibility,
+and keep every existing import path, entry point and test id working:</p>
+<ul>
+<li><p>a production module stays at its path as a facade that re-exports every name its importers
+and patch targets use, or becomes a package of the same import name whose <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>
+re-exports those names and whose <code class="docutils literal notranslate"><span class="pre">__main__.py</span></code> keeps the <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span></code> entry point;</p></li>
+<li><p>a test module keeps its name for the remaining tests and moves cohesive test cases to new
+<code class="docutils literal notranslate"><span class="pre">test_&lt;topic&gt;.py</span></code> modules in the same directory.</p></li>
+</ul>
+</li>
+<li><p>Do not create trivial modules. Vendored code is never split.</p></li>
+<li><p>Keep the work of an executable script in a <code class="docutils literal notranslate"><span class="pre">main()</span></code> function behind
+<code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">__name__</span> <span class="pre">==</span> <span class="pre">&quot;__main__&quot;:</span></code>. Importing a module MUST NOT run its command-line workflow.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># SPDX-FileCopyrightText: Copyright (c) 2026 NVIDIA CORPORATION &amp; AFFILIATES. All rights reserved.</span>
+<span class="c1"># SPDX-License-Identifier: Apache-2.0</span>
+
+<span class="sd">&quot;&quot;&quot;Read and validate saved query settings.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="python-layout-and-names">
+<h2>2. Python layout and names<a class="headerlink" href="#python-layout-and-names" title="Link to this heading">#</a></h2>
+<section id="layout-and-imports">
+<h3>2.1 Layout and imports<a class="headerlink" href="#layout-and-imports" title="Link to this heading">#</a></h3>
+<p>The Black code formatter and the isort import sorter own the layout
+(<a class="reference internal" href="#tooling-and-review">section 6</a>): indentation, blank lines, wrapping, spacing, string
+quotes, trailing commas, and import grouping and order. Every file MUST be Black- and isort-clean
+at 120 columns. Do not hand-format against the tools. A trailing comma keeps a collection or call
+vertical when that reads better.</p>
+<ul class="simple">
+<li><p>Prefer absolute imports. Explicit relative imports are acceptable within a package. Do not use
+wildcard imports.</p></li>
+<li><p>A module MUST import what it uses rather than rely on another module re-exporting it. Keep
+intended public re-exports explicit.</p></li>
+<li><p>Keep ordinary imports at module scope. A deferred import needs a concrete reason: an optional
+dependency, expensive initialization or an unavoidable cycle.</p></li>
+<li><p>An optional dependency, such as <code class="docutils literal notranslate"><span class="pre">numpy</span></code>, <code class="docutils literal notranslate"><span class="pre">warp</span></code>, <code class="docutils literal notranslate"><span class="pre">pxr</span></code> or the <code class="docutils literal notranslate"><span class="pre">ovrtx</span></code> and <code class="docutils literal notranslate"><span class="pre">ovui</span></code> packages of the
+ovRTX sample app (a source-only viewer on <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">ovRTX</span></a>, NVIDIA’s
+RTX rendering runtime), MUST stay optional for the base library. Import it where the feature needs
+it and handle its absence there.</p></li>
+<li><p>When import order is load-bearing, such as imports that need an earlier <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> insertion,
+put <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">isort:</span> <span class="pre">split</span></code> before the dependent imports and a comment that says why.</p></li>
+<li><p>Prefer parenthesized continuations to backslashes.</p></li>
+</ul>
+</section>
+<section id="names">
+<h3>2.2 Names<a class="headerlink" href="#names" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Functions and methods MUST use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code>; classes MUST use <code class="docutils literal notranslate"><span class="pre">CapWords</span></code>. Use <code class="docutils literal notranslate"><span class="pre">snake_case</span></code> for
+modules, parameters, variables and attributes, <code class="docutils literal notranslate"><span class="pre">UPPER_SNAKE_CASE</span></code> for constants, short
+lowercase names for packages, and a leading underscore for internal details (<code class="docutils literal notranslate"><span class="pre">_name</span></code>).</p></li>
+<li><p>Do not use the C++ <code class="docutils literal notranslate"><span class="pre">m</span></code>, <code class="docutils literal notranslate"><span class="pre">g</span></code> or <code class="docutils literal notranslate"><span class="pre">k</span></code> prefixes.</p></li>
+<li><p>Prefer descriptive role names: <code class="docutils literal notranslate"><span class="pre">index</span></code>, <code class="docutils literal notranslate"><span class="pre">item_count</span></code>, <code class="docutils literal notranslate"><span class="pre">items_by_id</span></code>, <code class="docutils literal notranslate"><span class="pre">is_valid</span></code>, <code class="docutils literal notranslate"><span class="pre">has_results</span></code>.
+Spell out words and put the verb first in operations, such as <code class="docutils literal notranslate"><span class="pre">collect_overlaps</span></code>.</p></li>
+</ul>
+<p>A name keeps its external spelling when it must match something outside the project. These are
+the only exceptions to the casing rules:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Exception</p></th>
+<th class="head"><p>Examples</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A test double or helper that mirrors an external API</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">FakeUi.HStack</span></code> for <code class="docutils literal notranslate"><span class="pre">omni.ui</span></code>; <code class="docutils literal notranslate"><span class="pre">GetPrimAtPath</span></code> on a fake <code class="docutils literal notranslate"><span class="pre">pxr.Usd.Stage</span></code>; the <code class="docutils literal notranslate"><span class="pre">expect_errors</span></code> class ported from <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">Kit</span></a></p></td>
+</tr>
+<tr class="row-odd"><td><p>A <code class="docutils literal notranslate"><span class="pre">unittest</span></code> protocol method or hook</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">setUp</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownClass</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpModule</span></code>, <code class="docutils literal notranslate"><span class="pre">startTest</span></code>, <code class="docutils literal notranslate"><span class="pre">addDuration</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>A ctypes mirror of a <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">C ABI</span></a> type, and its fields</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">ovclash_settings_t</span></code> and its <code class="docutils literal notranslate"><span class="pre">nbTasks</span></code> field; the Win32 <code class="docutils literal notranslate"><span class="pre">PROCESS_MEMORY_COUNTERS_EX</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>A shipped public name kept for compatibility</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">PipelineStepData.mName</span></code>, <code class="docutils literal notranslate"><span class="pre">Serializer_data_operations</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Do not carry an exception’s spelling into new helpers. A custom assertion helper is project code,
+not part of the <code class="docutils literal notranslate"><span class="pre">unittest</span></code> protocol: name it <code class="docutils literal notranslate"><span class="pre">assert_rejected</span></code>, not <code class="docutils literal notranslate"><span class="pre">assertRejected</span></code>.</p>
+</section>
+</section>
+<section id="docstrings-and-comments">
+<h2>3. Docstrings and comments<a class="headerlink" href="#docstrings-and-comments" title="Link to this heading">#</a></h2>
+<section id="required-docstrings">
+<h3>3.1 Required docstrings<a class="headerlink" href="#required-docstrings" title="Link to this heading">#</a></h3>
+<p>A docstring is required (MUST) for:</p>
+<ul class="simple">
+<li><p>every module, including <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> files and test modules;</p></li>
+<li><p>every public class: a class whose name has no leading underscore, defined at module level or
+inside a public class;</p></li>
+<li><p>every public function and method under the same rule, including test methods, test helpers and
+the unittest hooks <code class="docutils literal notranslate"><span class="pre">setUp</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDown</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpClass</span></code>, <code class="docutils literal notranslate"><span class="pre">tearDownClass</span></code>, <code class="docutils literal notranslate"><span class="pre">setUpModule</span></code> and
+<code class="docutils literal notranslate"><span class="pre">tearDownModule</span></code>.</p></li>
+</ul>
+<p>These need no docstring: property setters and deleters, functions and classes nested in a
+function, <code class="docutils literal notranslate"><span class="pre">_private</span></code> names and dunder methods. Document a property on its getter. Document
+constructor arguments in the class docstring, not in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
+</section>
+<section id="form-and-content">
+<h3>3.2 Form and content<a class="headerlink" href="#form-and-content" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use triple double quotes. Use a raw docstring when backslashes must be preserved.</p></li>
+<li><p>Start with a one-line summary that ends in a period. A function summary is an imperative
+sentence: <code class="docutils literal notranslate"><span class="pre">&quot;&quot;&quot;Collect</span> <span class="pre">overlaps</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">selected</span> <span class="pre">paths.&quot;&quot;&quot;</span></code>. Test methods are the exception
+(<a class="reference internal" href="#docstring-templates">section 3.3</a>). Do not copy the third-person briefs of the C++
+convention for Doxygen, the C/C++ documentation generator.</p></li>
+<li><p>A one-line docstring keeps both delimiters on its line. A multi-line docstring has the summary,
+a blank line and the details, and closes on a line of its own.</p></li>
+<li><p>Separate a class docstring from the first member with a blank line.</p></li>
+<li><p>Document behavior; do not repeat the signature. Where it is not obvious, state the meaning of
+each parameter, its units, valid range and default, and whether <code class="docutils literal notranslate"><span class="pre">None</span></code> is accepted. Explain
+return values, exceptions, side effects and preconditions.</p></li>
+<li><p>For native wrappers, distinguish copied Python values from borrowed native views. Name the
+owner, what invalidates a view and the required cleanup. Document callback lifetime and
+threading; do not claim thread safety merely because calls originate in Python.</p></li>
+<li><p>A command-line module that passes <code class="docutils literal notranslate"><span class="pre">description=__doc__</span></code> to <code class="docutils literal notranslate"><span class="pre">argparse</span></code> prints its docstring as
+<code class="docutils literal notranslate"><span class="pre">--help</span></code> text. Keep that text accurate for users.</p></li>
+</ul>
+</section>
+<section id="docstring-templates">
+<h3>3.3 Docstring templates<a class="headerlink" href="#docstring-templates" title="Link to this heading">#</a></h3>
+<p>The template depends on whether the docs render the docstring. Sphinx, the documentation
+generator of the rendered site, reads docstrings through its autodoc extension.</p>
+<section id="under-python-google-sections">
+<h4>Under <code class="docutils literal notranslate"><span class="pre">python/</span></code>: Google sections<a class="headerlink" href="#under-python-google-sections" title="Link to this heading">#</a></h4>
+<p>Docstrings under <code class="docutils literal notranslate"><span class="pre">python/</span></code> use Google-style sections. <code class="docutils literal notranslate"><span class="pre">sphinx.ext.napoleon</span></code> renders them in
+<a class="reference internal" href="python_api.html"><span class="std std-doc">the Python API reference</span></a>, and the docs build treats warnings as errors.</p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">Args:</span></code>, <code class="docutils literal notranslate"><span class="pre">Returns:</span></code> (<code class="docutils literal notranslate"><span class="pre">Yields:</span></code> for a generator) and <code class="docutils literal notranslate"><span class="pre">Raises:</span></code>. Add an <code class="docutils literal notranslate"><span class="pre">Example::</span></code> literal
+block only where it helps.</p></li>
+<li><p>Do not write types in the sections; the annotations carry them. Napoleon reads text before a
+colon in the first line of a <code class="docutils literal notranslate"><span class="pre">Returns:</span></code> entry as a type.</p></li>
+<li><p>Do not use <code class="docutils literal notranslate"><span class="pre">Attributes:</span></code> or <code class="docutils literal notranslate"><span class="pre">Methods:</span></code> sections. Autodoc documents the members itself, and the
+duplicates fail the build.</p></li>
+<li><p>Put constructor arguments in the <code class="docutils literal notranslate"><span class="pre">Args:</span></code> section of the class docstring. Sphinx renders the
+class docstring, not the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> one.</p></li>
+<li><p>Document a dataclass field or a class constant with a <code class="docutils literal notranslate"><span class="pre">#:</span></code> comment above it.</p></li>
+<li><p>Write reStructuredText (reST), not Markdown. Inline code is <code class="docutils literal notranslate"><span class="pre">``literal``</span></code>; single backticks
+and Markdown fences render wrongly.</p></li>
+<li><p>Put <code class="docutils literal notranslate"><span class="pre">*args</span></code>, <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code>, glob patterns, <code class="docutils literal notranslate"><span class="pre">|name|</span></code> and names that end in <code class="docutils literal notranslate"><span class="pre">_</span></code> inside double
+backticks. Bare, they break the build.</p></li>
+<li><p>Put a blank line before and after a list or an indented block. Without it, reST reports an
+unexpected indentation or unindent, which fails the build.</p></li>
+<li><p>Write a cross-reference role with the full path:
+<code class="docutils literal notranslate"><span class="pre">:class:`~ovclash.python.suite.types.RunSettings`</span></code>. A dotted role, such as
+<code class="docutils literal notranslate"><span class="pre">:class:`.RunSettings`</span></code>, is ambiguous for a class that both packages define, such as
+<code class="docutils literal notranslate"><span class="pre">RunSettings</span></code> or <code class="docutils literal notranslate"><span class="pre">AsyncPipeline</span></code>, and fails the build.</p></li>
+<li><p>Render the docs to check changed markup; see
+<a class="reference internal" href="local_development.html#building-this-documentation"><span class="std std-ref">Building this documentation</span></a>. The render
+treats warnings as errors, so a broken docstring fails it with a Sphinx warning that names the
+docstring (<code class="docutils literal notranslate"><span class="pre">docstring</span> <span class="pre">of</span> <span class="pre">&lt;object&gt;</span></code>); fix that docstring and render again.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SettingsStore</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cache the query settings stored in one JSON file.</span>
+
+<span class="sd">    The store hands out copies, so callers never hold a view of its state. Serialize calls that</span>
+<span class="sd">    share one store.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        path: Settings file to open. The file must exist.</span>
+<span class="sd">        read_only: When True, ``save()`` raises ``RuntimeError`` instead of writing.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: ``path`` does not name a regular file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#: File extension of the settings files this class opens.</span>
+    <span class="n">EXTENSION</span> <span class="o">=</span> <span class="s2">&quot;.json&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">settings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">object</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write the settings of one query.</span>
+
+<span class="sd">        A failed write leaves the stored settings unchanged.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            query_id: Identifier of the query, in the signed 64-bit range.</span>
+<span class="sd">            settings: Settings keyed by ``SettingId`` name.</span>
+<span class="sd">            overwrite: Replace existing settings instead of keeping them.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            True when the settings were written; False when the query already has settings and</span>
+<span class="sd">            ``overwrite`` is False.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: ``query_id`` is outside the signed 64-bit range.</span>
+<span class="sd">            RuntimeError: The store is read-only.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="everywhere-else-plain-prose">
+<h4>Everywhere else: plain prose<a class="headerlink" href="#everywhere-else-plain-prose" title="Link to this heading">#</a></h4>
+<p>Benchmarks, scripts, tooling, tools, launchers, samples and tests use plain PEP 257 prose; nothing
+there is rendered. Name parameters as <code class="docutils literal notranslate"><span class="pre">``name``</span></code> inside sentences and state raised exceptions
+in prose. Use double backticks for code, not single Markdown backticks.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">shard_count</span><span class="p">(</span><span class="n">durations</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">budget_seconds</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the smallest shard count that keeps every shard within ``budget_seconds``.</span>
+
+<span class="sd">    A shard that holds a single test may exceed the budget. Raises ``ValueError`` when</span>
+<span class="sd">    ``budget_seconds`` is not positive.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="tests">
+<h4>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h4>
+<ul class="simple">
+<li><p>A test method docstring is one declarative sentence in the present tense. It states the
+behavior the test verifies, without “Test that”. It must be true for the test body.</p></li>
+<li><p>A test class docstring is one sentence that names the behavior group.</p></li>
+<li><p>A unittest hook gets one line that says what it prepares or releases.</p></li>
+<li><p>Add a detail paragraph only for a non-obvious fixture or to describe the defect a regression
+test guards against, without a ticket ID. Verbose unittest output prints the first line.</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">unittest</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoadSettingsTests</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Settings files load with overrides applied and reject malformed input.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a temporary directory for each test.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">test_missing_file_raises_file_not_found</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;A missing settings file raises FileNotFoundError instead of returning defaults.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="comments">
+<h3>3.4 Comments<a class="headerlink" href="#comments" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>An implementation comment MUST explain an invariant, a non-obvious decision or a failure being
+prevented. Do not restate the code.</p></li>
+<li><p>Place <code class="docutils literal notranslate"><span class="pre">#</span> </code> comments above the relevant code at the same indent. Use trailing comments sparingly.</p></li>
+<li><p>Write complete English sentences in impersonal wording, with <code class="docutils literal notranslate"><span class="pre">--</span></code> for a dash, as in the C++
+prose convention (<a class="reference internal" href="code_style_cpp.html#wording-and-content"><span class="std std-ref">section 12.2</span></a>).</p></li>
+<li><p>Do not add author or date stamps, commented-out code or decorative banners.</p></li>
+<li><p>State outstanding work concretely. Do not cite bug-tracker ticket IDs or merge request, CI job
+or pipeline numbers; explain the behavior instead, as in the C++ convention
+(<a class="reference internal" href="code_style_cpp.html#cross-references-and-tickets"><span class="std std-ref">section 12.3</span></a>).</p></li>
+<li><p>Keep identifiers exact and keep comments in step with the behavior.</p></li>
+<li><p>Keep tool directives exactly as written: <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">noqa</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">type:</span> <span class="pre">ignore</span></code>, <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">pragma:</span> <span class="pre">no</span> <span class="pre">cover</span></code>,
+<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">isort:</span> <span class="pre">split</span></code> and <code class="docutils literal notranslate"><span class="pre">#:</span></code>. Write a new suppression for Sonar, the static code analyzer, as
+<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">NOSONAR</span> <span class="pre">(S5443)</span></code>, with a space before the parenthesis, the bare rule key and a one-line
+justification in a comment above. Sonar’s Python analyzer does not match a repository-prefixed key
+such as <code class="docutils literal notranslate"><span class="pre">python:S5443</span></code>, so a marker written that way suppresses nothing.</p></li>
+</ul>
+</section>
+</section>
+<section id="types-values-and-control-flow">
+<h2>4. Types, values and control flow<a class="headerlink" href="#types-values-and-control-flow" title="Link to this heading">#</a></h2>
+<section id="annotations">
+<h3>4.1 Annotations<a class="headerlink" href="#annotations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Every public non-test function and method MUST be fully annotated. Annotate every parameter
+except <code class="docutils literal notranslate"><span class="pre">self</span></code> and <code class="docutils literal notranslate"><span class="pre">cls</span></code>, and the return type (<code class="docutils literal notranslate"><span class="pre">-&gt;</span> <span class="pre">None</span></code> when it returns nothing). “Public” is
+defined in <a class="reference internal" href="#required-docstrings">section 3.1</a>.</p></li>
+<li><p>Test code is exempt: <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> modules and <code class="docutils literal notranslate"><span class="pre">unittest.TestCase</span></code> subclasses. A helper module
+under <code class="docutils literal notranslate"><span class="pre">tests/</span></code> that is not a <code class="docutils literal notranslate"><span class="pre">test_*.py</span></code> module is not test code.</p></li>
+<li><p>Other functions MAY be annotated where it clarifies the contract. Avoid redundant annotations on
+obvious local values.</p></li>
+<li><p>An annotation does not replace runtime validation of untrusted data or of values passed to a
+native API.</p></li>
+<li><p>In a dataclass or <code class="docutils literal notranslate"><span class="pre">NamedTuple</span></code> body, an annotated attribute is a field. Annotate a class
+attribute there only when it is meant to be one; use <code class="docutils literal notranslate"><span class="pre">ClassVar</span></code> for class-level values.</p></li>
+<li><p>Without <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">annotations</span></code>, Python evaluates annotations when the <code class="docutils literal notranslate"><span class="pre">def</span></code> runs.
+Every annotation name MUST be bound by then; quote a forward reference (<code class="docutils literal notranslate"><span class="pre">&quot;Widget&quot;</span></code>).</p></li>
+<li><p>Do not import an optional dependency at module level only for an annotation. Quote the name or
+annotate with <code class="docutils literal notranslate"><span class="pre">object</span></code>.</p></li>
+<li><p>In a module that the Python API reference renders, every annotation MUST resolve through the
+module’s globals, so that <code class="docutils literal notranslate"><span class="pre">typing.get_type_hints()</span></code> succeeds. Otherwise Sphinx renders the raw
+annotation text, which can fail the build.</p></li>
+</ul>
+</section>
+<section id="python-versions">
+<h3>4.2 Python versions<a class="headerlink" href="#python-versions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">python/**</span></code> and the three samples that ship in the wheel (<code class="docutils literal notranslate"><span class="pre">samples/clash_api</span></code>,
+<code class="docutils literal notranslate"><span class="pre">samples/clash_suite_api</span></code> and <code class="docutils literal notranslate"><span class="pre">samples/legacy_clash_detection</span></code>) MUST run on Python 3.10, the
+<code class="docutils literal notranslate"><span class="pre">requires-python</span></code> floor in <code class="docutils literal notranslate"><span class="pre">python/pyproject.toml</span></code>.</p></li>
+<li><p>Do not use 3.11+ syntax or typing names in that code, such as <code class="docutils literal notranslate"><span class="pre">Self</span></code>, <code class="docutils literal notranslate"><span class="pre">Never</span></code>, <code class="docutils literal notranslate"><span class="pre">override</span></code> or
+PEP 695 type parameters. Black’s <code class="docutils literal notranslate"><span class="pre">py310</span></code> target does not reject them. Compile the files with a
+3.10 interpreter to catch newer syntax, and import the modules there to catch newer typing
+names.</p></li>
+<li><p>A tool or sample with its own documented requirement may use that version.</p></li>
+<li><p>Do not raise the base package’s floor through a style cleanup or an eagerly evaluated
+annotation.</p></li>
+</ul>
+<p>The ovRTX sample app has such a requirement: it runs on CPython 3.12
+(<a class="reference internal" href="technical/rtx_sample_app.html#launching-it"><span class="std std-ref">Launching it</span></a> in the ovRTX Clash Sample App page).</p>
+</section>
+<section id="values-and-control-flow">
+<h3>4.3 Values and control flow<a class="headerlink" href="#values-and-control-flow" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Initialize values at first use and keep mutable state in the narrowest useful scope. Prefer
+instance state to mutable module globals.</p></li>
+<li><p>Named constants SHOULD replace unexplained sentinel values, masks and thresholds.</p></li>
+<li><p>Avoid mutable default arguments and accidental shared class-level containers. Allocate
+per-call or per-instance state explicitly.</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">None</span></code> for absence only where it cannot be confused with a meaningful value; use a distinct
+sentinel when the cases must differ. Test <code class="docutils literal notranslate"><span class="pre">None</span></code> with <code class="docutils literal notranslate"><span class="pre">is</span></code> and <code class="docutils literal notranslate"><span class="pre">is</span> <span class="pre">not</span></code>, and distinguish absence
+from an empty container or zero.</p></li>
+<li><p>Prefer early validation and guard returns to deeply nested branches.</p></li>
+<li><p>Iterate over values directly, with <code class="docutils literal notranslate"><span class="pre">enumerate()</span></code> or <code class="docutils literal notranslate"><span class="pre">zip()</span></code> when indices or paired values are
+needed. Use an explicit loop when a comprehension would hide side effects or become hard to
+read.</p></li>
+<li><p>Keep conditional expressions to simple value choices. Prefer a named function for multi-step or
+reused behavior; reserve lambdas for small inline callbacks or keys.</p></li>
+<li><p>Production argument validation MUST use explicit checks and exceptions, not <code class="docutils literal notranslate"><span class="pre">assert</span></code>, which can
+be disabled. Assertions remain appropriate in tests and for internal debugging invariants.</p></li>
+</ul>
+</section>
+</section>
+<section id="errors-resources-and-native-boundaries">
+<h2>5. Errors, resources and native boundaries<a class="headerlink" href="#errors-resources-and-native-boundaries" title="Link to this heading">#</a></h2>
+<section id="exceptions">
+<h3>5.1 Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Prefer existing exception types: <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> for an invalid value, <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> for an
+unsuitable type and <code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> for a failed native operation. Preserve established
+exception contracts. Add a new exception class only when callers need to distinguish it.</p></li>
+<li><p>Catch the narrowest useful exception around the smallest fallible operation. Broad catches
+belong at deliberate reporting, worker, callback or cleanup boundaries. Do not silently turn
+unexpected failures into empty results or success.</p></li>
+<li><p>Re-raise with bare <code class="docutils literal notranslate"><span class="pre">raise</span></code> to preserve an exception. To translate one, use
+<code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">...</span> <span class="pre">from</span> <span class="pre">exception</span></code> so the cause is kept.</p></li>
+<li><p>Keep the first operational failure primary, and do not report the same error at several layers.
+Cleanup MUST still run after a failure.</p></li>
+<li><p>Error messages SHOULD follow the C++ wording convention
+(<a class="reference internal" href="code_style_cpp.html#error-messages-and-diagnostics"><span class="std std-ref">section 15.3</span></a>): one present-tense clause,
+no trailing punctuation, <code class="docutils literal notranslate"><span class="pre">:</span> </code> before detail and <code class="docutils literal notranslate"><span class="pre">;</span> </code> before a remedy. Name the operation or
+parameter, and never include secrets.</p></li>
+<li><p>Use the module’s existing diagnostic mechanism. Do not add a competing logging framework or print
+unsolicited diagnostics from library code.</p></li>
+</ul>
+</section>
+<section id="resources-and-native-boundaries">
+<h3>5.2 Resources and native boundaries<a class="headerlink" href="#resources-and-native-boundaries" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use context managers for files, locks and native wrappers that support them, or
+<code class="docutils literal notranslate"><span class="pre">try</span></code>/<code class="docutils literal notranslate"><span class="pre">finally</span></code> where no context manager exists. Do not rely on <code class="docutils literal notranslate"><span class="pre">__del__</span></code> or garbage-collection
+timing to release native handles, reports or worker resources. Avoid duplicating cleanup at
+every early return.</p></li>
+<li><p>Keep owning objects and callback objects alive for every native use, including the encoded bytes
+that a string helper returns with its C string. Borrowed pointers and buffers MUST NOT outlive
+their documented owner or survive an invalidating operation.</p></li>
+<li><p>At a C callback boundary, capture Python exceptions and report failure through the documented
+callback protocol. Never let an exception escape into native code or leave an output marked
+successful after a failure. Preserve the first failure, and wait for workers before releasing
+state they may still access.</p></li>
+<li><p>Validate arguments before mutation or resource acquisition, check every native result, and
+publish outputs only after success. Reuse the binding helpers:</p>
+<ul>
+<li><p>both bindings use <code class="docutils literal notranslate"><span class="pre">_uint32_index()</span></code> from <code class="docutils literal notranslate"><span class="pre">python/ovclash/python/suite/_ctypes_utils.py</span></code> to
+reject an index that <code class="docutils literal notranslate"><span class="pre">c_uint32</span></code> would truncate;</p></li>
+<li><p>the wrappers of the <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">canonical API</span></a>, the engine layer, check
+results with <code class="docutils literal notranslate"><span class="pre">ok()</span></code> and raise through the <code class="docutils literal notranslate"><span class="pre">_raise_last_error()</span></code> methods in
+<code class="docutils literal notranslate"><span class="pre">python/ovclash/python/api/api.py</span></code>;</p></li>
+<li><p>the binding of the <a class="reference internal" href="consumer/concepts.html#glossary"><span class="std std-ref">Suite API</span></a>, the product layer, checks
+results with <code class="docutils literal notranslate"><span class="pre">_check_result()</span></code> from <code class="docutils literal notranslate"><span class="pre">_ctypes_utils.py</span></code>.</p></li>
+</ul>
+</li>
+<li><p>Keep the canonical and Suite status types apart. <code class="docutils literal notranslate"><span class="pre">bool()</span></code> of a canonical <code class="docutils literal notranslate"><span class="pre">ovclash_result_t</span></code> is
+always true, so <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">result:</span></code> and <code class="docutils literal notranslate"><span class="pre">_check_result()</span></code> never detect its failure. Test it with
+<code class="docutils literal notranslate"><span class="pre">ok()</span></code> from <code class="docutils literal notranslate"><span class="pre">python/ovclash/python/api/_bindings.py</span></code>, which compares <code class="docutils literal notranslate"><span class="pre">.status</span></code> with
+<code class="docutils literal notranslate"><span class="pre">OVCLASH_STATUS_SUCCESS</span></code> (0). The Suite <code class="docutils literal notranslate"><span class="pre">ovclash_suite_result_t</span></code> defines <code class="docutils literal notranslate"><span class="pre">__bool__</span></code> to compare
+its status with <code class="docutils literal notranslate"><span class="pre">OVCLASH_SUITE_STATUS_SUCCESS</span></code>, so <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">not</span> <span class="pre">result:</span></code> and <code class="docutils literal notranslate"><span class="pre">_check_result()</span></code> are
+correct there.</p></li>
+<li><p>Represent text and filesystem paths as <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">pathlib.Path</span></code>, never <code class="docutils literal notranslate"><span class="pre">bytes</span></code>; public binding
+path parameters take <code class="docutils literal notranslate"><span class="pre">str</span></code>. Encode to UTF-8 explicitly at the C boundary where its contract
+requires it, and never depend on the Windows ANSI code page.</p></li>
+<li><p>Anchor script-owned paths to the script or an explicit root, not to the caller’s working
+directory. Preserve Windows and Linux behavior and the existing path helpers.</p></li>
+</ul>
+<p><a class="reference internal" href="consumer/threading_and_ownership.html"><span class="std std-doc">Threading and Ownership</span></a> and the public-surface rules in
+<code class="docutils literal notranslate"><span class="pre">AGENTS.md</span></code> (“Public surfaces, state, and lifetime”) define the runtime contracts; this guide does
+not change them.</p>
+</section>
+</section>
+<section id="tooling-and-review">
+<h2>6. Tooling and review<a class="headerlink" href="#tooling-and-review" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">format</span></code>, a command of the <a class="reference internal" href="technical/architecture.html#glossary"><span class="std std-ref">repo tool</span></a>, runs Black, then
+isort, on the files that <code class="docutils literal notranslate"><span class="pre">[repo_format.python]</span></code> in <code class="docutils literal notranslate"><span class="pre">repo.toml</span></code> selects:</p>
+<ul class="simple">
+<li><p>Black uses 120 columns and the <code class="docutils literal notranslate"><span class="pre">py310</span></code> target from <code class="docutils literal notranslate"><span class="pre">[repo_format.python.black]</span></code>.</p></li>
+<li><p>isort runs with <code class="docutils literal notranslate"><span class="pre">--profile</span> <span class="pre">black</span></code> and reads <code class="docutils literal notranslate"><span class="pre">line_length</span> <span class="pre">=</span> <span class="pre">120</span></code> and <code class="docutils literal notranslate"><span class="pre">combine_as_imports</span></code> from
+<code class="docutils literal notranslate"><span class="pre">.isort.cfg</span></code>.</p></li>
+<li><p>Neither tool wraps comments or docstrings. Keep prose within 100 columns by hand.</p></li>
+<li><p>Do not run Black or isort with other settings.</p></li>
+</ul>
+<p>Run it from <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code>, with <code class="docutils literal notranslate"><span class="pre">repo.bat</span></code> on Windows and <code class="docutils literal notranslate"><span class="pre">./repo.sh</span></code> on Linux:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Command</p></th>
+<th class="head"><p>Selects or does</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repo.bat</span> <span class="pre">format</span> <span class="pre">--python-only</span> <span class="pre">&lt;files&gt;</span></code></p></td>
+<td><p>Formats the named files.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">repo.bat</span> <span class="pre">format</span> <span class="pre">--python-only</span> <span class="pre">--modified</span></code></p></td>
+<td><p>Formats the files with uncommitted changes.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">repo.bat</span> <span class="pre">format</span> <span class="pre">--python-only</span> <span class="pre">--since</span> <span class="pre">origin/trunk</span></code></p></td>
+<td><p>Formats the files changed on this branch since it left <code class="docutils literal notranslate"><span class="pre">trunk</span></code>; run <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span> <span class="pre">origin</span> <span class="pre">trunk</span></code> first. When the fetch fails, check the network and your access to the remote; an outdated <code class="docutils literal notranslate"><span class="pre">origin/trunk</span></code> selects files that other branches changed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--list</span></code>, added to any of these</p></td>
+<td><p>Prints the selected files without formatting them.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--verify</span></code>, added to any of these</p></td>
+<td><p>Checks formatting and license headers without writing.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each command exits with code 0 on success. A <code class="docutils literal notranslate"><span class="pre">--verify</span></code> run exits with a nonzero code when a
+selected file is not formatted or its header differs, and names each such file.</p>
+<p>A run that writes files also normalizes license headers:</p>
+<ul class="simple">
+<li><p>It adds the SPDX pair to a file without a copyright notice.</p></li>
+<li><p>It rewrites an NVIDIA notice into that pair. It keeps the start year, sets the end year to the
+current year and drops a different license, such as <code class="docutils literal notranslate"><span class="pre">LicenseRef-NvidiaProprietary</span></code>, with its
+text.</p></li>
+<li><p>It leaves another owner’s notice unchanged and prints a warning.</p></li>
+</ul>
+<p>Do not run <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">format</span></code> on a file whose existing notice must be kept
+(<a class="reference internal" href="#files-licensing-and-organization">section 1</a>). List such a file in the exclude list of
+<code class="docutils literal notranslate"><span class="pre">[repo_format.python]</span></code> in <code class="docutils literal notranslate"><span class="pre">repo.toml</span></code>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Field</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Default or values</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">files.exclude.&quot;++&quot;</span></code></p></td>
+<td><p>TOML array of strings, each a glob pattern relative to <code class="docutils literal notranslate"><span class="pre">ovclash/</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Appended to the inherited exclude list. It already holds <code class="docutils literal notranslate"><span class="pre">&quot;tools/packman/**&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;tools/repoman/**&quot;</span></code>, the build and install outputs, the virtual environments and the generated API pages</p></td>
+<td><p>The files that <code class="docutils literal notranslate"><span class="pre">repo</span> <span class="pre">format</span></code> never selects through <code class="docutils literal notranslate"><span class="pre">files.include</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>File arguments, <code class="docutils literal notranslate"><span class="pre">--modified</span></code> and <code class="docutils literal notranslate"><span class="pre">--since</span></code> ignore that exclude list, so they still select the file.</p>
+<p>CI checks only license headers; see <a class="reference internal" href="contributing.html#license-headers"><span class="std std-ref">License headers</span></a>. No CI
+job runs Black or isort, so format every Python file you change before review. Run the checks that
+<a class="reference internal" href="contributing.html#required-validation"><span class="std std-ref">Required validation</span></a> lists for the affected surface.</p>
+<p>No tool checks the docstring, annotation, naming and module-size rules as a whole; reviewers do.
+Two checks cover part of them:</p>
+<ul class="simple">
+<li><p>The docs render, which runs in CI, fails on broken markup in a rendered docstring.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tests/python_tests/test_runtime.py</span></code> evaluates every function annotation of both <code class="docutils literal notranslate"><span class="pre">_bindings</span></code>
+modules.</p></li>
+</ul>
+<p>Before submitting Python changes, check that:</p>
+<ul class="simple">
+<li><p>[ ] Licensing and attribution are preserved; a new original file has the SPDX pair.</p></li>
+<li><p>[ ] Every changed file is Black- and isort-clean, prose fits 100 columns and no module exceeds
+100,000 bytes.</p></li>
+<li><p>[ ] Every module, public class and public function or method has a docstring in the template of
+its area (<a class="reference internal" href="#docstrings-and-comments">section 3</a>).</p></li>
+<li><p>[ ] Every public non-test function and method is fully annotated, and the code respects the
+minimum Python version (<a class="reference internal" href="#types-values-and-control-flow">section 4</a>).</p></li>
+<li><p>[ ] Names follow <a class="reference internal" href="#names">section 2.2</a>.</p></li>
+<li><p>[ ] Validation, error propagation and deterministic cleanup preserve the API contract.</p></li>
+<li><p>[ ] Tests and documentation reflect the behavior.</p></li>
+</ul>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="code_style_cpp.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">ovclash C/C++ Code Style</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="technical_guide.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">ovclash Technical Guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+
+
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#files-licensing-and-organization">1. Files, licensing and organization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-layout-and-names">2. Python layout and names</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#layout-and-imports">2.1 Layout and imports</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#names">2.2 Names</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#docstrings-and-comments">3. Docstrings and comments</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#required-docstrings">3.1 Required docstrings</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#form-and-content">3.2 Form and content</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#docstring-templates">3.3 Docstring templates</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#under-python-google-sections">Under <code class="docutils literal notranslate"><span class="pre">python/</span></code>: Google sections</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#everywhere-else-plain-prose">Everywhere else: plain prose</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comments">3.4 Comments</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#types-values-and-control-flow">4. Types, values and control flow</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#annotations">4.1 Annotations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-versions">4.2 Python versions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#values-and-control-flow">4.3 Values and control flow</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#errors-resources-and-native-boundaries">5. Errors, resources and native boundaries</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exceptions">5.1 Exceptions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resources-and-native-boundaries">5.2 Resources and native boundaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tooling-and-review">6. Tooling and review</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=7f76b32a3354e82990f2"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=7f76b32a3354e82990f2"></script>
+
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+<a class="footer-brand logo" href="https://www.nvidia.com">
+  <img src="_static/nvidia-logo-horiz-rgb-1c-blk-for-screen.svg" class="logo__image only-light" alt="NVIDIA"/>
+  <img src="_static/nvidia-logo-horiz-rgb-1c-wht-for-screen.svg" class="logo__image only-dark" alt="NVIDIA"/>
+</a></div>
+      
+        <div class="footer-item">
+
+
+
+
+  <p class="copyright">
+    
+      Copyright © 2025-2026, NVIDIA Corporation.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item"><p class="last-updated">
+  Last updated on Nov 23, 2026.
+  <br/>
+</p></div>
+      
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+  </body>
+</html>
